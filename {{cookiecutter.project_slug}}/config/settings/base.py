@@ -86,7 +86,7 @@ THIRD_PARTY_APPS = [
     "corsheaders",
 {%- endif %}
     "widget_tweaks",
-    "sorl.thumbnail",
+    # "sorl.thumbnail",
 ]
 
 LOCAL_APPS = [
@@ -321,11 +321,27 @@ STATICFILES_FINDERS += ["compressor.finders.CompressorFinder"]
 # -------------------------------------------------------------------------------
 # django-rest-framework - https://www.django-rest-framework.org/api-guide/settings/
 REST_FRAMEWORK = {
+    "DATETIME_FORMAT": "%Y-%m-%d %H:%M:%S",  # 'iso-8601'
+    "DATE_FORMAT": "%Y-%m-%d",
+    "TIME_FORMAT": "%H:%M:%S",
+    "DATETIME_INPUT_FORMATS": ["%Y-%m-%d %H:%M:%S"],
+    # 'PAGE_SIZE': 10,
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
     ),
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_PERMISSION_CLASSES": (
+        # 'rest_framework.permissions.AllowAny',
+        "rest_framework.permissions.IsAuthenticated",
+    ),
+    "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.URLPathVersioning",
+    # "EXCEPTION_HANDLER": "api.exceptions.custom_exception_handler",
+    "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
+}
+
+SWAGGER_SETTINGS = {
+    "DOC_EXPANSION": "list",  # none, list, full
+    # 'LOGIN_URL': 'rest_framework:login'
 }
 {%- endif %}
 # Your stuff...

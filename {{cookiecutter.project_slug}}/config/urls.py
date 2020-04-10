@@ -8,6 +8,10 @@ from django.views.generic import TemplateView
 from rest_framework.authtoken.views import obtain_auth_token
 {%- endif %}
 
+admin.site.site_title = "{{ cookiecutter.project_name }}"
+admin.site.site_header = "{{ cookiecutter.project_name }}"
+admin.site.index_title = "Site administration"
+
 urlpatterns = [
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
     path(

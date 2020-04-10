@@ -64,7 +64,8 @@ function styles() {
       cssnano({ preset: 'default' })   // minify result
   ]
 
-  return src(`${paths.sass}/project.scss`)
+  // return src(`${paths.sass}/project.scss`)
+  return src(`${paths.sass}/*.scss`)
     .pipe(sass({
       includePaths: [
         {% if cookiecutter.custom_bootstrap_compilation == 'y' %}
@@ -83,7 +84,8 @@ function styles() {
 
 // Javascript minification
 function scripts() {
-  return src(`${paths.js}/project.js`)
+  //return src(`${paths.js}/project.js`)
+  return src([`${paths.js}/*.js`, `!${paths.js}/*.min.js`,])
     .pipe(plumber()) // Checks for errors
     .pipe(uglify()) // Minifies the js
     .pipe(rename({ suffix: '.min' }))
@@ -112,7 +114,7 @@ function imgCompression() {
 
 // Run django server
 function runServer(cb) {
-  var cmd = spawn('python', ['manage.py', 'runserver'], {stdio: 'inherit'})
+  var cmd = spawn('python', ['manage.py', 'runserver_plus', 'localhost:8000'], {stdio: 'inherit'})
   cmd.on('close', function(code) {
     console.log('runServer exited with code ' + code)
     cb(code)
