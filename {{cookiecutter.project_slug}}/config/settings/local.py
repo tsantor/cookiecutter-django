@@ -87,5 +87,10 @@ CELERY_TASK_ALWAYS_EAGER = True
 CELERY_TASK_EAGER_PROPAGATES = True
 
 {%- endif %}
+
+# My forked additions
+# ------------------------------------------------------------------------------
+
+
 # Your stuff...
 # ------------------------------------------------------------------------------

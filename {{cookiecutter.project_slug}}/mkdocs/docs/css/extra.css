@@ -1,0 +1,4 @@
+/* Make mkdocs-material tables 100% width */
+.md-typeset__table {
+  min-width: 100%;
+}

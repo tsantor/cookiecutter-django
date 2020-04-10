@@ -276,8 +276,9 @@ LOGGING = {
     "filters": {"require_debug_false": {"()": "django.utils.log.RequireDebugFalse"}},
     "formatters": {
         "verbose": {
-            "format": "%(levelname)s %(asctime)s %(module)s "
-            "%(process)d %(thread)d %(message)s"
+            # "format": "%(levelname)s %(asctime)s %(module)s "
+            # "%(process)d %(thread)d %(message)s"
+            "format": "%(asctime)s  [%(name)s:%(lineno)s]  %(levelname)s - %(message)s"
         }
     },
     "handlers": {
@@ -291,11 +292,20 @@ LOGGING = {
             "class": "logging.StreamHandler",
             "formatter": "verbose",
         },
+         # Write messages to file
+        "file": {
+            "backupCount": 10,
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": str(ROOT_DIR.path("logs/debug.log")),
+            "formatter": "verbose",
+            "level": "DEBUG",
+            "maxBytes": 1000000,
+        },
     },
     "root": {"level": "INFO", "handlers": ["console"]},
     "loggers": {
         "django.request": {
-            "handlers": ["mail_admins"],
+            "handlers": ["mail_admins", "file"],
             "level": "ERROR",
             "propagate": True,
         },
@@ -304,6 +314,8 @@ LOGGING = {
             "handlers": ["console", "mail_admins"],
             "propagate": True,
         },
+         # Custom logger, write to console and file
+        "custom.log": {"handlers": ["file"], "level": "DEBUG", "propagate": True},
     },
 }
 {% else %}
@@ -312,8 +324,9 @@ LOGGING = {
     "disable_existing_loggers": True,
     "formatters": {
         "verbose": {
-            "format": "%(levelname)s %(asctime)s %(module)s "
-            "%(process)d %(thread)d %(message)s"
+            # "format": "%(levelname)s %(asctime)s %(module)s "
+            # "%(process)d %(thread)d %(message)s"
+            "format": "%(asctime)s  [%(name)s:%(lineno)s]  %(levelname)s - %(message)s"
         }
     },
     "handlers": {

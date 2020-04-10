@@ -1,0 +1,8 @@
+01-bootstrap-ubuntu-basic.sh
+03-install-python3.sh
+04-install-postgresql.sh
+05-create-db.sh
+# 06-install-memcached.sh
+07-create-virtualenv.sh
+08-install-supervisor.sh
+09-create-bash_profile.sh

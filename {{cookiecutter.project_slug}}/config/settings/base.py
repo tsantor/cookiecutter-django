@@ -80,7 +80,13 @@ THIRD_PARTY_APPS = [
 {%- if cookiecutter.use_drf == "y" %}
     "rest_framework",
     "rest_framework.authtoken",
+    "rest_framework_swagger",
 {%- endif %}
+{%- if cookiecutter.use_corsheaders == 'y' %}
+    "corsheaders",
+{%- endif %}
+    "widget_tweaks",
+    "sorl.thumbnail",
 ]
 
 LOCAL_APPS = [
