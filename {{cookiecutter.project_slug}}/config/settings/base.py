@@ -88,6 +88,9 @@ THIRD_PARTY_APPS = [
 {%- endif %}
     "widget_tweaks",
     # "sorl.thumbnail",
+    # "phonenumber_field",
+    # "django_countries",
+    # "ckeditor",
 ]
 
 LOCAL_APPS = [

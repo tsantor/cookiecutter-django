@@ -18,6 +18,11 @@
     <link href="{% static 'customadmin/js/ekko-lightbox/ekko-lightbox.css' %}" rel="stylesheet">
 {% endblock %}
 
+{% block js_head %}
+    {{ block.super }}
+    <script>window.CKEDITOR_BASEPATH = "{% static 'ckeditor/ckeditor/' %}";</script>
+{% endblock %}
+
 {% block breadcrumbs %}
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
@@ -80,5 +85,8 @@
         $(this).ekkoLightbox();
     });
 </script>
+
+<script src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
 {% endblock %}
 {% endraw %}
