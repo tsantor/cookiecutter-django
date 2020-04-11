@@ -1,0 +1,8 @@
+{% raw %}{% load i18n %}
+<h3>{% trans "Summary" %}</h3>
+<ul>
+    {% for model_name, object_count in model_count %}
+    <li>{{ model_name|capfirst }}: {{ object_count }}</li>
+    {% endfor %}
+</ul>
+{% endraw %}

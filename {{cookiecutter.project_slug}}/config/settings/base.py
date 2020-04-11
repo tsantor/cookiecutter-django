@@ -4,13 +4,14 @@ Base settings to build other settings files upon.
 from pathlib import Path
 
 import environ
+from django.contrib.messages import constants as messages
 
 ROOT_DIR = Path(__file__).parents[2]
 # {{ cookiecutter.project_slug }}/)
 APPS_DIR = ROOT_DIR / "{{ cookiecutter.project_slug }}"
 env = environ.Env()
 
-READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
+READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=True)
 if READ_DOT_ENV_FILE:
     # OS environment variables take precedence over variables from .env
     env.read_env(str(ROOT_DIR / ".env"))
@@ -90,6 +91,7 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
+    "customadmin.apps.CustomAdminConfig",
     "{{ cookiecutter.project_slug }}.users.apps.UsersConfig",
     # Your stuff: custom apps go here
 ]
@@ -114,6 +116,10 @@ AUTH_USER_MODEL = "users.User"
 LOGIN_REDIRECT_URL = "users:redirect"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-url
 LOGIN_URL = "account_login"
+
+# custom-admin
+# LOGIN_URL = "customadmin:auth_login"
+# LOGOUT_REDIRECT_URL = "customadmin:auth_login"
 
 # PASSWORDS
 # ------------------------------------------------------------------------------
@@ -170,7 +176,7 @@ STATICFILES_FINDERS = [
 # MEDIA
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#media-root
-MEDIA_ROOT = str(APPS_DIR / "media")
+MEDIA_ROOT = str(ROOT_DIR / "media")
 # https://docs.djangoproject.com/en/dev/ref/settings/#media-url
 MEDIA_URL = "/media/"
 
@@ -201,6 +207,7 @@ TEMPLATES = [
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
                 "{{ cookiecutter.project_slug }}.utils.context_processors.settings_context",
+                "customadmin.context_processors.settings_context",
             ],
         },
     }
@@ -307,8 +314,12 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_ADAPTER = "{{cookiecutter.project_slug}}.users.adapters.AccountAdapter"
+# ACCOUNT_FORMS = {"signup": "{{cookiecutter.project_slug}}.users.forms_allauth.CustomSignupForm"}
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 SOCIALACCOUNT_ADAPTER = "{{cookiecutter.project_slug}}.users.adapters.SocialAccountAdapter"
+# SOCIALACCOUNT_FORMS = {
+#     "signup": "{{cookiecutter.project_slug}}.users.forms_allauth.CustomSocialSignupForm"
+# }
 {% if cookiecutter.use_compressor == 'y' -%}
 # django-compressor
 # ------------------------------------------------------------------------------
@@ -344,5 +355,92 @@ SWAGGER_SETTINGS = {
     # 'LOGIN_URL': 'rest_framework:login'
 }
 {%- endif %}
+{% if cookiecutter.use_corsheaders == "y" -%}
+# cors-headers
+# ------------------------------------------------------------------------------
+CORS_URLS_REGEX = r"^/api/.*$"
+CORS_ORIGIN_ALLOW_ALL = True
+{%- endif %}
+# custom-admin
+# -------------------------------------------------------------------------------
+MESSAGE_TAGS = {
+    messages.DEBUG: "alert-info",
+    messages.INFO: "alert-info",
+    messages.SUCCESS: "alert-success",
+    messages.WARNING: "alert-warning",
+    messages.ERROR: "alert-danger",
+}
+
+# Used in customadmin.context_processors.common
+PROJECT_TITLE = env("PROJECT_TITLE")
+COPYRIGHT = "Company Name"
+
+# https://github.com/stefanfoulis/django-phonenumber-field
+# "E164", "INTERNATIONAL", "NATIONAL"
+PHONENUMBER_DEFAULT_FORMAT = "E164"
+PHONENUMBER_DEFAULT_REGION = "US"
+
+# https://github.com/SmileyChris/django-countries
+COUNTRIES_FIRST = ["US"]
+
+# https://github.com/django-ckeditor/django-ckeditor
+CKEDITOR_CONFIGS = {
+    "default": {
+        "toolbar": "Pro",
+        "toolbar_Pro": [
+            [
+                "Undo",
+                "Redo",
+                "-",
+                # "Format",
+                "Bold",
+                "Italic",
+                "Underline",
+                # "Strike",
+                "-",
+                "NumberedList",
+                "BulletedList",
+                "-",
+                # "JustifyLeft",
+                # "JustifyCenter",
+                # "JustifyRight",
+                # "JustifyBlock",
+                # "-",
+                # "Link",
+                # "Unlink",
+                # "Anchor",
+                # "-",
+                # "Table",
+                # "HorizontalRule",
+                # "SpecialChar",
+                # "-",
+                # "TextColor",
+                # "BGColor",
+                "-",
+                "Source",
+            ]
+        ],
+        "toolbar_Simple": [["Source", "-", "Bold", "Italic", "BulletedList"]],
+    }
+}
+
+ADMIN_HIDE_PERMS = [
+    "contenttypes",
+    "sessions",
+    "admin",
+    "authtoken",
+    "thumbnail",
+    "corsheaders",
+    "authtoken",
+    "sites",
+    "account",
+    "socialaccount",
+    "django_celery_beat",
+]
+
+# Currently only used for emails
+BASE_URL = env("BASE_URL")
+
+
 # Your stuff...
 # ------------------------------------------------------------------------------

@@ -1,0 +1,31 @@
+{% raw %}{% extends 'customadmin/base_section.html' %}
+{% load static %}
+{% load admin_extras %}
+{% load misc_filters %}
+{% load i18n %}
+
+
+{% block title %}
+    {{ opts.verbose_name_plural|capfirst }}
+{% endblock%}
+
+
+{% block page_header %}
+    {{ opts.verbose_name_plural|capfirst }}
+{% endblock%}
+
+
+{% block current_breadcrumb %}
+<li>
+    <a href="{% url 'customadmin:index' %}">{% trans 'Home' %}</a>
+</li>
+<li>
+    <strong>{{ opts.verbose_name_plural|capfirst }}</strong>
+</li>
+{% endblock%}
+
+
+{% block page_content %}
+    Changelist content goes here.
+{% endblock %}
+{% endraw %}

@@ -12,6 +12,12 @@ admin.site.site_title = "{{ cookiecutter.project_name }}"
 admin.site.site_header = "{{ cookiecutter.project_name }}"
 admin.site.index_title = "Site administration"
 
+# Hide these allauth models from the Django admin
+# admin.site.unregister(EmailAddress)
+# admin.site.unregister(SocialAccount)
+# admin.site.unregister(SocialApp)
+# admin.site.unregister(SocialToken)
+
 urlpatterns = [
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
     path(
@@ -19,6 +25,7 @@ urlpatterns = [
     ),
     # Django Admin, use {% raw %}{% url 'admin:index' %}{% endraw %}
     path(settings.ADMIN_URL, admin.site.urls),
+    path("customadmin/", include("customadmin.urls")),
     # User management
     path("users/", include("{{ cookiecutter.project_slug }}.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),

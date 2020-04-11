@@ -1,0 +1,67 @@
+{% raw %}{% load static %}
+{% load admin_extras %}
+
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+
+            <li class="nav-header">
+                <img class="nav-label" src="{% static 'img/django-logo-negative.svg' %}" width="100%" />
+                {% comment %} <div class="dropdown profile-element">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <span class="clear">
+                            <span class="block m-t-xs">
+                                <strong class="font-bold">
+                                    {% if request.user.is_authenticated %} {% if request.user.first_name and
+                                    request.user.last_name %}{{ request.user.first_name }} {{ request.user.last_name
+                                    }}{% else %}{{ request.user }}{% endif %} {% endif%}
+                                </strong>
+                            </span>
+                            <span class="text-muted text-xs block">Co-Founder
+                                <b class="caret"></b>
+                            </span>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                        {% if request.user.is_authenticated %}
+                        <li>
+                            <a href="{% url 'customadmin:auth_logout' %}" class="nav-label">Logout</a>
+                        </li>
+                        {% endif%}
+                    </ul>
+                </div> {% endcomment %}
+                <div class="logo-element">
+                    UC
+                </div>
+            </li>
+
+            {% if perms.users or perms.auth %}
+            <li {% if 'auth/' in request.path %}class="active" {% endif %}>
+                <a href="">
+                    <i class="fa fa-user fa-fw"></i>
+                    <span class="nav-label">Users &amp; Groups</span>
+                    <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level">
+                    {% if perms.users %}
+                    <li {% if 'auth/users/' in request.path %}class="active" {% endif %}>
+                        <a href="{% url 'customadmin:users:user-list' %}">Users</a>
+                    </li>
+                    {% endif %}
+
+                    {% if perms.auth %}
+                    <li {% if 'auth/groups/' in request.path %}class="active" {% endif %}>
+                        <a href="{% url 'customadmin:auth:group-list' %}">Groups</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </li>
+            {% endif %}
+
+
+
+        </ul>
+
+    </div>
+</nav>
+{% endraw %}

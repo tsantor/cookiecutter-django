@@ -1,0 +1,12 @@
+{% raw %}
+{% load widget_tweaks %}
+
+<div class="form-group">
+    {{ field.label_tag }}
+    <div class="input-group color-pick">
+        {{ field|attr:"class:form-control" }}
+        <span class="input-group-addon"><i></i></span>
+    </div>
+    <small>{{ field.help_text }}</small>
+</div>
+{% endraw %}
