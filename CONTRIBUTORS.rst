@@ -116,6 +116,7 @@ Listed in alphabetical order.
   Emanuel Calso            `@bloodpet`_                  @bloodpet
   Eraldo Energy            `@eraldo`_
   Eric Groom               `@ericgroom`_
+  Ernesto Cedeno           `@codnee`_
   Eyad Al Sibai            `@eyadsibai`_
   Felipe Arruda            `@arruda`_
   Florian Idelberger       `@step21`_                    @windrush
@@ -271,6 +272,7 @@ Listed in alphabetical order.
 .. _@chuckus: https://github.com/chuckus
 .. _@cmackenzie1: https://github.com/cmackenzie1
 .. _@cmargieson: https://github.com/cmargieson
+.. _@codnee: https://github.com/codnee
 .. _@cole: https://github.com/cole
 .. _@Collederas: https://github.com/Collederas
 .. _@curtisstpierre: https://github.com/curtisstpierre
