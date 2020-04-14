@@ -20,7 +20,7 @@
     <a href="{% url 'customadmin:index' %}">{% trans 'Home' %}</a>
 </li>
 <li>
-    <strong>{{ opts.verbose_name_plural|capfirst }}</strong>
+    {{ opts.verbose_name_plural|capfirst }}
 </li>
 {% endblock%}
 
