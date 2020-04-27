@@ -10,7 +10,6 @@
 
   <link rel="icon" type="image/x-icon" href="{% static 'img/favicons/favicon.ico' %}" />
 
-  {% comment %}
   <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{% static 'img/favicons/apple-touch-icon-57x57.png' %}" />
   <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'img/favicons/apple-touch-icon-114x114.png' %}" />
   <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'img/favicons/apple-touch-icon-72x72.png' %}" />
@@ -31,17 +30,16 @@
   <meta name="msapplication-square150x150logo" content="{% static 'img/favicons/mstile-150x150.png' %}" />
   <meta name="msapplication-wide310x150logo" content="{% static 'img/favicons/mstile-310x150.png' %}" />
   <meta name="msapplication-square310x310logo" content="{% static 'img/favicons/mstile-310x310.png' %}" />
-  {% endcomment %}
 
   <title>{% block title %}Dashboard{% endblock %} | {{ PROJECT_TITLE }}</title>
 
   {% block css %}
   <!-- Start bare minimum -->
   <link href="{% static 'customadmin/css/bootstrap.min.css' %}" rel="stylesheet">
-  <link href="{% static 'customadmin/font-awesome/css/font-awesome.css' %}" rel="stylesheet">
+  <link href="{% static 'customadmin/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
 
   <link href="{% static 'customadmin/css/animate.css' %}" rel="stylesheet">
-  <link href="{% static 'customadmin/css/style.css' %}" rel="stylesheet">
+  <link href="{% static 'customadmin/css/style.min.css' %}" rel="stylesheet">
   <!-- End bare minimum -->
   {% endblock css %}
 
@@ -52,7 +50,7 @@
 
 </head>
 
-<body>
+<body class="fixed-sidebar">
 
   <div id="wrapper">
 
@@ -95,7 +93,7 @@
         {% block content %}{% endblock content %}
       </div>
 
-      <div class="footer">
+      <div class="footer fixed">
         <div class="pull-right">
           Powered by
           <strong>Python/Django</strong>
@@ -116,7 +114,7 @@
   <script src="{% static 'customadmin/js/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
 
   <!-- Custom and plugin javascript -->
-  <script src="{% static 'customadmin/js/inspinia.js' %}"></script>
+  <script src="{% static 'customadmin/js/inspinia.min.js' %}"></script>
   <script src="{% static 'customadmin/js/plugins/pace/pace.min.js' %}"></script>
 
   <!-- Sweet alert -->

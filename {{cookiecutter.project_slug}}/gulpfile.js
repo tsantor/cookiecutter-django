@@ -44,6 +44,10 @@ function pathsConfig(appName) {
     fonts: `${this.app}/static/fonts`,
     images: `${this.app}/static/images`,
     js: `${this.app}/static/js`,
+
+    customadmin_css: `${this.app}/customadmin/static/customadmin/css`,
+    customadmin_sass: `${this.app}/customadmin/static/customadmin/sass`,
+    customadmin_js: `${this.app}/customadmin/static/customadmin/js`,
   }
 }
 
@@ -110,6 +114,42 @@ function imgCompression() {
   return src(`${paths.images}/*`)
     .pipe(imagemin()) // Compresses PNG, JPEG, GIF and SVG images
     .pipe(dest(paths.images))
+}
+
+function customadmin_styles() {
+    var processCss = [
+        autoprefixer(), // adds vendor prefixes
+        pixrem(),       // add fallbacks for rem units
+    ]
+
+    var minifyCss = [
+        cssnano({ preset: 'default' })   // minify result
+    ]
+
+    // return src(`${paths.sass}/project.scss`)
+    return src(`${paths.customadmin_sass}/*.scss`)
+        .pipe(sass({
+            includePaths: [
+
+                paths.sass
+            ]
+        }).on('error', sass.logError))
+        .pipe(plumber()) // Checks for errors
+        .pipe(postcss(processCss))
+        .pipe(dest(paths.customadmin_css))
+        .pipe(rename({ suffix: '.min' }))
+        .pipe(postcss(minifyCss)) // Minifies the result
+        .pipe(dest(paths.customadmin_css))
+}
+
+// Javascript minification
+function customadmin_scripts() {
+    // return src(`${paths.js}/project.js`)
+    return src([`${paths.customadmin_js}/*.js`, `!${paths.customadmin_js}/*.min.js`,])
+        .pipe(plumber()) // Checks for errors
+        .pipe(uglify()) // Minifies the js
+        .pipe(rename({ suffix: '.min' }))
+        .pipe(dest(paths.customadmin_js))
 }
 
 // Run django server

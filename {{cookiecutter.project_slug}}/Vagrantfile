@@ -50,4 +50,8 @@ Vagrant.configure("2") do |config|
     #     trigger.warn = "Dumping database to /vagrant/database.dump"
     #     trigger.run_remote = {inline: "pg_dump project -U vagrant -Fc -f /vagrant/database.dump"}
     # end
+
+    if Vagrant.has_plugin?('vagrant-notify-forwarder')
+        config.notify_forwarder.enable = true
+    end
 end
