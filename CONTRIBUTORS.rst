@@ -145,6 +145,7 @@ Listed in alphabetical order.
   Jerome Leclanche         `@jleclanche`_                @Adys
   Jimmy Gitonga            `@afrowave`_                  @afrowave
   John Cass                `@jcass77`_                   @cass_john
+  Jonathan Thompson        `@nojanath`_
   Jules Cheron             `@jules-ch`_
   Julien Almarcha          `@sladinji`_
   Julio Castillo           `@juliocc`_
@@ -202,9 +203,11 @@ Listed in alphabetical order.
   Sascha                   `@saschalalala`_             @saschalalala
   Shupeyko Nikita          `@webyneter`_
   Sławek Ehlert            `@slafs`_
+  Sorasful                 `@sorasful`_
   Srinivas Nyayapati       `@shireenrao`_
   stepmr                   `@stepmr`_
   Steve Steiner            `@ssteinerX`_
+  Sudarshan Wadkar         `@wadkar`_
   Sule Marshall            `@suledev`_
   Tano Abeleyra            `@tanoabeleyra`_
   Taylor Baldwin
@@ -355,6 +358,7 @@ Listed in alphabetical order.
 .. _@myilmaz: https://github.com/myilmaz
 .. _@nicolas471: https://github.com/nicolas471
 .. _@noisy: https://github.com/noisy
+.. _@nojanath: https://github.com/nojanath
 .. _@originell: https://github.com/originell
 .. _@oubiga: https://github.com/oubiga
 .. _@parbhat: https://github.com/parbhat
@@ -376,6 +380,7 @@ Listed in alphabetical order.
 .. _@siauPatrick: https://github.com/siauPatrick
 .. _@sladinji: https://github.com/sladinji
 .. _@slafs: https://github.com/slafs
+.. _@sorasful:: https://github.com/sorasful
 .. _@ssteinerX: https://github.com/ssteinerx
 .. _@step21: https://github.com/step21
 .. _@stepmr: https://github.com/stepmr
@@ -391,6 +396,7 @@ Listed in alphabetical order.
 .. _@umrashrf: https://github.com/umrashrf
 .. _@viviangb: https://github.com/viviangb
 .. _@vladdoster: https://github.com/vladdoster
+.. _@wadkar: https://github.com/wadkar
 .. _@xpostudio4: https://github.com/xpostudio4
 .. _@yrchen: https://github.com/yrchen
 .. _@yunti: https://github.com/yunti

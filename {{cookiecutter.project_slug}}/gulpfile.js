@@ -152,6 +152,18 @@ function customadmin_scripts() {
         .pipe(dest(paths.customadmin_js))
 }
 
+{% if cookiecutter.use_async == 'y' -%}
+// Run django server
+function asyncRunServer() {
+  var cmd = spawn('gunicorn', [
+      'config.asgi', '-k', 'uvicorn.workers.UvicornWorker', '--reload'
+      ], {stdio: 'inherit'}
+  )
+  cmd.on('close', function(code) {
+    console.log('gunicorn exited with code ' + code)
+  })
+}
+{%- else %}
 // Run django server
 function runServer(cb) {
   var cmd = spawn('python', ['manage.py', 'runserver_plus', 'localhost:8000'], {stdio: 'inherit'})
@@ -160,6 +172,7 @@ function runServer(cb) {
     cb(code)
   })
 }
+{%- endif %}
 
 // Browser sync server for live reload
 function initBrowserSync() {
@@ -208,7 +221,11 @@ const generateAssets = parallel(
 // Set up dev environment
 const dev = parallel(
   {%- if cookiecutter.use_docker == 'n' %}
+  {%- if cookiecutter.use_async == 'y' %}
+  asyncRunServer,
+  {%- else %}
   runServer,
+  {%- endif %}
   {%- endif %}
   initBrowserSync,
   watchPaths
