@@ -1,4 +1,4 @@
-/*!jQuery Knob*/
+{% raw %}/*!jQuery Knob*/
 /**
  * Downward compatible, touchable dial
  *
@@ -788,4 +788,4 @@
         ).parent();
     };
 
-})(jQuery);
+})(jQuery);{% endraw %}

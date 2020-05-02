@@ -1,4 +1,4 @@
-<!doctype html>
+{% raw %}<!doctype html>
 
 <title>CodeMirror: TypeScript mode</title>
 <meta charset="utf-8"/>
@@ -35,7 +35,7 @@ class Greeter {
 	greet() {
 		return "Hello, " + this.greeting;
 	}
-}
+}   
 
 var greeter = new Greeter("world");
 
@@ -58,4 +58,4 @@ document.body.appendChild(button)
     </script>
 
     <p>This is a specialization of the <a href="index.html">JavaScript mode</a>.</p>
-  </article>
+  </article>{% endraw %}

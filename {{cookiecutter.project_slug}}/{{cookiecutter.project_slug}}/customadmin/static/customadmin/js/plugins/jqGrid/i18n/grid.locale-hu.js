@@ -1,4 +1,4 @@
-;(function($){
+{% raw %};(function($){
 /**
  * jqGrid Hungarian Translation
  * Őrszigety Ádám udx6bs@freemail.hu
@@ -128,4 +128,4 @@ $.extend($.jgrid,{
 		idName : 'id'
 	}
 });
-})(jQuery);
+})(jQuery);{% endraw %}

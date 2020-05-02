@@ -1,4 +1,4 @@
-// CodeMirror, copyright (c) by Marijn Haverbeke and others
+{% raw %}// CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
 /***
@@ -366,4 +366,4 @@ CodeMirror.defineMode("tiddlywiki", function () {
 CodeMirror.defineMIME("text/x-tiddlywiki", "tiddlywiki");
 });
 
-//}}}
+//}}}{% endraw %}

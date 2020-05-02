@@ -1,4 +1,4 @@
-<!doctype html>
+{% raw %}<!doctype html>
 
 <title>CodeMirror: RPM changes mode</title>
 <meta charset="utf-8"/>
@@ -63,7 +63,7 @@ Wed Oct  5 14:34:10 UTC 2011 - misterx@example.com
     </script>
 
 <h2>RPM spec mode</h2>
-
+    
     <div><textarea id="code2" name="code2">
 #
 # spec file for package minidlna
@@ -146,4 +146,4 @@ find %{buildroot} -type f -name '*.la' -exec rm -f {} ';'
     </script>
 
     <p><strong>MIME types defined:</strong> <code>text/x-rpm-spec</code>, <code>text/x-rpm-changes</code>.</p>
-</article>
+</article>{% endraw %}

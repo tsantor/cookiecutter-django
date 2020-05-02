@@ -1,4 +1,4 @@
-// CodeMirror, copyright (c) by Marijn Haverbeke and others
+{% raw %}// CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
 // Modelica support for CodeMirror, copyright (c) by Lennart Ochel
@@ -242,4 +242,4 @@
     builtin: words(modelicaBuiltin),
     atoms: words(modelicaAtoms)
   });
-});
+});{% endraw %}

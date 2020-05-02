@@ -1,4 +1,4 @@
-// CodeMirror, copyright (c) by Marijn Haverbeke and others
+{% raw %}// CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
 (function(mod) {
@@ -448,4 +448,4 @@ CodeMirror.defineMode("rust", function() {
 
 CodeMirror.defineMIME("text/x-rustsrc", "rust");
 
-});
+});{% endraw %}

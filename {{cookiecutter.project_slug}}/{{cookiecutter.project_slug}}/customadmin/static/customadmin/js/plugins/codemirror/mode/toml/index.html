@@ -1,4 +1,4 @@
-<!doctype html>
+{% raw %}<!doctype html>
 
 <title>CodeMirror: TOML Mode</title>
 <meta charset="utf-8"/>
@@ -47,11 +47,11 @@ enabled = true
   [servers.alpha]
   ip = "10.0.0.1"
   dc = "eqdc10"
-
+  
   [servers.beta]
   ip = "10.0.0.2"
   dc = "eqdc10"
-
+  
 [clients]
 data = [ ["gamma", "delta"], [1, 2] ]
 
@@ -70,4 +70,4 @@ hosts = [
     <h3>The TOML Mode</h3>
       <p> Created by Forbes Lindesay.</p>
     <p><strong>MIME type defined:</strong> <code>text/x-toml</code>.</p>
-  </article>
+  </article>{% endraw %}

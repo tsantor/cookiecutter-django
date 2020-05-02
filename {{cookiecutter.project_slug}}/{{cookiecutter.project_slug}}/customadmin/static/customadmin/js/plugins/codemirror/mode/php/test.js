@@ -1,4 +1,4 @@
-// CodeMirror, copyright (c) by Marijn Haverbeke and others
+{% raw %}// CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
 (function() {
@@ -151,4 +151,4 @@
      "[string <<<here]",
      "[string doc ][variable-2 $]{[variable yay]}[string more]",
      "[string here]; [comment // normal]");
-})();
+})();{% endraw %}

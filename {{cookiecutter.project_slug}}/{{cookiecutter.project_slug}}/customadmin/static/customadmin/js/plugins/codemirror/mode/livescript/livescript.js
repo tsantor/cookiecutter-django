@@ -1,4 +1,4 @@
-// CodeMirror, copyright (c) by Marijn Haverbeke and others
+{% raw %}// CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
 /**
@@ -277,4 +277,4 @@
 
   CodeMirror.defineMIME('text/x-livescript', 'livescript');
 
-});
+});{% endraw %}

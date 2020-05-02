@@ -1,4 +1,4 @@
-;(function($){
+{% raw %};(function($){
 /**
  * jqGrid Polish Translation
  * Łukasz Schab lukasz@freetree.pl
@@ -131,4 +131,4 @@ $.extend($.jgrid,{
 		idName : 'id'
 	}
 });
-})(jQuery);
+})(jQuery);{% endraw %}

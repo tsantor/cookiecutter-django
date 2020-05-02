@@ -1,4 +1,4 @@
-$(function() {
+{% raw %}$(function() {
     var $allVideos = $("iframe[src^='http://player.vimeo.com'], iframe[src^='http://www.youtube.com'], object, embed"),
         $fluidEl = $("figure");
 
@@ -18,4 +18,4 @@ $(function() {
                 .height(newWidth * $el.attr('data-aspectRatio'));
         });
     }).resize();
-});
+});{% endraw %}

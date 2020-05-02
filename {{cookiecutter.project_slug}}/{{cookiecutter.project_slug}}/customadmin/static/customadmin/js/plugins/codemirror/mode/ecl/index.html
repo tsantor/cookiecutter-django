@@ -1,4 +1,4 @@
-<!doctype html>
+{% raw %}<!doctype html>
 
 <title>CodeMirror: ECL mode</title>
 <meta charset="utf-8"/>
@@ -33,7 +33,7 @@ this is a multiline comment!
 //  this is a singleline comment!
 
 import ut;
-r :=
+r := 
   record
    string22 s1 := '123';
    integer4 i1 := 123;
@@ -49,4 +49,4 @@ output(d);
     <p>Based on CodeMirror's clike mode.  For more information see <a href="http://hpccsystems.com">HPCC Systems</a> web site.</p>
     <p><strong>MIME types defined:</strong> <code>text/x-ecl</code>.</p>
 
-  </article>
+  </article>{% endraw %}

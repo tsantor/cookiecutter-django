@@ -1,4 +1,4 @@
-;(function($){
+{% raw %};(function($){
 /**
  * jqGrid Galician Translation
  * Translated by Jorge Barreiro <yortx.barry@gmail.com>
@@ -125,4 +125,4 @@ $.extend($.jgrid,{
 		idName : 'id'
 	}
 });
-})(jQuery);
+})(jQuery);{% endraw %}

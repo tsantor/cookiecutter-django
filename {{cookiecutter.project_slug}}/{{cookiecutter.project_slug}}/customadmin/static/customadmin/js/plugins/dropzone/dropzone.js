@@ -1,5 +1,4 @@
-
-/*
+{% raw %}/*
  *
  * More info at [www.dropzonejs.com](http://www.dropzonejs.com)
  *
@@ -1764,4 +1763,4 @@
 
     contentLoaded(window, Dropzone._autoDiscoverFunction);
 
-}).call(this);
+}).call(this);{% endraw %}

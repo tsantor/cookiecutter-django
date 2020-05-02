@@ -1,4 +1,4 @@
-/* Copyright 2012 Mozilla Foundation
+{% raw %}/* Copyright 2012 Mozilla Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43190,4 +43190,4 @@ var NetworkManager = (function NetworkManagerClosure() {
   }).call(pdfjsLibs);
 
   exports.WorkerMessageHandler = pdfjsLibs.pdfjsCoreWorker.WorkerMessageHandler;
-}));
+}));{% endraw %}

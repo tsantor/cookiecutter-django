@@ -1,4 +1,4 @@
-// CodeMirror, copyright (c) by Marijn Haverbeke and others
+{% raw %}// CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
 /*jshint unused:true, eqnull:true, curly:true, bitwise:true */
@@ -619,4 +619,4 @@ CodeMirror.defineMode("erlang", function(cmCfg) {
   };
 });
 
-});
+});{% endraw %}

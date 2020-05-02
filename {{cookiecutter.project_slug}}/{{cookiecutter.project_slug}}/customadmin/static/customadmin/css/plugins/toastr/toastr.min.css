@@ -1,4 +1,4 @@
-.toast-title {
+{% raw %}.toast-title {
     font-weight: 700
 }
 
@@ -219,4 +219,4 @@ button.toast-close-button {
         padding: 15px 15px 15px 50px;
         width: 25em
     }
-}
+}{% endraw %}

@@ -1,4 +1,4 @@
-;(function($){
+{% raw %};(function($){
 /**
  * jqGrid Hebrew Translation
  * Shuki Shukrun shukrun.shuki@gmail.com
@@ -126,4 +126,4 @@ $.extend($.jgrid,{
 		idName : 'id'
 	}
 });
-})(jQuery);
+})(jQuery);{% endraw %}

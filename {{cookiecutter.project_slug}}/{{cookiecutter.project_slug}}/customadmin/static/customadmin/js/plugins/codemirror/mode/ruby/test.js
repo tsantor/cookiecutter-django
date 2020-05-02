@@ -1,4 +1,4 @@
-// CodeMirror, copyright (c) by Marijn Haverbeke and others
+{% raw %}// CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
 (function() {
@@ -11,4 +11,4 @@
   MT("divide_equal_operator_no_spacing",
      "[variable foo][operator /=][number 42]");
 
-})();
+})();{% endraw %}

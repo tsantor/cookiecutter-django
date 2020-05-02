@@ -1,4 +1,4 @@
-<!doctype html>
+{% raw %}<!doctype html>
 
 <title>CodeMirror: Cypher Mode for CodeMirror</title>
 <meta charset="utf-8"/>
@@ -38,7 +38,7 @@ RETURN friend_of_friend.name, COUNT(*)
 ORDER BY COUNT(*) DESC , friend_of_friend.name
 </textarea>
             </form>
-            <p><strong>MIME types defined:</strong>
+            <p><strong>MIME types defined:</strong> 
             <code><a href="?mime=application/x-cypher-query">application/x-cypher-query</a></code>
         </p>
 <script>
@@ -60,4 +60,4 @@ window.onload = function() {
 };
 </script>
 
-</article>
+</article>{% endraw %}

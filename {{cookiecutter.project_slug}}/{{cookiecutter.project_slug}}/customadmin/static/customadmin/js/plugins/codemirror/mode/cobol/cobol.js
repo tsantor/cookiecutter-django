@@ -1,4 +1,4 @@
-// CodeMirror, copyright (c) by Marijn Haverbeke and others
+{% raw %}// CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
 /**
@@ -252,4 +252,4 @@ CodeMirror.defineMode("cobol", function () {
 
 CodeMirror.defineMIME("text/x-cobol", "cobol");
 
-});
+});{% endraw %}

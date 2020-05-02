@@ -1,4 +1,4 @@
-(function(a) {
+{% raw %}(function(a) {
 a.jgrid = a.jgrid || {};
 a.extend(a.jgrid,{
         defaults:
@@ -147,4 +147,4 @@ a.extend(a.jgrid,{
             idName: "id"
         }
     });
-})(jQuery);
+})(jQuery);{% endraw %}

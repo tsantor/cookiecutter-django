@@ -1,4 +1,4 @@
-<!doctype html>
+{% raw %}<!doctype html>
 
 <title>CodeMirror: C-like mode</title>
 <meta charset="utf-8"/>
@@ -151,7 +151,7 @@ public enum Enum {
 
 public class Class<T, V> implements MyInterface {
   public static final MyType<T, V> member;
-
+  
   private class InnerClass {
     public int zero() {
       return 0;
@@ -222,4 +222,4 @@ object FilterTest extends App {
     (Java), <code>text/x-csharp</code> (C#),
     <code>text/x-scala</code> (Scala), <code>text/x-vertex</code>
     and <code>x-shader/x-fragment</code> (shader programs).</p>
-</article>
+</article>{% endraw %}

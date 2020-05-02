@@ -1,4 +1,4 @@
-;(function($){
+{% raw %};(function($){
 /**
  * jqGrid Swedish Translation
  * Harald Normann harald.normann@wts.se, harald.normann@gmail.com
@@ -126,4 +126,4 @@ $.extend($.jgrid,{
 		idName : 'id'
 	}
 });
-})(jQuery);
+})(jQuery);{% endraw %}

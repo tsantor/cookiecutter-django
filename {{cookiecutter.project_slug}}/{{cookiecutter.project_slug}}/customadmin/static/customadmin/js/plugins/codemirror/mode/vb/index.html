@@ -1,4 +1,4 @@
-<!doctype html>
+{% raw %}<!doctype html>
 
 <title>CodeMirror: VB.NET mode</title>
 <meta charset="utf-8"/>
@@ -44,7 +44,7 @@ function test(golden, text) {
     }
     i++;
   }
-  CodeMirror.runMode(text, "text/x-vb",callback);
+  CodeMirror.runMode(text, "text/x-vb",callback); 
 
   if (ok) return "Tests OK";
 }
@@ -88,7 +88,7 @@ function init() {
 function runTest() {
 	document.getElementById('testresult').innerHTML = testAll();
   initText(editor);
-
+	
 }
 document.body.onload = init;
 </script>
@@ -99,4 +99,4 @@ document.body.onload = init;
   <pre id="testresult"></pre>
   <p>MIME type defined: <code>text/x-vb</code>.</p>
 
-</article>
+</article>{% endraw %}

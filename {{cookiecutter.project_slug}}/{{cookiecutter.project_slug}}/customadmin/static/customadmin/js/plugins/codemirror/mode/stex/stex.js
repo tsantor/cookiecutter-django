@@ -1,4 +1,4 @@
-// CodeMirror, copyright (c) by Marijn Haverbeke and others
+{% raw %}// CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
 /*
@@ -259,4 +259,4 @@ CodeMirror.defineMode("stex", function() {
 CodeMirror.defineMIME("text/x-stex", "stex");
 CodeMirror.defineMIME("text/x-latex", "stex");
 
-});
+});{% endraw %}

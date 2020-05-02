@@ -1,4 +1,4 @@
-/* Pretty handling of time axes.
+{% raw %}/* Pretty handling of time axes.
 
 Copyright (c) 2007-2014 IOLA and Ole Laursen.
 Licensed under the MIT license.
@@ -429,4 +429,4 @@ API.txt for details.
 	$.plot.formatDate = formatDate;
 	$.plot.dateGenerator = dateGenerator;
 
-})(jQuery);
+})(jQuery);{% endraw %}

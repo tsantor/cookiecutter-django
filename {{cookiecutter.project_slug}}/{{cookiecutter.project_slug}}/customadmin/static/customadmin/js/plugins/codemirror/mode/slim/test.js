@@ -1,4 +1,4 @@
-// CodeMirror, copyright (c) by Marijn Haverbeke and others
+{% raw %}// CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
 // Slim Highlighting for CodeMirror copyright (c) HicknHack Software Gmbh
@@ -93,4 +93,4 @@
 
   MT("interpolationInHTMLAttribute",
      "[tag div]([attribute title]=[string \"]#{[variable test]}[string _]#{[variable ting]()}[string \"]) Test");
-})();
+})();{% endraw %}

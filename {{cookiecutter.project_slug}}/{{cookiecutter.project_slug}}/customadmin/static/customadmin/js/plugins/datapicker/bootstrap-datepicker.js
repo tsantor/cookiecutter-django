@@ -1,4 +1,4 @@
-/* =========================================================
+{% raw %}/* =========================================================
  * bootstrap-datepicker.js
  * Repo: https://github.com/eternicode/bootstrap-datepicker/
  * Demo: http://eternicode.github.io/bootstrap-datepicker/
@@ -1668,4 +1668,4 @@
 		$('[data-provide="datepicker-inline"]').datepicker();
 	});
 
-}(window.jQuery));
+}(window.jQuery));{% endraw %}

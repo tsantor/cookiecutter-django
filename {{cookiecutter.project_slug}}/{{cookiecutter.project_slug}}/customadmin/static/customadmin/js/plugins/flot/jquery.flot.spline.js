@@ -1,4 +1,4 @@
-/**
+{% raw %}/**
  * Flot plugin that provides spline interpolation for line graphs
  * author: Alex Bardas < alex.bardas@gmail.com >
  * modified by: Avi Kohn https://github.com/AMKohn
@@ -209,4 +209,4 @@
         name: 'spline',
         version: '0.8.2'
     });
-})(jQuery);
+})(jQuery);{% endraw %}

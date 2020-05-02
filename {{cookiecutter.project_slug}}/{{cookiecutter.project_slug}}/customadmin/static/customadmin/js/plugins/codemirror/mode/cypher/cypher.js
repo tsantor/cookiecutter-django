@@ -1,4 +1,4 @@
-// CodeMirror, copyright (c) by Marijn Haverbeke and others
+{% raw %}// CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
 // By the Neo4j Team and contributors.
@@ -143,4 +143,4 @@
 
   CodeMirror.defineMIME("application/x-cypher-query", "cypher");
 
-});
+});{% endraw %}

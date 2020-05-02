@@ -1,4 +1,4 @@
-/*!
+{% raw %}/*!
  * ClockPicker v{package.version} (http://weareoutman.github.io/clockpicker/)
  * Copyright 2014 Wang Shenwei.
  * Licensed under MIT (https://github.com/weareoutman/clockpicker/blob/gh-pages/LICENSE)
@@ -726,4 +726,4 @@
 			}
 		});
 	};
-}());
+}());{% endraw %}

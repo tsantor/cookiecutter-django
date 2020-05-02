@@ -1,4 +1,4 @@
-/**!
+{% raw %}/**!
  * easyPieChart
  * Lightweight plugin to render simple, animated and retina optimized pie charts
  *
@@ -347,4 +347,4 @@
 
     return EasyPieChart;
 
-}));
+}));{% endraw %}

@@ -1,4 +1,4 @@
-;(function($){
+{% raw %};(function($){
 /**
  * jqGrid Chinese Translation
  * 咖啡兔 yanhonglei@gmail.com
@@ -166,4 +166,4 @@ $.extend($.jgrid,{
         idName : 'id'
     }
 });
-})(jQuery);
+})(jQuery);{% endraw %}
