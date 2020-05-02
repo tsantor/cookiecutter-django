@@ -205,6 +205,8 @@ function initBrowserSync() {
 
 // Watch
 function watchPaths() {
+  watch(`${paths.customadmin_sass}/*.scss`, styles)
+  watch([`${paths.customadmin_js}/*.js`, `!${paths.customadmin_js}/*.min.js`], scripts)
   watch(`${paths.sass}/*.scss`, styles)
   watch(`${paths.templates}/**/*.html`).on("change", reload)
   watch([`${paths.js}/*.js`, `!${paths.js}/*.min.js`], scripts).on("change", reload)
@@ -212,6 +214,8 @@ function watchPaths() {
 
 // Generate all assets
 const generateAssets = parallel(
+  customadmin_styles,
+  customadmin_scripts
   styles,
   scripts,
   {% if cookiecutter.custom_bootstrap_compilation == 'y' %}vendorScripts,{% endif %}

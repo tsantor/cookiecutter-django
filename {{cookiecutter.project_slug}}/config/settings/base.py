@@ -442,9 +442,6 @@ ADMIN_HIDE_PERMS = [
     "django_celery_beat",
 ]
 
-# Currently only used for emails
-BASE_URL = env("BASE_URL")
-
 
 # Your stuff...
 # ------------------------------------------------------------------------------
