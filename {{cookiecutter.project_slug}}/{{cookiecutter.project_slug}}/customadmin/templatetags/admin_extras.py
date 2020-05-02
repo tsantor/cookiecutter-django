@@ -21,9 +21,14 @@ def show_lock(value):
 
 
 @register.inclusion_tag("customadmin/partials/input_datetime_bootstrap.html")
-def input_datetime_bs(field, show_label=True, disabled=False):
+def input_datetime_bs(field, show_label=True, disabled=False, auto_now=True):
     """Return HTML markup for a datetime input."""
-    return {"field": field, "show_label": show_label, "disabled": disabled}
+    return {
+        "field": field,
+        "show_label": show_label,
+        "disabled": disabled,
+        "auto_now": auto_now,
+    }
 
 
 @register.inclusion_tag("customadmin/partials/input_date_bootstrap.html")
@@ -72,6 +77,24 @@ def input_trix(field):
 def input_colorpicker(field):
     """Return HTML markup for a color picker."""
     return {"field": field}
+
+
+@register.inclusion_tag("customadmin/partials/input_readonly.html")
+def input_readonly(field):
+    """Return HTML markup for a readonly input."""
+    return {"field": field}
+
+
+@register.inclusion_tag("customadmin/partials/read_only.html")
+def readonly(label, value):
+    """Return HTML markup for a readonly display like a form input."""
+    return {"label": label, "value": value}
+
+
+@register.inclusion_tag("customadmin/partials/input_group_typeahead.html")
+def input_group_typeahead(field, icon_class=None):
+    """Return HTML markup for a input group."""
+    return {"field": field, "icon_class": icon_class}
 
 
 # -----------------------------------------------------------------------------

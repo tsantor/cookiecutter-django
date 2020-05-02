@@ -1,5 +1,4 @@
-
-/* Functional styling;
+{% raw %}/* Functional styling;
  * These styles are required for noUiSlider to function.
  * You don't need to change these rules to apply your design.
  */
@@ -162,4 +161,4 @@
 }
 [disabled] .noUi-handle {
 	cursor: not-allowed;
-}
+}{% endraw %}

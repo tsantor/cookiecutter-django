@@ -1,4 +1,4 @@
-/*!
+{% raw %}/*!
  * <%= meta.title %> v<%= meta.version %> Print Stylesheet
  * Docs & License: <%= meta.homepage %>
  * (c) <%= meta.copyright %>
@@ -205,4 +205,4 @@ tbody,
 .fc-button-group,
 .fc button {
 	display: none; /* don't display any button-related controls */
-}
+}{% endraw %}

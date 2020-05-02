@@ -1,4 +1,4 @@
-{% raw %}/*
+{% raw %}/* 
 Justified Gallery
 Version: 2.1
 Author: Miro Mannino
@@ -8,14 +8,14 @@ Copyright 2012 Miro Mannino (miro.mannino@gmail.com)
 
 This file is part of Justified Gallery.
 
-This work is licensed under the Creative Commons Attribution 3.0 Unported License.
+This work is licensed under the Creative Commons Attribution 3.0 Unported License. 
 
-To view a copy of this license, visit http://creativecommons.org/licenses/by/3.0/
+To view a copy of this license, visit http://creativecommons.org/licenses/by/3.0/ 
 or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
 */
 
 (function($){
-
+ 
    $.fn.justifiedGallery = function(options){
 
    		//TODO fare impostazione 'rel' che sostituisce tutti i link con il rel specificato
@@ -45,7 +45,7 @@ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain Vie
 			var images = new Array($(cont).find("img").length);
 
 			if(images.length == 0) return;
-
+			
 			$(cont).append("<div class=\"jg-loading\"><div class=\"jg-loading-img\"></div></div>");
 
 			$(cont).find("a").each(function(index, entry){
@@ -59,11 +59,11 @@ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain Vie
 				images[index]["rel"] = (settings.rel != null) ? settings.rel : $(entry).attr("rel");
 				images[index]["target"] = (settings.target != null) ? settings.target : $(entry).attr("target");
 				images[index]["extension"] = images[index]["src"].match(settings.extension)[0];
-
+				
 				$(entry).remove(); //remove the image, we have its data
-
+				
 				var img = new Image();
-
+  
 				$(img).load(function() {
 					if(images[index]["height"] != settings.rowHeight)
 						images[index]["width"] = Math.ceil(this.width / (this.height / settings.rowHeight));
@@ -71,29 +71,29 @@ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain Vie
 						images[index]["width"] = this.width;
 					images[index]["height"] = settings.rowHeight;
 
-					var usedSizeRangeRegExp = new RegExp("(" + settings.sizeRangeSuffixes.lt100 + "|"
-														 + settings.sizeRangeSuffixes.lt240 + "|"
-														 + settings.sizeRangeSuffixes.lt320 + "|"
-														 + settings.sizeRangeSuffixes.lt500 + "|"
-														 + settings.sizeRangeSuffixes.lt640 + "|"
+					var usedSizeRangeRegExp = new RegExp("(" + settings.sizeRangeSuffixes.lt100 + "|" 
+														 + settings.sizeRangeSuffixes.lt240 + "|"  
+														 + settings.sizeRangeSuffixes.lt320 + "|" 
+														 + settings.sizeRangeSuffixes.lt500 + "|" 
+														 + settings.sizeRangeSuffixes.lt640 + "|" 
 														 + settings.sizeRangeSuffixes.lt1024 + ")$");
-
+					
 					images[index]["src"] = images[index]["src"].replace(settings.extension, "").replace(usedSizeRangeRegExp, "");
 
 		    		if(++loaded == images.length) startProcess(cont, images, settings);
 				});
-
+				
 				$(img).error(function() {
 					$(cont).prepend(getErrorHtml("The image can't be loaded: \"" + images[index]["src"] +"\"", "jg-usedPrefixImageNotFound"));
 					images[index] = null;
 					if(++loaded == images.length) startProcess(cont, images, settings);
 				});
-
+				
 				$(img).attr('src', images[index]["src"]);
 
 			});
 		});
-
+		
 		function startProcess(cont, images, settings){
 			//FadeOut the loading image and FadeIn the images after their loading
 			$(cont).find(".jg-loading").fadeOut(500, function(){
@@ -114,7 +114,7 @@ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain Vie
 			ris +=     "title=\"" + image["title"] + "\">";
 			ris += "  <img alt=\"" + image["alt"] + "\" src=\"" + image["src"] + suffix + image.extension + "\"";
 			ris +=        "style=\"width: " + nw + "px; height: " + nh + "px;\">";
-
+			
 			if(settings.captions)
 				ris += "  <div style=\"bottom:" + (nh - minRowHeight) + "px;\" class=\"jg-image-label\">" + image["alt"] + "</div>";
 
@@ -126,10 +126,10 @@ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain Vie
 			var j, l = 0;
 			var minRowHeight;
 			for(var j = 0; j < row.length; j++){
-				row[j]["nh"] = Math.ceil(images[row[j]["indx"]]["height"] *
-					            ((images[row[j]["indx"]]["width"] + extraW) /
+				row[j]["nh"] = Math.ceil(images[row[j]["indx"]]["height"] * 
+					            ((images[row[j]["indx"]]["width"] + extraW) / 
 							 	images[row[j]["indx"]]["width"]));
-
+				
 				row[j]["nw"] = images[row[j]["indx"]]["width"] + extraW;
 
 				row[j]["suffix"] = getSuffix(row[j]["nw"], row[j]["nh"], settings);
@@ -137,23 +137,23 @@ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain Vie
 				row[j]["l"] = l;
 
 				if(!settings.fixedHeight){
-					if(j == 0)
+					if(j == 0) 
 						minRowHeight = row[j]["nh"];
 					else
 						if(minRowHeight > row[j]["nh"]) minRowHeight = row[j]["nh"];
 				}
-
+				 
 				l += row[j]["nw"] + settings.margins;
 			}
 
 			if(settings.fixedHeight) minRowHeight = settings.rowHeight;
-
+			
 			var rowCont = "";
 			for(var j = 0; j < row.length; j++){
-				rowCont += buildImage(images[row[j]["indx"]], row[j]["suffix"],
+				rowCont += buildImage(images[row[j]["indx"]], row[j]["suffix"], 
 					                  row[j]["nw"], row[j]["nh"], row[j]["l"], minRowHeight, settings);
 			}
-
+			
 			return "<div class=\"jg-row\" style=\"height: " + minRowHeight + "px; margin-bottom:" + settings.margins + "px;\">" + rowCont + "</div>";
 		}
 
@@ -175,7 +175,7 @@ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain Vie
 			}
 		}
 
-		function processesImages($, cont, images, lastRowWidth, settings){
+		function processesImages($, cont, images, lastRowWidth, settings){	
 			var row = new Array();
 			var row_i, i;
 			var partialRowWidth = 0;
@@ -192,7 +192,7 @@ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain Vie
 					row_i++;
 				}else{
 					//the row is full
-					extraW = Math.ceil((rowWidth - partialRowWidth + 1) / row.length);
+					extraW = Math.ceil((rowWidth - partialRowWidth + 1) / row.length); 
 					$(cont).append(buildContRow(row, images, extraW, settings));
 
 					row = new Array();
@@ -206,7 +206,7 @@ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain Vie
 			//last row----------------------
 			//now we have all the images index loaded in the row arra
 			if(settings.justifyLastRow){
-				extraW = Math.ceil((rowWidth - partialRowWidth + 1) / row.length);
+				extraW = Math.ceil((rowWidth - partialRowWidth + 1) / row.length);	
 			}else{
 				extraW = 0;
 			}
@@ -224,9 +224,9 @@ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain Vie
 					$(sender.currentTarget).find(".jg-image-label").fadeTo(500, 0);
 				});
 			}
-
+			
 			$(cont).find(".jg-resizedImageNotFound").remove();
-
+			
 			//fade in the images that we have changed and need to be reloaded
 			$(cont).find(".jg-image img").load(function(){
 					$(this).fadeTo(500, 1);
@@ -236,8 +236,8 @@ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain Vie
 					if(this.complete) $(this).load();
 			});
 
-			checkWidth($, cont, images, rowWidth, settings);
-
+			checkWidth($, cont, images, rowWidth, settings);	
+			
 		}
 
 		function checkWidth($, cont, images, lastRowWidth, settings){
@@ -254,5 +254,5 @@ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain Vie
 		}
 
    }
-
+ 
 })(jQuery);{% endraw %}

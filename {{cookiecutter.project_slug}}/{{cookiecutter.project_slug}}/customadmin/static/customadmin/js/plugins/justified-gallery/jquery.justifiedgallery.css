@@ -1,4 +1,4 @@
-/*
+/* 
 Justified Gallery
 Version: 2.1
 Author: Miro Mannino
@@ -8,9 +8,9 @@ Copyright 2012 Miro Mannino (miro.mannino@gmail.com)
 
 This file is part of Justified Gallery.
 
-This work is licensed under the Creative Commons Attribution 3.0 Unported License.
+This work is licensed under the Creative Commons Attribution 3.0 Unported License. 
 
-To view a copy of this license, visit http://creativecommons.org/licenses/by/3.0/
+To view a copy of this license, visit http://creativecommons.org/licenses/by/3.0/ 
 or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
 */
 
@@ -59,15 +59,15 @@ html { overflow-y: scroll; } /*to prevent the loop when the scrollbar appear and
 }
 .justifiedGallery .jg-row {
     position: relative;
-    white-space: nowrap;
+    white-space: nowrap;    
     overflow:hidden;
     margin-bottom: 4px;
 }
 
 .justifiedGallery .jg-error {
-    font-size: 12px;
-    border: 1px solid red;
-    background-color: #faa;
-    margin: 10px 0px 10px 0px;
+    font-size: 12px; 
+    border: 1px solid red; 
+    background-color: #faa; 
+    margin: 10px 0px 10px 0px; 
     padding: 5px 0px 5px 5px;
 }

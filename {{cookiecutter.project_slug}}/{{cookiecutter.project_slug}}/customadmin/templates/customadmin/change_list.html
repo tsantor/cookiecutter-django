@@ -16,10 +16,10 @@
 
 
 {% block current_breadcrumb %}
-<li>
+<li class="breadcrumb-item">
     <a href="{% url 'customadmin:index' %}">{% trans 'Home' %}</a>
 </li>
-<li>
+<li class="breadcrumb-item active">
     {{ opts.verbose_name_plural|capfirst }}
 </li>
 {% endblock%}
@@ -27,5 +27,4 @@
 
 {% block page_content %}
     Changelist content goes here.
-{% endblock %}
-{% endraw %}
+{% endblock %}{% endraw %}

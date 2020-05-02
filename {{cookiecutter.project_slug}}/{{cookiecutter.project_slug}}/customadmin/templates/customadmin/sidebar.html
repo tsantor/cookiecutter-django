@@ -6,15 +6,15 @@
         <ul class="nav metismenu" id="side-menu">
 
             <li class="nav-header">
-                <img class="nav-label" src="{% static 'img/django-logo-white.svg' %}" width="100%" />
+                {% comment %} <a href="{% url 'customadmin:index' %}"> {% endcomment %}
+                <img class="nav-image" src="{% static 'img/django-logo-white.svg' %}" width="100%" />
+                {% comment %} </a> {% endcomment %}
                 {% comment %} <div class="dropdown profile-element">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="clear">
                             <span class="block m-t-xs">
                                 <strong class="font-bold">
-                                    {% if request.user.is_authenticated %} {% if request.user.first_name and
-                                    request.user.last_name %}{{ request.user.first_name }} {{ request.user.last_name
-                                    }}{% else %}{{ request.user }}{% endif %} {% endif%}
+                                    {% if request.user.is_authenticated %}{{ request.user }} {% endif%}
                                 </strong>
                             </span>
                             <span class="text-muted text-xs block">Co-Founder
@@ -38,7 +38,7 @@
             {% if perms.users or perms.auth %}
             <li {% if 'auth/' in request.path %}class="active" {% endif %}>
                 <a href="">
-                    <i class="fa fa-user fa-fw"></i>
+                    <i class="fa fa-users fa-fw fa-2x"></i>
                     <span class="nav-label">Users &amp; Groups</span>
                     <span class="fa arrow"></span>
                 </a>
@@ -58,10 +58,7 @@
             </li>
             {% endif %}
 
-
-
         </ul>
 
     </div>
-</nav>
-{% endraw %}
+</nav>{% endraw %}

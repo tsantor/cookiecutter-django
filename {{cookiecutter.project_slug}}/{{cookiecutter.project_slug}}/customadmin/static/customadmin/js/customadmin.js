@@ -35,8 +35,10 @@ $(function () {
 
     // Datatables defaults
     $.extend(true, $.fn.DataTable.defaults, {
-        'iDisplayLength': 25,
-        'stateSave': true,
+        pageLength: 25,
+        stateSave: true,
+        info: true,
+        responsive: true,
     });
 
     // ------------------------------------------------------------------------

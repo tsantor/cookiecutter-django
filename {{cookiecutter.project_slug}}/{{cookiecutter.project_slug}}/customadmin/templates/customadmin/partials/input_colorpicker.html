@@ -1,12 +1,12 @@
-{% raw %}
-{% load widget_tweaks %}
+{% raw %}{% load widget_tweaks %}
 
 <div class="form-group">
-    {{ field.label_tag }}
+    <label for="{{ field.auto_id }}">
+        {{ field.label|safe }}{% if field.field.required %}<span class="asteriskField">*</span>{% endif %}
+    </label>
     <div class="input-group color-pick">
         {{ field|attr:"class:form-control" }}
         <span class="input-group-addon"><i></i></span>
     </div>
     <small>{{ field.help_text }}</small>
-</div>
-{% endraw %}
+</div>{% endraw %}

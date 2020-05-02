@@ -1,4 +1,4 @@
-@import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css);
+{% raw %}@import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css);
 /*
  * Social Buttons for Bootstrap
  *
@@ -58,11 +58,11 @@
 .btn-vk.disabled,.btn-vk[disabled],fieldset[disabled] .btn-vk,.btn-vk.disabled:hover,.btn-vk[disabled]:hover,fieldset[disabled] .btn-vk:hover,.btn-vk.disabled:focus,.btn-vk[disabled]:focus,fieldset[disabled] .btn-vk:focus,.btn-vk.disabled:active,.btn-vk[disabled]:active,fieldset[disabled] .btn-vk:active,.btn-vk.disabled.active,.btn-vk[disabled].active,fieldset[disabled] .btn-vk.active{background-color:#587ea3;border-color:rgba(0,0,0,0.2)}
 
 
-/*
+/* 
  * Only for this example - not needed for the buttons
  * ----------------------------------------------------- */
 .btn-social-icon {margin-bottom: 4px;}
 .social-class .social-hex{font-family:Monaco,Menlo,Consolas,"Courier New",monospace;font-size:10px;opacity:.3;float:right}
 .social-class li{margin-bottom:4px}.social-class li:hover .social-hex{opacity:1}
 .social-class li:hover code{background-color:#e8e8ee}
-.social-class code{cursor:default}
+.social-class code{cursor:default}{% endraw %}

@@ -1,4 +1,4 @@
-/*Grid*/
+{% raw %}/*Grid*/
 .ui-jqgrid {position: relative;}
 .ui-jqgrid .ui-jqgrid-view {position: relative;left:0; top: 0; padding: 0; font-size:11px;}
 /* caption*/
@@ -168,4 +168,4 @@ a.g-menu-item, a.soptclass, a.clearsearchclass { cursor: pointer; }
 .ui-jqgrid .ui-jqgrid-view textarea,
 .ui-jqgrid .ui-jqgrid-view button {
     font-size: 11px
-}
+}{% endraw %}

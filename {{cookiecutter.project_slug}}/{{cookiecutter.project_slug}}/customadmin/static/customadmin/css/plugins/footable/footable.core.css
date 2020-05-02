@@ -1,4 +1,4 @@
-@font-face {
+{% raw %}@font-face {
   font-family: 'footable';
   src: url('fonts/footable.eot');
   src: url('fonts/footable.eot?#iefix') format('embedded-opentype'), url('fonts/footable.woff') format('woff'), url('fonts/footable.ttf') format('truetype'), url('fonts/footable.svg#footable') format('svg');
@@ -175,4 +175,4 @@
 }
 .footable-odd {
   background-color: #f7f7f7;
-}
+}{% endraw %}

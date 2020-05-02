@@ -1,4 +1,4 @@
-/*******************************************************************************
+{% raw %}/*******************************************************************************
  *              bootstrap-rtl (version 3.3.1)
  *      Author: Morteza Ansarinia (http://github.com/morteza)
  *  Created on: January 21,2015
@@ -1465,4 +1465,4 @@ th {
 .pull-left.flip {
   float: right !important;
 }
-/*# sourceMappingURL=bootstrap-rtl.css.map */
+/*# sourceMappingURL=bootstrap-rtl.css.map */{% endraw %}

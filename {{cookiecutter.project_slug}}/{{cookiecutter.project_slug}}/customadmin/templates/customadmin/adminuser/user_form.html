@@ -14,7 +14,7 @@
 
         <div class="ibox float-e-margins">
 
-            {% include "customadmin/partials/ibox_title.html" with ibox_title="Login Credentials" only %}
+            {% include "customadmin/partials/ibox_title.html" with ibox_title="Login Credentials" icon_class="fas fa-sign-in-alt" only %}
 
             <div class="ibox-content">
 
@@ -47,7 +47,7 @@
 
         <div class="ibox float-e-margins">
 
-            {% include "customadmin/partials/ibox_title.html" with ibox_title="Personal Info" only %}
+            {% include "customadmin/partials/ibox_title.html" with ibox_title="Personal Info" icon_class="fas fa-user" only %}
 
             <div class="ibox-content">
                 <div class="row">
@@ -72,7 +72,7 @@
 
         <div class="ibox float-e-margins">
 
-            {% include "customadmin/partials/ibox_title.html" with ibox_title="Permissions" only %}
+            {% include "customadmin/partials/ibox_title.html" with ibox_title="Permissions" icon_class="fas fa-key" only %}
 
             <div class="ibox-content">
 
@@ -117,5 +117,4 @@
         userroles.users.details();
     });
 </script>
-{% endblock %}
-{% endraw %}
+{% endblock %}{% endraw %}

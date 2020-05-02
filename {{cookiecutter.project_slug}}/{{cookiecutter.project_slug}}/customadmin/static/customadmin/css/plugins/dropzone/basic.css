@@ -1,4 +1,4 @@
-/*
+{% raw %}/*
  * The MIT License
  * Copyright (c) 2012 Matias Meno <m@tias.me>
  */
@@ -36,4 +36,4 @@
   width: 54px;
   height: 58px;
   left: 50%;
-  margin-left: -27px; }
+  margin-left: -27px; }{% endraw %}

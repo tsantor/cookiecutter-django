@@ -1,4 +1,4 @@
-/*
+{% raw %}/*
  * blueimp Gallery Demo CSS 2.0.0
  * https://github.com/blueimp/Gallery
  *
@@ -48,4 +48,4 @@ h2,
   .navigation li:not(:first-child):before {
     content: '| ';
   }
-}
+}{% endraw %}

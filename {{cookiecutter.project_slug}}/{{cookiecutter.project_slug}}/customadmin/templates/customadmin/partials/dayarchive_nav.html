@@ -1,5 +1,4 @@
-{% raw %}
-{% load admin_extras %}
+{% raw %}{% load admin_extras %}
 {% load misc_filters %}
 {% load i18n %}
 
@@ -11,5 +10,4 @@
     {% if next_day %}
         Next Day: <a href="{% url opts|admin_urlname:'list' next_day|date:'Y' next_day|date:'M' next_day|date:'d' %}">{{ next_day }}</a>
     {% endif %}
-</p>
-{% endraw %}
+</p>{% endraw %}

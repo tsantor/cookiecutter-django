@@ -1,4 +1,8 @@
-{% raw %}{% if show_label %}{{ field.label_tag }}{% endif %}
+{% raw %}{% if show_label %}
+<label for="{{ field.auto_id }}">
+    {{ field.label|safe }}{% if field.field.required %}<span class="asteriskField">*</span>{% endif %}
+</label>
+{% endif %}
 <div class="form-group input-group date date-picker">
     <span class="input-group-addon">
         <i class="fa fa-calendar"></i>
@@ -16,5 +20,4 @@
 {# Show any field errors #}
 {% for f in field.errors %}
     <small class="alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ f }} </small>
-{% endfor %}
-{% endraw %}
+{% endfor %}{% endraw %}

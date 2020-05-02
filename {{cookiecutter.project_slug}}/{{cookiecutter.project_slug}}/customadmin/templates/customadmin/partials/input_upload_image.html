@@ -1,7 +1,9 @@
 {% raw %}{% load thumbnail %}
 
 <div class="form-group">
-    {{ field.label_tag }}
+    <label for="{{ field.auto_id }}">
+        {{ field.label|safe }}{% if field.field.required %}<span class="asteriskField">*</span>{% endif %}
+    </label>
     <div class="fileinput fileinput-new input-group" data-provides="fileinput">
         <div class="form-control" data-trigger="fileinput">
             <i class="glyphicon glyphicon-file fileinput-exists" {% if field.value %}style="display:inline;"{% endif %}></i>
@@ -23,5 +25,4 @@
         </small>
     {% endif %}
     <div class="clearfix"></div>
-</div>
-{% endraw %}
+</div>{% endraw %}
