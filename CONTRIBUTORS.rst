@@ -128,6 +128,7 @@ Listed in alphabetical order.
   Guilherme Guy            `@guilherme1guy`_
   Hamish Durkin            `@durkode`_
   Hana Quadara             `@hanaquadara`_
+  Hannah Lazarus           `@hanhanhan`_
   Harry Moreno             `@morenoh149`_                @morenoh149
   Harry Percival           `@hjwp`_
   Hendrik Schneider        `@hendrikschneider`_
@@ -161,6 +162,7 @@ Listed in alphabetical order.
   Krzysztof Żuraw          `@krzysztofzuraw`_
   Leo won                  `@leollon`_
   Leo Zhou                 `@glasslion`_
+  Leon Kim                 `@PilhwanKim`_
   Leonardo Jimenez         `@xpostudio4`_
   Lin Xianyi               `@iynaix`_
   Luis Nell                `@originell`_
@@ -312,6 +314,7 @@ Listed in alphabetical order.
 .. _@hackebrot: https://github.com/hackebrot
 .. _@hairychris: https://github.com/hairychris
 .. _@hanaquadara: https://github.com/hanaquadara
+.. _@hanhanhan: https://github.com/hanhanhan
 .. _@hendrikschneider: https://github.com/hendrikschneider
 .. _@highpost: https://github.com/highpost
 .. _@hjwp: https://github.com/hjwp
@@ -365,6 +368,7 @@ Listed in alphabetical order.
 .. _@rjsnh1522: https://github.com/rjsnh1522
 .. _@pchiquet: https://github.com/pchiquet
 .. _@phiberjenz: https://github.com/phiberjenz
+.. _@PilhwanKim: https://github.com/PilhwanKim
 .. _@purplediane: https://github.com/purplediane
 .. _@raonyguimaraes: https://github.com/raonyguimaraes
 .. _@reggieriser: https://github.com/reggieriser
