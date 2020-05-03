@@ -5,7 +5,7 @@ To make development more portable and ensure we're all working in the same envir
 ## Step 1 - Clone the Repo
 Clone the Django project you wish to work on:
 
-    git clone https://bitbucket.org/xstudios/{{ cookiecuter.project_slug }}
+    git clone https://bitbucket.org/xstudios/{{ cookiecutter.project_slug }}
 
 ## Step 2 - Download the Vagrant Box
 Download the [django-box-0.1.0.box](https://www.dropbox.com/s/e7w220oius8irhj/django-box-0.1.0.box?dl=1) and place it in the root of the cloned repo.
