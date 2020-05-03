@@ -34,12 +34,16 @@ $(function () {
     // customadmin.init();
 
     // Datatables defaults
-    $.extend(true, $.fn.DataTable.defaults, {
-        pageLength: 25,
-        stateSave: true,
-        info: true,
-        responsive: true,
-    });
+    try {
+        $.extend(true, $.fn.DataTable.defaults, {
+            pageLength: 25,
+            stateSave: true,
+            info: true,
+            responsive: true,
+        });
+    } catch(err) {
+        console.warn("Unable to extend DataTable defaults.")
+    }
 
     // ------------------------------------------------------------------------
     // Events

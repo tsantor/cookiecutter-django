@@ -2,7 +2,7 @@ site_name: {{ cookiecutter.project_name }} Documentation
 theme: material
 site_author: {{ cookiecutter.author_name }}
 use_directory_urls: false
-dev_addr: 127.0.0.1:8989
+dev_addr: localhost:8989
 
 markdown_extensions:
   - admonition

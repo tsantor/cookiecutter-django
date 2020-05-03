@@ -215,7 +215,7 @@ function watchPaths() {
 // Generate all assets
 const generateAssets = parallel(
   customadmin_styles,
-  customadmin_scripts
+  customadmin_scripts,
   styles,
   scripts,
   {% if cookiecutter.custom_bootstrap_compilation == 'y' %}vendorScripts,{% endif %}

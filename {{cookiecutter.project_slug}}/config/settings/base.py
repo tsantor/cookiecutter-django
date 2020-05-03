@@ -77,6 +77,7 @@ THIRD_PARTY_APPS = [
     "allauth.socialaccount",
 {%- if cookiecutter.use_celery == 'y' %}
     "django_celery_beat",
+    "django_celery_results",
 {%- endif %}
 {%- if cookiecutter.use_drf == "y" %}
     "rest_framework",
@@ -90,7 +91,7 @@ THIRD_PARTY_APPS = [
     # "sorl.thumbnail",
     # "phonenumber_field",
     # "django_countries",
-    # "ckeditor",
+    "ckeditor",
 ]
 
 LOCAL_APPS = [
@@ -211,7 +212,7 @@ TEMPLATES = [
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
                 "{{ cookiecutter.project_slug }}.utils.context_processors.settings_context",
-                "customadmin.context_processors.settings_context",
+                "{{ cookiecutter.project_slug }}.customadmin.context_processors.settings_context",
             ],
         },
     }
@@ -305,6 +306,10 @@ CELERY_TASK_TIME_LIMIT = 5 * 60
 CELERY_TASK_SOFT_TIME_LIMIT = 60
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#beat-scheduler
 CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
+
+# https://docs.celeryproject.org/en/stable/django/first-steps-with-django.html
+CELERY_RESULT_BACKEND = "django-db"
+# CELERY_RESULT_BACKEND = env("CELERY_BROKER_URL")
 
 {%- endif %}
 # django-allauth
