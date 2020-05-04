@@ -343,6 +343,7 @@ MailHog
 
 # Vagrant boxes
 *.box
+.vagrant/
 
 .pytest_cache/
 

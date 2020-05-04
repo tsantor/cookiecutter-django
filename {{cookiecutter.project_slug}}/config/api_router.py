@@ -22,5 +22,5 @@ urlpatterns = [
     path("users/", include("{{ cookiecutter.project_slug }}.users.api.urls")),
 
     path("auth-token/", obtain_auth_token),
-    path("swagger/", get_swagger_view(title="Test API")),
+    path("swagger/", get_swagger_view(title="{{ cookiecutter.project_name }} API")),
 ]

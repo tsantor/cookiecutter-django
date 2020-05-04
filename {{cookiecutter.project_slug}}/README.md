@@ -21,6 +21,7 @@ Once SSH'd in run:
     ./utility/vagrant/start-your-engines.sh
 
 You can then access the site at `http://localhost:3000/` and the BrowserSync GUI at `http://localhost:3001`. Other URLs of note:
+
 - `http:://localhost:3000/admin/` - Django Admin
 - `http:://localhost:3000/customadmin/` - Custom Admin built using Inspinia theme that we use for client facing CMS/Admins.
 - `http:://localhost:3000/api/v1/swagger/` - Swagger API
