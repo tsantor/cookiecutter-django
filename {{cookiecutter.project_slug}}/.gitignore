@@ -341,6 +341,9 @@ MailHog
 {%- endif %}
 {{ cookiecutter.project_slug }}/media/
 
+# Vagrant boxes
+*.box
+
 .pytest_cache/
 
 {% if cookiecutter.use_docker == 'y' %}
