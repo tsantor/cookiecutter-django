@@ -1,4 +1,4 @@
-{% raw %}!function() {
+!function() {
     var topojson = {
         version: "1.6.20",
         mesh: function(topology) { return object(topology, meshArcs.apply(this, arguments)); },
@@ -531,4 +531,4 @@
     if (typeof define === "function" && define.amd) define(topojson);
     else if (typeof module === "object" && module.exports) module.exports = topojson;
     else this.topojson = topojson;
-}();{% endraw %}
+}();

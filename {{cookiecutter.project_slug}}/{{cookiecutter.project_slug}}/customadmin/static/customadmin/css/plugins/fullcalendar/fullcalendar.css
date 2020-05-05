@@ -1,4 +1,4 @@
-{% raw %}/*!
+/*!
  * <%= meta.title %> v<%= meta.version %> Stylesheet
  * Docs & License: <%= meta.homepage %>
  * (c) <%= meta.copyright %>
@@ -1258,4 +1258,4 @@ be a descendant of the grid when it is being dragged.
 	border-width: 5px 6px 5px 0;
 	border-top-color: transparent;
 	border-bottom-color: transparent;
-}{% endraw %}
+}

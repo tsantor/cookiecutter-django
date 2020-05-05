@@ -1,4 +1,4 @@
-{% raw %}/**
+/**
  * Super simple wysiwyg editor v0.8.10
  * https://summernote.org
  *
@@ -7320,4 +7320,4 @@ $$1.summernote = $$1.extend($$1.summernote, {
 });
 
 })));
-//# sourceMappingURL=summernote-bs4.js.map{% endraw %}
+//# sourceMappingURL=summernote-bs4.js.map

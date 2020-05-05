@@ -1,4 +1,4 @@
-{% raw %}/* Copyright 2017 Mozilla Foundation
+/* Copyright 2017 Mozilla Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41657,4 +41657,4 @@ if (isReadableStreamSupported) {
 /***/ })
 /******/ ]);
 });
-//# sourceMappingURL=pdf.worker.js.map{% endraw %}
+//# sourceMappingURL=pdf.worker.js.map

@@ -1,4 +1,4 @@
-{% raw %};(function($){
+;(function($){
 /**
  * jqGrid Spanish Translation
  * Traduccion jqGrid en Español por Yamil Bracho
@@ -127,4 +127,4 @@ $.extend($.jgrid,{
 		idName : 'id'
 	}
 });
-})(jQuery);{% endraw %}
+})(jQuery);

@@ -1,4 +1,4 @@
-{% raw %}@charset "UTF-8";
+@charset "UTF-8";
 .abc-checkbox {
   cursor: default;
   padding-left: 4px; }
@@ -252,4 +252,4 @@
 label .was-validated .form-check-input:invalid .abc-checkbox:before, label
 .was-validated .form-check-input:invalid .abc-radio:before, label .form-check-input.is-invalid .abc-checkbox:before, label
 .form-check-input.is-invalid .abc-radio:before {
-  border-color: #dc3545; }{% endraw %}
+  border-color: #dc3545; }

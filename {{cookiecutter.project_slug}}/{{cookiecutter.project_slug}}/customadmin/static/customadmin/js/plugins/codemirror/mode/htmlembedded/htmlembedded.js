@@ -1,4 +1,4 @@
-{% raw %}// CodeMirror, copyright (c) by Marijn Haverbeke and others
+// CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
 (function(mod) {
@@ -83,4 +83,4 @@ CodeMirror.defineMIME("application/x-aspx", { name: "htmlembedded", scriptingMod
 CodeMirror.defineMIME("application/x-jsp", { name: "htmlembedded", scriptingModeSpec:"text/x-java"});
 CodeMirror.defineMIME("application/x-erb", { name: "htmlembedded", scriptingModeSpec:"ruby"});
 
-});{% endraw %}
+});

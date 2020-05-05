@@ -1,4 +1,4 @@
-{% raw %};(function($){
+;(function($){
 /**
  * jqGrid Brazilian-Portuguese Translation
  * Sergio Righi sergio.righi@gmail.com
@@ -134,4 +134,4 @@ $.extend($.jgrid,{
 		idName : 'id'
 	}
 });
-})(jQuery);{% endraw %}
+})(jQuery);

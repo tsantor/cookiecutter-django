@@ -1,4 +1,4 @@
-{% raw %}body.stop-scrolling {
+body.stop-scrolling {
   height: 100%;
   overflow: hidden; }
 
@@ -712,4 +712,4 @@
   -ms-transform: rotate(45deg) \9; }
 
 .sweet-alert .sa-icon.sa-success .sa-line.sa-long {
-  -ms-transform: rotate(-45deg) \9; }{% endraw %}
+  -ms-transform: rotate(-45deg) \9; }

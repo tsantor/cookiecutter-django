@@ -1,4 +1,4 @@
-{% raw %}/* @license
+/* @license
 morris.js v0.5.0
 Copyright 2014 Olly Smith All rights reserved.
 Licensed under the BSD-2-Clause License.
@@ -1889,4 +1889,4 @@ Licensed under the BSD-2-Clause License.
 
   })(Morris.EventEmitter);
 
-}).call(this);{% endraw %}
+}).call(this);

@@ -1,4 +1,4 @@
-{% raw %}/*!
+/*!
  * metismenu - v2.7.7
  * A jQuery menu plugin
  * https://github.com/onokumus/metismenu#readme
@@ -338,4 +338,4 @@
 
     return MetisMenu;
 
-})));{% endraw %}
+})));

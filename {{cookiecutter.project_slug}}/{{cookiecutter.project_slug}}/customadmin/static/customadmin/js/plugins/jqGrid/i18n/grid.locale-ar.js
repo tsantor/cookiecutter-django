@@ -1,4 +1,4 @@
-{% raw %};(function($){
+;(function($){
 /**
  * jqGrid Arabic Translation
  *
@@ -125,4 +125,4 @@ $.extend($.jgrid,{
 		idName : 'id'
 	}
 });
-})(jQuery);{% endraw %}
+})(jQuery);

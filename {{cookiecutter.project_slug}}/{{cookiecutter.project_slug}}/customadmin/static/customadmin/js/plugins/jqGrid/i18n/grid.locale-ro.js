@@ -1,4 +1,4 @@
-{% raw %};(function($){
+;(function($){
 /**
  * jqGrid Romanian Translation
  * Alexandru Emil Lupu contact@alecslupu.ro
@@ -138,4 +138,4 @@ $.extend($.jgrid,{
 		idName : 'id'
 	}
 });
-})(jQuery);{% endraw %}
+})(jQuery);

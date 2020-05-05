@@ -1,4 +1,4 @@
-{% raw %}@charset "UTF-8";
+@charset "UTF-8";
 /*
  * blueimp Gallery Indicator CSS 1.1.0
  * https://github.com/blueimp/Gallery
@@ -68,4 +68,4 @@
 /* IE7 fixes */
 *+html .blueimp-gallery > .indicator > li {
   display: inline;
-}{% endraw %}
+}

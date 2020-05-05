@@ -1,4 +1,4 @@
-{% raw %}// CodeMirror, copyright (c) by Marijn Haverbeke and others
+// CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
 (function() {
@@ -751,4 +751,4 @@
      "[tag&bracket <][tag div][tag&bracket >]",
      "[tag&bracket </][tag div][tag&bracket >]");
 
-})();{% endraw %}
+})();

@@ -1,4 +1,4 @@
-{% raw %}// CodeMirror, copyright (c) by Marijn Haverbeke and others
+// CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
 (function(mod) {
@@ -264,4 +264,4 @@ CodeMirror.defineMode("haskell", function(_config, modeConfig) {
 
 CodeMirror.defineMIME("text/x-haskell", "haskell");
 
-});{% endraw %}
+});

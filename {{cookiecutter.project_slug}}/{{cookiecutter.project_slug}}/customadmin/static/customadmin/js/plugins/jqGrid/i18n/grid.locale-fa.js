@@ -1,4 +1,4 @@
-{% raw %};(function ($) {
+;(function ($) {
 /**
  * jqGrid Persian Translation
  * Dual licensed under the MIT and GPL licenses:
@@ -144,4 +144,4 @@
             idName: "id"
         }
     });
-})(jQuery);{% endraw %}
+})(jQuery);

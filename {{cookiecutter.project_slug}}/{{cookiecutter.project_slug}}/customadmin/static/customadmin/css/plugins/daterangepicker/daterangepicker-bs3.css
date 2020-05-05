@@ -1,4 +1,4 @@
-{% raw %}/*!
+/*!
  * Stylesheet for the Date Range Picker, for use with Bootstrap 3.x
  *
  * Copyright 2013-2015 Dan Grossman ( http://www.dangrossman.info )
@@ -332,4 +332,4 @@
 
 .daterangepicker th.month {
   width: auto;
-}{% endraw %}
+}

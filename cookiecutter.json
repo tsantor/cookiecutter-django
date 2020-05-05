@@ -62,5 +62,14 @@
   ],
   "keep_local_envs_in_vcs": "y",
 
-  "debug": "n"
+  "debug": "n",
+  "_copy_without_render": [
+    "{{cookiecutter.project_slug}}/customadmin/static/customadmin/css/*.css",
+    "{{cookiecutter.project_slug}}/customadmin/static/customadmin/css/**/*.css",
+    "{{cookiecutter.project_slug}}/customadmin/static/customadmin/js/**/*.html",
+    "{{cookiecutter.project_slug}}/customadmin/static/customadmin/js/*.js",
+    "{{cookiecutter.project_slug}}/customadmin/static/customadmin/js/**/*.js",
+    "{{cookiecutter.project_slug}}/customadmin/static/customadmin/js/*.map",
+    "{{cookiecutter.project_slug}}/customadmin/static/customadmin/js/**/*.map"
+]
 }

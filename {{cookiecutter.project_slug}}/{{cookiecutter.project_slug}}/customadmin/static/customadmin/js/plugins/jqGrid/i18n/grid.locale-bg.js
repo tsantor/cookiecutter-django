@@ -1,4 +1,4 @@
-{% raw %};(function($){
+;(function($){
 /**
  * jqGrid Bulgarian Translation
  * Tony Tomov tony@trirand.com
@@ -131,4 +131,4 @@ $.extend($.jgrid,{
 		idName : 'id'
 	}
 });
-})(jQuery);{% endraw %}
+})(jQuery);

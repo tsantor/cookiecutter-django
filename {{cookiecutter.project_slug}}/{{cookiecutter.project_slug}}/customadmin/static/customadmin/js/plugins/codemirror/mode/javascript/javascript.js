@@ -1,4 +1,4 @@
-{% raw %}// CodeMirror, copyright (c) by Marijn Haverbeke and others
+// CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
 // TODO actually recognize syntax of TypeScript constructs
@@ -681,4 +681,4 @@ CodeMirror.defineMIME("application/ld+json", {name: "javascript", jsonld: true})
 CodeMirror.defineMIME("text/typescript", { name: "javascript", typescript: true });
 CodeMirror.defineMIME("application/typescript", { name: "javascript", typescript: true });
 
-});{% endraw %}
+});

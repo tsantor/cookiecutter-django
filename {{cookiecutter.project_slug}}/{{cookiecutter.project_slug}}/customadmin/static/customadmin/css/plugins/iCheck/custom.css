@@ -1,4 +1,4 @@
-{% raw %}/* iCheck plugin Square skin, green
+/* iCheck plugin Square skin, green
 ----------------------------------- */
 .icheckbox_square-green,
 .iradio_square-green {
@@ -56,4 +56,4 @@
         -webkit-background-size: 240px 24px;
         background-size: 240px 24px;
     }
-}{% endraw %}
+}

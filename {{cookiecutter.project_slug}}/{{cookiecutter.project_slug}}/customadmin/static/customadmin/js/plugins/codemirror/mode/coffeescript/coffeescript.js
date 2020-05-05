@@ -1,4 +1,4 @@
-{% raw %}// CodeMirror, copyright (c) by Marijn Haverbeke and others
+// CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
 /**
@@ -366,4 +366,4 @@ CodeMirror.defineMode("coffeescript", function(conf) {
 
 CodeMirror.defineMIME("text/x-coffeescript", "coffeescript");
 
-});{% endraw %}
+});

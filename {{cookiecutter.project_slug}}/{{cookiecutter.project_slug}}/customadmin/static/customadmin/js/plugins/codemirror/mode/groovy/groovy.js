@@ -1,4 +1,4 @@
-{% raw %}// CodeMirror, copyright (c) by Marijn Haverbeke and others
+// CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
 (function(mod) {
@@ -223,4 +223,4 @@ CodeMirror.defineMode("groovy", function(config) {
 
 CodeMirror.defineMIME("text/x-groovy", "groovy");
 
-});{% endraw %}
+});

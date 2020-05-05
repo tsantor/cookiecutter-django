@@ -1,4 +1,4 @@
-{% raw %};(function($){
+;(function($){
 /**
  * jqGrid Danish Translation
  * Aesiras A/S
@@ -127,4 +127,4 @@ $.extend($.jgrid,{
 	}
 });
 // DA
-})(jQuery);{% endraw %}
+})(jQuery);

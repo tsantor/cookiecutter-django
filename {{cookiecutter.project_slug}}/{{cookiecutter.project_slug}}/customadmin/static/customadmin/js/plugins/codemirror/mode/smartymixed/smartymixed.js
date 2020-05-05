@@ -1,4 +1,4 @@
-{% raw %}// CodeMirror, copyright (c) by Marijn Haverbeke and others
+// CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
 /**
@@ -194,4 +194,4 @@ CodeMirror.defineMode("smartymixed", function(config) {
 CodeMirror.defineMIME("text/x-smarty", "smartymixed");
 // vim: et ts=2 sts=2 sw=2
 
-});{% endraw %}
+});

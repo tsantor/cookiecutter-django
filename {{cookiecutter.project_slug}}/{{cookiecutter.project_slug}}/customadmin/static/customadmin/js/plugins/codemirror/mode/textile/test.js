@@ -1,4 +1,4 @@
-{% raw %}// CodeMirror, copyright (c) by Marijn Haverbeke and others
+// CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
 (function() {
@@ -403,4 +403,4 @@
       '[operator pre.. *No* formatting]',
       '',
       '[operator *No* formatting]');
-})();{% endraw %}
+})();

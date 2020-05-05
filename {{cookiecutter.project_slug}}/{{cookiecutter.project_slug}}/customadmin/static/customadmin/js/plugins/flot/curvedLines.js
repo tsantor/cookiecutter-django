@@ -1,4 +1,4 @@
-{% raw %}/* The MIT License
+/* The MIT License
 
  Copyright (c) 2011 by Michael Zinsmaier and nergal.dev
  Copyright (c) 2012 by Thomas Ritou
@@ -312,4 +312,4 @@
         version : '0.5'
     });
 
-})(jQuery);{% endraw %}
+})(jQuery);

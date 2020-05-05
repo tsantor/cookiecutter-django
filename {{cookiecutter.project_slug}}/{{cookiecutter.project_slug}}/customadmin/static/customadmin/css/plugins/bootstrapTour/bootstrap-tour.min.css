@@ -1,4 +1,4 @@
-{% raw %}/* ========================================================================
+/* ========================================================================
  * Bootstrap Tourist
  * Copyright FFS 2019
  * @ IGreatlyDislikeJavascript on Github
@@ -93,4 +93,4 @@
 
 .popover[class*="tour-"].orphan .arrow {
     display: none;
-}{% endraw %}
+}

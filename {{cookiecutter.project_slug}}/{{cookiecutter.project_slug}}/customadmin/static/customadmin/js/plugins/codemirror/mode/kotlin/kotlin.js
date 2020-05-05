@@ -1,4 +1,4 @@
-{% raw %}// CodeMirror, copyright (c) by Marijn Haverbeke and others
+// CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
 (function(mod) {
@@ -277,4 +277,4 @@ CodeMirror.defineMode("kotlin", function (config, parserConfig) {
 
 CodeMirror.defineMIME("text/x-kotlin", "kotlin");
 
-});{% endraw %}
+});

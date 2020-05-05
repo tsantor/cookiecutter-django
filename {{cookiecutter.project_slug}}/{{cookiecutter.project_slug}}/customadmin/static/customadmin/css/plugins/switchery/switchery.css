@@ -1,4 +1,4 @@
-{% raw %}/*
+/*
  *
  * Main stylesheet for Switchery.
  * http://abpetkov.github.io/switchery/
@@ -29,4 +29,4 @@
     position: absolute;
     top: 0;
     width: 30px;
-}{% endraw %}
+}

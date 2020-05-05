@@ -1,4 +1,4 @@
-{% raw %}// CodeMirror, copyright (c) by Marijn Haverbeke and others
+// CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
 (function(mod) {
@@ -98,4 +98,4 @@ CodeMirror.defineMode("rpm-spec", function() {
 
 CodeMirror.defineMIME("text/x-rpm-spec", "rpm-spec");
 
-});{% endraw %}
+});

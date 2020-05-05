@@ -1,4 +1,4 @@
-{% raw %};(function($){
+;(function($){
 /**
  * jqGrid (fi) Finnish Translation
  * Jukka Inkeri  awot.fi  2010-05-19
@@ -128,4 +128,4 @@ $.extend($.jgrid,{
 	}
 });
 // FI
-})(jQuery);{% endraw %}
+})(jQuery);

@@ -1,4 +1,4 @@
-{% raw %};(function($){
+;(function($){
 /**
  * jqGrid Portuguese Translation
 * Tradu��o da jqGrid em Portugues por Frederico Carvalho, http://www.eyeviewdesign.pt
@@ -124,4 +124,4 @@ $.extend($.jgrid,{
 		idName : 'id'
 	}
 });
-})(jQuery);{% endraw %}
+})(jQuery);

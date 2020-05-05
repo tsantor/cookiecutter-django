@@ -1,4 +1,4 @@
-{% raw %}.select2-container--bootstrap4 .select2-selection--single {
+.select2-container--bootstrap4 .select2-selection--single {
     height: calc(2.25rem + 2px) !important
 }
 
@@ -204,4 +204,4 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
 
 .select2-container--bootstrap4 .select2-selection__clear:hover {
     background-color: #343a40
-}{% endraw %}
+}

@@ -1,4 +1,4 @@
-{% raw %};(function($){
+;(function($){
 /**
  * jqGrid Danish Translation
  * Kaare Rasmussen kjs@jasonic.dk
@@ -126,4 +126,4 @@ $.jgrid = {
 	}
 };
 // DK
-})(jQuery);{% endraw %}
+})(jQuery);

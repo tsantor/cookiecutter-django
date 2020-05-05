@@ -1,4 +1,4 @@
-{% raw %}@charset "UTF-8";
+@charset "UTF-8";
 /*
  * blueimp Gallery CSS 2.11.1
  * https://github.com/blueimp/Gallery
@@ -223,4 +223,4 @@ body:last-child .blueimp-gallery-playing > .play-pause {
 }
 *+html .blueimp-gallery > .slides > .slide > .slide-content {
   position: relative;
-}{% endraw %}
+}

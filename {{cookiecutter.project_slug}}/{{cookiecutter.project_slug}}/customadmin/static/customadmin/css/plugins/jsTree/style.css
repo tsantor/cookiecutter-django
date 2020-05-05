@@ -1,4 +1,4 @@
-{% raw %}/* jsTree default theme */
+/* jsTree default theme */
 .jstree-node,
 .jstree-children,
 .jstree-container-ul {
@@ -1047,4 +1047,4 @@
     margin-left: 0;
     margin-right: 0;
   }
-}{% endraw %}
+}

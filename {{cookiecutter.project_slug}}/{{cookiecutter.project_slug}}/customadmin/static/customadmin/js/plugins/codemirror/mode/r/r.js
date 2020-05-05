@@ -1,4 +1,4 @@
-{% raw %}// CodeMirror, copyright (c) by Marijn Haverbeke and others
+// CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
 (function(mod) {
@@ -159,4 +159,4 @@ CodeMirror.defineMode("r", function(config) {
 
 CodeMirror.defineMIME("text/x-rsrc", "r");
 
-});{% endraw %}
+});

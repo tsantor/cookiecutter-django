@@ -1,4 +1,4 @@
-{% raw %}// CodeMirror, copyright (c) by Marijn Haverbeke and others
+// CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
 (function() {
@@ -161,4 +161,4 @@
      "Commit: [link be6a8cc1c1ecfe9489fb51e4869af15a13fc2cd2]",
      "Issue: [link #1]",
      "Link: [link http://www.example.com/]");
-})();{% endraw %}
+})();

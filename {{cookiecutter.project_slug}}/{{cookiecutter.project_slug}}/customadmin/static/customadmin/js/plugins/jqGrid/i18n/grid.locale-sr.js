@@ -1,4 +1,4 @@
-{% raw %}﻿;(function($){
+﻿;(function($){
 /**
  * jqGrid Serbian Translation
  * Александар Миловац(Aleksandar Milovac) aleksandar.milovac@gmail.com
@@ -127,4 +127,4 @@ $.extend($.jgrid,{
 		idName : 'id'
 	}
 });
-})(jQuery);{% endraw %}
+})(jQuery);

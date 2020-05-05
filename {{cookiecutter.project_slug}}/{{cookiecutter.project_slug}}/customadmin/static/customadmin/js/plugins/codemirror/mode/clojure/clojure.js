@@ -1,4 +1,4 @@
-{% raw %}// CodeMirror, copyright (c) by Marijn Haverbeke and others
+// CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
 /**
@@ -240,4 +240,4 @@ CodeMirror.defineMode("clojure", function (options) {
 
 CodeMirror.defineMIME("text/x-clojure", "clojure");
 
-});{% endraw %}
+});

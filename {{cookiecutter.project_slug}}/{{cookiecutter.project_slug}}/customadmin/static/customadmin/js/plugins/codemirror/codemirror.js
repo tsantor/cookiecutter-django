@@ -1,4 +1,4 @@
-{% raw %}// CodeMirror, copyright (c) by Marijn Haverbeke and others
+// CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
 // This is CodeMirror (http://codemirror.net), a code editor
@@ -7827,4 +7827,4 @@
   CodeMirror.version = "4.7.0";
 
   return CodeMirror;
-});{% endraw %}
+});

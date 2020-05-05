@@ -1,4 +1,4 @@
-{% raw %}// CodeMirror, copyright (c) by Marijn Haverbeke and others
+// CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
 // LUA mode. Ported to CodeMirror 2 from Franciszek Wawrzak's
@@ -156,4 +156,4 @@ CodeMirror.defineMode("lua", function(config, parserConfig) {
 
 CodeMirror.defineMIME("text/x-lua", "lua");
 
-});{% endraw %}
+});
