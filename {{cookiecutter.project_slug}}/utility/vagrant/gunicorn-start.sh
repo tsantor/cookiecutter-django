@@ -1,5 +1,5 @@
 #!/bin/bash
-NAME="prang" # Name of the application
+NAME="{{ cookiecutter.project_slug }}" # Name of the application
 DJANGODIR=/home/vagrant/project/ # Django project directory
 SOCKFILE=/home/vagrant/project/run/gunicorn.sock # we will communicate using this unix socket
 VIRTUAL_ENV=/home/vagrant/env # Virtual env directory

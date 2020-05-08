@@ -8,15 +8,16 @@ USER_DIR=/home/${USER}
 PROJECT_DIR=${USER_DIR}/${PROJECT}
 
 echo "Copy supervisor.conf..."
-sudo cp -fv ${PROJECT_DIR}/conf/${TARGET_ENV}/supervisor.conf /etc/supervisord.d/project.conf
+sudo cp -fv ${PROJECT_DIR}/conf/${TARGET_ENV}/supervisor.conf /etc/supervisor/conf.d/{{ cookiecutter.project_slug }}.conf
 
-echo "Copy nginx.conf..."
-sudo mkdir -p /etc/nginx/conf.d
-sudo rm /etc/nginx/conf.d/default.conf
-sudo cp -fv ${PROJECT_DIR}/conf/${TARGET_ENV}/nginx.conf /etc/nginx/conf.d/project.conf
+# echo "Copy nginx.conf..."
+# sudo rm /etc/nginx/sites-available/default 2> /dev/null
+# sudo rm /etc/nginx/sites-enabled/default 2> /dev/null
+# sudo cp -fv ${PROJECT_DIR}/conf/${TARGET_ENV}/nginx.conf /etc/nginx/sites-available/{{ cookiecutter.project_slug }}.conf
+# sudo ln -sfv /etc/nginx/sites-available/{{ cookiecutter.project_slug }}.conf /etc/nginx/sites-enabled/{{ cookiecutter.project_slug }}.conf
 
-echo "Restart nginx and supervisor..."
-sudo systemctl restart nginx
+echo "Restart supervised services..."
+# sudo service nginx restart
 sudo supervisorctl reread
 sudo supervisorctl update
 sudo supervisorctl restart all

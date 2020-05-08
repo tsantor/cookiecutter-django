@@ -437,14 +437,14 @@ ADMIN_HIDE_PERMS = [
     "contenttypes",
     "sessions",
     "admin",
-    "authtoken",
-    "thumbnail",
-    "corsheaders",
-    "authtoken",
-    "sites",
-    "account",
-    "socialaccount",
-    "django_celery_beat",
+    # "authtoken",
+    # "thumbnail",
+    # "corsheaders",
+    # "sites",
+    # "account",
+    # "socialaccount",
+    # "django_celery_beat",
+    # "django_celery_results"
 ]
 
 
