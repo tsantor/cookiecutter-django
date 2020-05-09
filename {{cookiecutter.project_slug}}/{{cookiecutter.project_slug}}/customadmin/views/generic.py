@@ -95,7 +95,7 @@ class MyCreateView(
         return MSG_CREATED.format(self.object)
 
     def get_success_url(self):
-        print("MyCreateView::get_success_url")
+        # print("MyCreateView::get_success_url")
         opts = self.model._meta
         return reverse(admin_urlname(opts, "list"))
 
@@ -120,14 +120,14 @@ class MyUpdateView(
         view_perm = f"{opts.app_label}.{codename_view}"
         change_perm = f"{opts.app_label}.{codename_change}"
         perms = (view_perm, change_perm)
-        print(perms)
+        # print(perms)
         return perms
 
     def get_success_message(self):
         return MSG_UPDATED.format(self.object)
 
     def get_success_url(self):
-        print("MyUpdateView::get_success_url")
+        # print("MyUpdateView::get_success_url")
         opts = self.model._meta
         return reverse(admin_urlname(opts, "list"))
         # try:
@@ -152,7 +152,7 @@ class MyDeleteView(
         return MSG_DELETED.format(self.object)
 
     def get_success_url(self):
-        print("MyDeleteView:: get_success_url")
+        # print("MyDeleteView:: get_success_url")
         opts = self.model._meta
         return reverse(admin_urlname(opts, "list"))
 
@@ -264,7 +264,7 @@ class MyNewFormsetUpdateView(
     """UpdateView CBV with UpdateWithInlinesView."""
 
     def get_success_url(self):
-         # TODO: Should be moved to form_valid
+        # TODO: Should be moved to form_valid
         messages.success(self.request, MSG_UPDATED.format(self.object))
         opts = self.model._meta
         return reverse(admin_urlname(opts, "list"))
@@ -296,7 +296,7 @@ class MyMultiModelFormView(
         return ctx
 
     def get_success_url(self):
-        print("MyMultiModelFormView::get_success_url")
+        # print("MyMultiModelFormView::get_success_url")
         # return self.object.get_absolute_url()
         opts = self.model._meta
         return reverse(admin_urlname(opts, "list"))

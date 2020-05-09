@@ -10,7 +10,7 @@ DJANGO_SETTINGS_MODULE=config.settings.production # which settings file should D
 DJANGO_WSGI_MODULE=config.wsgi # WSGI module name
 LOG_LEVEL=error
 
-echo "Starting $NAME as `whoami`"
+echo "Starting $NAME as ${USER} using ${DJANGO_SETTINGS_MODULE}"
 
 # Activate the virtual environment
 cd $DJANGODIR

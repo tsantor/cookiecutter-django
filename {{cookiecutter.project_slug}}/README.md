@@ -33,3 +33,14 @@ You can then access the site at `http://localhost:3000/` and the BrowserSync GUI
     npm run dev
     # or
     rsp
+
+
+## Tech Stack
+
+- Django 3
+- Python 3.8
+- Nginx
+- PostgreSQL
+- Redis
+- Celery
+- Supervisor

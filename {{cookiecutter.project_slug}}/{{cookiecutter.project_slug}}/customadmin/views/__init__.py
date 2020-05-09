@@ -1,14 +1,10 @@
-from .views import (
-    IndexView,
+from .groups import GroupCreateView, GroupDeleteView, GroupListView, GroupUpdateView
+from .users import (
     UserAjaxPagination,
     UserCreateView,
     UserDeleteView,
     UserListView,
     UserPasswordView,
     UserUpdateView,
-    GroupCreateView,
-    GroupDeleteView,
-    GroupListView,
-    GroupUpdateView,
 )
-
+from .views import IndexView
