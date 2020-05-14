@@ -7,8 +7,8 @@ from django.http import JsonResponse
 from django.template.loader import get_template
 from django_datatables_too.mixins import DataTableMixin
 
-from usign.customadmin.mixins import HasPermissionsMixin
-from usign.customadmin.views.generic import (
+from {{ cookiecutter.project_slug }}.customadmin.mixins import HasPermissionsMixin
+from {{ cookiecutter.project_slug }}.customadmin.views.generic import (
     MyCreateView,
     MyDeleteView,
     MyListView,

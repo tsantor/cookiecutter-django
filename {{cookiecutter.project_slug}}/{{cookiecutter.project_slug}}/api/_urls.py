@@ -14,11 +14,11 @@ app_name = "api"
 
 urlpatterns = [
     # Place all your app's API URLS here.
-    path("core/", include("usign.core.api.urls")),
+    path("core/", include("{{ cookiecutter.project_slug }}.core.api.urls")),
     # Auth
     # path("api-token-auth/", MyObtainAuthToken.as_view()),
     path("api-token-auth/", obtain_auth_token),
     # path('api-token-auth/', obtain_jwt_token),
     # path('api-token-refresh/', refresh_jwt_token),
-    path("swagger/", get_swagger_view(title="uSign API")),
+    path("swagger/", get_swagger_view(title="{{ cookiecutter.project_name }} API")),
 ]

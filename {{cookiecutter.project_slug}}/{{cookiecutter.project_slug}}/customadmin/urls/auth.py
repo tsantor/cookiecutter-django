@@ -3,7 +3,7 @@ from django.urls import path, re_path
 
 # -----------------------------------------------------------------------------
 
-# app_name = 'customadmin'
+# app_name = "auth"
 
 urlpatterns = [
     # Login / Logout

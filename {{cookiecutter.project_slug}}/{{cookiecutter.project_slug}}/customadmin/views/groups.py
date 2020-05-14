@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from usign.customadmin.views.generic import (
+from {{ cookiecutter.project_slug }}.customadmin.views.generic import (
     MyCreateView,
     MyDeleteView,
     MyListView,
