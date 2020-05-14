@@ -1,3 +1,40 @@
+/* -------------------------------------------------------------------------- */
+/* FONT STYLES */
+/* -------------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Raleway', sans-serif;
+}
+
+h1 {
+  font-weight: 800;
+  font-size: 34px;
+}
+h2 {
+  font-weight: 700;
+  font-size: 30px;
+}
+h3 {
+  font-weight: 600;
+  font-size: 26px;
+}
+h4 {
+  font-weight: 600;
+  font-size: 22px;
+}
+h5 {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+/* -------------------------------------------------------------------------- */
+
 /* Login screen */
 .login-logo {
   text-align: center;
@@ -119,84 +156,6 @@ table {
 
 .section-header {
   margin: 0 0 20px 0;
-}
-
-/* -------------------------------------------------------------------------- */
-/* UNIVERSAL STYLES */
-/* -------------------------------------------------------------------------- */
-@font-face {
-  font-family: "HCo Gotham";
-  src: url(../fonts/gotham/2967B9A0E7E4EDC83.woff2) format("woff2"),
-    url(../fonts/gotham/2967B9A0E7E4EDC83.woff) format("woff");
-  font-weight: 100;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "HCo Gotham";
-  src: url(../fonts/gotham/CF9B3AC6C5090E643.woff2) format("woff2"),
-    url(../fonts/gotham/CF9B3AC6C5090E643.woff) format("woff");
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "HCo Gotham";
-  src: url(../fonts/gotham/9F83F41298FA3D4A1.woff2) format("woff2"),
-    url(../fonts/gotham/9F83F41298FA3D4A1.woff) format("woff");
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "HCo Gotham";
-  src: url(../fonts/gotham/DA192960645B30FA9.woff2) format("woff2"),
-    url(../fonts/gotham/DA192960645B30FA9.woff) format("woff");
-  font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "HCo Gotham";
-  src: url(../fonts/gotham/6330A3369D395850E.woff2) format("woff2"),
-    url(../fonts/gotham/6330A3369D395850E.woff) format("woff");
-  font-weight: 800;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "HCo Gotham";
-  src: url(../fonts/gotham/8F62100A3BB6391A1.woff2) format("woff2"),
-    url(../fonts/gotham/8F62100A3BB6391A1.woff) format("woff");
-  font-weight: 900;
-  font-style: normal;
-}
-
-body {
-  font-family: "HCo Gotham", "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-h1,
-h2,
-h3,
-h4 {
-  font-weight: 900;
-}
-
-h1 {
-  font-size: 34px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 26px;
-}
-h4 {
-  font-size: 22px;
-}
-h5 {
-  font-size: 18px;
 }
 
 .ibox-title {
