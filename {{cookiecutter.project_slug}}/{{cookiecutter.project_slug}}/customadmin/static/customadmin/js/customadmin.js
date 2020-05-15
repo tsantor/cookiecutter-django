@@ -5,13 +5,6 @@ var customadmin = {
 
     init: function () {
         console.info('init');
-
-        // custom checkboxes
-        $('.i-checks').iCheck({
-            checkboxClass: 'icheckbox_square-green',
-            radioClass: 'iradio_square-green'
-        });
-
     },
 
     fileBrowse: function (element) {
@@ -34,12 +27,26 @@ $(function () {
     // customadmin.init();
 
     // Datatables defaults
-    $.extend(true, $.fn.DataTable.defaults, {
-        pageLength: 25,
-        stateSave: true,
-        info: true,
-        responsive: true,
-    });
+    try {
+        $.extend(true, $.fn.DataTable.defaults, {
+            pageLength: 25,
+            stateSave: true,
+            info: true,
+            responsive: true,
+        });
+    } catch(err) {
+        console.warn("Cannot extend DataTables")
+    }
+
+    // custom checkboxes
+    try {
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green'
+        });
+    } catch(err) {
+        console.warn("Cannot init iCheck")
+    }
 
     // ------------------------------------------------------------------------
     // Events

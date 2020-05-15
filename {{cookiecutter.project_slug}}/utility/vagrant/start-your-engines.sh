@@ -20,6 +20,12 @@ npm install
 echo "$(tput setaf 6)=> Create a Superuser ...$(tput sgr0)"
 ./manage.py createsuperuser
 
+{% if cookiecutter.use_mailhog == 'y' -%}
+echo "$(tput setaf 6)=> Download MailHog ...$(tput sgr0)"
+wget https://github.com/mailhog/MailHog/releases/download/v1.0.0/MailHog_linux_amd64
+chmod u+x MailHog_linux_amd64
+{%- endif %}
+
 ## Run the development server
 echo "$(tput setaf 6)=> Run the dev server ...$(tput sgr0)"
 npm run dev

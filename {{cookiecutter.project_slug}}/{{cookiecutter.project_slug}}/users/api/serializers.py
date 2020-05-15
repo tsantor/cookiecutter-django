@@ -28,9 +28,6 @@ class MyUserSerializer(serializers.ModelSerializer):
             "last_name",
             "name",
             "email",
-            "is_superuser",
-            "is_staff",
-            "is_active",
         )
 
 
