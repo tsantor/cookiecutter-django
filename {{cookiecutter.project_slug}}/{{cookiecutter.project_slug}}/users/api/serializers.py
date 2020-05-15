@@ -1,6 +1,7 @@
+from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
-from {{ cookiecutter.project_slug }}.users.models import User
+User = get_user_model()
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -31,3 +32,10 @@ class MyUserSerializer(serializers.ModelSerializer):
             "is_staff",
             "is_active",
         )
+
+
+def jwt_response_payload_handler(token, user=None, request=None):
+    return {
+        'token': token,
+        'user': MyUserSerializer(user, context={'request': request}).data
+    }

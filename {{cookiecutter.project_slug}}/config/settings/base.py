@@ -81,8 +81,14 @@ THIRD_PARTY_APPS = [
 {%- endif %}
 {%- if cookiecutter.use_drf == "y" %}
     "rest_framework",
-    "rest_framework.authtoken",
     "rest_framework_swagger",
+{%- endif %}
+{%- if cookiecutter.use_drf_jwt == "n" %}
+    "rest_framework.authtoken",
+{%- endif %}
+{%- if cookiecutter.use_django_rest_auth == "y" %}
+    "rest_auth",
+    "rest_auth.registration",
 {%- endif %}
 {%- if cookiecutter.use_corsheaders == 'y' %}
     "corsheaders",
@@ -347,8 +353,13 @@ REST_FRAMEWORK = {
     "DATETIME_INPUT_FORMATS": ["%Y-%m-%d %H:%M:%S"],
     # 'PAGE_SIZE': 10,
     "DEFAULT_AUTHENTICATION_CLASSES": (
+        {% if cookiecutter.use_drf_jwt == "y" -%}
+        "rest_framework_jwt.authentication.JSONWebTokenAuthentication",
+        {%- else %}
         "rest_framework.authentication.TokenAuthentication",
+        {%- endif %}
         "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.BasicAuthentication",
     ),
     "DEFAULT_PERMISSION_CLASSES": (
         # 'rest_framework.permissions.AllowAny',
@@ -364,12 +375,35 @@ SWAGGER_SETTINGS = {
     # 'LOGIN_URL': 'rest_framework:login'
 }
 {%- endif %}
+
+{% if cookiecutter.use_drf_jwt == "y" -%}
+# django-rest-framework-jwt
+# -------------------------------------------------------------------------------
+# https://jpadilla.github.io/django-rest-framework-jwt/
+JWT_AUTH = {
+    "JWT_ALLOW_REFRESH": True,
+    # "JWT_REFRESH_EXPIRATION_DELTA": datetime.timedelta(days=7),
+    "JWT_RESPONSE_PAYLOAD_HANDLER": "{{cookiecutter.project_slug}}.users.api.serializers.jwt_response_payload_handler"
+}
+
+REST_USE_JWT = True
+{%- endif %}
+
+{% if cookiecutter.use_django_rest_auth == "y" -%}
+# django-rest-auth
+# -------------------------------------------------------------------------------
+REST_AUTH_SERIALIZERS = {
+    "USER_DETAILS_SERIALIZER": "{{cookiecutter.project_slug}}.users.api.serializers.MyUserSerializer",
+}
+{%- endif %}
+
 {% if cookiecutter.use_corsheaders == "y" -%}
 # cors-headers
 # ------------------------------------------------------------------------------
 CORS_URLS_REGEX = r"^/api/.*$"
 CORS_ORIGIN_ALLOW_ALL = True
 {%- endif %}
+
 # custom-admin
 # -------------------------------------------------------------------------------
 MESSAGE_TAGS = {

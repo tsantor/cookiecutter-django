@@ -15,12 +15,6 @@ admin.site.site_title = "{{ cookiecutter.project_name }}"
 admin.site.site_header = "{{ cookiecutter.project_name }}"
 admin.site.index_title = "Site administration"
 
-# Hide these allauth models from the Django admin
-# admin.site.unregister(EmailAddress)
-# admin.site.unregister(SocialAccount)
-# admin.site.unregister(SocialApp)
-# admin.site.unregister(SocialToken)
-
 urlpatterns = [
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
     path(
@@ -45,7 +39,7 @@ urlpatterns += [
     # API base url
     path("api/v1/", include("config.api_router")),
     # DRF auth token
-    path("auth-token/", obtain_auth_token),
+    # path("auth-token/", obtain_auth_token),
 ]
 {%- endif %}
 

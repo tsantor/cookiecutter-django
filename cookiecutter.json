@@ -48,6 +48,8 @@
   "use_corsheaders": "y",
   "use_async": "n",
   "use_drf": "n",
+  "use_django_rest_auth": "n",
+  "use_drf_jwt": "n",
   "custom_bootstrap_compilation": "n",
   "use_compressor": "n",
   "use_celery": "n",
