@@ -12,3 +12,12 @@ class User(AbstractUser):
 
     def get_absolute_url(self):
         return reverse("users:detail", kwargs={"username": self.username})
+
+    def __str__(self):
+        """Return a string representation of this object for display."""
+        if self.first_name and self.last_name:
+            return f"{self.last_name}, {self.first_name}"
+        elif self.username:
+            return self.username
+        elif self.email:
+            return self.email

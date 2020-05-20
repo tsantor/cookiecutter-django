@@ -67,6 +67,14 @@ class MyListViewSet(mixins.ListModelMixin, MyGenericViewSet):
     pass
 
 
+class MyListUpdateViewSet(
+    mixins.ListModelMixin, mixins.UpdateModelMixin, MyGenericViewSet
+):
+    """Custom API response format."""
+
+    pass
+
+
 class MyListRetrieveViewSet(
     mixins.ListModelMixin, mixins.RetrieveModelMixin, MyGenericViewSet
 ):
@@ -90,6 +98,14 @@ class MyRetrieveViewSet(mixins.RetrieveModelMixin, MyGenericViewSet):
 
 
 class MyUpdateViewSet(mixins.UpdateModelMixin, MyGenericViewSet):
+    """Custom API response format."""
+
+    pass
+
+
+class MyCreateUpdateViewSet(
+    mixins.CreateModelMixin, mixins.UpdateModelMixin, MyGenericViewSet
+):
     """Custom API response format."""
 
     pass
