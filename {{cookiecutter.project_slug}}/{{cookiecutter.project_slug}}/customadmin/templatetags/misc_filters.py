@@ -6,6 +6,7 @@ from django.contrib.admin.utils import quote
 from django.utils.safestring import mark_safe
 from django.core.exceptions import ImproperlyConfigured
 
+from django.utils.timezone import localtime
 
 # -----------------------------------------------------------------------------
 
@@ -81,3 +82,24 @@ def field_name(instance, field_name):
 #     if not hasattr(settings, "EMAIL_MEDIA_URL"):
 #         raise ImproperlyConfigured("The EMAIL_MEDIA_URL setting must not be empty.")
 #     return f"{settings.EMAIL_MEDIA_URL}{path}"
+
+
+@register.filter
+def datatables_datetime(value):
+    """Return as datatable moment js sortable date. eg - M d, Y g:i A
+    $.fn.dataTable.moment('MMM DD, YYYY h:mm A');
+    """
+    if value:
+        date = localtime(value)
+        return date.strftime("%b %d, %Y %I:%M %p")
+    return ""
+
+
+@register.filter
+def datatables_date(value):
+    """Return as datatable moment js sortable date. eg - M d, Y
+    $.fn.dataTable.moment('MMM DD, YYYY');
+    """
+    if value:
+        return value.strftime("%b %d, %Y")
+    return ""
