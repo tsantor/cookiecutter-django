@@ -16,7 +16,7 @@
   display: block;
   overflow: hidden;
   cursor: pointer;
-  border: 2px solid $navy;
+  border: 2px solid $primary-color;
   border-radius: 2px;
 }
 
@@ -47,7 +47,7 @@
 .onoffswitch-inner:before {
   content: "ON";
   padding-left: 10px;
-  background-color: $navy;
+  background-color: $primary-color;
   color: #FFFFFF;
 }
 
@@ -63,7 +63,7 @@
   width: 20px;
   margin: 0;
   background: #FFFFFF;
-  border: 2px solid $navy;
+  border: 2px solid $primary-color;
   border-radius: 2px;
   position: absolute;
   top: 0;
@@ -152,8 +152,8 @@
 }
 
 .page-item.active .page-link {
-  background-color: $navy;
-  border-color: $navy;
+  background-color: $primary-color;
+  border-color: $primary-color;
 }
 
 .page-link:focus {
@@ -165,8 +165,8 @@
 }
 
 .pagination .footable-page.active a {
-  background-color: $navy;
-  border-color: $navy;
+  background-color: $primary-color;
+  border-color: $primary-color;
   color: white;
 }
 
@@ -257,8 +257,8 @@
 }
 
 .fc-state-active {
-  background-color: $navy;
-  border-color: $navy;
+  background-color: $primary-color;
+  border-color: $primary-color;
   color: #ffffff;
 }
 
@@ -296,8 +296,8 @@
 .fc-agenda .fc-event-time,
 .fc-event a {
   padding: 4px 6px;
-  background-color: $navy; /* background color */
-  border-color: $navy; /* border color */
+  background-color: $primary-color; /* background color */
+  border-color: $primary-color; /* border color */
 }
 
 .fc-event-time, .fc-event-title {
@@ -417,8 +417,8 @@
 /* LIST GROUP */
 
 a.list-group-item.active, a.list-group-item.active:hover, a.list-group-item.active:focus {
-  background-color: $navy;
-  border-color: $navy;
+  background-color: $primary-color;
+  border-color: $primary-color;
   color: #FFFFFF;
   z-index: 2;
 }
@@ -772,7 +772,7 @@ div.dt-button-info {
 }
 
 .pace .pace-progress {
-  background: $navy;
+  background: $primary-color;
   position: fixed;
   z-index: 2040;
   top: 0;
@@ -941,11 +941,11 @@ select.form-control:not([size]):not([multiple]) {
 }
 
 .form-control:focus, .single-line:focus {
-  border-color: $navy;
+  border-color: $primary-color;
 }
 
 .has-success .form-control, .has-success .form-control:focus {
-  border-color: $navy;
+  border-color: $primary-color;
 }
 
 .has-warning .form-control, .has-warning .form-control:focus {
@@ -957,7 +957,7 @@ select.form-control:not([size]):not([multiple]) {
 }
 
 .has-success .control-label {
-  color: $navy;
+  color: $primary-color;
 }
 
 .has-warning .control-label {
@@ -997,7 +997,7 @@ select.form-control:not([size]):not([multiple]) {
 }
 
 .noUi-connect {
-  background: none repeat scroll 0 0 $navy;
+  background: none repeat scroll 0 0 $primary-color;
   box-shadow: none;
 }
 
@@ -1606,12 +1606,12 @@ label.error {
 }
 
 .toast {
-  background-color: $navy;
+  background-color: $primary-color;
   border-color: $border-color;
 }
 
 .toast-success {
-  background-color: $navy
+  background-color: $primary-color
 }
 
 .toast-error {
@@ -1672,7 +1672,7 @@ label.error {
 }
 
 .inspinia-notify.alert-info {
-  border-left: 6px solid $navy;
+  border-left: 6px solid $primary-color;
 }
 
 /* Image cropper style */
@@ -1812,11 +1812,11 @@ a.forum-item-title:hover {
 }
 
 .forum-item.active .fa {
-  color: $navy;
+  color: $primary-color;
 }
 
 .forum-item.active a.forum-item-title {
-  color: $navy;
+  color: $primary-color;
 }
 
 @media (max-width: 992px) {
@@ -2018,7 +2018,7 @@ a.forum-item-title:hover {
 }
 
 .vertical-date small {
-  color: $navy;
+  color: $primary-color;
   font-weight: 400;
 }
 
@@ -2294,7 +2294,7 @@ a.forum-item-title:hover {
   position: absolute;
   left: 10px;
   border-radius: 3px;
-  background: $navy;
+  background: $primary-color;
   padding: 3px;
   color: white;
   cursor: pointer;
@@ -2406,7 +2406,7 @@ a.forum-item-title:hover {
 
 .slick-prev:before,
 .slick-next:before {
-  color: $navy !important;
+  color: $primary-color !important;
 }
 
 /* Payments */
@@ -2451,7 +2451,7 @@ a.forum-item-title:hover {
 /* Select2 custom styles */
 .select2-container--bootstrap4 .select2-results__option--highlighted,
 .select2-container--bootstrap4 .select2-results__option--highlighted.select2-results__option[aria-selected=true] {
-  background-color: $navy;
+  background-color: $primary-color;
 }
 
 .select2-container--bootstrap4 .select2-selection,
@@ -2467,7 +2467,7 @@ a.forum-item-title:hover {
 
 .select2-container--bootstrap4.select2-container--focus .select2-selection {
   box-shadow: none;
-  border-color: $navy;
+  border-color: $primary-color;
 }
 
 .select2-container--bootstrap4 .select2-selection__clear {
@@ -2547,7 +2547,7 @@ body.tour-open .animated {
 
 .dropzone {
   min-height: 140px;
-  border: 1px dashed $navy;
+  border: 1px dashed $primary-color;
   background: white;
   padding: 20px 20px;
 
@@ -2596,8 +2596,8 @@ body.tour-open .animated {
 
       &.bg-primary {
         color: #ffffff;
-        background-color: $navy;
-        border-color: $navy;
+        background-color: $primary-color;
+        border-color: $primary-color;
       }
 
       &.bg-warning {

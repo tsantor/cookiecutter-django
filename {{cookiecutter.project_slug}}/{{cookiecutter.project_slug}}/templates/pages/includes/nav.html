@@ -1,10 +1,10 @@
-{% raw %}% load static i18n %}
+{% raw %}{% load static i18n %}
 
 <div class="navbar-wrapper">
   <nav class="navbar navbar-default navbar-fixed-top navbar-expand-md" role="navigation">
     <div class="container">
 
-      <a class="navbar-brand" href="{% url 'home' %}">VR TRAINING</a>
+      <a class="navbar-brand" href="{% url 'home' %}">{{ cookiecutter.project_name }}</a>
 
       <div class="navbar-header page-scroll">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">

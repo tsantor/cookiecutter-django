@@ -1,6 +1,9 @@
 // Basic Colors
-$navy: #036ce2; // Primary color
-//$navy: #1ab394;       // Primary color
+$primary-color: #036ce2; // Primary color
+$secondary-color: #1ab394;       // Secondary color
+
+$sidebar-bg: linear-gradient(to bottom, #3554a3 0, #1c3385 25%);
+
 $dark-gray: #c2c2c2; // Default color
 $blue: #1c84c6; // Success color
 $lazur: #23c6c8; // Info color
@@ -15,7 +18,7 @@ $label-badge-color: #5e5e5e;
 $light-blue: #f3f6fb;
 
 // Spinner color and margin
-$spin-color: $navy;
+$spin-color: $primary-color;
 $spin-margin: 0 auto;
 
 //Basics
