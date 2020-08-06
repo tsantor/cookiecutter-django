@@ -13,13 +13,13 @@ var utils = {
      * @param {element} formElem
      * @param {string} orderUrl
      */
-    updateOrder: function(formElem, orderUrl) {
+    updateOrder: function (formElem, orderUrl) {
         var postData = $(formElem).serializeArray();
         $.ajax({
             url: orderUrl,
             type: 'POST',
             data: postData,
-            success: function(data) {
+            success: function (data) {
                 console.log(data);
             }
         });
@@ -35,7 +35,7 @@ var utils = {
      * @param {element} orderElem
      * @param {function} updateFunc
      */
-    sortableTable: function(tableElem, orderElem, updateFunc) {
+    sortableTable: function (tableElem, orderElem, updateFunc) {
         console.debug('sortableTable', tableElem, orderElem);
         $(tableElem + ' tbody').sortable({
             cursor: 'move',
@@ -45,14 +45,14 @@ var utils = {
             distance: 10,
             tolerance: 'pointer',
             cancel: 'a',
-            helper: function(e, ui) {
+            helper: function (e, ui) {
                 // make sure table columns maintain their widths
-                ui.children().each(function() {
+                ui.children().each(function () {
                     $(this).width($(this).width());
                 });
                 return ui;
             },
-            update: function() {
+            update: function () {
                 utils.orderTableRows(tableElem, orderElem);
                 if (typeof updateFunc !== "undefined") {
                     updateFunc();
@@ -63,20 +63,20 @@ var utils = {
         utils.orderTableRows(tableElem, orderElem);
     },
 
-    sortableTableDragula: function(tableElem, orderElem, updateFunc) {
+    sortableTableDragula: function (tableElem, orderElem, updateFunc) {
         console.debug('sortableTableDragula', tableElem, orderElem);
 
         var drake = dragula({
             containers: [$(tableElem).find('tbody')[0]],
             direction: 'vertical'
         });
-        drake.on('drop', function(el, target, source, sibling) {
+        drake.on('drop', function (el, target, source, sibling) {
             utils.orderTableRows(tableElem, orderElem);
             if (typeof updateFunc !== "undefined") {
                 updateFunc();
             }
         });
-        drake.on('cloned', function(clone, original, type) {
+        drake.on('cloned', function (clone, original, type) {
             // TODO: make sure table columns maintain their widths
         });
 
@@ -93,12 +93,12 @@ var utils = {
      * @param {element} tableElem
      * @param {element} orderElem
      */
-    orderTableRows: function(tableElem, orderElem) {
+    orderTableRows: function (tableElem, orderElem) {
         console.debug('orderTableRows', tableElem, orderElem);
         var list_order = [];
 
         // keep track of tr item order
-        $(tableElem + ' tbody tr').each(function() {
+        $(tableElem + ' tbody tr').each(function () {
             var order = $(this).index() + 1;
             $(this).attr('data-order', order);
 
@@ -119,7 +119,7 @@ var utils = {
      *
      * @param {element} tableElem
      */
-    addTableRowActions: function(tableElem) {
+    addTableRowActions: function (tableElem) {
         console.debug('addTableRowActions');
         // copy thr row actions HTML and then inject it into the data table
         var actions = $('#row-actions').html();
@@ -128,12 +128,12 @@ var utils = {
         target.html(actions);
 
         // need to use icheck events rather than native events
-        $(tableElem + ' tbody tr input[type=checkbox]').on('ifChecked', function() {
+        $(tableElem + ' tbody tr input[type=checkbox]').on('ifChecked', function () {
             utils.action_ids.push($(this).val());
             //console.log(utils.action_ids);
         });
 
-        $(tableElem + ' tbody tr input[type=checkbox]').on('ifUnchecked', function() {
+        $(tableElem + ' tbody tr input[type=checkbox]').on('ifUnchecked', function () {
             var index = utils.action_ids.indexOf($(this).val());
             if (index > -1) {
                 utils.action_ids.splice(index, 1);
@@ -141,23 +141,23 @@ var utils = {
             //console.log(utils.action_ids);
         });
 
-        $('#select-all').on('ifChecked', function() {
+        $('#select-all').on('ifChecked', function () {
             $("input[name^='action']").iCheck('check');
         });
 
-        $('#select-all').on('ifUnchecked', function() {
+        $('#select-all').on('ifUnchecked', function () {
             $("input[name^='action']").iCheck('uncheck');
         });
 
         // Action submit button
-        $('#action-submit').click(function() {
+        $('#action-submit').click(function () {
             var action = $('#action-select').val();
             $('#action-modal .action-name').html(action);
             console.log(action);
             console.log(utils.action_ids);
 
             // Make sure there is no click event on this, so unbind it then add it again.
-            $('#action-modal .btn-danger').unbind('click').on('click', function() {
+            $('#action-modal .btn-danger').unbind('click').on('click', function () {
                 $.ajax({
                     url: window.action_url,
                     type: 'POST',
@@ -166,7 +166,7 @@ var utils = {
                         'action': action,
                         'primary_keys': JSON.stringify(utils.action_ids)
                     },
-                    success: function(data) {
+                    success: function (data) {
                         $('#action-modal').modal('hide');
                         if (data.result) {
                             console.debug(data);
@@ -192,8 +192,8 @@ var utils = {
      * @param {str} id
      * @param {function} callback
      */
-    inlineFormAdd: function(id, callback) {
-        $(document).on('click', '#add-inline', function() {
+    inlineFormAdd: function (id, callback) {
+        $(document).on('click', '#add-inline', function () {
             // console.log('add-form');
             event.preventDefault();
             var template_markup = $('#' + id + '-template').html();
@@ -214,8 +214,8 @@ var utils = {
      *
      * Sets up inline forms so we can remove rows.
      */
-    inlineFormRemove: function() {
-        $(document).on('click', '.inlineform-remove', function() {
+    inlineFormRemove: function () {
+        $(document).on('click', '.inlineform-remove', function () {
             if ($(this).hasClass('btn-default')) {
                 $(this).removeClass('btn-default').addClass('btn-danger')
                     .find('i').removeClass('fa-minus').addClass('fa-times');
@@ -230,52 +230,41 @@ var utils = {
                 $(this).parent().parent().remove();
             }
         });
-    }
+    },
 
     /**
-     * Add Published Filter
+     * tabbedNav
      *
-     * Takes a table and adds filtering by published.
-     *
-     * @param {element} tableElem
-     * @param {int} column
+     * Sets up inspinia tabs.
      */
-    /*addPublishedFilter: function(tableElem, column) {
-        console.debug('addPublishedFilter');
-        // filter by published/unpublished
-        function filterPublished(term) {
-            console.log(term);
-            var table = $(tableElem).DataTable();
-            table.columns(column).search(term).draw();
+    tabbedNav: function (defaultHash) {
+        function showHashTargetTab() {
+            // Show tab
+            $(".nav-tabs a").each(function (index) {
+                $(this).removeClass('active');
+            });
+            $('a[href="' + window.location.hash + '"]').addClass('active');
+
+            // Show tab content
+            $(".tab-content .tab-pane").each(function (index) {
+                $(this).removeClass('active');
+            });
+            $(window.location.hash).addClass('active');
         }
 
-        $('#btn-all').on('click', function(e) {
+        // Tabbed nav
+        $(".nav-tabs a").click(function (e) {
             e.preventDefault();
-            filterPublished($(this).attr('data-search'));
-            //$(this).addClass('active');
-            $(this).attr('disabled', 'disabled');
-            $('#btn-published').removeAttr('disabled');
-            $('#btn-unpublished').removeAttr('disabled');
+            window.location.hash = $(this).attr('href');
         });
 
-        $('#btn-published').on('click', function(e) {
-            e.preventDefault();
-            filterPublished($(this).attr('data-search'));
-            //$(this).addClass('active');
-            $(this).attr('disabled', 'disabled');
-            $('#btn-all').removeAttr('disabled');
-            $('#btn-unpublished').removeAttr('disabled');
-        });
-
-        $('#btn-unpublished').on('click', function(e) {
-            e.preventDefault();
-            filterPublished($(this).attr('data-search'));
-            //$(this).addClass('active');
-            $(this).attr('disabled', 'disabled');
-            $('#btn-all').removeAttr('disabled');
-            $('#btn-published').removeAttr('disabled');
-        });
-    }*/
-
+        // Show proper tab on page load
+        if (window.location.hash) {
+            showHashTargetTab();
+        } else {
+            window.location.hash = defaultHash;
+            showHashTargetTab();
+        }
+    }
 
 };

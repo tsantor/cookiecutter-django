@@ -2,6 +2,7 @@
 
 # Install requirements:
 echo "$(tput setaf 6)=> Install requirements ...$(tput sgr0)"
+pip install -U pip
 pip install -r requirements/local.txt
 pip install -r requirements/production.txt
 
