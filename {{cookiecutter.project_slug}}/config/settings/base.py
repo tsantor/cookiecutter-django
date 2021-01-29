@@ -86,6 +86,7 @@ THIRD_PARTY_APPS = [
 {%- endif %}
 {%- if cookiecutter.use_drf_jwt == "n" %}
     "rest_framework.authtoken",
+    "corsheaders",
 {%- endif %}
 {%- if cookiecutter.use_django_rest_auth == "y" %}
     "rest_auth",
@@ -157,6 +158,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/dev/ref/settings/#middleware
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+{%- if cookiecutter.use_drf == 'y' %}
+    "corsheaders.middleware.CorsMiddleware",
+{%- endif %}
 {%- if cookiecutter.use_whitenoise == 'y' %}
     "whitenoise.middleware.WhiteNoiseMiddleware",
 {%- endif %}
@@ -396,6 +400,10 @@ REST_USE_JWT = True
 REST_AUTH_SERIALIZERS = {
     "USER_DETAILS_SERIALIZER": "{{cookiecutter.project_slug}}.users.api.serializers.MyUserSerializer",
 }
+
+# django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
+CORS_URLS_REGEX = r"^/api/.*$"
+
 {%- endif %}
 
 {% if cookiecutter.use_corsheaders == "y" -%}
