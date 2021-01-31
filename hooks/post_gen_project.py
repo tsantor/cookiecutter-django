@@ -324,6 +324,11 @@ def remove_storages_module():
     os.remove(os.path.join("{{cookiecutter.project_slug}}", "utils", "storages.py"))
 
 
+def remove_docs():
+    """FORKED ENHANCEMENT: We like to use mkdocs."""
+    shutil.rmtree(os.path.join("docs"))
+
+
 def main():
     debug = "{{ cookiecutter.debug }}".lower() == "y"
 
@@ -407,6 +412,8 @@ def main():
 
     if "{{ cookiecutter.use_async }}".lower() == "n":
         remove_async_files()
+
+    remove_docs()
 
     print(SUCCESS + "Project initialized, keep up the good work!" + TERMINATOR)
 

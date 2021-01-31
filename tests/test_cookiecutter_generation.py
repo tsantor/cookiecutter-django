@@ -81,8 +81,6 @@ SUPPORTED_COMBINATIONS = [
     {"use_django_rest_auth": "n"},
     {"use_drf_jwt": "y"},
     {"use_drf_jwt": "n"},
-    {"use_corsheaders": "y"},
-    {"use_corsheaders": "n"},
     {"js_task_runner": "None"},
     {"js_task_runner": "Gulp"},
     {"custom_bootstrap_compilation": "y"},

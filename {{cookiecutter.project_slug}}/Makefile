@@ -6,3 +6,6 @@ migrations:
 
 migrate:
 	docker-compose -f local.yml run --rm django python manage.py migrate
+
+dev:
+	docker-compose -f local.yml up

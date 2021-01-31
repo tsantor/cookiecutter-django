@@ -75,6 +75,8 @@ THIRD_PARTY_APPS = [
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
+    "allauth.socialaccount.providers.facebook",
+    "allauth.socialaccount.providers.google",
 {%- if cookiecutter.use_celery == 'y' %}
     "django_celery_beat",
     "django_celery_results",
@@ -91,9 +93,6 @@ THIRD_PARTY_APPS = [
 {%- if cookiecutter.use_django_rest_auth == "y" %}
     "rest_auth",
     "rest_auth.registration",
-{%- endif %}
-{%- if cookiecutter.use_corsheaders == 'y' %}
-    "corsheaders",
 {%- endif %}
     "widget_tweaks",
     # "sorl.thumbnail",
@@ -412,14 +411,8 @@ REST_AUTH_SERIALIZERS = {
 
 # django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
 CORS_URLS_REGEX = r"^/api/.*$"
-
-{%- endif %}
-
-{% if cookiecutter.use_corsheaders == "y" -%}
-# cors-headers
-# ------------------------------------------------------------------------------
-CORS_URLS_REGEX = r"^/api/.*$"
 CORS_ORIGIN_ALLOW_ALL = True
+
 {%- endif %}
 
 # custom-admin

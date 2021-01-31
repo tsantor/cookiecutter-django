@@ -45,7 +45,6 @@
     "SparkPost",
     "Other SMTP"
   ],
-  "use_corsheaders": "y",
   "use_async": "n",
   "use_drf": "n",
   "use_django_rest_auth": "n",
