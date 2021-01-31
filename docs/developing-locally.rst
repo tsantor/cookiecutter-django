@@ -24,9 +24,9 @@ First things first.
 
     $ source <virtual env path>/bin/activate
 
-#. Install cookiecutter-django
+#. Install cookiecutter-django: ::
 
-    $ cookiecutter gh:pydanny/cookiecutter-django ::
+    $ cookiecutter gh:pydanny/cookiecutter-django
 
 #. Install development requirements: ::
 
@@ -34,10 +34,10 @@ First things first.
     $ git init # A git repo is required for pre-commit to install
     $ pre-commit install
 
-     .. note::
+   .. note::
 
-        the `pre-commit` exists in the generated project as default.
-        for the details of `pre-commit`, follow the [site of pre-commit](https://pre-commit.com/).
+       the `pre-commit` exists in the generated project as default.
+       for the details of `pre-commit`, follow the [site of pre-commit](https://pre-commit.com/).
 
 #. Create a new PostgreSQL database using createdb_: ::
 
@@ -80,7 +80,7 @@ First things first.
 
 or if you're running asynchronously: ::
 
-    $ gunicorn config.asgi --bind 0.0.0.0:8000 -k uvicorn.workers.UvicornWorker --reload
+    $ uvicorn config.asgi:application --host 0.0.0.0 --reload
 
 .. _PostgreSQL: https://www.postgresql.org/download/
 .. _Redis: https://redis.io/download
@@ -143,6 +143,10 @@ when developing locally. If you have the appropriate setup on your local machine
 in ``config/settings/local.py``::
 
     CELERY_TASK_ALWAYS_EAGER = False
+    
+To run Celery locally, make sure redis-server is installed (instructions are available at https://redis.io/topics/quickstart), run the server in one terminal with `redis-server`, and then start celery in another terminal with the following command::
+    
+    celery -A config.celery_app worker --loglevel=info
 
 
 Sass Compilation & Live Reloading

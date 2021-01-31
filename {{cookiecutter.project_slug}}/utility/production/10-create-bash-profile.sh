@@ -2,6 +2,6 @@
 
 touch ~/.bash_profile
 
-echo 'alias app="source ~/env/bin/activate && cd ~/project"' >> ~/.bash_profile
-echo 'alias rsp="app && ./manage.py runserver_plus 0.0.0.0:8000"' >> ~/.bash_profile
+echo 'alias app="source ~/{{cookiecutter.project_slug}}_env/bin/activate && cd ~/{{cookiecutter.project_slug}}"' >> ~/.bash_profile
+echo 'alias collectstatic="app && ./manage.py collectstatic --settings config.settings.production"' >> ~/.bash_profile
 source ~/.bash_profile

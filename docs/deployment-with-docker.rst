@@ -82,7 +82,7 @@ The Traefik reverse proxy used in the default configuration will get you a valid
 
 You can read more about this feature and how to configure it, at `Automatic HTTPS`_ in the Traefik docs.
 
-.. _Automatic HTTPS: https://docs.traefik.io/configuration/acme/
+.. _Automatic HTTPS: https://docs.traefik.io/https/acme/
 
 
 (Optional) Postgres Data Volume Modifications
@@ -124,8 +124,8 @@ To check the logs out, run::
 
 If you want to scale your application, run::
 
-   docker-compose -f production.yml scale django=4
-   docker-compose -f production.yml scale celeryworker=2
+   docker-compose -f production.yml up --scale django=4
+   docker-compose -f production.yml up --scale celeryworker=2
 
 .. warning:: don't try to scale ``postgres``, ``celerybeat``, or ``traefik``.
 

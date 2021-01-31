@@ -518,7 +518,7 @@ img.circle-border {
   font-weight: 600;
   padding: 17px 20px;
   text-align: center;
-  background-color: $navy;
+  background-color: $primary-color;
 }
 
 .login-panel {
@@ -756,7 +756,7 @@ table.table-mail tr td {
 }
 
 .navy-bg, .bg-primary {
-  background-color: $navy !important;;
+  background-color: $primary-color !important;;
   color: #ffffff;
 }
 
@@ -780,12 +780,12 @@ table.table-mail tr td {
 }
 
 .panel-primary {
-  border-color: $navy;
+  border-color: $primary-color;
 }
 
 .panel-primary > .panel-heading {
-  background-color: $navy;
-  border-color: $navy;
+  background-color: $primary-color;
+  border-color: $primary-color;
 }
 
 .panel-success {
@@ -829,7 +829,7 @@ table.table-mail tr td {
 }
 
 .progress-bar {
-  background-color: $navy;
+  background-color: $primary-color;
 }
 
 .progress-small, .progress-small .progress-bar {
@@ -881,7 +881,7 @@ table.table-mail tr td {
 /* COLORS */
 
 .text-navy {
-  color: $navy !important;
+  color: $primary-color !important;
 }
 
 .text-primary {

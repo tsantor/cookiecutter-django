@@ -1,9 +1,14 @@
 {% raw %}{% extends "base.html" %}
 
+{% block body_id %}{%endblock %}
+{% block body_class %}{{ block.super }} inner-page{%endblock %}
+
 {% block title %}Forbidden (403){% endblock %}
 
 {% block content %}
+<div class="middle-box text-center animated fadeInDown">
 <h1>Forbidden (403)</h1>
 
 <p>CSRF verification failed. Request aborted.</p>
+</div>
 {% endblock content %}{% endraw %}

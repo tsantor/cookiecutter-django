@@ -6,7 +6,7 @@ from django.apps import AppConfig
 
 
 class CustomAdminConfig(AppConfig):
-    name = "customadmin"
+    name = "{{ cookiecutter.project_slug }}.customadmin"
     verbose_name = "Custom Admin"
 
     def ready(self):

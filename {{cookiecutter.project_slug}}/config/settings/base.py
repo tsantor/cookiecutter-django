@@ -81,10 +81,12 @@ THIRD_PARTY_APPS = [
 {%- endif %}
 {%- if cookiecutter.use_drf == "y" %}
     "rest_framework",
-    "rest_framework_swagger",
+    # "rest_framework_swagger",
+    "drf_yasg",
 {%- endif %}
 {%- if cookiecutter.use_drf_jwt == "n" %}
     "rest_framework.authtoken",
+    "corsheaders",
 {%- endif %}
 {%- if cookiecutter.use_django_rest_auth == "y" %}
     "rest_auth",
@@ -156,6 +158,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/dev/ref/settings/#middleware
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+{%- if cookiecutter.use_drf == 'y' %}
+    "corsheaders.middleware.CorsMiddleware",
+{%- endif %}
 {%- if cookiecutter.use_whitenoise == 'y' %}
     "whitenoise.middleware.WhiteNoiseMiddleware",
 {%- endif %}
@@ -335,6 +340,15 @@ SOCIALACCOUNT_ADAPTER = "{{cookiecutter.project_slug}}.users.adapters.SocialAcco
 # SOCIALACCOUNT_FORMS = {
 #     "signup": "{{cookiecutter.project_slug}}.users.forms_allauth.CustomSocialSignupForm"
 # }
+
+# No username all-auth mods
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_UNIQUE_EMAIL = True
+
 {% if cookiecutter.use_compressor == 'y' -%}
 # django-compressor
 # ------------------------------------------------------------------------------
@@ -395,6 +409,10 @@ REST_USE_JWT = True
 REST_AUTH_SERIALIZERS = {
     "USER_DETAILS_SERIALIZER": "{{cookiecutter.project_slug}}.users.api.serializers.MyUserSerializer",
 }
+
+# django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
+CORS_URLS_REGEX = r"^/api/.*$"
+
 {%- endif %}
 
 {% if cookiecutter.use_corsheaders == "y" -%}

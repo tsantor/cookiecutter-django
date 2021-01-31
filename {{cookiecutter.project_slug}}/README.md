@@ -37,9 +37,11 @@ You can then access the site at `http://localhost:3000/` and the BrowserSync GUI
 
 ## Tech Stack
 
+- Ubuntu 18.04 LTS
 - Django 3
 - Python 3.8
 - Nginx
+- Gunicorn
 - PostgreSQL
 - Redis
 - Celery
