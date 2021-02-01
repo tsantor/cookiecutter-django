@@ -1,16 +1,17 @@
-from {{cookiecutter.project_slug}}.api.permissions import IsSuperUser
-from {{cookiecutter.project_slug}}.api.viewsets import MyModelViewSet
 from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework.decorators import action
-from rest_framework.mixins import (ListModelMixin, RetrieveModelMixin,
-                                   UpdateModelMixin)
+from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
-from .serializers import UserSerializer, MyUserSerializer
+from autodesk_arcade.api.permissions import IsSuperUser
+from autodesk_arcade.api.viewsets import MyModelViewSet
+
+from .serializers import MyUserSerializer, UserSerializer
 
 User = get_user_model()
+
 
 class UserViewSet(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericViewSet):
     serializer_class = UserSerializer

@@ -7,16 +7,10 @@ User = get_user_model()
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = [
-            # "username",
-            "email",
-            "name",
-            "url"
-        ]
+        fields = ["username", "email", "name", "url"]
 
         extra_kwargs = {
-            # "url": {"view_name": "api:user-detail", "lookup_field": "username"}
-            "url": {"view_name": "api:user-detail", "lookup_field": "pk"}
+            "url": {"view_name": "api:user-detail", "lookup_field": "username"}
         }
 
 
@@ -34,11 +28,18 @@ class MyUserSerializer(serializers.ModelSerializer):
             "last_name",
             "name",
             "email",
+            "password",
         )
+
+    def create(self, validated_data):
+        user = super().create(validated_data)
+        user.set_password(validated_data["password"])
+        user.save()
+        return user
 
 
 def jwt_response_payload_handler(token, user=None, request=None):
     return {
-        'token': token,
-        'user': MyUserSerializer(user, context={'request': request}).data
+        "token": token,
+        "user": MyUserSerializer(user, context={"request": request}).data,
     }
