@@ -47,9 +47,6 @@ django-cors-headers==3.7.0 # https://github.com/adamchainz/django-cors-headers
 
 # My forked additions
 # ------------------------------------------------------------------------------
-{%- if cookiecutter.use_corsheaders == 'y' %}
-django-cors-headers==3.2.1
-{%- endif %}
 {%- if cookiecutter.use_drf == "y" %}
 # django-rest-swagger==2.2.0
 drf-yasg~=1.17.1

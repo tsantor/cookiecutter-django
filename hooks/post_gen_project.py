@@ -328,10 +328,12 @@ def fork_remove_docs():
     """FORKED: We like to use mkdocs."""
     shutil.rmtree(os.path.join("docs"))
     os.remove(os.path.join(".readthedocs.yml"))
+    shutil.rmtree(os.path.join("compose", "local", "docs"))
+
 
 def fork_remove_rst():
     """FORKED: We use markdown"""
-    shutil.rmtree(os.path.join("README.rst"))
+    os.remove(os.path.join("README.rst"))
 
 
 def main():
