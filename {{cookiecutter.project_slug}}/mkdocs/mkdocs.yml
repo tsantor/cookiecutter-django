@@ -1,7 +1,7 @@
 site_name: {{ cookiecutter.project_name }} Documentation
 site_author: {{ cookiecutter.author_name }}
 use_directory_urls: true
-google_analytics: []
+# google_analytics: []
 
 # Copyright
 copyright: Copyright &copy; 2021 {{ cookiecutter.project_name }}&trade;
