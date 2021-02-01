@@ -3,6 +3,8 @@
 from rest_framework import mixins, viewsets
 # from ipware import get_client_ip
 
+class MyGenericViewSet(viewsets.GenericViewSet):
+    pass
 
 # class MyGenericViewSet(viewsets.GenericViewSet):
 #     """Custom API response format."""
