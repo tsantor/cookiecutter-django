@@ -5,7 +5,7 @@
   "description": "Behold My Awesome Project!",
   "author_name": "Tim Santor",
   "domain_name": "example.com",
-  "email": "tsantor@xstudios.agency",
+  "email": "tsantor@xstudios.com",
   "version": "0.1.0",
   "open_source_license": [
     "MIT",
@@ -17,7 +17,7 @@
   "timezone": "UTC",
   "windows": "n",
   "use_pycharm": "n",
-  "use_docker": "n",
+  "use_docker": "y",
   "postgresql_version": [
     "12.3",
     "11.8",
@@ -46,14 +46,14 @@
     "Other SMTP"
   ],
   "use_async": "n",
-  "use_drf": "n",
-  "use_django_rest_auth": "n",
-  "use_drf_jwt": "n",
+  "use_drf": "y",
+  "use_django_rest_auth": "y",
+  "use_drf_jwt": "y",
   "custom_bootstrap_compilation": "n",
   "use_compressor": "n",
-  "use_celery": "n",
-  "use_mailhog": "n",
-  "use_sentry": "n",
+  "use_celery": "y",
+  "use_mailhog": "y",
+  "use_sentry": "y",
   "use_whitenoise": "n",
   "use_heroku": "n",
   "ci_tool": [

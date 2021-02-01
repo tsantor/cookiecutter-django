@@ -75,8 +75,8 @@ THIRD_PARTY_APPS = [
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
-    "allauth.socialaccount.providers.facebook",
-    "allauth.socialaccount.providers.google",
+    # "allauth.socialaccount.providers.facebook",
+    # "allauth.socialaccount.providers.google",
 {%- if cookiecutter.use_celery == 'y' %}
     "django_celery_beat",
     "django_celery_results",
@@ -360,11 +360,12 @@ STATICFILES_FINDERS += ["compressor.finders.CompressorFinder"]
 # -------------------------------------------------------------------------------
 # django-rest-framework - https://www.django-rest-framework.org/api-guide/settings/
 REST_FRAMEWORK = {
-    "DATETIME_FORMAT": "%Y-%m-%d %H:%M:%S",  # 'iso-8601'
+    "DATETIME_FORMAT": "iso-8601",  # "%Y-%m-%d %H:%M:%S",  # 'iso-8601'
     "DATE_FORMAT": "%Y-%m-%d",
     "TIME_FORMAT": "%H:%M:%S",
     "DATETIME_INPUT_FORMATS": ["%Y-%m-%d %H:%M:%S"],
     # 'PAGE_SIZE': 10,
+    "DEFAULT_RENDERER_CLASSES": ["{{cookiecutter.project_slug}}.api.renderers.MyJSONRenderer"],
     "DEFAULT_AUTHENTICATION_CLASSES": (
         {% if cookiecutter.use_drf_jwt == "y" -%}
         "rest_framework_jwt.authentication.JSONWebTokenAuthentication",
@@ -385,7 +386,12 @@ REST_FRAMEWORK = {
 
 SWAGGER_SETTINGS = {
     "DOC_EXPANSION": "list",  # none, list, full
-    # 'LOGIN_URL': 'rest_framework:login'
+    # 'LOGIN_URL': 'api:user_authentication:login',
+    "USE_SESSION_AUTH": False,
+    "SECURITY_DEFINITIONS": {
+        "JWT": {"type": "apiKey", "name": "Authorization", "in": "header"}
+    },
+    "REFETCH_SCHEMA_WITH_AUTH": True,
 }
 {%- endif %}
 

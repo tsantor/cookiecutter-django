@@ -1,18 +1,40 @@
 # -*- coding: utf-8 -*-
 
 from rest_framework import mixins, viewsets
-
-# from .utils import get_status
-from .utils import modify_api_response
+# from ipware import get_client_ip
 
 
-class MyGenericViewSet(viewsets.GenericViewSet):
-    """Custom API response format."""
+# class MyGenericViewSet(viewsets.GenericViewSet):
+#     """Custom API response format."""
 
-    def finalize_response(self, request, response, *args, **kwargs):
-        # Override response (is there a better way to do this?)
-        response = modify_api_response(response)
-        return super().finalize_response(request, response, *args, **kwargs)
+#     def initial(self, request, *args, **kwargs):
+
+#         client_ip, _ = get_client_ip(request)
+#         request.META["REMOTE_ADDR"] = client_ip
+
+#         return super().initial(request, *args, **kwargs)
+
+#     def get_request_ip_address(self):
+#         return self.request.META.get("REMOTE_ADDR")
+
+#     def get_request_endpoint_url(self):
+#         return self.request.get_full_path()
+
+#     def get_requet_method_type(self):
+#         return self.request.method
+
+#     def get_serializer_context(self):
+#         """
+#         Override to set IP Address and request url in context
+#         """
+#         ctx = super().get_serializer_context()
+
+#         ctx["user"] = self.request.user
+#         ctx["ip_address"] = self.get_request_ip_address()
+#         ctx["endpoint_url"] = self.get_request_endpoint_url()
+#         ctx["endpoint_name"] = self.get_view_name()
+
+#         return ctx
 
 
 class MyModelViewSet(

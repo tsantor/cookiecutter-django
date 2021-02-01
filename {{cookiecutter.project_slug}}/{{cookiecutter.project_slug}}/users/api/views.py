@@ -1,5 +1,5 @@
-from api.permissions import IsSuperUser
-from api.viewsets import MyModelViewSet
+from {{cookiecutter.project_slug}}.api.permissions import IsSuperUser
+from {{cookiecutter.project_slug}}.api.viewsets import MyModelViewSet
 from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework.decorators import action
