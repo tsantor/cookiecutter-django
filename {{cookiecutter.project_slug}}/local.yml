@@ -55,6 +55,19 @@ services:
   #     - "7000:7000"
   #   command: /start-docs
 
+  mkdocs:
+    build:
+      context: .
+      dockerfile: ./compose/local/mkdocs/Dockerfile
+    image: {{ cookiecutter.project_slug }}_mkdocs
+    container_name: docs
+    volumes:
+      - ./mkdocs:/mkdocs
+    ports:
+      - "8989:8989"
+    command: /entrypoint
+    restart: always
+
   {%- if cookiecutter.use_mailhog == 'y' %}
 
   mailhog:

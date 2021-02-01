@@ -1,28 +1,76 @@
 site_name: {{ cookiecutter.project_name }} Documentation
-theme: material
 site_author: {{ cookiecutter.author_name }}
-use_directory_urls: false
-dev_addr: localhost:8989
+use_directory_urls: true
+google_analytics: []
 
+# Copyright
+copyright: Copyright &copy; 2021 {{ cookiecutter.project_name }}&trade;
+
+# Configuration
+theme:
+    name: "material"
+    icon:
+        repo: fontawesome/brands/git-alt
+    # logo: img/megamify_m_logo.svg
+    favicon: img/favicon.ico
+    font:
+        text: Ubuntu
+        code: Roboto Mono
+    features:
+        - tabs
+
+# Extensions
 markdown_extensions:
-  - admonition
-  - codehilite:
-      linenums: false
-  - pymdownx.betterem:
-      smart_enable: all
-  - pymdownx.details
-  - pymdownx.emoji:
-      emoji_generator: !!python/name:pymdownx.emoji.to_svg
-  - pymdownx.inlinehilite
-  - pymdownx.magiclink
-  - pymdownx.mark
-  - pymdownx.smartsymbols
-  - pymdownx.superfences
-  - pymdownx.tasklist:
-      custom_checkbox: true
-  - pymdownx.tilde
-  - toc:
-      permalink: true
+    - markdown.extensions.admonition
+    - markdown.extensions.attr_list
+    # - markdown.extensions.codehilite:
+    #       linenums: false
+    - fontawesome_markdown
+    - pymdownx.betterem:
+          smart_enable: all
+    - pymdownx.details
+    - pymdownx.highlight:
+          use_pygments: true
+          linenums: false
+    - pymdownx.inlinehilite
+    - pymdownx.magiclink
+    - pymdownx.mark
+    - pymdownx.smartsymbols
+    - pymdownx.superfences
+    - pymdownx.tasklist:
+          custom_checkbox: true
+    - pymdownx.tilde
+    - markdown.extensions.sane_lists
+    - markdown.extensions.smarty
+    # - markdown.extensions.tables
+    - markdown.extensions.toc:
+          toc_depth: 3
+          permalink: true
 
+# Plugins
+plugins:
+    - search
+    - awesome-pages
+    - minify:
+          minify_html: true
+          minify_js: true
+
+# Customization
 extra_css:
-  - css/extra.css
+    - css/extra.css
+
+extra_javascript:
+    # -
+
+nav:
+    - Getting Started:
+        - index.md
+
+extra:
+    social:
+        - icon: fontawesome/brands/twitter
+          link: https://twitter.com/username
+        - icon: fontawesome/brands/facebook
+          link: https://facebook.com/username
+        - icon: fontawesome/brands/instagram
+          link: https://instagram.com/username
