@@ -4,7 +4,7 @@
   <nav class="navbar navbar-default navbar-fixed-top navbar-expand-md" role="navigation">
     <div class="container">
 
-      <a class="navbar-brand" href="{% url 'home' %}">{% raw %}{{ cookiecutter.project_name }}{% endraw %}</a>
+      <a class="navbar-brand" href="{% url 'home' %}">{% endraw %}{% raw %}{{ cookiecutter.project_name }}{% endraw %}{% raw %}</a>
 
       <div class="navbar-header page-scroll">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
