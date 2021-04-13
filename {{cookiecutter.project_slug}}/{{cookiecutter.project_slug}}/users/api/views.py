@@ -5,8 +5,8 @@ from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateMode
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
-from autodesk_arcade.api.permissions import IsSuperUser
-from autodesk_arcade.api.viewsets import MyModelViewSet
+from {{cookiecutter.project_slug}}.api.permissions import IsSuperUser
+from {{cookiecutter.project_slug}}.api.viewsets import MyModelViewSet
 
 from .serializers import MyUserSerializer, UserSerializer
 

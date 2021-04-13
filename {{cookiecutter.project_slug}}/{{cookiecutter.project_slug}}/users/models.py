@@ -15,9 +15,15 @@ class User(AbstractUser):
     last_name = CharField(_("Last Name"), blank=True, max_length=255)
 
     @property
-    def name(self):
+    def full_name(self):
         if self.first_name and self.last_name:
             return f"{self.last_name}, {self.first_name}"
+        elif self.first_name:
+            return self.last_name
+        elif self.username:
+            return self.username
+        elif self.email:
+            return self.email
 
     def get_absolute_url(self):
         """Get url for user's detail view.
@@ -30,9 +36,4 @@ class User(AbstractUser):
 
     def __str__(self):
         """Return a string representation of this object for display."""
-        if self.first_name and self.last_name:
-            return f"{self.last_name}, {self.first_name}"
-        elif self.username:
-            return self.username
-        elif self.email:
-            return self.email
+        return self.full_name

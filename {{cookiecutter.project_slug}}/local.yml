@@ -90,7 +90,7 @@ services:
     depends_on:
       - redis
       - postgres
-      {% if cookiecutter.use_mailhog == 'y' -%}
+      {%- if cookiecutter.use_mailhog == 'y' %}
       - mailhog
       {%- endif %}
     ports: []
@@ -103,7 +103,7 @@ services:
     depends_on:
       - redis
       - postgres
-      {% if cookiecutter.use_mailhog == 'y' -%}
+      {%- if cookiecutter.use_mailhog == 'y' %}
       - mailhog
       {%- endif %}
     ports: []

@@ -9,6 +9,7 @@
 <div class="middle-box text-center animated fadeInDown">
 <h1>Forbidden (403)</h1>
 
-<p>CSRF verification failed. Request aborted.</p>
+<p>{% if exception %}{{ exception }}{% else %}You're not allowed to access this page.{% endif %}</p>
 </div>
-{% endblock content %}{% endraw %}
+{% endblock content %}
+{%- endraw %}

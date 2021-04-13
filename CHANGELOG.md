@@ -3,6 +3,75 @@ All enhancements and patches to Cookiecutter Django will be documented in this f
 
 <!-- GENERATOR_PLACEHOLDER -->
 
+## [2021-04-11]
+### Updated
+- Update pytest-django to 4.2.0 ([#3125](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3125))
+- Update pylint-django to 2.4.3 ([#3122](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3122))
+
+## [2021-04-09]
+### Changed
+- Update from Python 3.8 to Python 3.9 ([#3023](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3023))
+
+## [2021-04-08]
+### Changed
+- Switch .dockerignore to explicit list ([#3121](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3121))
+- Change Docker image to multi-stage build for Django ([#2815](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/2815))
+- Fix deprecated warning in middleware tests ([#3038](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3038))
+### Updated
+- Update pre-commit to 2.12.0 ([#3120](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3120))
+
+## [2021-04-07]
+### Changed
+- Update django to 3.1.8 ([#3117](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3117))
+### Fixed
+- Fix linting via pre-commit on Github CI ([#3077](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3077))
+- Fix gitlab-ci using duplicate key name for image ([#3112](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3112))
+### Updated
+- Update sentry-sdk to 1.0.0 ([#3080](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3080))
+- Update gunicorn to 20.1.0 ([#3108](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3108))
+- Update pre-commit to 2.12.0 ([#3118](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3118))
+- Update django-extensions to 3.1.2 ([#3116](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3116))
+- Update pillow to 8.2.0 ([#3113](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3113))
+- Update pytest to 6.2.3 ([#3115](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3115))
+
+## [2021-03-26]
+### Updated
+- Update djangorestframework to 3.12.4 ([#3107](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3107))
+
+## [2021-03-25]
+### Updated
+- Update djangorestframework to 3.12.3 ([#3105](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3105))
+
+## [2021-03-22]
+### Updated
+- Update django-crispy-forms to 1.11.2 ([#3104](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3104))
+- Update sphinx to 3.5.3 ([#3103](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3103))
+- Update ipdb to 0.13.7 ([#3102](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3102))
+- Update sphinx-autobuild to 2021.3.14 ([#3101](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3101))
+- Update isort to 5.8.0 ([#3100](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3100))
+- Update pre-commit to 2.11.1 ([#3089](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3089))
+- Update flake8 to 3.9.0 ([#3096](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3096))
+- Update pillow to 8.1.2 ([#3084](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3084))
+- Auto-update pre-commit hooks ([#3095](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3095))
+
+## [2021-03-05]
+### Changed
+- Updated test_urls.py and views.py to re-use User.get_absolute_url() ([#3070](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3070))
+### Updated
+- Bump stefanzweifel/git-auto-commit-action from v4.9.1 to v4.9.2 ([#3082](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3082))
+
+## [2021-03-03]
+### Updated
+- Update tox to 3.23.0 ([#3079](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3079))
+- Update ipdb to 0.13.5 ([#3078](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3078))
+
+## [2021-03-02]
+### Fixed
+- Fixes for pytest job in Github CI workflow ([#3076](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3076))
+### Updated
+- Update pillow to 8.1.1 ([#3075](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3075))
+- Update coverage to 5.5 ([#3074](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3074))
+
 ## [2021-02-24]
 ### Updated
 - Bump stefanzweifel/git-auto-commit-action from v4.9.0 to v4.9.1 ([#3069](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3069))
@@ -532,7 +601,7 @@ All enhancements and patches to Cookiecutter Django will be documented in this f
 ### Removed
 - Remove the user list view (@browniebroke)
 
-### Fixed 
+### Fixed
 - Static storage default ACL (@browniebroke)
 
 ## [2019-05-17]
@@ -568,7 +637,7 @@ All enhancements and patches to Cookiecutter Django will be documented in this f
 ## [2019-03-11]
 ### Changed
 - Sentry integration from Raven to Sentry-SDK (@gfabricio)
-- Made Redis config conditional on Celery locally (@demestav) 
+- Made Redis config conditional on Celery locally (@demestav)
 
 ## [2019-03-11]
 ### Added
@@ -637,7 +706,7 @@ All enhancements and patches to Cookiecutter Django will be documented in this f
 ### Changed
 - Test commands to use pytest (@jcass77)
 
-### Removed 
+### Removed
 - Some hacks leftovers from Bootstrap v4 beta in `project.js` (@hendrikschneider)
 
 ## [2018-07-12]

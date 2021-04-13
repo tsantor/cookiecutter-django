@@ -9,6 +9,7 @@
 <div class="middle-box text-center animated fadeInDown">
 <h1>Page not found</h1>
 
-<p>This is not the page you were looking for.</p>
+<p>{% if exception %}{{ exception }}{% else %}This is not the page you were looking for.{% endif %}</p>
 </div>
-{% endblock content %}{% endraw %}
+{% endblock content %}
+{%- endraw %}

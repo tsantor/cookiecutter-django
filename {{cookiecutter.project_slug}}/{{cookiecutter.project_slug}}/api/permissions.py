@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from rest_framework.permissions import IsAdminUser
+from rest_framework.permissions import BasePermission, IsAdminUser
 
 
 class IsSuperUser(IsAdminUser):
