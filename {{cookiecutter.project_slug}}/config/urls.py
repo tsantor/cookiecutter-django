@@ -14,6 +14,7 @@ from rest_framework.authtoken.views import obtain_auth_token
 admin.site.site_title = "{{ cookiecutter.project_name }}"
 admin.site.site_header = "{{ cookiecutter.project_name }}"
 admin.site.index_title = "Site administration"
+admin.site.enable_nav_sidebar = False
 
 urlpatterns = [
     # path("", TemplateView.as_view(template_name="pages/home_inspinia.html"), name="home"),
