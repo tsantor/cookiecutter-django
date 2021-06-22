@@ -278,8 +278,10 @@ LOGGING = {
     "disable_existing_loggers": False,
     "formatters": {
         "verbose": {
-            "format": "%(levelname)s %(asctime)s %(module)s "
-            "%(process)d %(thread)d %(message)s"
+            # "format": "%(levelname)s %(asctime)s %(module)s "
+            # "%(process)d %(thread)d %(message)s"
+            "format": "[%(asctime)s %(levelname)s/Process-%(process)d] "
+            "[%(module)s] %(message)s"
         }
     },
     "handlers": {
@@ -485,17 +487,16 @@ CKEDITOR_CONFIGS = {
 }
 
 ADMIN_HIDE_PERMS = [
-    "contenttypes",
-    "sessions",
+    "account",
     "admin",
-    # "authtoken",
-    # "thumbnail",
-    # "corsheaders",
-    # "sites",
-    # "account",
-    # "socialaccount",
-    # "django_celery_beat",
-    # "django_celery_results"
+    "auth",
+    "contenttypes",
+    "django_celery_beat",
+    "django_celery_results",
+    "sessions",
+    "sites",
+    "socialaccount",
+    "thumbnail",
 ]
 
 
