@@ -3,6 +3,34 @@ All enhancements and patches to Cookiecutter Django will be documented in this f
 
 <!-- GENERATOR_PLACEHOLDER -->
 
+## [2021-07-08]
+### Updated
+- Update django to 3.1.13 ([#3247](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3247))
+
+## [2021-06-29]
+### Changed
+- Improve github bug report template ([#3243](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3243))
+
+## [2021-06-28]
+### Changed
+- Revert &#34;Fix Celery ports error on local Docker&#34; ([#3242](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3242))
+### Fixed
+- Fix Celery ports error on local Docker ([#3241](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3241))
+
+## [2021-06-25]
+### Changed
+- Update `.gitignore` file for VSCode ([#3238](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3238))
+### Fixed
+- Wrap jQuery call in `DOMContentLoaded` event listener on account email page ([#3239](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3239))
+
+## [2021-06-22]
+### Changed
+- Update docs/howto.rst ([#3230](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3230))
+- Add support for PG 13. Drop PG 9. Update all minor versions ([#3154](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3154))
+### Updated
+- Update isort to 5.9.1 ([#3236](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3236))
+- Auto-update pre-commit hooks ([#3235](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3235))
+
 ## [2021-06-21]
 ### Updated
 - Update isort to 5.9.0 ([#3234](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3234))
