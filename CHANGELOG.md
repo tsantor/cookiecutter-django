@@ -3,6 +3,48 @@ All enhancements and patches to Cookiecutter Django will be documented in this f
 
 <!-- GENERATOR_PLACEHOLDER -->
 
+## [2021-08-13]
+### Changed
+- Upgrade to Redis 6 ([#3255](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3255))
+### Fixed
+- Fix RTD build image to support Python 3.9 ([#3293](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3293))
+
+## [2021-08-12]
+### Changed
+- Add documentation for automating backups ([#3268](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3268))
+- Add missing step to getting started locally in docs ([#3291](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3291))
+- Moved isort config from `.editorconfig` to `setup.cfg` ([#3290](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3290))
+- How to pre-commit in Docker Development ([#3287](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3287))
+### Updated
+- Update sentry-sdk to 1.3.1 ([#3281](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3281))
+- Update tox to 3.24.1 ([#3285](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3285))
+- Update pre-commit to 2.14.0 ([#3289](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3289))
+
+## [2021-07-30]
+### Updated
+- Auto-update pre-commit hooks ([#3283](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3283))
+- Update isort to 5.9.3 ([#3282](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3282))
+
+## [2021-07-27]
+### Changed
+- Convert trans to translate in templates ([#3277](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3277))
+### Updated
+- Update hiredis to 2.0.0 ([#3110](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3110))
+- Update mypy to 0.910 ([#3237](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3237))
+- Update whitenoise to 5.3.0 ([#3273](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3273))
+- Update tox to 3.24.0 ([#3269](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3269))
+- Update django-allauth to 0.45.0 ([#3267](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3267))
+- Update sentry-sdk to 1.3.0 ([#3262](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3262))
+- Update sphinx to 4.1.2 ([#3278](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3278))
+- Auto-update pre-commit hooks ([#3264](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3264))
+- Update isort to 5.9.2 ([#3279](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3279))
+- Update pillow to 8.3.1 ([#3259](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3259))
+- Update black to 21.7b0 ([#3272](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3272))
+
+## [2021-07-12]
+### Changed
+- Define REMAP_SIGTERM=SIGQUIT on Profile of Celery on Heroku ([#3263](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3263))
+
 ## [2021-07-08]
 ### Updated
 - Update django to 3.1.13 ([#3247](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3247))
