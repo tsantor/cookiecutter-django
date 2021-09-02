@@ -4,8 +4,10 @@ Hide permission in the Django admin which are irrelevant, and not used at all.
 from django.conf import settings
 from django.contrib import admin
 from django.contrib.auth import get_user_model
-from django.contrib.auth.admin import GroupAdmin, UserAdmin
+from django.contrib.auth.admin import GroupAdmin  # UserAdmin
 from django.contrib.auth.models import Group, User
+
+from {{ cookiecutter.project_slug }}.users.admin import UserAdmin
 
 
 class PermissionFilterMixin(object):

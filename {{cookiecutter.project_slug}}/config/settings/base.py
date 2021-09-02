@@ -99,6 +99,9 @@ THIRD_PARTY_APPS = [
     # "phonenumber_field",
     # "django_countries",
     "ckeditor",
+{%- if cookiecutter.use_django_auditlog == "y" %}
+    "auditlog",
+{%- endif %}
 ]
 
 LOCAL_APPS = [

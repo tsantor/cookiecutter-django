@@ -15,7 +15,7 @@ class UserAdmin(auth_admin.UserAdmin):
     add_form = UserCreationForm
     fieldsets = (
         (None, {"fields": ("username", "password")}),
-        (_("Personal info"), {"fields": ("name", "email")}),
+        (_("Personal info"), {"fields": ("first_name", "last_name", "email")}),
         (
             _("Permissions"),
             {
@@ -30,37 +30,39 @@ class UserAdmin(auth_admin.UserAdmin):
         ),
         (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
-    list_display = ["username", "name", "is_superuser"]
-    search_fields = ["name"]
+    list_display = [
+        "username",
+        "first_name",
+        "last_name",
+        "is_staff",
+        "is_superuser",
+        "last_login",
+    ]
+    search_fields = ["first_name", "last_name", "email"]
 
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
         is_superuser = request.user.is_superuser
-        disabled_fields = set()  # type: Set[str]
+        disabled_fields = set()
 
         if not is_superuser:
 
             disabled_fields |= {
-                'username',
-                'is_superuser',
-                'user_permissions',
-                'date_joined',
-                'last_login'
-
+                "username",
+                "is_superuser",
+                "user_permissions",
+                "date_joined",
+                "last_login",
             }
             # del form.base_fields['user_permissions']
 
         # Prevent non-superusers from editing their own permissions
-        if (
-            not is_superuser
-            and obj is not None
-            and obj == request.user
-        ):
+        if not is_superuser and obj is not None and obj == request.user:
             disabled_fields |= {
-                'is_staff',
-                'is_superuser',
-                'groups',
-                'user_permissions',
+                "is_staff",
+                "is_superuser",
+                "groups",
+                "user_permissions",
             }
 
         for f in disabled_fields:

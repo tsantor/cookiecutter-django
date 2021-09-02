@@ -64,6 +64,8 @@ def remove_docker_files():
 def remove_utility_files():
     shutil.rmtree("utility")
 
+def remove_docker_utility_files():
+    shutil.rmtree("utility-scripts")
 
 def remove_heroku_files():
     file_names = ["Procfile", "runtime.txt", "requirements.txt"]
@@ -358,6 +360,7 @@ def main():
         remove_utility_files()
     else:
         remove_docker_files()
+        remove_docker_utility_files()
 
     if (
         "{{ cookiecutter.use_docker }}".lower() == "y"
