@@ -31,7 +31,7 @@ class MediaRootGoogleCloudStorage(GoogleCloudStorage):
 {%- endif %}
 
 
-{%- elif cookiecutter.use_whitenoise -%}
+{%- if cookiecutter.use_whitenoise -%}
 from whitenoise.storage import CompressedManifestStaticFilesStorage
 
 class CustomCompressedManifestStaticFilesStorage(CompressedManifestStaticFilesStorage):
