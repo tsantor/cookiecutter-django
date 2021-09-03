@@ -12,4 +12,3 @@ class UsersConfig(AppConfig):
         except ImportError:
             pass
         from {{ cookiecutter.project_slug }}.base import patch_admin_perms  # noqa F401
-        from {{ cookiecutter.project_slug }}.base import patch_admin  # noqa F401

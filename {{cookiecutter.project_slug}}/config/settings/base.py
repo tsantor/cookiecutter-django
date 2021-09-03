@@ -1,6 +1,7 @@
 """
 Base settings to build other settings files upon.
 """
+import re
 from pathlib import Path
 
 import environ
@@ -489,17 +490,42 @@ CKEDITOR_CONFIGS = {
     }
 }
 
-ADMIN_HIDE_PERMS = [
-    "account",
-    "admin",
-    "auth",
-    "contenttypes",
-    "django_celery_beat",
-    "django_celery_results",
-    "sessions",
-    "sites",
-    "socialaccount",
-    "thumbnail",
+ADMIN_PATCH = {
+    "HIDE_APPS": [
+        "account",
+        "admin",
+        "auth",
+        "contenttypes",
+        "django_celery_beat",
+        "django_celery_results",
+        "sessions",
+        "sites",
+        "socialaccount",
+        "thumbnail",
+    ],
+    "HIDE_PERMS": [
+
+    ],
+    "UNREGISTER_MODELS": [
+        "allauth.account.models.EmailAddress",
+        "allauth.socialaccount.models.SocialAccount",
+        "allauth.socialaccount.models.SocialApp",
+        "allauth.socialaccount.models.SocialToken",
+        "django_celery_beat.models.ClockedSchedule",
+        "django_celery_beat.models.CrontabSchedule",
+        "django_celery_beat.models.IntervalSchedule",
+        "django_celery_beat.models.PeriodicTask",
+        "django_celery_beat.models.SolarSchedule",
+        # "django_celery_results.models.TaskResult",
+        # "django.contrib.sites.models.Site",
+    ],
+}
+
+# https://docs.djangoproject.com/en/3.2/howto/error-reporting/
+IGNORABLE_404_URLS = [
+    re.compile(r'^/apple-touch-icon.*\.png$'),
+    re.compile(r'^/favicon\.ico$'),
+    re.compile(r'^/robots\.txt$'),
 ]
 
 
