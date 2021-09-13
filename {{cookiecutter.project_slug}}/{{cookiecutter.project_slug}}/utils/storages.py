@@ -34,7 +34,14 @@ class MediaRootGoogleCloudStorage(GoogleCloudStorage):
 {%- if cookiecutter.use_whitenoise -%}
 from whitenoise.storage import CompressedManifestStaticFilesStorage
 
-class CustomCompressedManifestStaticFilesStorage(CompressedManifestStaticFilesStorage):
+class StaticRootWhiteNoiseStorage(CompressedManifestStaticFilesStorage):
+    """
+    A forgiving version of manifest file storage.
+
+    Ensure you use:
+    COLLECTFAST_STRATEGY = "collectfast.strategies.filesystem.FileSystemStrategy"
+    """
+
     manifest_strict = False
 
     def hashed_name(self, name, content=None, filename=None):

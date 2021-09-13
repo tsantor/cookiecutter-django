@@ -391,6 +391,13 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>Charlie Macfarlane Brodie</td>
+    <td>
+      <a href="https://github.com/tannart">tannart</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>Charlie Smith</td>
     <td>
       <a href="https://github.com/chuckus">chuckus</a>
@@ -683,6 +690,13 @@ Listed in alphabetical order.
       <a href="https://github.com/step21">step21</a>
     </td>
     <td>windrush</td>
+  </tr>
+  <tr>
+    <td>Floyd Hightower</td>
+    <td>
+      <a href="https://github.com/fhightower">fhightower</a>
+    </td>
+    <td></td>
   </tr>
   <tr>
     <td>Gabriel Mejia</td>
