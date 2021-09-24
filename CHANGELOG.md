@@ -3,6 +3,31 @@ All enhancements and patches to Cookiecutter Django will be documented in this f
 
 <!-- GENERATOR_PLACEHOLDER -->
 
+## [2021-09-23]
+### Updated
+- Update sentry-sdk to 1.4.1 ([#3325](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3325))
+
+## [2021-09-22]
+### Updated
+- Update sentry-sdk to 1.4.0 ([#3324](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3324))
+
+## [2021-09-16]
+### Updated
+- Update tox to 3.24.4 ([#3323](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3323))
+
+## [2021-09-15]
+### Updated
+- Auto-update pre-commit hooks ([#3322](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3322))
+
+## [2021-09-14]
+### Updated
+- Update black to 21.9b0 ([#3321](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3321))
+
+## [2021-09-13]
+### Updated
+- Bump stefanzweifel/git-auto-commit-action from 4.11.0 to 4.12.0 ([#3320](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3320))
+- Update sphinx to 4.2.0 ([#3319](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3319))
+
 ## [2021-09-11]
 ### Changed
 - Removing pycharm docs if app does not use pycharm ([#3139](https://api.github.com/repos/pydanny/cookiecutter-django/pulls/3139))
