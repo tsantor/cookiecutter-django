@@ -15,6 +15,14 @@ class ManifestS3Storage(S3ManifestStaticStorage):
     default_acl = "public-read"
     manifest_strict = False
 
+    def hashed_name(self, name, content=None, filename=None):
+        try:
+            result = super().hashed_name(name, content, filename)
+        except ValueError:
+            # When the file is missing, let's forgive and ignore that.
+            result = name
+        return result
+
 
 {%- elif cookiecutter.cloud_provider == 'GCP' -%}
 from storages.backends.gcloud import GoogleCloudStorage

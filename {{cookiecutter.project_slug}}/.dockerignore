@@ -1,3 +1,7 @@
+# We only need what is required to run the app, no build/testing artifacts
+
+.DS_Store
+.coveragerc
 .editorconfig
 .gitattributes
 .github
@@ -5,6 +9,27 @@
 .gitlab-ci.yml
 .idea
 .pre-commit-config.yaml
+.pylintrc
 .readthedocs.yml
 .travis.yml
-venv
+.travis.yml
+.env
+
+pytest.ini
+setup.cfg
+
+*.log
+.envs/
+.git/
+.vscode/
+node_modules/
+static_collection/
+staticfiles/
+media/
+utility-scripts/
+venv/
+
+# Docker compose files
+production.yml
+staging.yml
+local.yml
