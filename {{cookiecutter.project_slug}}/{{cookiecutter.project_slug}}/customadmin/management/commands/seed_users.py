@@ -1,9 +1,9 @@
 import pandas as pd
 from django.contrib.auth import get_user_model
 
-# from django.contrib.auth.models import Group, Permission
 from django.core.management.base import BaseCommand
 
+# from django.contrib.auth.models import Group, Permission
 
 def get_boolean(value):
     if not pd.isna(value):
