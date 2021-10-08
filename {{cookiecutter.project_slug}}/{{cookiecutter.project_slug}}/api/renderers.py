@@ -37,9 +37,11 @@ class MyJSONRenderer(JSONRenderer):
         response = renderer_context["response"]
 
         # Modify the response into a cohesive response format
-        modified_data = {}
-        modified_data["code"] = response.status_code
-        modified_data["status"] = get_status(response.status_code)
+        modified_data = {
+            'code': response.status_code,
+            'status': get_status(response.status_code),
+        }
+
         if status.is_client_error(response.status_code) or status.is_server_error(
             response.status_code
         ):

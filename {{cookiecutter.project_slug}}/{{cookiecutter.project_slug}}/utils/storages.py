@@ -1,3 +1,6 @@
+{% if cookiecutter.use_whitenoise %}
+from whitenoise.storage import CompressedManifestStaticFilesStorage
+{% endif %}
 {% if cookiecutter.cloud_provider == 'AWS' -%}
 from storages.backends.s3boto3 import S3Boto3Storage, S3ManifestStaticStorage
 
@@ -39,9 +42,7 @@ class MediaRootGoogleCloudStorage(GoogleCloudStorage):
 {%- endif %}
 
 
-{%- if cookiecutter.use_whitenoise -%}
-from whitenoise.storage import CompressedManifestStaticFilesStorage
-
+{% if cookiecutter.use_whitenoise %}
 class StaticRootWhiteNoiseStorage(CompressedManifestStaticFilesStorage):
     """
     A forgiving version of manifest file storage.
@@ -59,4 +60,4 @@ class StaticRootWhiteNoiseStorage(CompressedManifestStaticFilesStorage):
             # When the file is missing, let's forgive and ignore that.
             result = name
         return result
-{%- endif %}
+{% endif %}
