@@ -99,10 +99,10 @@ GS_DEFAULT_ACL = "publicRead"
 
 {% if cookiecutter.cloud_provider != 'None' or cookiecutter.use_whitenoise == 'y' -%}
 # STATIC
-# ------------------------
+# ------------------------------------------------------------------------------
 {% endif -%}
 {% if cookiecutter.use_whitenoise == 'y' -%}
-STATICFILES_STORAGE = "{{cookiecutter.project_slug}.utils.storages.StaticRootWhiteNoiseStorage"
+STATICFILES_STORAGE = "{{cookiecutter.project_slug}}.utils.storages.StaticRootWhiteNoiseStorage"
 {% elif cookiecutter.cloud_provider == 'AWS' -%}
 STATICFILES_STORAGE = "{{cookiecutter.project_slug}}.utils.storages.StaticRootS3Boto3Storage"
 COLLECTFAST_STRATEGY = "collectfast.strategies.boto3.Boto3Strategy"

@@ -23,7 +23,7 @@ env:
 	pyenv virtualenv ${python_version} ${venv} && pyenv local ${venv}
 
 reqs:
-	python -m pip install -U pip black pylint pre-commit && pre-commit install
+	python -m pip install -U pip wheel black pylint pre-commit && pre-commit install
 
 build_django:
 	${local} build django

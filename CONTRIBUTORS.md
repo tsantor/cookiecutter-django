@@ -503,6 +503,13 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>dalrrard</td>
+    <td>
+      <a href="https://github.com/dalrrard">dalrrard</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>Dan Shultz</td>
     <td>
       <a href="https://github.com/shultz">shultz</a>
@@ -1070,6 +1077,13 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>Liam Brenner</td>
+    <td>
+      <a href="https://github.com/SableWalnut">SableWalnut</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>Lin Xianyi</td>
     <td>
       <a href="https://github.com/iynaix">iynaix</a>
@@ -1257,6 +1271,13 @@ Listed in alphabetical order.
       <a href="https://github.com/nicolas471">nicolas471</a>
     </td>
     <td>moby_dick91</td>
+  </tr>
+  <tr>
+    <td>Noah H</td>
+    <td>
+      <a href="https://github.com/nthall">nthall</a>
+    </td>
+    <td></td>
   </tr>
   <tr>
     <td>Oleg Russkin</td>
