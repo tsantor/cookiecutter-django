@@ -2,7 +2,7 @@
 
 ## Tech Stack
 
-- Ubuntu 18.04 LTS
+- Ubuntu 20.04 LTS
 - Django 3
 - Python 3.8
 - Nginx
@@ -10,7 +10,6 @@
 - PostgreSQL
 - Redis
 - Celery
-- Supervisor
 
 
 ### Clone the Repo
