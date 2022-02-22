@@ -114,7 +114,8 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "{{ cookiecutter.project_slug }}.customadmin.apps.CustomAdminConfig",
-    "{{ cookiecutter.project_slug }}.users.apps.UsersConfig",
+    # "{{ cookiecutter.project_slug }}.users.apps.UsersConfig",
+    "{{ cookiecutter.project_slug }}.users",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -228,12 +229,10 @@ TEMPLATES = [
                 "django.template.context_processors.static",
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
-<<<<<<< HEAD
+
                 "{{ cookiecutter.project_slug }}.utils.context_processors.settings_context",
                 "{{ cookiecutter.project_slug }}.customadmin.context_processors.settings_context",
-=======
                 "{{cookiecutter.project_slug}}.users.context_processors.allauth_settings",
->>>>>>> upstream/master
             ],
         },
     }
@@ -348,7 +347,6 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_ADAPTER = "{{cookiecutter.project_slug}}.users.adapters.AccountAdapter"
-<<<<<<< HEAD
 # ACCOUNT_FORMS = {"signup": "{{cookiecutter.project_slug}}.users.forms_allauth.CustomSignupForm"}
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 SOCIALACCOUNT_ADAPTER = "{{cookiecutter.project_slug}}.users.adapters.SocialAccountAdapter"
@@ -364,14 +362,14 @@ ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_UNIQUE_EMAIL = True
 
-=======
+
 # https://django-allauth.readthedocs.io/en/latest/forms.html
 ACCOUNT_FORMS = {"signup": "{{cookiecutter.project_slug}}.users.forms.UserSignupForm"}
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 SOCIALACCOUNT_ADAPTER = "{{cookiecutter.project_slug}}.users.adapters.SocialAccountAdapter"
 # https://django-allauth.readthedocs.io/en/latest/forms.html
 SOCIALACCOUNT_FORMS = {"signup": "{{cookiecutter.project_slug}}.users.forms.UserSocialSignupForm"}
->>>>>>> upstream/master
+
 {% if cookiecutter.use_compressor == 'y' -%}
 # django-compressor
 # ------------------------------------------------------------------------------
@@ -399,7 +397,6 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.BasicAuthentication",
     ),
-<<<<<<< HEAD
     "DEFAULT_PERMISSION_CLASSES": (
         # 'rest_framework.permissions.AllowAny',
         "rest_framework.permissions.IsAuthenticated",
@@ -438,10 +435,6 @@ REST_USE_JWT = True
 # -------------------------------------------------------------------------------
 REST_AUTH_SERIALIZERS = {
     "USER_DETAILS_SERIALIZER": "{{cookiecutter.project_slug}}.users.api.serializers.MyUserSerializer",
-=======
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
-    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
->>>>>>> upstream/master
 }
 
 # django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup

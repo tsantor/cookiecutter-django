@@ -68,7 +68,7 @@ services:
     volumes:
       - ./mkdocs:/mkdocs
     ports:
-      - "8989:8989"
+      - "9000:9000"
     command: /entrypoint
     restart: always
 

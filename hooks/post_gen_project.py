@@ -347,11 +347,6 @@ def fork_remove_docs():
     shutil.rmtree(os.path.join("compose", "local", "docs"))
 
 
-def fork_remove_rst():
-    """FORKED: We use markdown"""
-    os.remove(os.path.join("README.rst"))
-
-
 def main():
     debug = "{{ cookiecutter.debug }}".lower() == "y"
 
@@ -441,7 +436,7 @@ def main():
 
     # FORKED ADDITIONS
     fork_remove_docs()
-    fork_remove_rst()
+    # fork_remove_rst()
 
     print(SUCCESS + "Project initialized, keep up the good work!" + TERMINATOR)
 
