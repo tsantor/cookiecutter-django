@@ -17,11 +17,8 @@ h5 {
   font-family: "Raleway", sans-serif;
 }
 
-$header-gradient: linear-gradient(to bottom,#005fc7 0,#0374f0 100%);
-$breadcrumb-gradient: linear-gradient(to right,#3554a3 0,#1c3385 100%);
-
-$primary-color: #9d1b55;
-$secondary-color: #04004d;
+$primary-color: #121114;
+$secondary-color: #171618;
 
 $primary-btn-color: #016ce2;
 $primary-btn-hover-color: #0066cc;
@@ -65,19 +62,19 @@ input[type=submit]:hover {
 .module h2,
 .module caption,
 .inline-group h2 {
-    background: $breadcrumb-gradient;
+    background: $secondary-color;
 }
 
 /* BREADCRUMBS */
 
 div.breadcrumbs {
-    background: $breadcrumb-gradient;
+    background: $secondary-color;
 }
 
 /* HEADER */
 
 #header {
-    background: $header-gradient;
+    background: $primary-color;
 }
 
 #header a:link, #header a:visited {
@@ -114,18 +111,18 @@ body.login {
 }
 
 body.login #header {
-    background: $header-gradient;
+    background: $primary-color;
     .logo-login {
-      width: 100%;
+      width: 50%;
       height: auto;
-      // margin: 10px auto;
+      margin: 10px auto;
       display: block;
     }
 }
 
 #branding {
   .logo {
-    height: 40px;
+    height: 27px;
     width: auto;
   }
 }

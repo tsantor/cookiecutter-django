@@ -216,3 +216,5 @@ tags
 
 .pytest_cache/
 
+# Media
+media/

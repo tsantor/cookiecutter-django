@@ -6,7 +6,6 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from {{cookiecutter.project_slug}}.api.permissions import IsSuperUser
-from {{cookiecutter.project_slug}}.api.viewsets import MyModelViewSet
 
 from .serializers import MyUserSerializer, UserSerializer
 
@@ -33,7 +32,9 @@ class UserViewSet(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericV
 # -----------------------------------------------------------------------------
 
 
-class MyUserViewSet(MyModelViewSet):
+class MyUserViewSet(
+    RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericViewSet
+):
     """
     list:
     List all User

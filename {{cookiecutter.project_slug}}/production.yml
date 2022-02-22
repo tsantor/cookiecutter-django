@@ -30,6 +30,9 @@ services:
       - production_postgres_data_backups:/backups:z
     env_file:
       - ./.envs/.production/.postgres
+    ports:
+      # Allows us to connect remotely using something like TablePlus
+      - "0.0.0.0:5432:5432"
 
   traefik:
     build:

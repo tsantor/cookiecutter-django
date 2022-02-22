@@ -142,6 +142,7 @@ LOGIN_URL = "account_login"
 # custom-admin
 # LOGIN_URL = "customadmin:auth_login"
 # LOGOUT_REDIRECT_URL = "customadmin:auth_login"
+LOGOUT_REDIRECT_URL = "admin:login"
 
 # PASSWORDS
 # ------------------------------------------------------------------------------
@@ -180,7 +181,7 @@ MIDDLEWARE = [
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.common.BrokenLinkEmailsMiddleware",
+    # "django.middleware.common.BrokenLinkEmailsMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
