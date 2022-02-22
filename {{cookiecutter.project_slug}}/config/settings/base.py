@@ -403,7 +403,8 @@ REST_FRAMEWORK = {
     ),
     "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.URLPathVersioning",
     # "EXCEPTION_HANDLER": "api.exceptions.custom_exception_handler",
-    "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
+    #"DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
+    "DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema",
 }
 
 SWAGGER_SETTINGS = {

@@ -70,3 +70,6 @@ djangorestframework-jwt==1.11.0
 {%- if cookiecutter.use_celery == "y" %}
 django-celery-results==2.2.0
 {%- endif %}
+{%- if cookiecutter.use_django_auditlog == "y" %}
+django-auditlog
+{%- endif %}

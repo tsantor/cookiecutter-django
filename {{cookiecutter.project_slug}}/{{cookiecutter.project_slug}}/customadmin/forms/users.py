@@ -14,7 +14,7 @@ from django.contrib.auth.models import Group, Permission
 def filter_perms():
     """Remove permissions we don't need to worry about managing."""
     return Permission.objects.exclude(
-        content_type_id__app_label__in=settings.ADMIN_HIDE_PERMS
+        content_type_id__app_label__in=ADMIN_PATCH["HIDE_PERMS"]
     )
 
 
