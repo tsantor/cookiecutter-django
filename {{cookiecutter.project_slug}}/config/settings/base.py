@@ -90,17 +90,16 @@ THIRD_PARTY_APPS = [
 {%- endif %}
 {%- if cookiecutter.use_drf == "y" %}
     "rest_framework",
-    # "rest_framework_swagger",
-    "drf_yasg",
-{%- endif %}
-{%- if cookiecutter.use_drf_jwt == "n" %}
     "rest_framework.authtoken",
     "corsheaders",
     "drf_spectacular",
+    "drf_yasg",
+{%- endif %}
+{%- if cookiecutter.use_simplejwt == "n" %}
+    "rest_framework_simplejwt",
 {%- endif %}
 {%- if cookiecutter.use_django_rest_auth == "y" %}
-    "rest_auth",
-    "rest_auth.registration",
+    "dj_rest_auth",
 {%- endif %}
     "widget_tweaks",
     # "sorl.thumbnail",
@@ -139,11 +138,6 @@ AUTH_USER_MODEL = "users.User"
 LOGIN_REDIRECT_URL = "users:redirect"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-url
 LOGIN_URL = "account_login"
-
-# custom-admin
-# LOGIN_URL = "customadmin:auth_login"
-# LOGOUT_REDIRECT_URL = "customadmin:auth_login"
-LOGOUT_REDIRECT_URL = "admin:login"
 
 # PASSWORDS
 # ------------------------------------------------------------------------------
@@ -229,10 +223,8 @@ TEMPLATES = [
                 "django.template.context_processors.static",
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
-
+                "{{ cookiecutter.project_slug }}.users.context_processors.allauth_settings",
                 "{{ cookiecutter.project_slug }}.utils.context_processors.settings_context",
-                "{{ cookiecutter.project_slug }}.customadmin.context_processors.settings_context",
-                "{{cookiecutter.project_slug}}.users.context_processors.allauth_settings",
             ],
         },
     }
@@ -382,29 +374,44 @@ STATICFILES_FINDERS += ["compressor.finders.CompressorFinder"]
 # -------------------------------------------------------------------------------
 # django-rest-framework - https://www.django-rest-framework.org/api-guide/settings/
 REST_FRAMEWORK = {
-    "DATETIME_FORMAT": "iso-8601",  # "%Y-%m-%d %H:%M:%S",  # 'iso-8601'
+    "DATETIME_FORMAT": "iso-8601",
     "DATE_FORMAT": "%Y-%m-%d",
     "TIME_FORMAT": "%H:%M:%S",
     "DATETIME_INPUT_FORMATS": ["%Y-%m-%d %H:%M:%S"],
     # 'PAGE_SIZE': 10,
     "DEFAULT_RENDERER_CLASSES": ["{{cookiecutter.project_slug}}.api.renderers.MyJSONRenderer"],
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        {% if cookiecutter.use_drf_jwt == "y" -%}
-        "rest_framework_jwt.authentication.JSONWebTokenAuthentication",
-        {%- else %}
         "rest_framework.authentication.TokenAuthentication",
-        {%- endif %}
         "rest_framework.authentication.SessionAuthentication",
-        "rest_framework.authentication.BasicAuthentication",
+        {% if cookiecutter.use_simplejwt == "y" -%}
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        {%- endif %}
     ),
-    "DEFAULT_PERMISSION_CLASSES": (
-        # 'rest_framework.permissions.AllowAny',
-        "rest_framework.permissions.IsAuthenticated",
-    ),
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated"),
     "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.URLPathVersioning",
-    # "EXCEPTION_HANDLER": "api.exceptions.custom_exception_handler",
-    #"DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
+    # "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
     "DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema",
+}
+
+# django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
+CORS_URLS_REGEX = r"^/api/.*$"
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = (
+    env.list("CORS_ORIGIN_WHITELIST", default=["http://localhost:8080", "http://localhost:8000"])
+)
+
+# By Default swagger ui is available only to admin user(s). You can change permission classes to change that
+# See more configuration options at https://drf-spectacular.readthedocs.io/en/latest/settings.html#settings
+SPECTACULAR_SETTINGS = {
+    "TITLE": "{{ cookiecutter.project_name }} API",
+    "DESCRIPTION": "Documentation of API endpoints of {{ cookiecutter.project_name }}",
+    "VERSION": "1.0.0",
+    "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAdminUser"],
+    "SERVERS": [
+        {"url": "http://127.0.0.1:8000", "description": "Local Development server"},
+        {"url": "https://{{ cookiecutter.domain_name }}", "description": "Production server"},
+    ],
 }
 
 SWAGGER_SETTINGS = {
@@ -418,41 +425,52 @@ SWAGGER_SETTINGS = {
 }
 {%- endif %}
 
-{% if cookiecutter.use_drf_jwt == "y" -%}
-# django-rest-framework-jwt
+{% if cookiecutter.use_django_rest_auth == "y" -%}
+# dj-rest-auth
 # -------------------------------------------------------------------------------
-# https://jpadilla.github.io/django-rest-framework-jwt/
-JWT_AUTH = {
-    "JWT_ALLOW_REFRESH": True,
-    # "JWT_REFRESH_EXPIRATION_DELTA": datetime.timedelta(days=7),
-    "JWT_RESPONSE_PAYLOAD_HANDLER": "{{cookiecutter.project_slug}}.users.api.serializers.jwt_response_payload_handler"
+REST_AUTH_SERIALIZERS = {
+    "USER_DETAILS_SERIALIZER": "{{ cookiecutter.project_slug }}.users.api.serializers.MyUserSerializer",
 }
 
 REST_USE_JWT = True
+# JWT_AUTH_COOKIE = 'jwt-auth'
 {%- endif %}
 
-{% if cookiecutter.use_django_rest_auth == "y" -%}
-# django-rest-auth
+{% if cookiecutter.use_simplejwt == "y" -%}
+# django-rest-framework-simplejwt
 # -------------------------------------------------------------------------------
-REST_AUTH_SERIALIZERS = {
-    "USER_DETAILS_SERIALIZER": "{{cookiecutter.project_slug}}.users.api.serializers.MyUserSerializer",
-}
+from datetime import timedelta
 
-# django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
-CORS_URLS_REGEX = r"^/api/.*$"
-CORS_ORIGIN_ALLOW_ALL = True
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60*4),
+    # 'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    # 'ROTATE_REFRESH_TOKENS': False,
+    # 'BLACKLIST_AFTER_ROTATION': False,
+    'UPDATE_LAST_LOGIN': False,
 
-# By Default swagger ui is available only to admin user(s). You can change permission classes to change that
-# See more configuration options at https://drf-spectacular.readthedocs.io/en/latest/settings.html#settings
-SPECTACULAR_SETTINGS = {
-    "TITLE": "{{ cookiecutter.project_name }} API",
-    "DESCRIPTION": "Documentation of API endpoints of {{ cookiecutter.project_name }}",
-    "VERSION": "1.0.0",
-    "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAdminUser"],
-    "SERVERS": [
-        {"url": "http://127.0.0.1:8000", "description": "Local Development server"},
-        {"url": "https://{{ cookiecutter.domain_name }}", "description": "Production server"},
-    ],
+    # 'ALGORITHM': 'HS256',
+    # 'SIGNING_KEY': SECRET_KEY,
+    # 'VERIFYING_KEY': None,
+    # 'AUDIENCE': None,
+    # 'ISSUER': None,
+    # 'JWK_URL': None,
+    # 'LEEWAY': 0,
+
+    # 'AUTH_HEADER_TYPES': ('Bearer',),
+    # 'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
+    # 'USER_ID_FIELD': 'id',
+    # 'USER_ID_CLAIM': 'user_id',
+    # 'USER_AUTHENTICATION_RULE': 'rest_framework_simplejwt.authentication.default_user_authentication_rule',
+
+    # 'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    # 'TOKEN_TYPE_CLAIM': 'token_type',
+    # 'TOKEN_USER_CLASS': 'rest_framework_simplejwt.models.TokenUser',
+
+    # 'JTI_CLAIM': 'jti',
+
+    # 'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+    # 'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
+    # 'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
 {%- endif %}
 
@@ -556,6 +574,13 @@ IGNORABLE_404_URLS = [
     re.compile(r'^/favicon\.ico$'),
     re.compile(r'^/robots\.txt$'),
 ]
+
+# CSRF
+CSRF_COOKIE_SAMESITE = 'Strict'
+SESSION_COOKIE_SAMESITE = 'Strict'
+CSRF_COOKIE_HTTPONLY = False  # False since we will grab it via universal-cookies
+
+CSRF_TRUSTED_ORIGINS=env.list("CSRF_TRUSTED_ORIGINS", default=["localhost:8081", "localhost:8000"])
 
 
 # Your stuff...

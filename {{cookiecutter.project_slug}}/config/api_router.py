@@ -2,8 +2,12 @@ from django.conf import settings
 from django.urls import include, path
 from rest_framework import permissions
 from rest_framework.routers import DefaultRouter, SimpleRouter
-{%- if cookiecutter.use_drf_jwt == "y" %}
-from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
+{%- if cookiecutter.use_simplejwt == "y" %}
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+    TokenVerifyView,
+)
 {%- else %}
 from rest_framework.authtoken.views import obtain_auth_token
 {%- endif %}
@@ -29,9 +33,11 @@ urlpatterns = [
     # Place all your app's API URLS here.
     path("users/", include("{{ cookiecutter.project_slug }}.users.api.urls")),
     # Auth (https://www.django-rest-framework.org/api-guide/authentication/)
-    {% if cookiecutter.use_drf_jwt == "y" -%}
-    path("api-token-auth/", obtain_jwt_token),
-    path("api-token-refresh/", refresh_jwt_token),
+    {% if cookiecutter.use_simplejwt == "y" -%}
+    path("auth/", include("dj_rest_auth.urls")),
+    path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("token/verify/", TokenVerifyView.as_view(), name="token_verify"),
     {%- else %}
     path("auth-token/", obtain_auth_token),
     {%- endif %}
@@ -39,10 +45,18 @@ urlpatterns = [
     path("rest-auth/", include("rest_auth.urls")),
     path("rest-auth/registration/", include("rest_auth.registration.urls")),
     {%- endif %}
+    # Swagger
     path(
         "swagger/",
         schema_view.with_ui("swagger", cache_timeout=0),
         name="schema-swagger-ui",
     ),
     path("redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
+    # SpectacularAPI
+    path("schema/", SpectacularAPIView.as_view(), name="api-schema"),
+    path(
+        "docs/",
+        SpectacularSwaggerView.as_view(url_name="api-schema"),
+        name="api-docs",
+    ),
 ]

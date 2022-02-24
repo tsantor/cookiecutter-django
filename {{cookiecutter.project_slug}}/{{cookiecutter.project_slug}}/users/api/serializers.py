@@ -35,10 +35,3 @@ class MyUserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data["password"])
         user.save()
         return user
-
-
-def jwt_response_payload_handler(token, user=None, request=None):
-    return {
-        "token": token,
-        "user": MyUserSerializer(user, context={"request": request}).data,
-    }

@@ -48,7 +48,7 @@
   "use_async": "n",
   "use_drf": "y",
   "use_django_rest_auth": "y",
-  "use_drf_jwt": "y",
+  "use_simplejwt": "y",
   "use_django_auditlog": "y",
   "custom_bootstrap_compilation": "n",
   "use_compressor": "n",
