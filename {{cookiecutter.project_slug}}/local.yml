@@ -68,7 +68,7 @@ services:
     volumes:
       - ./mkdocs:/mkdocs
     ports:
-      - "9000:9000"
+      - "8989:8989"
     command: /entrypoint
     restart: always
 
@@ -79,6 +79,8 @@ services:
     container_name: {{ cookiecutter.project_slug }}_local_mailhog
     ports:
       - "8025:8025"
+    logging:
+      driver: none
 
   {%- endif %}
   {%- if cookiecutter.use_celery == 'y' %}
