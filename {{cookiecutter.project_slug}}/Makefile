@@ -1,6 +1,6 @@
 # I like to think of a Makefile as a "make my life easier" file, less typing
 
-python_version=3.9.4
+python_version=3.9.11
 venv={{cookiecutter.project_slug}}_env
 
 user={{cookiecutter.project_user}}
@@ -25,44 +25,41 @@ env:
 reqs:
 	python -m pip install -U pip wheel black pylint pre-commit && pre-commit install
 
-build_django:
-	${local} build django
-	${local} build celeryworker
-	${local} build celerybeat
-	${local} build flower
-
-restart_django:
-	${local} restart django
-	${local} restart celeryworker
-	${local} restart celerybeat
-	${local} restart flower
-
-pip_list:
-	${local} run --rm django python -m pip list
+build:
+	docker-compose -f local.yml build
 
 up:
-	${local} up --remove-orphans
+	docker-compose -f local.yml up --remove-orphans
 
 down:
-	${local} down
+	docker-compose -f local.yml down
+
+pip_list:
+	docker exec -it django python -m pip list
+
+pip_freeze:
+	docker exec -it django pipfreezer
 
 superuser:
-	${local} run --rm django python manage.py createsuperuser
+	docker exec -it django python manage.py createsuperuser
 
 migrations:
-	${local} run --rm django python manage.py makemigrations
+	docker exec -it django python manage.py makemigrations
 
 migrate:
-	${local} run --rm django python manage.py migrate
+	docker exec -it django python manage.py migrate
 
 show_urls:
-	${local} run --rm django python manage.py show_urls
+	docker exec -it django python manage.py show_urls
 
 shell:
-	${local} run --rm django python manage.py shell_plus
+	docker exec -it django python manage.py shell_plus
 
 clearsessions:
-	${local} run --rm django python manage.py clearsessions
+	docker exec -it django python manage.py clearsessions
+
+collectstatic:
+	docker exec -it django python manage.py collectstatic
 
 # Project Specific
 
@@ -89,3 +86,17 @@ pull_staging_env:
 
 pull_production_env:
 	rsync -avzP ${prod_ssh}:~/${project_dir}/.envs/.production .envs/
+
+
+# Project Specific
+
+clean_vue:
+	rm -rf {{cookiecutter.project_slug}}/static/vue-frontend/
+
+push_vue:
+	rsync -avzP ${ssh_key} {{cookiecutter.project_slug}}/static/vue-frontend ${prod_ssh}:~/${project_dir}/{{cookiecutter.project_slug}}/static
+
+deploy_prod:
+	docker-compose -f production up -d --build
+	docker exec -it django python manage.py migrate
+	docker exec -it django python manage.py collectstatic
