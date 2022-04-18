@@ -32,31 +32,31 @@ down:
 	docker-compose -f local.yml down
 
 pip_list:
-	docker exec -it django python -m pip list
+	docker-compose -f local.yml exec django python -m pip list
 
 pip_freeze:
-	docker exec -it django pipfreezer
+	docker-compose -f local.yml exec django pipfreezer
 
 superuser:
-	docker exec -it django python manage.py createsuperuser
+	docker-compose -f local.yml exec django python manage.py createsuperuser
 
 migrations:
-	docker exec -it django python manage.py makemigrations
+	docker-compose -f local.yml exec django python manage.py makemigrations
 
 migrate:
-	docker exec -it django python manage.py migrate
+	docker-compose -f local.yml exec django python manage.py migrate
 
 show_urls:
-	docker exec -it django python manage.py show_urls
+	docker-compose -f local.yml exec django python manage.py show_urls
 
 shell:
-	docker exec -it django python manage.py shell_plus
+	docker-compose -f local.yml exec django python manage.py shell_plus
 
 clearsessions:
-	docker exec -it django python manage.py clearsessions
+	docker-compose -f local.yml exec django python manage.py clearsessions
 
 collectstatic:
-	docker exec -it django python manage.py collectstatic
+	docker-compose -f local.yml exec django python manage.py collectstatic
 
 # Project Specific
 clean_vue:
@@ -97,5 +97,5 @@ pull_production_env:
 
 deploy_prod:
 	docker-compose -f production up -d --build
-	docker exec -it django python manage.py migrate
-	docker exec -it django python manage.py collectstatic
+	docker-compose -f local.yml exec django python manage.py migrate
+	docker-compose -f local.yml exec django python manage.py collectstatic

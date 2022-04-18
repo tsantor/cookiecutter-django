@@ -3,6 +3,9 @@ from django.db.models import CharField
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
+{%- if cookiecutter.use_django_auditlog == "y" %}
+from auditlog.registry import auditlog
+{%- endif %}
 
 class User(AbstractUser):
     """
@@ -41,3 +44,7 @@ class User(AbstractUser):
     def __str__(self):
         """Return a string representation of this object for display."""
         return self.full_name
+
+{%- if cookiecutter.use_django_auditlog == "y" %}
+auditlog.register(User)
+{%- endif %}
