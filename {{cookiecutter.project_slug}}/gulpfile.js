@@ -39,10 +39,6 @@ function pathsConfig(appName) {
     fonts: `${this.app}/static/fonts`,
     images: `${this.app}/static/images`,
     js: `${this.app}/static/js`,
-
-    customadmin_css: `${this.app}/customadmin/static/customadmin/css`,
-    customadmin_sass: `${this.app}/customadmin/static/customadmin/sass`,
-    customadmin_js: `${this.app}/customadmin/static/customadmin/js`,
   }
 }
 
@@ -63,8 +59,7 @@ function styles() {
       cssnano({ preset: 'default' })   // minify result
   ]
 
-  // return src(`${paths.sass}/project.scss`)
-  return src(`${paths.sass}/*.scss`)
+  return src(`${paths.sass}/project.scss`)
     .pipe(sass({
       includePaths: [
         paths.bootstrapSass,
@@ -81,8 +76,7 @@ function styles() {
 
 // Javascript minification
 function scripts() {
-  //return src(`${paths.js}/project.js`)
-  return src([`${paths.js}/*.js`, `!${paths.js}/*.min.js`,])
+  return src(`${paths.js}/project.js`)
     .pipe(plumber()) // Checks for errors
     .pipe(uglify()) // Minifies the js
     .pipe(rename({ suffix: '.min' }))
@@ -107,43 +101,7 @@ function imgCompression() {
     .pipe(dest(paths.images))
 }
 
-function customadmin_styles() {
-    var processCss = [
-        autoprefixer(), // adds vendor prefixes
-        pixrem(),       // add fallbacks for rem units
-    ]
-
-    var minifyCss = [
-        cssnano({ preset: 'default' })   // minify result
-    ]
-
-    // return src(`${paths.sass}/project.scss`)
-    return src(`${paths.customadmin_sass}/*.scss`)
-        .pipe(sass({
-            includePaths: [
-
-                paths.sass
-            ]
-        }).on('error', sass.logError))
-        .pipe(plumber()) // Checks for errors
-        .pipe(postcss(processCss))
-        .pipe(dest(paths.customadmin_css))
-        .pipe(rename({ suffix: '.min' }))
-        .pipe(postcss(minifyCss)) // Minifies the result
-        .pipe(dest(paths.customadmin_css))
-}
-
-// Javascript minification
-function customadmin_scripts() {
-    // return src(`${paths.js}/project.js`)
-    return src([`${paths.customadmin_js}/*.js`, `!${paths.customadmin_js}/*.min.js`,])
-        .pipe(plumber()) // Checks for errors
-        .pipe(uglify()) // Minifies the js
-        .pipe(rename({ suffix: '.min' }))
-        .pipe(dest(paths.customadmin_js))
-}
-
-{% if cookiecutter.use_async == 'y' -%}
+{%- if cookiecutter.use_async == 'y' -%}
 // Run django server
 function asyncRunServer() {
   var cmd = spawn('gunicorn', [
@@ -198,8 +156,6 @@ function initBrowserSync() {
 
 // Watch
 function watchPaths() {
-  watch(`${paths.customadmin_sass}/*.scss`, styles)
-  watch([`${paths.customadmin_js}/*.js`, `!${paths.customadmin_js}/*.min.js`], scripts)
   watch(`${paths.sass}/*.scss`{% if cookiecutter.windows == 'y' %}, { usePolling: true }{% endif %}, styles)
   watch(`${paths.templates}/**/*.html`{% if cookiecutter.windows == 'y' %}, { usePolling: true }{% endif %}).on("change", reload)
   watch([`${paths.js}/*.js`, `!${paths.js}/*.min.js`]{% if cookiecutter.windows == 'y' %}, { usePolling: true }{% endif %}, scripts).on("change", reload)
@@ -207,8 +163,6 @@ function watchPaths() {
 
 // Generate all assets
 const generateAssets = parallel(
-  customadmin_styles,
-  customadmin_scripts,
   styles,
   scripts,
   vendorScripts,

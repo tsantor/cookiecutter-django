@@ -41,7 +41,7 @@ urlpatterns = [
     {%- else %}
     path("auth-token/", obtain_auth_token),
     {%- endif %}
-    {% if cookiecutter.use_django_rest_auth == "y" -%}
+    {% if cookiecutter.use_dj_rest_auth == "y" -%}
     path("rest-auth/", include("rest_auth.urls")),
     path("rest-auth/registration/", include("rest_auth.registration.urls")),
     {%- endif %}

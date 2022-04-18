@@ -98,7 +98,7 @@ THIRD_PARTY_APPS = [
 {%- if cookiecutter.use_simplejwt == "n" %}
     "rest_framework_simplejwt",
 {%- endif %}
-{%- if cookiecutter.use_django_rest_auth == "y" %}
+{%- if cookiecutter.use_dj_rest_auth == "y" %}
     "dj_rest_auth",
 {%- endif %}
     "widget_tweaks",
@@ -112,7 +112,6 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    "{{ cookiecutter.project_slug }}.customadmin.apps.CustomAdminConfig",
     # "{{ cookiecutter.project_slug }}.users.apps.UsersConfig",
     "{{ cookiecutter.project_slug }}.users",
     # Your stuff: custom apps go here
@@ -389,7 +388,7 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated"),
     "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.URLPathVersioning",
     # "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
-    "DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
 # django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
@@ -424,7 +423,7 @@ SWAGGER_SETTINGS = {
 }
 {%- endif %}
 
-{% if cookiecutter.use_django_rest_auth == "y" -%}
+{% if cookiecutter.use_dj_rest_auth == "y" -%}
 # dj-rest-auth
 # -------------------------------------------------------------------------------
 REST_AUTH_SERIALIZERS = {
@@ -483,9 +482,7 @@ MESSAGE_TAGS = {
     messages.ERROR: "alert-danger",
 }
 
-# Used in customadmin.context_processors.common
 PROJECT_TITLE = env("PROJECT_TITLE")
-COPYRIGHT = "Company Name"
 
 # https://github.com/stefanfoulis/django-phonenumber-field
 # "E164", "INTERNATIONAL", "NATIONAL"

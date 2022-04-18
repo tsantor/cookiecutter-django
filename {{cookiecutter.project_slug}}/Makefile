@@ -6,10 +6,7 @@ venv={{cookiecutter.project_slug}}_env
 user={{cookiecutter.project_user}}
 project_dir={{cookiecutter.project_slug}}
 
-local=docker-compose -f local.yml
 staging_ssh=${user}@staging.{{cookiecutter.domain_name}}
-
-prod=docker-compose -f production.yml
 prod_ssh=${user}@{{cookiecutter.domain_name}}
 
 aws_profile=default
@@ -62,10 +59,14 @@ collectstatic:
 	docker exec -it django python manage.py collectstatic
 
 # Project Specific
+clean_vue:
+	rm -rf {{cookiecutter.project_slug}}/static/vue-frontend/
 
+push_vue:
+	rsync -avzP ${ssh_key} {{cookiecutter.project_slug}}/static/vue-frontend ${prod_ssh}:~/${project_dir}/{{cookiecutter.project_slug}}/static
 
 # -----------------------------------------------------------------------------
-# Use caution!
+# Local - Use caution!
 # -----------------------------------------------------------------------------
 
 pull_live_db:
@@ -90,11 +91,9 @@ pull_production_env:
 
 # Project Specific
 
-clean_vue:
-	rm -rf {{cookiecutter.project_slug}}/static/vue-frontend/
-
-push_vue:
-	rsync -avzP ${ssh_key} {{cookiecutter.project_slug}}/static/vue-frontend ${prod_ssh}:~/${project_dir}/{{cookiecutter.project_slug}}/static
+# -----------------------------------------------------------------------------
+# Prod
+# -----------------------------------------------------------------------------
 
 deploy_prod:
 	docker-compose -f production up -d --build
