@@ -59,7 +59,7 @@ function styles() {
       cssnano({ preset: 'default' })   // minify result
   ]
 
-  return src(`${paths.sass}/project.scss`)
+  return src(`${paths.sass}/*.scss`)
     .pipe(sass({
       includePaths: [
         paths.bootstrapSass,
@@ -76,7 +76,7 @@ function styles() {
 
 // Javascript minification
 function scripts() {
-  return src(`${paths.js}/project.js`)
+  return src(`${paths.js}/*.js`, `!${paths.js}/*.min.js`)
     .pipe(plumber()) // Checks for errors
     .pipe(uglify()) // Minifies the js
     .pipe(rename({ suffix: '.min' }))
