@@ -14,6 +14,11 @@ from rest_framework.authtoken.views import obtain_auth_token
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 
+{%- if cookiecutter.use_drf == 'y' %}
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+from rest_framework.authtoken.views import obtain_auth_token
+{%- endif %}
+
 if settings.DEBUG:
     router = DefaultRouter()
 else:
@@ -34,7 +39,6 @@ urlpatterns = [
     path("users/", include("{{ cookiecutter.project_slug }}.users.api.urls")),
     # Auth (https://www.django-rest-framework.org/api-guide/authentication/)
     {% if cookiecutter.use_simplejwt == "y" -%}
-    path("auth/", include("dj_rest_auth.urls")),
     path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("token/verify/", TokenVerifyView.as_view(), name="token_verify"),
@@ -42,8 +46,8 @@ urlpatterns = [
     path("auth-token/", obtain_auth_token),
     {%- endif %}
     {% if cookiecutter.use_dj_rest_auth == "y" -%}
-    path("rest-auth/", include("rest_auth.urls")),
-    path("rest-auth/registration/", include("rest_auth.registration.urls")),
+    path("auth/", include("dj_rest_auth.urls")),
+    path("rest-auth/registration/", include("dj_rest_auth.registration.urls")),
     {%- endif %}
     # Swagger
     path(
