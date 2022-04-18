@@ -286,6 +286,13 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>Artur Barseghyan</td>
+    <td>
+      <a href="https://github.com/barseghyanartur">barseghyanartur</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>AsheKR</td>
     <td>
       <a href="https://github.com/ashekr">ashekr</a>
@@ -880,6 +887,13 @@ Listed in alphabetical order.
     <td>Ian Lee</td>
     <td>
       <a href="https://github.com/IanLee1521">IanLee1521</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>innicoder</td>
+    <td>
+      <a href="https://github.com/innicoder">innicoder</a>
     </td>
     <td></td>
   </tr>
