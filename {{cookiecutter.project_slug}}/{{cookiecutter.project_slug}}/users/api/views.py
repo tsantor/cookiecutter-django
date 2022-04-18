@@ -55,7 +55,3 @@ class MyUserViewSet(
     queryset = User.objects.all()
     serializer_class = MyUserSerializer
     permission_classes = (IsSuperUser,)
-
-    # def get_serializer_class(self):
-    #     if self.action == 'list':
-    #         return MySerializer

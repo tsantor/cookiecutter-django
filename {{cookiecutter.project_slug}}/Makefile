@@ -96,6 +96,7 @@ pull_production_env:
 # -----------------------------------------------------------------------------
 
 deploy_prod:
-	docker-compose -f production up -d --build
-	docker-compose -f local.yml exec django python manage.py migrate
-	docker-compose -f local.yml exec django python manage.py collectstatic
+	docker-compose -f production build
+	docker-compose -f production.yml run --rm django python manage.py migrate
+	docker-compose -f production.yml run --rm django python manage.py collectstatic
+	docker-compose -f production.yml up -d
