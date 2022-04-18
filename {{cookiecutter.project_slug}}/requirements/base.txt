@@ -61,11 +61,11 @@ django-extra-views==0.12.0
 django-multi-form-view==2.0.1
 django-widget-tweaks==1.4.5
 {%- if cookiecutter.use_django_rest_auth == "y" %}
-# django-rest-auth==0.9.5  # No longer maintained
+# django-rest-auth  # No longer maintained
 dj-rest-auth
 {%- endif %}
 {%- if cookiecutter.use_simplejwt == "y" %}
-# djangorestframework-jwt==1.11.0  # no longer maintained
+# djangorestframework-jwt  # No longer maintained
 djangorestframework-simplejwt==4.6.0
 {%- endif %}
 {%- if cookiecutter.use_celery == "y" %}

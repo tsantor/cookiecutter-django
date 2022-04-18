@@ -1,11 +1,10 @@
 {
   "project_name": "My Awesome Project",
   "project_slug": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_')|replace('.', '_')|trim() }}",
-  "project_user": "project",
   "description": "Behold My Awesome Project!",
   "author_name": "Tim Santor",
   "domain_name": "example.com",
-  "email": "tsantor@xstudios.com",
+  "email": "{{ cookiecutter.author_name.lower()|replace(' ', '-') }}@example.com",
   "version": "0.1.0",
   "open_source_license": [
     "MIT",
@@ -42,27 +41,18 @@
     "Other SMTP"
   ],
   "use_async": "n",
-<<<<<<< HEAD
   "use_drf": "y",
-  "use_django_rest_auth": "y",
+  "use_dj_rest_auth": "y",
   "use_simplejwt": "y",
   "use_django_auditlog": "y",
-  "custom_bootstrap_compilation": "n",
-  "use_compressor": "n",
-  "use_celery": "y",
-  "use_mailhog": "y",
-  "use_sentry": "y",
-=======
-  "use_drf": "n",
   "frontend_pipeline": [
     "None",
     "Django Compressor",
     "Gulp"
   ],
-  "use_celery": "n",
-  "use_mailhog": "n",
-  "use_sentry": "n",
->>>>>>> upstream/master
+  "use_celery": "y",
+  "use_mailhog": "y",
+  "use_sentry": "y",
   "use_whitenoise": "n",
   "use_heroku": "n",
   "ci_tool": [
@@ -72,7 +62,6 @@
     "Github"
   ],
   "keep_local_envs_in_vcs": "y",
-
   "debug": "n",
   "_copy_without_render": [
     "{{cookiecutter.project_slug}}/customadmin/static/customadmin/css/*.css",
