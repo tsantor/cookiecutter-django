@@ -373,22 +373,15 @@ STATICFILES_FINDERS += ["compressor.finders.CompressorFinder"]
 # -------------------------------------------------------------------------------
 # django-rest-framework - https://www.django-rest-framework.org/api-guide/settings/
 REST_FRAMEWORK = {
-    "DATETIME_FORMAT": "iso-8601",
-    "DATE_FORMAT": "%Y-%m-%d",
-    "TIME_FORMAT": "%H:%M:%S",
-    "DATETIME_INPUT_FORMATS": ["%Y-%m-%d %H:%M:%S"],
-    # 'PAGE_SIZE': 10,
     "DEFAULT_RENDERER_CLASSES": ["{{cookiecutter.project_slug}}.api.renderers.MyJSONRenderer"],
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework.authentication.TokenAuthentication",
         "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
         {% if cookiecutter.use_simplejwt == "y" -%}
         "rest_framework_simplejwt.authentication.JWTAuthentication",
         {%- endif %}
     ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated"),
-    "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.URLPathVersioning",
-    # "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
@@ -411,16 +404,6 @@ SPECTACULAR_SETTINGS = {
         {"url": "http://127.0.0.1:8000", "description": "Local Development server"},
         {"url": "https://{{ cookiecutter.domain_name }}", "description": "Production server"},
     ],
-}
-
-SWAGGER_SETTINGS = {
-    "DOC_EXPANSION": "list",  # none, list, full
-    # 'LOGIN_URL': 'api:user_authentication:login',
-    "USE_SESSION_AUTH": False,
-    "SECURITY_DEFINITIONS": {
-        "JWT": {"type": "apiKey", "name": "Authorization", "in": "header"}
-    },
-    "REFETCH_SCHEMA_WITH_AUTH": True,
 }
 {%- endif %}
 
@@ -449,27 +432,9 @@ SIMPLE_JWT = {
 }
 {%- endif %}
 
-# custom-admin
-# -------------------------------------------------------------------------------
-MESSAGE_TAGS = {
-    messages.DEBUG: "alert-info",
-    messages.INFO: "alert-info",
-    messages.SUCCESS: "alert-success",
-    messages.WARNING: "alert-warning",
-    messages.ERROR: "alert-danger",
-}
-
-PROJECT_TITLE = env("PROJECT_TITLE")
-
-# https://github.com/stefanfoulis/django-phonenumber-field
-# "E164", "INTERNATIONAL", "NATIONAL"
-PHONENUMBER_DEFAULT_FORMAT = "E164"
-PHONENUMBER_DEFAULT_REGION = "US"
-
-# https://github.com/SmileyChris/django-countries
-COUNTRIES_FIRST = ["US"]
 
 # https://github.com/django-ckeditor/django-ckeditor
+# -------------------------------------------------------------------------------
 CKEDITOR_CONFIGS = {
     "default": {
         "toolbar": "Pro",
@@ -510,27 +475,37 @@ CKEDITOR_CONFIGS = {
     }
 }
 
-ADMIN_PATCH = {
+# django-perm-filter
+# -------------------------------------------------------------------------------
+PERM_FILTER = {
     "HIDE_APPS": [
-        "account",
+        # Django built-ins
         "admin",
-        "auth",
         "contenttypes",
-        "django_celery_beat",
-        "django_celery_results",
         "sessions",
         "sites",
+        # All-auth
+        "account",
         "socialaccount",
+        # Celery
+        "django_celery_beat",
+        "django_celery_results",
         "thumbnail",
     ],
     "HIDE_PERMS": [
-
+        # Django built-in auth permissions
+        "auth.view_permission",
+        "auth.add_permission",
+        "auth.change_permission",
+        "auth.delete_permission",
     ],
     "UNREGISTER_MODELS": [
+        # All-auth
         "allauth.account.models.EmailAddress",
         "allauth.socialaccount.models.SocialAccount",
         "allauth.socialaccount.models.SocialApp",
         "allauth.socialaccount.models.SocialToken",
+        # Celery
         "django_celery_beat.models.ClockedSchedule",
         "django_celery_beat.models.CrontabSchedule",
         "django_celery_beat.models.IntervalSchedule",
@@ -541,6 +516,16 @@ ADMIN_PATCH = {
     ],
 }
 
+# CSRF
+# ------------------------------------------------------------------------------
+CSRF_COOKIE_SAMESITE = 'Strict'
+CSRF_COOKIE_HTTPONLY = False  # False since we will grab it via universal-cookies
+CSRF_TRUSTED_ORIGINS=env.list("CSRF_TRUSTED_ORIGINS", default=["localhost:8081", "localhost:8000"])
+
+SESSION_COOKIE_SAMESITE = 'Strict'
+
+# Your stuff...
+# ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/3.2/howto/error-reporting/
 IGNORABLE_404_URLS = [
     re.compile(r'^/apple-touch-icon.*\.png$'),
@@ -548,13 +533,4 @@ IGNORABLE_404_URLS = [
     re.compile(r'^/robots\.txt$'),
 ]
 
-# CSRF
-CSRF_COOKIE_SAMESITE = 'Strict'
-SESSION_COOKIE_SAMESITE = 'Strict'
-CSRF_COOKIE_HTTPONLY = False  # False since we will grab it via universal-cookies
-
-CSRF_TRUSTED_ORIGINS=env.list("CSRF_TRUSTED_ORIGINS", default=["localhost:8081", "localhost:8000"])
-
-
-# Your stuff...
-# ------------------------------------------------------------------------------
+PROJECT_TITLE = env("PROJECT_TITLE")

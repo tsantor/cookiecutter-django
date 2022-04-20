@@ -22,15 +22,13 @@ class User(AbstractUser):
     last_name = CharField(_("Last Name"), blank=True, max_length=255)
 
     @property
-    def full_name(self):
+    def display_name(self):
         if self.first_name and self.last_name:
-            return f"{self.last_name}, {self.first_name}"
-        elif self.first_name:
-            return self.last_name
-        elif self.username:
-            return self.username
+            return f"{self.first_name} {self.last_name}"
         elif self.email:
             return self.email
+        elif self.username:
+            return self.username
 
     def get_absolute_url(self):
         """Get url for user's detail view.
@@ -43,8 +41,8 @@ class User(AbstractUser):
 
     def __str__(self):
         """Return a string representation of this object for display."""
-        return self.full_name
+        return self.display_name
 
-{%- if cookiecutter.use_django_auditlog == "y" %}
+{% if cookiecutter.use_django_auditlog == "y" %}
 auditlog.register(User)
 {%- endif %}
