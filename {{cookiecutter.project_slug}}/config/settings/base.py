@@ -110,6 +110,7 @@ THIRD_PARTY_APPS = [
 {%- if cookiecutter.use_django_auditlog == "y" %}
     "auditlog",
 {%- endif %}
+    "django_perm_filter.apps.DjangoPermFilterConfig",
 ]
 
 LOCAL_APPS = [
@@ -381,7 +382,7 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
         {%- endif %}
     ),
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated"),
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
@@ -432,48 +433,13 @@ SIMPLE_JWT = {
 }
 {%- endif %}
 
+# CSRF
+# ------------------------------------------------------------------------------
+CSRF_COOKIE_SAMESITE = 'Strict'
+CSRF_COOKIE_HTTPONLY = False  # False since we will grab it via universal-cookies
+CSRF_TRUSTED_ORIGINS=env.list("CSRF_TRUSTED_ORIGINS", default=["localhost:8081", "localhost:8000"])
 
-# https://github.com/django-ckeditor/django-ckeditor
-# -------------------------------------------------------------------------------
-CKEDITOR_CONFIGS = {
-    "default": {
-        "toolbar": "Pro",
-        "toolbar_Pro": [
-            [
-                "Undo",
-                "Redo",
-                "-",
-                # "Format",
-                "Bold",
-                "Italic",
-                "Underline",
-                # "Strike",
-                "-",
-                "NumberedList",
-                "BulletedList",
-                "-",
-                # "JustifyLeft",
-                # "JustifyCenter",
-                # "JustifyRight",
-                # "JustifyBlock",
-                # "-",
-                # "Link",
-                # "Unlink",
-                # "Anchor",
-                # "-",
-                # "Table",
-                # "HorizontalRule",
-                # "SpecialChar",
-                # "-",
-                # "TextColor",
-                # "BGColor",
-                "-",
-                "Source",
-            ]
-        ],
-        "toolbar_Simple": [["Source", "-", "Bold", "Italic", "BulletedList"]],
-    }
-}
+SESSION_COOKIE_SAMESITE = 'Strict'
 
 # django-perm-filter
 # -------------------------------------------------------------------------------
@@ -498,8 +464,18 @@ PERM_FILTER = {
         "auth.add_permission",
         "auth.change_permission",
         "auth.delete_permission",
+        # Authtoken Token/TokenProxy
+        "authtoken.view_token",
+        "authtoken.add_token",
+        "authtoken.change_token",
+        "authtoken.delete_token",
+        "authtoken.view_tokenproxy",
+        "authtoken.add_tokenproxy",
+        "authtoken.change_tokenproxy",
+        "authtoken.delete_tokenproxy",
     ],
     "UNREGISTER_MODELS": [
+        "rest_framework.authtoken.models.TokenProxy",
         # All-auth
         "allauth.account.models.EmailAddress",
         "allauth.socialaccount.models.SocialAccount",
@@ -515,14 +491,6 @@ PERM_FILTER = {
         # "django.contrib.sites.models.Site",
     ],
 }
-
-# CSRF
-# ------------------------------------------------------------------------------
-CSRF_COOKIE_SAMESITE = 'Strict'
-CSRF_COOKIE_HTTPONLY = False  # False since we will grab it via universal-cookies
-CSRF_TRUSTED_ORIGINS=env.list("CSRF_TRUSTED_ORIGINS", default=["localhost:8081", "localhost:8000"])
-
-SESSION_COOKIE_SAMESITE = 'Strict'
 
 # Your stuff...
 # ------------------------------------------------------------------------------
