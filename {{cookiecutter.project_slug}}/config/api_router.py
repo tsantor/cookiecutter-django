@@ -10,11 +10,8 @@ from rest_framework_simplejwt.views import (
 {%- else %}
 from rest_framework.authtoken.views import obtain_auth_token
 {%- endif %}
-from drf_yasg import openapi
-from drf_yasg.views import get_schema_view
 
 {%- if cookiecutter.use_drf == 'y' %}
-from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from rest_framework.authtoken.views import obtain_auth_token
 {%- endif %}
 

@@ -94,7 +94,6 @@ THIRD_PARTY_APPS = [
     "rest_framework.authtoken",
     "corsheaders",
     "drf_spectacular",
-    "drf_yasg",
 {%- endif %}
 {%- if cookiecutter.use_simplejwt == "n" %}
     "rest_framework_simplejwt",
@@ -103,10 +102,6 @@ THIRD_PARTY_APPS = [
     "dj_rest_auth",
 {%- endif %}
     "widget_tweaks",
-    # "sorl.thumbnail",
-    # "phonenumber_field",
-    # "django_countries",
-    "ckeditor",
 {%- if cookiecutter.use_django_auditlog == "y" %}
     "auditlog",
 {%- endif %}
