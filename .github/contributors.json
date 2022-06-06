@@ -1262,6 +1262,14 @@
     "name": "innicoder",
     "github_login": "innicoder",
     "twitter_username": ""
+<<<<<<< HEAD
+>>>>>>> upstream/master
+=======
+  },
+  {
+    "name": "Naveen",
+    "github_login": "naveensrinivasan",
+    "twitter_username": "snaveen"
 >>>>>>> upstream/master
   }
 ]
