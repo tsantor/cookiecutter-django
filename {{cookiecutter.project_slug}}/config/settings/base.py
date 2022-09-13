@@ -400,6 +400,7 @@ SPECTACULAR_SETTINGS = {
         {"url": "http://127.0.0.1:8000", "description": "Local Development server"},
         {"url": "https://{{ cookiecutter.domain_name }}", "description": "Production server"},
     ],
+    "SCHEMA_PATH_PREFIX": r"/api/v[0-9]",
 }
 {%- endif %}
 

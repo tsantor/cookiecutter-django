@@ -1237,7 +1237,6 @@
     "name": "Ryan Fitch",
     "github_login": "ryfi",
     "twitter_username": ""
-<<<<<<< HEAD
   },
   {
     "name": "ghazi-git",
@@ -1248,10 +1247,7 @@
     "name": "Cebrail Yılmaz",
     "github_login": "b1sar",
     "twitter_username": ""
-<<<<<<< HEAD
-=======
->>>>>>> test-upstream
-=======
+
   },
   {
     "name": "Artur Barseghyan",
@@ -1262,14 +1258,35 @@
     "name": "innicoder",
     "github_login": "innicoder",
     "twitter_username": ""
-<<<<<<< HEAD
->>>>>>> upstream/master
-=======
   },
   {
     "name": "Naveen",
     "github_login": "naveensrinivasan",
     "twitter_username": "snaveen"
->>>>>>> upstream/master
+  },
+  {
+    "name": "Nikita Sobolev",
+    "github_login": "sobolevn",
+    "twitter_username": ""
+  },
+  {
+    "name": "Sebastian Reyes Espinosa",
+    "github_login": "sebastian-code",
+    "twitter_username": "sebastianreyese"
+  },
+  {
+    "name": "jugglinmike",
+    "github_login": "jugglinmike",
+    "twitter_username": ""
+  },
+  {
+    "name": "monosans",
+    "github_login": "monosans",
+    "twitter_username": ""
+  },
+  {
+    "name": "Marcio Mazza",
+    "github_login": "marciomazza",
+    "twitter_username": "marciomazza"
   }
 ]
