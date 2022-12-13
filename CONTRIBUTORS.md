@@ -167,6 +167,13 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>Adin Hodovic</td>
+    <td>
+      <a href="https://github.com/adinhodovic">adinhodovic</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>Agam Dua</td>
     <td>
       <a href="https://github.com/"></a>
@@ -600,6 +607,13 @@ Listed in alphabetical order.
     <td>Daniele Tricoli</td>
     <td>
       <a href="https://github.com/eriol">eriol</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>David</td>
+    <td>
+      <a href="https://github.com/buckldav">buckldav</a>
     </td>
     <td></td>
   </tr>
@@ -1157,6 +1171,13 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>Leifur Halldor Asgeirsson</td>
+    <td>
+      <a href="https://github.com/leifurhauks">leifurhauks</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>Leo won</td>
     <td>
       <a href="https://github.com/leollon">leollon</a>
@@ -1524,6 +1545,13 @@ Listed in alphabetical order.
     <td>René Muhl</td>
     <td>
       <a href="https://github.com/rm--">rm--</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>rguptar</td>
+    <td>
+      <a href="https://github.com/rguptar">rguptar</a>
     </td>
     <td></td>
   </tr>

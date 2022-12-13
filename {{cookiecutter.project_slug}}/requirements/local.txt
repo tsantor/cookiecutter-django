@@ -14,11 +14,11 @@ watchfiles==0.18.1  # https://github.com/samuelcolvin/watchfiles
 # Testing
 # ------------------------------------------------------------------------------
 mypy==0.982  # https://github.com/python/mypy
-django-stubs==1.12.0  # https://github.com/typeddjango/django-stubs
+django-stubs==1.13.1  # https://github.com/typeddjango/django-stubs
 pytest==7.2.0  # https://github.com/pytest-dev/pytest
 pytest-sugar==0.9.6  # https://github.com/Frozenball/pytest-sugar
 {%- if cookiecutter.use_drf == "y" %}
-djangorestframework-stubs==1.7.0  # https://github.com/typeddjango/djangorestframework-stubs
+djangorestframework-stubs==1.8.0  # https://github.com/typeddjango/djangorestframework-stubs
 {%- endif %}
 
 # Documentation
@@ -28,10 +28,10 @@ sphinx-autobuild==2021.3.14 # https://github.com/GaretJax/sphinx-autobuild
 
 # Code quality
 # ------------------------------------------------------------------------------
-flake8==5.0.4  # https://github.com/PyCQA/flake8
-flake8-isort==5.0.0  # https://github.com/gforcada/flake8-isort
+flake8==6.0.0  # https://github.com/PyCQA/flake8
+flake8-isort==5.0.3  # https://github.com/gforcada/flake8-isort
 coverage==6.5.0  # https://github.com/nedbat/coveragepy
-black==22.10.0  # https://github.com/psf/black
+black==22.12.0  # https://github.com/psf/black
 pylint-django==2.5.3  # https://github.com/PyCQA/pylint-django
 {%- if cookiecutter.use_celery == 'y' %}
 pylint-celery==0.3  # https://github.com/PyCQA/pylint-celery
@@ -42,11 +42,9 @@ pre-commit==2.20.0  # https://github.com/pre-commit/pre-commit
 # ------------------------------------------------------------------------------
 factory-boy==3.2.1  # https://github.com/FactoryBoy/factory_boy
 
-# My forked additions
-# ------------------------------------------------------------------------------
-django-debug-toolbar==3.7.0  # https://github.com/jazzband/django-debug-toolbar
+django-debug-toolbar==3.8.1  # https://github.com/jazzband/django-debug-toolbar
 django-extensions==3.2.1  # https://github.com/django-extensions/django-extensions
-django-coverage-plugin==2.0.4  # https://github.com/nedbat/django_coverage_plugin
+django-coverage-plugin==3.0.0  # https://github.com/nedbat/django_coverage_plugin
 pytest-django==4.5.2  # https://github.com/pytest-dev/pytest-django
 
 # X Studios / Tim Santor packages
