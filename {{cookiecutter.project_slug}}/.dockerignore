@@ -12,24 +12,5 @@
 .pylintrc
 .readthedocs.yml
 .travis.yml
-.travis.yml
-.env
-
-pytest.ini
-setup.cfg
-
-*.log
-.envs/
-.git/
-.vscode/
-node_modules/
-static_collection/
-staticfiles/
-media/
-utility-scripts/
-venv/
-
-# Docker compose files
-production.yml
-staging.yml
-local.yml
+venv
+.git
