@@ -8,15 +8,15 @@ from pathlib import Path
 import environ
 from django.contrib.messages import constants as messages
 
-ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
+BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # {{ cookiecutter.project_slug }}/
-APPS_DIR = ROOT_DIR / "{{ cookiecutter.project_slug }}"
+APPS_DIR = BASE_DIR / "{{ cookiecutter.project_slug }}"
 env = environ.Env()
 
 READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=True)
 if READ_DOT_ENV_FILE:
     # OS environment variables take precedence over variables from .env
-    env.read_env(str(ROOT_DIR / ".env"))
+    env.read_env(str(BASE_DIR / ".env"))
 
 # GENERAL
 # ------------------------------------------------------------------------------
@@ -36,7 +36,7 @@ USE_I18N = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-tz
 USE_TZ = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#locale-paths
-LOCALE_PATHS = [str(ROOT_DIR / "locale")]
+LOCALE_PATHS = [str(BASE_DIR / "locale")]
 
 # DATABASES
 # ------------------------------------------------------------------------------
@@ -93,9 +93,6 @@ THIRD_PARTY_APPS = [
     "corsheaders",
     "drf_spectacular",
 {%- endif %}
-{%- if cookiecutter.use_simplejwt == "n" %}
-    "rest_framework_simplejwt",
-{%- endif %}
 {%- if cookiecutter.use_dj_rest_auth == "y" %}
     "dj_rest_auth",
 {%- endif %}
@@ -104,6 +101,9 @@ THIRD_PARTY_APPS = [
     "auditlog",
 {%- endif %}
     "django_perm_filter.apps.DjangoPermFilterConfig",
+{%- if cookiecutter.frontend_pipeline == 'Webpack' %}
+    "webpack_loader",
+{%- endif %}
 ]
 
 LOCAL_APPS = [
@@ -170,14 +170,14 @@ MIDDLEWARE = [
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
-    # "django.middleware.common.BrokenLinkEmailsMiddleware",
+    "django.middleware.common.BrokenLinkEmailsMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
 # STATIC
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#static-root
-STATIC_ROOT = str(ROOT_DIR / "staticfiles")
+STATIC_ROOT = str(BASE_DIR / "staticfiles")
 # https://docs.djangoproject.com/en/dev/ref/settings/#static-url
 STATIC_URL = "/static/"
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
@@ -427,17 +427,6 @@ JWT_AUTH_COOKIE = 'jwt-auth'
 # JWT_AUTH_REFRESH_COOKIE = 'jwt-refresh-token'
 {%- endif %}
 
-{% if cookiecutter.use_simplejwt == "y" -%}
-# djangorestframework-simplejwt
-# -------------------------------------------------------------------------------
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60*4),
-    # 'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-    # 'ROTATE_REFRESH_TOKENS': False,
-    'UPDATE_LAST_LOGIN': False,
-}
-{%- endif %}
-
 # CSRF
 # ------------------------------------------------------------------------------
 CSRF_COOKIE_SAMESITE = 'Strict'
@@ -497,6 +486,19 @@ PERM_FILTER = {
     ],
 }
 
+{%- if cookiecutter.frontend_pipeline == 'Webpack' %}
+# django-webpack-loader
+# ------------------------------------------------------------------------------
+WEBPACK_LOADER = {
+    "DEFAULT": {
+        "CACHE": not DEBUG,
+        "STATS_FILE": BASE_DIR / "webpack-stats.json",
+        "POLL_INTERVAL": 0.1,
+        "IGNORE": [r".+\.hot-update.js", r".+\.map"],
+    }
+}
+
+{%- endif %}
 # Your stuff...
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/3.2/howto/error-reporting/
