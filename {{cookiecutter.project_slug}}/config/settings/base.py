@@ -442,7 +442,7 @@ SIMPLE_JWT = {
 # ------------------------------------------------------------------------------
 CSRF_COOKIE_SAMESITE = 'Strict'
 CSRF_COOKIE_HTTPONLY = False  # False since we will grab it via universal-cookies
-CSRF_TRUSTED_ORIGINS=env.list("CSRF_TRUSTED_ORIGINS", default=["localhost:8081", "localhost:8000"])
+CSRF_TRUSTED_ORIGINS=env.list("CSRF_TRUSTED_ORIGINS", default=["http://localhost:8081", "http://localhost:8000"])
 
 SESSION_COOKIE_SAMESITE = 'Strict'
 

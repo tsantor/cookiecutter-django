@@ -59,14 +59,11 @@ services:
   #   command: /start-docs
 
   mkdocs:
-  docs:
     image: {{ cookiecutter.project_slug }}_local_docs
     container_name: {{ cookiecutter.project_slug }}_local_docs
     build:
       context: .
       dockerfile: ./compose/local/mkdocs/Dockerfile
-    image: {{ cookiecutter.project_slug }}_mkdocs
-    container_name: docs
     volumes:
       - ./mkdocs:/mkdocs
     ports:

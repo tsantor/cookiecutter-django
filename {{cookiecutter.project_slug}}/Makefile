@@ -92,3 +92,30 @@ deploy_prod:
 	docker-compose -f production build
 	docker-compose -f production.yml run --rm django python manage.py migrate
 	docker-compose -f production.yml up -d
+
+
+# -----------------------------------------------------------------------------
+# Mutagen
+# -----------------------------------------------------------------------------
+
+mutagen_sync_name={{cookiecutter.project_slug}}-code
+mutagen_forward_name={{cookiecutter.project_slug}}-port-forward
+mutagen_beta_user=tsantor@tim-macbook-ubuntu.local
+mutagen_beta_dir=~/Projects
+
+mutagen_up:
+	mutagen sync create --name=${mutagen_sync_name} . ${mutagen_beta_user}:${mutagen_beta_dir}
+	mutagen forward create --name=${mutagen_forward_name}p tcp:localhost:8000 ${mutagen_beta_user}:22:tcp::8000
+	mutagen forward create --name=${mutagen_forward_name} tcp:localhost:5432 ${mutagen_beta_user}:22:tcp::5432
+
+mutagen_pause:
+	mutagen sync pause ${mutagen_sync_name}
+	mutagen forward pause ${mutagen_forward_name}
+
+mutagen_resume:
+	mutagen sync resume ${mutagen_sync_name}
+	mutagen forward resume ${mutagen_forward_name}
+
+mutagen_down:
+	mutagen sync terminate ${mutagen_sync_name}
+	mutagen forward terminate ${mutagen_forward_name}
