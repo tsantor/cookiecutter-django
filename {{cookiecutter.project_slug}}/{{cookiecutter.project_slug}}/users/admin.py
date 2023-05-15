@@ -13,6 +13,10 @@ class UserAdmin(auth_admin.UserAdmin):
     form = UserAdminChangeForm
     add_form = UserAdminCreationForm
     fieldsets = (
+        {%- if cookiecutter.username_type == "email" %}
+        (None, {"fields": ("email", "password")}),
+        (_("Personal info"), {"fields": ("name",)}),
+        {%- else %}
         (None, {"fields": ("username", "password")}),
         (_("Personal info"), {"fields": ("first_name", "last_name", "email")}),
         (
