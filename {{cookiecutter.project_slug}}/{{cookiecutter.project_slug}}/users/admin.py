@@ -37,6 +37,7 @@ class UserAdmin(auth_admin.UserAdmin):
         "is_superuser",
         "last_login",
     ]
+    filter_horizontal = ["groups", "user_permissions"]
     search_fields = ["first_name", "last_name", "email"]
 
     def get_form(self, request, obj=None, **kwargs):

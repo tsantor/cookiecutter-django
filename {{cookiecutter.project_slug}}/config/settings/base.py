@@ -414,17 +414,20 @@ SPECTACULAR_SETTINGS = {
 {%- endif %}
 
 {% if cookiecutter.use_dj_rest_auth == "y" -%}
-# dj-rest-auth
+# dj-rest-auth https://dj-rest-auth.readthedocs.io/en/latest/configuration.html
 # -------------------------------------------------------------------------------
-REST_AUTH_SERIALIZERS = {
-    "USER_DETAILS_SERIALIZER": "{{ cookiecutter.project_slug }}.users.api.serializers.MyUserSerializer",
+REST_AUTH = {
+    'USE_JWT': True,
+    'JWT_AUTH_COOKIE': 'jwt-auth',
+    "USER_DETAILS_SERIALIZER": "django_spaday.api.serializers.UserAuthSerializer",
 }
 
-REST_SESSION_LOGIN = False
-REST_USE_JWT = True
-JWT_AUTH_COOKIE = 'jwt-auth'
-# JWT_AUTH_COOKIE = 'jwt-access-token'
-# JWT_AUTH_REFRESH_COOKIE = 'jwt-refresh-token'
+# https://django-rest-framework-simplejwt.readthedocs.io/en/latest/settings.htm
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "UPDATE_LAST_LOGIN": True,
+}
 {%- endif %}
 
 # CSRF
@@ -481,6 +484,7 @@ PERM_FILTER = {
         "django_celery_beat.models.IntervalSchedule",
         "django_celery_beat.models.PeriodicTask",
         "django_celery_beat.models.SolarSchedule",
+        "django_celery_results.models.GroupResult",
         # "django_celery_results.models.TaskResult",
         # "django.contrib.sites.models.Site",
     ],

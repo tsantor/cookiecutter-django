@@ -54,12 +54,10 @@ django-webpack-loader==1.8.1  # https://github.com/django-webpack/django-webpack
 # ------------------------------------------------------------------------------
 django-widget-tweaks==1.4.5
 {%- if cookiecutter.use_dj_rest_auth == "y" %}
-# django-rest-auth  # No longer maintained
-dj-rest-auth==2.2.4
+dj-rest-auth==3.0.0
 {%- endif %}
 {%- if cookiecutter.use_simplejwt == "y" %}
-# djangorestframework-jwt  # No longer maintained
-djangorestframework-simplejwt==4.6.0
+djangorestframework-simplejwt==5.2.2
 {%- endif %}
 {%- if cookiecutter.use_celery == "y" %}
 django-celery-results==2.2.0
@@ -67,6 +65,7 @@ django-celery-results==2.2.0
 {%- if cookiecutter.use_django_auditlog == "y" %}
 django-auditlog==1.0.0
 {%- endif %}
+django-oauth-toolkit==2.2.0
 
 # X Studios / Tim Santor packages
 django-datatables-too>=0.1.3
