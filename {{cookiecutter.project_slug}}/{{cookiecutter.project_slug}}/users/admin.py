@@ -19,6 +19,7 @@ class UserAdmin(auth_admin.UserAdmin):
         {%- else %}
         (None, {"fields": ("username", "password")}),
         (_("Personal info"), {"fields": ("first_name", "last_name", "email")}),
+        {%- endif %}
         (
             _("Permissions"),
             {
@@ -33,16 +34,24 @@ class UserAdmin(auth_admin.UserAdmin):
         ),
         (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
-    list_display = [
-        "username",
-        "first_name",
+    list_display = ["{{cookiecutter.username_type}}", "first_name",
         "last_name",
         "is_staff",
         "is_superuser",
-        "last_login",
-    ]
-    filter_horizontal = ["groups", "user_permissions"]
+        "last_login",]
     search_fields = ["first_name", "last_name", "email"]
+    {%- if cookiecutter.username_type == "email" %}
+    ordering = ["id"]
+    add_fieldsets = (
+        (
+            None,
+            {
+                "classes": ("wide",),
+                "fields": ("email", "password1", "password2"),
+            },
+        ),
+    )
+    {%- endif %}
 
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)

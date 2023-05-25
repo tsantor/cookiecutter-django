@@ -59,7 +59,6 @@ function styles() {
     cssnano({ preset: 'default' }), // minify result
   ];
 
-<<<<<<< HEAD
   return src(`${paths.sass}/*.scss`)
     .pipe(sass({
       importer: tildeImporter,
@@ -67,15 +66,6 @@ function styles() {
         paths.sass
       ]
     }).on('error', sass.logError))
-=======
-  return src(`${paths.sass}/project.scss`)
-    .pipe(
-      sass({
-        importer: tildeImporter,
-        includePaths: [paths.sass],
-      }).on('error', sass.logError),
-    )
->>>>>>> upstream/master
     .pipe(plumber()) // Checks for errors
     .pipe(postcss(processCss))
     .pipe(dest(paths.css))
