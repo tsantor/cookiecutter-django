@@ -3,6 +3,61 @@ All enhancements and patches to Cookiecutter Django will be documented in this f
 
 <!-- GENERATOR_PLACEHOLDER -->
 
+## 2023.05.24
+
+
+### Fixed
+
+- Prevent Celery restarts on media file changes ([#4352](https://github.com/cookiecutter/cookiecutter-django/pull/4352))
+
+### Updated
+
+- Update coverage to 7.2.6 ([#4351](https://github.com/cookiecutter/cookiecutter-django/pull/4351))
+
+## 2023.05.23
+
+
+### Changed
+
+- Fix compatibility webpack-bundle-tracker&gt;=2.0.0 js library required after upgrade django-webpack-loader&gt;=2.0.0 ([#4350](https://github.com/cookiecutter/cookiecutter-django/pull/4350))
+
+### Updated
+
+- Update sphinx-rtd-theme to 1.2.1 ([#4348](https://github.com/cookiecutter/cookiecutter-django/pull/4348))
+
+- Update sentry-sdk to 1.24.0 ([#4349](https://github.com/cookiecutter/cookiecutter-django/pull/4349))
+
+- Bump webpack-bundle-tracker from 1.8.1 to 2.0.0 in /{{cookiecutter.project_slug}} ([#4347](https://github.com/cookiecutter/cookiecutter-django/pull/4347))
+
+- Update django-webpack-loader to 2.0.0 ([#4345](https://github.com/cookiecutter/cookiecutter-django/pull/4345))
+
+- Update pytest-xdist to 3.3.1 ([#4344](https://github.com/cookiecutter/cookiecutter-django/pull/4344))
+
+- Update requests to 2.31.0 ([#4346](https://github.com/cookiecutter/cookiecutter-django/pull/4346))
+
+## 2023.05.18
+
+
+### Updated
+
+- Update pre-commit to 3.3.2 ([#4342](https://github.com/cookiecutter/cookiecutter-django/pull/4342))
+
+## 2023.05.17
+
+
+### Updated
+
+- Update sentry-sdk to 1.23.1 ([#4341](https://github.com/cookiecutter/cookiecutter-django/pull/4341))
+
+## 2023.05.15
+
+
+### Updated
+
+- Update django-cors-headers to 4.0.0 ([#4329](https://github.com/cookiecutter/cookiecutter-django/pull/4329))
+
+- Update sentry-sdk to 1.23.0 ([#4337](https://github.com/cookiecutter/cookiecutter-django/pull/4337))
+
 ## 2023.05.09
 
 
