@@ -73,6 +73,7 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
     # "django.contrib.humanize", # Handy template tags
     "django.contrib.admin",
+    # "{{ cookicutter_project_slug }}.admin.apps.CustomAdminConfig",  # Custom admin
     "django.forms",
 ]
 THIRD_PARTY_APPS = [
@@ -100,10 +101,10 @@ THIRD_PARTY_APPS = [
 {%- if cookiecutter.use_django_auditlog == "y" %}
     "auditlog",
 {%- endif %}
-    "django_perm_filter.apps.DjangoPermFilterConfig",
 {%- if cookiecutter.frontend_pipeline == 'Webpack' %}
     "webpack_loader",
 {%- endif %}
+    "django_perm_filter",
 ]
 
 LOCAL_APPS = [
