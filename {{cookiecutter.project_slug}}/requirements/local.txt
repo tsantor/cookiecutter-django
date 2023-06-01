@@ -47,5 +47,8 @@ django-extensions==3.2.1  # https://github.com/django-extensions/django-extensio
 django-coverage-plugin==3.0.0  # https://github.com/nedbat/django_coverage_plugin
 pytest-django==4.5.2  # https://github.com/pytest-dev/pytest-django
 
+# My forked additions
+# ------------------------------------------------------------------------------
 # X Studios / Tim Santor packages
 pip-freezer==0.3.4
+# Project specific

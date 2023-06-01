@@ -306,7 +306,12 @@ LOGGING = {
             "handlers": ["console", "mail_admins"],
             "propagate": True,
         },
-         # Custom logger, write to console and file
+        "{{ cookiecutter.project_slug }}": {
+            "level": "DEBUG",
+            "handlers": ["console"],
+            "propagate": False,
+        },
+        # Custom logger, write to console and file
         "custom.log": {"handlers": ["file"], "level": "DEBUG", "propagate": True},
     },
 }
@@ -332,6 +337,11 @@ LOGGING = {
     "loggers": {
         "django.db.backends": {
             "level": "ERROR",
+            "handlers": ["console"],
+            "propagate": False,
+        },
+        "{{ cookiecutter.project_slug }}": {
+            "level": "DEBUG",
             "handlers": ["console"],
             "propagate": False,
         },

@@ -9,6 +9,7 @@ python_files = [
 {%- if cookiecutter.frontend_pipeline == 'Gulp' %}
 norecursedirs = ["node_modules"]
 {%- endif %}
+filterwarnings = "ignore::DeprecationWarning"
 
 # ==== Coverage ====
 [tool.coverage.run]

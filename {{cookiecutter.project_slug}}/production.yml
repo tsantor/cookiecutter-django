@@ -50,8 +50,8 @@ services:
     env_file:
       - ./.envs/.production/.postgres
     ports:
-      # Allows us to connect remotely using something like TablePlus
-      - "0.0.0.0:5432:5432"
+      # Allows us to connect remotely using something like TablePlus over SSH
+      - "127.0.0.1:5432:5432"
 
   traefik:
     build:

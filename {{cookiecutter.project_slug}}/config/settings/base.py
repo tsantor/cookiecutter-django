@@ -189,7 +189,7 @@ STATICFILES_FINDERS = [
 # MEDIA
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#media-root
-MEDIA_ROOT = str(ROOT_DIR / "media")
+MEDIA_ROOT = str(BASE_DIR / "media")
 # https://docs.djangoproject.com/en/dev/ref/settings/#media-url
 MEDIA_URL = "/media/"
 
@@ -272,25 +272,43 @@ LOGGING = {
     "disable_existing_loggers": False,
     "formatters": {
         "verbose": {
-<<<<<<< HEAD
-            # "format": "%(levelname)s %(asctime)s %(module)s "
-            # "%(process)d %(thread)d %(message)s"
-            "format": "[%(asctime)s %(levelname)s/Process-%(process)d] "
-            "[%(module)s] %(message)s"
-        }
-=======
             "format": "%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s",
         },
->>>>>>> upstream/master
+        "custom_formatter": {
+            "format": "[%(levelname)s] %(asctime)s %(module)s %(process)d %(thread)d %(message)s",
+            "datefmt": "%Y-%m-%d %I:%M:%S %p",
+        },
     },
     "handlers": {
         "console": {
             "level": "DEBUG",
             "class": "logging.StreamHandler",
-            "formatter": "verbose",
+            "formatter": "custom_formatter",
         }
     },
     "root": {"level": "INFO", "handlers": ["console"]},
+    "loggers": {
+        "django.db.backends": {
+            "level": "WARNING",
+            "handlers": ["console"],
+            "propagate": False,
+        },
+        "django.request": {
+            "handlers": ["console"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+        "django.server": {
+            "level": "WARNING",
+            "handlers": ["console"],
+            "propagate": False,
+        },
+        "{{ cookiecutter.project_slug }}": {
+            "level": "DEBUG",
+            "handlers": ["console"],
+            "propagate": False,
+        },
+    },
 }
 
 {% if cookiecutter.use_celery == 'y' -%}
@@ -448,7 +466,7 @@ SESSION_COOKIE_SAMESITE = 'Strict'
 # django-perm-filter
 # -------------------------------------------------------------------------------
 PERM_FILTER = {
-    "HIDE_APPS": [
+    "HIDE_PERMS": [
         # Django built-ins
         "admin",
         "contenttypes",
@@ -461,8 +479,6 @@ PERM_FILTER = {
         "django_celery_beat",
         "django_celery_results",
         "thumbnail",
-    ],
-    "HIDE_PERMS": [
         # Django built-in auth permissions
         "auth.view_permission",
         "auth.add_permission",
@@ -487,13 +503,16 @@ PERM_FILTER = {
         "allauth.socialaccount.models.SocialToken",
         # Celery
         "django_celery_beat.models.ClockedSchedule",
-        "django_celery_beat.models.CrontabSchedule",
-        "django_celery_beat.models.IntervalSchedule",
-        "django_celery_beat.models.PeriodicTask",
+        # "django_celery_beat.models.CrontabSchedule",
+        # "django_celery_beat.models.IntervalSchedule",
+        # "django_celery_beat.models.PeriodicTask",
         "django_celery_beat.models.SolarSchedule",
         "django_celery_results.models.GroupResult",
         # "django_celery_results.models.TaskResult",
         # "django.contrib.sites.models.Site",
+        # oAuth2
+        # "oauth2_provider.models.IDToken",
+        # "oauth2_provider.models.Grant",
     ],
 }
 
