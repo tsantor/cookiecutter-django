@@ -7,6 +7,9 @@ volumes:
   {%- if cookiecutter.cloud_provider == 'None' %}
   production_django_media: {}
   {%- endif %}
+  {%- if cookiecutter.use_whitenoise == 'n' %}
+  production_django_staticfiles: {}
+  {%- endif %}
 
 services:
   django:{% if cookiecutter.use_celery == 'y' %} &django{% endif %}
@@ -105,9 +108,12 @@ services:
     build:
       context: .
       dockerfile: ./compose/production/nginx/Dockerfile
-    image: {{ cookiecutter.project_slug }}_local_nginx
+    image: {{ cookiecutter.project_slug }}_production_nginx
     depends_on:
       - django
     volumes:
       - production_django_media:/usr/share/nginx/media:ro
+      {%- if cookiecutter.use_whitenoise == 'n' %}
+      - production_django_staticfiles:/app/staticfiles:ro
+      {%- endif %}
   {%- endif %}

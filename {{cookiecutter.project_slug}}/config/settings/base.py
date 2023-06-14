@@ -73,7 +73,7 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
     # "django.contrib.humanize", # Handy template tags
     "django.contrib.admin",
-    # "{{ cookicutter_project_slug }}.admin.apps.CustomAdminConfig",  # Custom admin
+    # "{{ cookiecutter.project_slug }}.admin.apps.CustomAdminConfig",  # Custom admin
     "django.forms",
 ]
 THIRD_PARTY_APPS = [

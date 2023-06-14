@@ -15,7 +15,7 @@ class UserAdmin(auth_admin.UserAdmin):
     fieldsets = (
         {%- if cookiecutter.username_type == "email" %}
         (None, {"fields": ("email", "password")}),
-        (_("Personal info"), {"fields": ("name",)}),
+        (_("Personal info"), {"fields": ("name", "first_name", "last_name")}),
         {%- else %}
         (None, {"fields": ("username", "password")}),
         (_("Personal info"), {"fields": ("first_name", "last_name", "email")}),
