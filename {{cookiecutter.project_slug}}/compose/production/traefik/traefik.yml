@@ -74,6 +74,19 @@ http:
         certResolver: letsencrypt
     {%- endif %}
 
+  {%- if cookiecutter.use_whitenoise == 'n' %}
+
+   web-static-router:
+      rule: 'Host(`{{ cookiecutter.domain_name }}`) && PathPrefix(`/static/`)'
+      entryPoints:
+        - web-secure
+      middlewares:
+        - csrf
+      service: django-static
+      tls:
+        certResolver: letsencrypt
+  {%- endif %}
+
   middlewares:
     csrf:
       # https://docs.traefik.io/master/middlewares/headers/#hostsproxyheaders
@@ -96,6 +109,14 @@ http:
     {%- if cookiecutter.cloud_provider == 'None' %}
 
     django-media:
+      loadBalancer:
+        servers:
+          - url: http://nginx:80
+    {%- endif %}
+
+    {%- if cookiecutter.use_whitenoise == 'n' %}
+
+    django-static:
       loadBalancer:
         servers:
           - url: http://nginx:80
