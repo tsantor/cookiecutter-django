@@ -108,10 +108,10 @@ RUN sed -i 's/\r$//g' /start-flower
 RUN chmod +x /start-flower
 {%- endif %}
 
-# Django staticfiles/media
+{%- if cookiecutter.use_whitenoise == 'n' %}
+# Django staticfiles
 RUN mkdir -p ${APP_HOME}/staticfiles && chown django:django ${APP_HOME}/staticfiles
-# RUN mkdir -p ${APP_HOME}/media && chown django:django ${APP_HOME}/media
-
+{%- endif %}
 
 # copy application code to WORKDIR
 {%- if cookiecutter.frontend_pipeline in ['Gulp', 'Webpack'] %}

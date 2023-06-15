@@ -19,7 +19,8 @@ env:
 	pyenv virtualenv ${python_version} ${venv} && pyenv local ${venv}
 
 reqs:
-	python -m pip install -U pip wheel black pylint pre-commit && pre-commit install
+	python -m pip install -U pip wheel
+	python -m pip install -r requirements/local.txt && pre-commit install
 
 build:
 	docker-compose -f local.yml build
@@ -57,6 +58,9 @@ clearsessions:
 collectstatic:
 	docker-compose -f local.yml exec django python manage.py collectstatic
 
+pytest:
+	docker-compose -f local.yml exec django pytest -v
+
 # Project Specific
 clean_vue:
 	rm -rf {{cookiecutter.project_slug}}/static/vue-frontend/
@@ -77,10 +81,26 @@ pull_media:
 
 push_production_env:
 	rsync -avzP .envs/.production ${prod_ssh}:~/${project_dir}/.envs/
+	# rsync -avzP -e "ssh -i ~/.ssh/{{cookiecutter.project_slug}}.pem" .envs/.production ${prod_ssh}:${project_dir}/.envs/
 
 pull_production_env:
 	rsync -avzP ${prod_ssh}:~/${project_dir}/.envs/.production .envs/
+	# rsync -avzP -e "ssh -i ~/.ssh/{{cookiecutter.project_slug}}.pem" ${prod_ssh}:~/${project_dir}/.envs/.production .envs/
 
+dump_data:
+	docker-compose -f local.yml exec django python manage.py dumpdata \
+  --natural-foreign --natural-primary \
+  -e contenttypes \
+  -e sessions  \
+  -e admin \
+  -e django_celery_results.taskresult \
+  -e oauth2_provider.accesstoken \
+  -e oauth2_provider.refreshtoken \
+  -e oauth2_provider.grant \
+  -e oauth2_provider.idtoken > ${project_dir}/fixtures/data.json
+
+load_data:
+	docker-compose -f local.yml run --rm django python manage.py loaddata data.json
 
 # Project Specific
 
@@ -89,7 +109,8 @@ pull_production_env:
 # -----------------------------------------------------------------------------
 
 deploy_prod:
-	docker-compose -f production build
+	docker-compose -f production.yml down
+	docker-compose -f production.yml build
 	docker-compose -f production.yml run --rm django python manage.py migrate
 	docker-compose -f production.yml up -d
 
@@ -101,7 +122,7 @@ deploy_prod:
 mutagen_sync_name={{cookiecutter.project_slug}}-code
 mutagen_forward_name={{cookiecutter.project_slug}}-port-forward
 mutagen_beta_user=tsantor@tim-macbook-ubuntu.local
-mutagen_beta_dir=~/Projects
+mutagen_beta_dir=~/Projects/{{cookiecutter.project_slug}}
 
 mutagen_up:
 	mutagen sync create --name=${mutagen_sync_name} . ${mutagen_beta_user}:${mutagen_beta_dir}
