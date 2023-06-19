@@ -3,6 +3,44 @@ All enhancements and patches to Cookiecutter Django will be documented in this f
 
 <!-- GENERATOR_PLACEHOLDER -->
 
+## 2023.06.18
+
+
+### Changed
+
+- Fix missing celery env variable when running compilemessages ([#4403](https://github.com/cookiecutter/cookiecutter-django/pull/4403))
+
+### Updated
+
+- Update flower to 2.0.0 ([#4402](https://github.com/cookiecutter/cookiecutter-django/pull/4402))
+
+## 2023.06.17
+
+
+## 2023.06.16
+
+
+### Updated
+
+- Update whitenoise to 6.5.0 ([#4400](https://github.com/cookiecutter/cookiecutter-django/pull/4400))
+
+- Update django-redis to 5.3.0 ([#4399](https://github.com/cookiecutter/cookiecutter-django/pull/4399))
+
+- Auto-update pre-commit hooks ([#4395](https://github.com/cookiecutter/cookiecutter-django/pull/4395))
+
+## 2023.06.14
+
+
+### Updated
+
+- Update django-cors-headers to 4.1.0 ([#4391](https://github.com/cookiecutter/cookiecutter-django/pull/4391))
+
+- Update django-upgrade to 1.14.0 ([#4394](https://github.com/cookiecutter/cookiecutter-django/pull/4394))
+
+- Update django-webpack-loader to 2.0.1 ([#4392](https://github.com/cookiecutter/cookiecutter-django/pull/4392))
+
+- Update pre-commit to 3.3.3 ([#4390](https://github.com/cookiecutter/cookiecutter-django/pull/4390))
+
 ## 2023.06.11
 
 
