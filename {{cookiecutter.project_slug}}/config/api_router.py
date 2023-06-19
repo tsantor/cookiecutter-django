@@ -8,11 +8,11 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView,
 )
 {%- else %}
-from rest_framework.authtoken.views import obtain_auth_token
+from rest_framework.authtoken.views import obtain_auth_token  # noqa
 {%- endif %}
 
 {%- if cookiecutter.use_drf == 'y' %}
-from rest_framework.authtoken.views import obtain_auth_token
+from rest_framework.authtoken.views import obtain_auth_token  # noqa
 {%- endif %}
 
 if settings.DEBUG:

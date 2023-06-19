@@ -6,7 +6,6 @@ from datetime import timedelta
 from pathlib import Path
 
 import environ
-from django.contrib.messages import constants as messages
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # {{ cookiecutter.project_slug }}/
