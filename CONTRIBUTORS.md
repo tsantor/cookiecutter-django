@@ -1073,6 +1073,13 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>Joseph Hanna</td>
+    <td>
+      <a href="https://github.com/sanchimenea">sanchimenea</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>jugglinmike</td>
     <td>
       <a href="https://github.com/jugglinmike">jugglinmike</a>
@@ -1832,6 +1839,13 @@ Listed in alphabetical order.
     <td>Timm Simpkins</td>
     <td>
       <a href="https://github.com/PoDuck">PoDuck</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>tmajerech</td>
+    <td>
+      <a href="https://github.com/tmajerech">tmajerech</a>
     </td>
     <td></td>
   </tr>

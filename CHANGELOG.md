@@ -3,6 +3,41 @@ All enhancements and patches to Cookiecutter Django will be documented in this f
 
 <!-- GENERATOR_PLACEHOLDER -->
 
+## 2023.07.08
+
+
+### Updated
+
+- Update sentry-sdk to 1.27.1 ([#4440](https://github.com/cookiecutter/cookiecutter-django/pull/4440))
+
+## 2023.07.04
+
+
+### Changed
+
+- Add PostgreSQL 15 ([#4431](https://github.com/cookiecutter/cookiecutter-django/pull/4431))
+
+- [pre-commit.ci] pre-commit autoupdate ([#4438](https://github.com/cookiecutter/cookiecutter-django/pull/4438))
+
+### Updated
+
+- Update sentry-sdk to 1.27.0 ([#4439](https://github.com/cookiecutter/cookiecutter-django/pull/4439))
+
+- Update postcss-preset-env to 9.0.0 ([#4437](https://github.com/cookiecutter/cookiecutter-django/pull/4437))
+
+## 2023.07.03
+
+
+### Changed
+
+- Add a devcontainer configuration with Docker ([#4198](https://github.com/cookiecutter/cookiecutter-django/pull/4198))
+
+### Updated
+
+- Update django-stubs to 4.2.3 ([#4430](https://github.com/cookiecutter/cookiecutter-django/pull/4430))
+
+- Update django to 4.2.3 ([#4435](https://github.com/cookiecutter/cookiecutter-django/pull/4435))
+
 ## 2023.06.30
 
 
