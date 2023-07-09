@@ -20,6 +20,14 @@ entryPoints:
     address: ':5555'
   {%- endif %}
 
+  {%- if cookiecutter.use_mosquitto == 'y' %}
+  mqtt-secure:
+    address: ':8883'
+
+  mqtt-wss:
+    address: ':9001'
+  {%- endif %}
+
 certificatesResolvers:
   letsencrypt:
     # https://docs.traefik.io/master/https/acme/#lets-encrypt
@@ -76,15 +84,36 @@ http:
 
   {%- if cookiecutter.use_whitenoise == 'n' %}
 
-   web-static-router:
-      rule: 'Host(`{{ cookiecutter.domain_name }}`) && PathPrefix(`/static/`)'
-      entryPoints:
-        - web-secure
-      middlewares:
-        - csrf
-      service: django-static
-      tls:
-        certResolver: letsencrypt
+  web-static-router:
+    rule: 'Host(`{{ cookiecutter.domain_name }}`) && (PathPrefix(`/static/`) || PathPrefix(`/docs/`))'
+    entryPoints:
+      - web-secure
+    middlewares:
+      - csrf
+      - security-headers
+    service: django-static
+    tls:
+      certResolver: letsencrypt
+  {%- endif %}
+
+  {%- if cookiecutter.use_mosquitto == 'y' %}
+
+  mqtt-secure-router:
+    rule: 'Host(`{{ cookiecutter.domain_name }}`) && PathPrefix(`/mqtt`)'
+    entryPoints:
+      # - mqtt-secure
+      - web-secure
+    service: mqtt
+    tls:
+      certResolver: letsencrypt
+
+  # mqtt-wss-router:
+  #   rule: 'Host(`{{ cookiecutter.domain_name }}`) && PathPrefix(`/mqtt`)'
+  #   entryPoints:
+  #     - mqtt-wss
+  #   service: mqtt
+  #   tls:
+  #     certResolver: letsencrypt
   {%- endif %}
 
   middlewares:
@@ -93,6 +122,22 @@ http:
       # https://docs.djangoproject.com/en/dev/ref/csrf/#ajax
       headers:
         hostsProxyHeaders: ['X-CSRFToken']
+
+    {%- if cookiecutter.use_whitenoise == 'n' %}
+    security-headers:
+      headers:
+        # browserXssFilter: true
+        customBrowserXSSValue: 0
+        contentTypeNosniff: true
+        frameDeny: true
+        forceSTSHeader: true
+        stsIncludeSubdomains: true
+        stsPreload: true
+        stsSeconds: 2592000
+        referrerPolicy: 'same-origin'
+        contentSecurityPolicy: "default-src 'self' data: 'unsafe-inline'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' fonts.googleapis.com use.typekit.net p.typekit.net maxcdn.bootstrapcdn.com; img-src 'self' data:; font-src 'self' fonts.gstatic.com use.typekit.net maxcdn.bootstrapcdn.com; connect-src 'self' wss: o300282.ingest.sentry.io; media-src 'self'; worker-src 'self' blob:; form-action 'self'; upgrade-insecure-requests; block-all-mixed-content; base-uri 'self'"
+        permissionsPolicy: 'accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()'
+    {%- endif %}
 
   services:
     django:
@@ -121,6 +166,32 @@ http:
         servers:
           - url: http://nginx:80
     {%- endif %}
+
+    {%- if cookiecutter.use_mosquitto == 'y' %}
+
+    mqtt:
+      loadBalancer:
+        servers:
+          - url: http://mosquitto:9001
+    {%- endif %}
+
+{%- if cookiecutter.use_mosquitto == 'y' %}
+tcp:
+  routers:
+    mqtt:
+      rule: 'HostSNI(`{{ cookiecutter.domain_name }}`)'
+      entryPoints:
+        - mqtt-secure
+      service: mqtt
+      tls:
+        certResolver: letsencrypt
+
+  services:
+    mqtt:
+      loadBalancer:
+        servers:
+          - address: mosquitto:8883
+{%- endif %}
 
 providers:
   # https://docs.traefik.io/master/providers/file/

@@ -45,6 +45,9 @@ if settings.DEBUG:
 urlpatterns += [
     # API base url
     path("api/v1/", include("config.api_router")),
+    {%- if cookiecutter.use_oauth == "y" %}
+    path("o/", include("oauth2_provider.urls", namespace="oauth2_provider")),
+    {%- endif %}
     {% if cookiecutter.use_simplejwt == "y" -%}
     path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),

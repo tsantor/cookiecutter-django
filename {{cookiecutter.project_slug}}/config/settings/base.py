@@ -109,6 +109,9 @@ THIRD_PARTY_APPS = [
 {%- if cookiecutter.frontend_pipeline == 'Webpack' %}
     "webpack_loader",
 {%- endif %}
+{%- if cookiecutter.use_oauth == "y" %}
+    "oauth2_provider",
+{%- endif %}
     "django_perm_filter",
 ]
 
@@ -474,6 +477,7 @@ CSRF_TRUSTED_ORIGINS=env.list("CSRF_TRUSTED_ORIGINS", default=["http://localhost
 # django-perm-filter
 # -------------------------------------------------------------------------------
 PERM_FILTER = {
+    "USER_ADMIN": "{{ cookiecutter.project_slug }}.users.admin.UserAdmin",
     "HIDE_PERMS": [
         # Django built-ins
         "admin",
@@ -501,6 +505,19 @@ PERM_FILTER = {
         "authtoken.add_tokenproxy",
         "authtoken.change_tokenproxy",
         "authtoken.delete_tokenproxy",
+        # oAuth2
+        "oauth2_provider.view_idtoken",
+        "oauth2_provider.add_idtoken",
+        "oauth2_provider.change_idtoken",
+        "oauth2_provider.delete_idtoken",
+        "oauth2_provider.view_grant",
+        "oauth2_provider.add_grant",
+        "oauth2_provider.change_grant",
+        "oauth2_provider.delete_grant",
+        "oauth2_provider.view_refreshtoken",
+        "oauth2_provider.add_refreshtoken",
+        "oauth2_provider.change_refreshtoken",
+        "oauth2_provider.delete_refreshtoken",
     ],
     "UNREGISTER_MODELS": [
         "rest_framework.authtoken.models.TokenProxy",
@@ -519,8 +536,8 @@ PERM_FILTER = {
         # "django_celery_results.models.TaskResult",
         # "django.contrib.sites.models.Site",
         # oAuth2
-        # "oauth2_provider.models.IDToken",
-        # "oauth2_provider.models.Grant",
+        "oauth2_provider.models.IDToken",
+        "oauth2_provider.models.Grant",
     ],
 }
 
@@ -547,3 +564,16 @@ IGNORABLE_404_URLS = [
 ]
 
 PROJECT_TITLE = env("PROJECT_TITLE")
+
+{%- if cookiecutter.use_oauth == "y" %}
+OAUTH2_PROVIDER = {
+    "ACCESS_TOKEN_EXPIRE_SECONDS": 60 * 60 * 8,
+    "REFRESH_TOKEN_EXPIRE_SECONDS": 60 * 60 * 8,
+    # this is the list of available scopes
+    "SCOPES": {
+        "example:read": "Example read scope",
+        "example:write": "Example write scope",
+    },
+}
+{%- endif %}
+SESSION_COOKIE_AGE = 60 * 60 * 8  # 8 hrs

@@ -54,6 +54,7 @@
   "use_drf": "y",
   "use_dj_rest_auth": "y",
   "use_simplejwt": "y",
+  "use_oauth": "y",
   "use_django_auditlog": "y",
   "frontend_pipeline": [
     "None",
@@ -65,6 +66,7 @@
   "use_mailhog": "y",
   "use_sentry": "y",
   "use_whitenoise": "n",
+  "use_mosquitto": "n",
   "use_heroku": "n",
   "ci_tool": [
     "None",
