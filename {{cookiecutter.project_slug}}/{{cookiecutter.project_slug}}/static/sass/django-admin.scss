@@ -2,6 +2,45 @@
     DJANGO Admin style overrides
 */
 
+:root > * {
+  --primary: #050505; // #282828;
+  --secondary: #282828; // ##050505;
+  --accent: #f5dd5d;
+  --primary-fg: #fff;
+  --body-fg: #333;
+  --body-bg: #fff;
+  --body-quiet-color: #666;
+  --body-loud-color: #000;
+  --header-color: #ffc;
+  --header-branding-color: var(--accent);
+  --header-bg: var(--primary);
+  --header-link-color: var(--primary-fg);
+  --breadcrumbs-fg: #c4dce8;
+  --breadcrumbs-link-fg: var(--body-bg);
+  --breadcrumbs-bg: var(--secondary);
+  --link-fg: #417893;
+  --link-hover-color: #036;
+  --link-selected-fg: #5b80b2;
+  --hairline-color: #e8e8e8;
+  --border-color: #ccc;
+  --error-fg: #ba2121;
+  --message-success-bg: #dfd;
+  --message-warning-bg: #ffc;
+  --message-error-bg: #ffefef;
+  --darkened-bg: #f8f8f8;
+  --selected-bg: #e4e4e4;
+  --selected-row: #ffc;
+  --button-fg: #fff;
+  --button-bg: #bfbfbf; // var(--primary);
+  --button-hover-bg: #609ab6;
+  --default-button-bg: var(--secondary);
+  --default-button-hover-bg: #205067;
+  --close-button-bg: #747474;
+  --close-button-hover-bg: #333;
+  --delete-button-bg: #ba2121;
+  --delete-button-hover-bg: #a41515;
+  }
+
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
 
@@ -17,132 +56,19 @@ h5 {
   font-family: "Raleway", sans-serif;
 }
 
-$primary-color: #121114;
-$secondary-color: #171618;
-
-$primary-btn-color: #016ce2;
-$primary-btn-hover-color: #0066cc;
-$secondary-btn-color: rgb(153,153,153);
-$secondary-btn-hover-color: rgb(102,102,102);
-
-
-.button.default,
-input[type=submit].default,
-.submit-row input.default {
-    background: $primary-btn-color;
-}
-
-.button.default:active,
-input[type=submit].default:active,
-.button.default:focus,
-input[type=submit].default:focus,
-.button.default:hover,
-input[type=submit].default:hover {
-    background: $primary-btn-hover-color;
-}
-
-/* Secondary buttons */
-.button,
-input[type=submit],
-.submit-row input {
-    background: $secondary-btn-color;
-}
-
-.button:active,
-input[type=submit]:active,
-.button:focus,
-input[type=submit]:focus,
-.button:hover,
-input[type=submit]:hover {
-    background: $secondary-btn-hover-color;
-}
-
-/* MODULES */
-
-.module h2,
-.module caption,
-.inline-group h2 {
-    background: $secondary-color;
-}
-
-/* BREADCRUMBS */
-
-div.breadcrumbs {
-    background: $secondary-color;
-}
-
-/* HEADER */
-
-#header {
-    background: $primary-color;
-}
-
-#header a:link, #header a:visited {
-    color: #fff;
-}
-
-#user-tools {
-    color: #fff;
-    a {
-        color: #fff;
-        border-bottom: 1px solid rgba(255,255,255, 0.25);
-        &:hover {
-            border-bottom: 1px solid rgba(255,255, 255, 1);
-        }
-    }
-}
-
-
-.object-tools {
-  a {
-      &:hover {
-          background-color: $secondary-color !important;
-      }
-  }
-}
-
-
-/* admin/static/admin/css/login.css */
-body.login {
-    background: #f8f8f8;
-    #branding {
-      float: none;
-    }
-}
-
 body.login #header {
-    background: $primary-color;
-    .logo-login {
-      width: 50%;
-      height: auto;
-      margin: 10px auto;
-      display: block;
-    }
+  // background: $primary-color;
+  .logo-login {
+    width: 100%;
+    height: auto;
+    margin: 10px auto;
+    display: block;
+  }
 }
 
 #branding {
-  .logo {
-    height: 27px;
-    width: auto;
-  }
+.logo {
+  height: 27px;
+  width: auto;
 }
-
-
-/* admin/static/admin/css/widgets.css */
-.selector-chosen h2 {
-    color: #fff;
-    background: $secondary-color !important;
-}
-
-.calendar caption {
-    color: #fff !important;
-    background: $secondary-color !important;
-}
-
-.calendar td.selected a {
-    background: $primary-color !important;
-}
-
-.calendar td a:hover {
-    background: $primary-color !important;
 }

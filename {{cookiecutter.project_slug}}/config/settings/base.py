@@ -113,6 +113,9 @@ THIRD_PARTY_APPS = [
     "oauth2_provider",
 {%- endif %}
     "django_perm_filter",
+{%- if cookiecutter.use_robots == "y" %}
+    "robots",
+{%- endif %}
 ]
 
 LOCAL_APPS = [
@@ -176,6 +179,9 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+{%- if cookiecutter.use_oauth == 'y' %}
+    "oauth2_provider.middleware.OAuth2TokenMiddleware",
+{%- endif %}
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.common.BrokenLinkEmailsMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
@@ -417,6 +423,9 @@ STATICFILES_FINDERS += ["compressor.finders.CompressorFinder"]
 REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": ["{{cookiecutter.project_slug}}.api.renderers.MyJSONRenderer"],
     "DEFAULT_AUTHENTICATION_CLASSES": (
+        {% if cookiecutter.use_oauth == "y" -%}
+        "oauth2_provider.contrib.rest_framework.OAuth2Authentication",
+        {%- endif %}
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
         {% if cookiecutter.use_simplejwt == "y" -%}
@@ -577,3 +586,12 @@ OAUTH2_PROVIDER = {
 }
 {%- endif %}
 SESSION_COOKIE_AGE = 60 * 60 * 8  # 8 hrs
+
+{%- if cookiecutter.use_robots == "y" %}
+# django-robots
+# https://django-robots.readthedocs.io/en/latest/
+ROBOTS_USE_SITEMAP = False
+ROBOTS_USE_HOST = True
+ROBOTS_USE_SCHEME_IN_HOST = True
+# ROBOTS_CACHE_TIMEOUT = 60 * 60 * 24  # 24 hours
+{%- endif %}
