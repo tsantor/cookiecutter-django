@@ -940,6 +940,13 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>hleroy</td>
+    <td>
+      <a href="https://github.com/hleroy">hleroy</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>Hoai-Thu Vuong</td>
     <td>
       <a href="https://github.com/thuvh">thuvh</a>
@@ -957,6 +964,13 @@ Listed in alphabetical order.
     <td>Ian Lee</td>
     <td>
       <a href="https://github.com/IanLee1521">IanLee1521</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Imran Rahman</td>
+    <td>
+      <a href="https://github.com/infraredCoding">infraredCoding</a>
     </td>
     <td></td>
   </tr>
@@ -1909,6 +1923,13 @@ Listed in alphabetical order.
     <td>Vikas Yadav</td>
     <td>
       <a href="https://github.com/vik-y">vik-y</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>villancikos</td>
+    <td>
+      <a href="https://github.com/villancikos">villancikos</a>
     </td>
     <td></td>
   </tr>
