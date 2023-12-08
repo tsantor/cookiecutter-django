@@ -66,7 +66,7 @@
     "Webpack"
   ],
   "use_celery": "y",
-  "use_mailhog": "y",
+  "use_mailpit": "y",
   "use_sentry": "y",
   "use_whitenoise": "n",
   "use_heroku": "n",

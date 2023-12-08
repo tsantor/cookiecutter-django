@@ -21,11 +21,11 @@ entryPoints:
   {%- endif %}
 
   {%- if cookiecutter.use_mosquitto == 'y' %}
+  mqtt:
+    address: ':1883'
+
   mqtt-secure:
     address: ':8883'
-
-  mqtt-wss:
-    address: ':9001'
   {%- endif %}
 
 certificatesResolvers:
@@ -101,19 +101,11 @@ http:
   mqtt-secure-router:
     rule: 'Host(`{{ cookiecutter.domain_name }}`) && PathPrefix(`/mqtt`)'
     entryPoints:
-      # - mqtt-secure
       - web-secure
     service: mqtt
     tls:
       certResolver: letsencrypt
 
-  # mqtt-wss-router:
-  #   rule: 'Host(`{{ cookiecutter.domain_name }}`) && PathPrefix(`/mqtt`)'
-  #   entryPoints:
-  #     - mqtt-wss
-  #   service: mqtt
-  #   tls:
-  #     certResolver: letsencrypt
   {%- endif %}
 
   middlewares:
@@ -178,16 +170,27 @@ http:
 {%- if cookiecutter.use_mosquitto == 'y' %}
 tcp:
   routers:
-    mqtt:
+    mqtt-tcp-router:
+      rule: 'HostSNI(`*`)'
+      entryPoints:
+        - mqtt
+      service: mqtt-tcp-service
+
+    mqtt-tcp-secure-router:
       rule: 'HostSNI(`{{ cookiecutter.domain_name }}`)'
       entryPoints:
         - mqtt-secure
-      service: mqtt
+      service: mqtt-tcp-secure-service
       tls:
         certResolver: letsencrypt
 
   services:
-    mqtt:
+    mqtt-tcp-service:
+      loadBalancer:
+        servers:
+          - address: mosquitto:1883
+
+    mqtt-tcp-secure-service:
       loadBalancer:
         servers:
           - address: mosquitto:8883
