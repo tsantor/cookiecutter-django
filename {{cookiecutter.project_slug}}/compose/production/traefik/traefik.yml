@@ -82,31 +82,31 @@ http:
         certResolver: letsencrypt
     {%- endif %}
 
-  {%- if cookiecutter.use_whitenoise == 'n' %}
+    {%- if cookiecutter.use_whitenoise == 'n' %}
 
-  web-static-router:
-    rule: 'Host(`{{ cookiecutter.domain_name }}`) && (PathPrefix(`/static/`) || PathPrefix(`/docs/`))'
-    entryPoints:
-      - web-secure
-    middlewares:
-      - csrf
-      - security-headers
-    service: django-static
-    tls:
-      certResolver: letsencrypt
-  {%- endif %}
+    web-static-router:
+      rule: 'Host(`{{ cookiecutter.domain_name }}`) && (PathPrefix(`/static/`) || PathPrefix(`/docs/`))'
+      entryPoints:
+        - web-secure
+      middlewares:
+        - csrf
+        - security-headers
+      service: django-static
+      tls:
+        certResolver: letsencrypt
+    {%- endif %}
 
-  {%- if cookiecutter.use_mosquitto == 'y' %}
+    {%- if cookiecutter.use_mosquitto == 'y' %}
 
-  mqtt-secure-router:
-    rule: 'Host(`{{ cookiecutter.domain_name }}`) && PathPrefix(`/mqtt`)'
-    entryPoints:
-      - web-secure
-    service: mqtt
-    tls:
-      certResolver: letsencrypt
+    mqtt-secure-router:
+      rule: 'Host(`{{ cookiecutter.domain_name }}`) && PathPrefix(`/mqtt`)'
+      entryPoints:
+        - web-secure
+      service: mqtt
+      tls:
+        certResolver: letsencrypt
 
-  {%- endif %}
+    {%- endif %}
 
   middlewares:
     csrf:

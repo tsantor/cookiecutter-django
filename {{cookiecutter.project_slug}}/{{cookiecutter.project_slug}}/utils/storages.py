@@ -1,3 +1,5 @@
+from django.contrib.staticfiles.storage import ManifestStaticFilesStorage
+
 {% if cookiecutter.cloud_provider == 'AWS' -%}
 from storages.backends.s3boto3 import S3ManifestStaticStorage
 from storages.backends.s3 import S3Storage
@@ -73,3 +75,15 @@ class StaticRootWhiteNoiseStorage(CompressedManifestStaticFilesStorage):
             result = name
         return result
 {% endif %}
+
+
+class ForgivingManifestStaticFilesStorage(ManifestStaticFilesStorage):
+
+    manifest_strict = False
+
+    def hashed_name(self, name, content=None, filename=None):
+        try:
+            return super().hashed_name(name, content, filename)
+        except ValueError:
+            # When the file is missing, let's forgive and ignore that.
+            return name

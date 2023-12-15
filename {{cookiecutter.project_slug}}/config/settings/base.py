@@ -466,7 +466,7 @@ SPECTACULAR_SETTINGS = {
 REST_AUTH = {
     'USE_JWT': True,
     'JWT_AUTH_COOKIE': 'jwt-auth',
-    "USER_DETAILS_SERIALIZER": "django_spaday.api.serializers.UserAuthSerializer",
+    # "USER_DETAILS_SERIALIZER": "django_spaday.api.serializers.UserAuthSerializer",
 }
 
 # https://django-rest-framework-simplejwt.readthedocs.io/en/latest/settings.htm
@@ -516,6 +516,7 @@ PERM_FILTER = {
         "authtoken.add_tokenproxy",
         "authtoken.change_tokenproxy",
         "authtoken.delete_tokenproxy",
+        {%- if cookiecutter.use_oauth == "y" %}
         # oAuth2
         "oauth2_provider.view_idtoken",
         "oauth2_provider.add_idtoken",
@@ -529,6 +530,7 @@ PERM_FILTER = {
         "oauth2_provider.add_refreshtoken",
         "oauth2_provider.change_refreshtoken",
         "oauth2_provider.delete_refreshtoken",
+        {%- endif %}
     ],
     "UNREGISTER_MODELS": [
         "rest_framework.authtoken.models.TokenProxy",
@@ -546,9 +548,11 @@ PERM_FILTER = {
         "django_celery_results.models.GroupResult",
         # "django_celery_results.models.TaskResult",
         # "django.contrib.sites.models.Site",
+        {%- if cookiecutter.use_oauth == "y" %}
         # oAuth2
         "oauth2_provider.models.IDToken",
         "oauth2_provider.models.Grant",
+        {%- endif %}
     ],
 }
 
