@@ -52,6 +52,7 @@
     "Other SMTP"
   ],
   "use_async": "n",
+<<<<<<< HEAD
   "use_drf": "y",
   "use_dj_rest_auth": "y",
   "use_simplejwt": "y",
@@ -76,6 +77,16 @@
     "Gitlab",
     "Github"
   ],
+=======
+  "use_drf": "n",
+  "frontend_pipeline": ["None", "Django Compressor", "Gulp", "Webpack"],
+  "use_celery": "n",
+  "use_mailpit": "n",
+  "use_sentry": "n",
+  "use_whitenoise": "n",
+  "use_heroku": "n",
+  "ci_tool": ["None", "Travis", "Gitlab", "Github", "Drone"],
+>>>>>>> upstream/master
   "keep_local_envs_in_vcs": "y",
   "debug": "n"
 }
