@@ -498,9 +498,11 @@ PERM_FILTER = {
         # All-auth
         "account",
         "socialaccount",
+
         # Celery
         "django_celery_beat",
         "django_celery_results",
+
         "thumbnail",
         # Django built-in auth permissions
         "auth.view_permission",
@@ -516,6 +518,7 @@ PERM_FILTER = {
         "authtoken.add_tokenproxy",
         "authtoken.change_tokenproxy",
         "authtoken.delete_tokenproxy",
+
         # oAuth2
         "oauth2_provider.view_idtoken",
         "oauth2_provider.add_idtoken",
@@ -529,6 +532,7 @@ PERM_FILTER = {
         "oauth2_provider.add_refreshtoken",
         "oauth2_provider.change_refreshtoken",
         "oauth2_provider.delete_refreshtoken",
+
     ],
     "UNREGISTER_MODELS": [
         "rest_framework.authtoken.models.TokenProxy",
@@ -537,6 +541,7 @@ PERM_FILTER = {
         "allauth.socialaccount.models.SocialAccount",
         "allauth.socialaccount.models.SocialApp",
         "allauth.socialaccount.models.SocialToken",
+
         # Celery
         "django_celery_beat.models.ClockedSchedule",
         # "django_celery_beat.models.CrontabSchedule",
@@ -545,7 +550,9 @@ PERM_FILTER = {
         "django_celery_beat.models.SolarSchedule",
         "django_celery_results.models.GroupResult",
         # "django_celery_results.models.TaskResult",
+
         # "django.contrib.sites.models.Site",
+
         # oAuth2
         "oauth2_provider.models.IDToken",
         "oauth2_provider.models.Grant",

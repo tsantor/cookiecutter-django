@@ -131,8 +131,8 @@ services:
       {%- endif %}
     restart: unless-stopped
   {%- endif %}
-
   {%- if cookiecutter.use_whitenoise == 'n' %}
+
   nginx:
     build:
       context: .
@@ -145,8 +145,8 @@ services:
       - /home/xstudios/mkdocs:/app/mkdocs:ro
     restart: unless-stopped
   {%- endif %}
-
   {%- if cookiecutter.use_mosquitto == 'y' %}
+
   mosquitto:
     image: eclipse-mosquitto
     container_name: mosquitto

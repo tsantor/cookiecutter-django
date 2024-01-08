@@ -1,6 +1,13 @@
 log:
   level: INFO
 
+api:
+  dashboard: true
+
+accessLog:
+  filePath: /var/log/access.log
+  bufferingSize: 100
+
 entryPoints:
   web:
     # http
@@ -21,6 +28,7 @@ entryPoints:
   {%- endif %}
 
   {%- if cookiecutter.use_mosquitto == 'y' %}
+
   mqtt-secure:
     address: ':8883'
 
@@ -81,40 +89,40 @@ http:
       tls:
         certResolver: letsencrypt
     {%- endif %}
+    {%- if cookiecutter.use_whitenoise == 'n' %}
 
-  {%- if cookiecutter.use_whitenoise == 'n' %}
+    web-static-router:
+      rule: 'Host(`{{ cookiecutter.domain_name }}`) && (PathPrefix(`/static/`) || PathPrefix(`/docs/`))'
+      entryPoints:
+        - web-secure
+      middlewares:
+        - csrf
+        - security-headers
+      service: django-static
+      tls:
+        certResolver: letsencrypt
+    {%- endif %}
+    {%- if cookiecutter.use_mosquitto == 'y' %}
 
-  web-static-router:
-    rule: 'Host(`{{ cookiecutter.domain_name }}`) && (PathPrefix(`/static/`) || PathPrefix(`/docs/`))'
-    entryPoints:
-      - web-secure
-    middlewares:
-      - csrf
-      - security-headers
-    service: django-static
-    tls:
-      certResolver: letsencrypt
-  {%- endif %}
+    mqtt-secure-router:
+      rule: 'Host(`{{ cookiecutter.domain_name }}`) && PathPrefix(`/mqtt`)'
+      entryPoints:
+        # - mqtt-secure
+        - web-secure
+      service: mqtt
+      tls:
+        certResolver: letsencrypt
+    {%- endif %}
 
-  {%- if cookiecutter.use_mosquitto == 'y' %}
-
-  mqtt-secure-router:
-    rule: 'Host(`{{ cookiecutter.domain_name }}`) && PathPrefix(`/mqtt`)'
-    entryPoints:
-      # - mqtt-secure
-      - web-secure
-    service: mqtt
-    tls:
-      certResolver: letsencrypt
-
-  # mqtt-wss-router:
-  #   rule: 'Host(`{{ cookiecutter.domain_name }}`) && PathPrefix(`/mqtt`)'
-  #   entryPoints:
-  #     - mqtt-wss
-  #   service: mqtt
-  #   tls:
-  #     certResolver: letsencrypt
-  {%- endif %}
+    dashboard-secure-router:
+      rule: "Host(`traefik.{{ cookiecutter.domain_name }}`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
+      entryPoints:
+        - web-secure
+      middlewares:
+        - dashboard-user
+      service: api@internal
+      tls:
+        certResolver: letsencrypt
 
   middlewares:
     csrf:
@@ -123,7 +131,12 @@ http:
       headers:
         hostsProxyHeaders: ['X-CSRFToken']
 
+    dashboard-user:
+      basicAuth:
+        usersFile: /etc/traefik/.htpasswd
+
     {%- if cookiecutter.use_whitenoise == 'n' %}
+
     security-headers:
       headers:
         # browserXssFilter: true
@@ -158,7 +171,6 @@ http:
         servers:
           - url: http://nginx:80
     {%- endif %}
-
     {%- if cookiecutter.use_whitenoise == 'n' %}
 
     django-static:
@@ -166,7 +178,6 @@ http:
         servers:
           - url: http://nginx:80
     {%- endif %}
-
     {%- if cookiecutter.use_mosquitto == 'y' %}
 
     mqtt:
@@ -181,7 +192,8 @@ tcp:
     mqtt:
       rule: 'HostSNI(`{{ cookiecutter.domain_name }}`)'
       entryPoints:
-        - mqtt-secure
+        # - mqtt-secure
+        - mqtt-wss
       service: mqtt
       tls:
         certResolver: letsencrypt

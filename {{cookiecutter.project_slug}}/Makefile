@@ -87,6 +87,17 @@ optimize:  ## optimize images
 	find . -name '*.png' -exec pngquant 64 --ext .png -f --skip-if-larger {} \;
 	cd {{cookiecutter.project_slug}}/static && open -a ImageOptim .
 
+
+# -----------------------------------------------------------------------------
+# Gen password files
+# -----------------------------------------------------------------------------
+
+traefik_htaccess:  ## create .htpasswd file
+	htpasswd -c compose/production/traefik/.htpasswd xstudios
+
+nginx_htaccess:  ## create .htpasswd file
+	htpasswd -c compose/production/nginx/.htpasswd xstudios
+
 # -----------------------------------------------------------------------------
 # Project Specific
 # -----------------------------------------------------------------------------
@@ -147,6 +158,10 @@ deploy_prod:  ## lazy deploy on prod (down, build, migrate, up)
 	docker-compose -f production.yml run --rm django python manage.py migrate
 	docker-compose -f production.yml up -d
 
+build_traefik:  ## build traefik container
+	docker-compose -f production.yml build traefik
+	docker-compose -f production.yml restart traefik
+
 # -----------------------------------------------------------------------------
 # Mutagen
 # -----------------------------------------------------------------------------
@@ -172,3 +187,10 @@ mutagen_resume:  ## mutagen resume
 mutagen_down:  ## mutagen terminate
 	mutagen sync terminate ${mutagen_sync_name}
 	mutagen forward terminate ${mutagen_forward_name}
+
+# -----------------------------------------------------------------------------
+# Experimental
+# -----------------------------------------------------------------------------
+rsync_to_prod:
+	# rsync -avzP -e "ssh -i ~/.ssh/your-key.pem" . ${prod_ssh}:~/${project_dir}/
+	rsync -avzP . ${prod_ssh}:~/${project_dir}/

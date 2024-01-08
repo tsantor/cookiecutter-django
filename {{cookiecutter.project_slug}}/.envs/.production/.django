@@ -10,8 +10,8 @@ DJANGO_ALLOWED_HOSTS=.{{ cookiecutter.domain_name }}
 # ------------------------------------------------------------------------------
 # TIP: better off using DNS, however, redirect is OK too
 DJANGO_SECURE_SSL_REDIRECT=False
-CSRF_TRUSTED_ORIGINS=.{{ cookiecutter.domain_name }}
-CORS_ORIGIN_WHITELIST=.{{ cookiecutter.domain_name }}
+CSRF_TRUSTED_ORIGINS=https://{{ cookiecutter.domain_name }}
+CORS_ORIGIN_WHITELIST=https://{{ cookiecutter.domain_name }}
 
 # Email
 # ------------------------------------------------------------------------------

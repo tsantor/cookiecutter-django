@@ -109,7 +109,9 @@ AZURE_CONTAINER = env("DJANGO_AZURE_CONTAINER_NAME")
 {% if cookiecutter.use_whitenoise == 'y' -%}
 STATICFILES_STORAGE = "{{cookiecutter.project_slug}}.utils.storages.StaticRootWhiteNoiseStorage"
 {% elif cookiecutter.use_whitenoise == 'n' -%}
-STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+STATICFILES_STORAGE = "{{cookiecutter.project_slug}}.utils.storages.ForgivingManifestStaticFilesStorage"
+COLLECTFAST_STRATEGY = "collectfast.strategies.filesystem.FileSystemStrategy"
+STATIC_URL = f"{env('BASE_URL')}/static/"
 {% elif cookiecutter.cloud_provider == 'AWS' -%}
 STATICFILES_STORAGE = "{{cookiecutter.project_slug}}.utils.storages.StaticS3Storage"
 COLLECTFAST_STRATEGY = "collectfast.strategies.boto3.Boto3Strategy"
