@@ -67,10 +67,10 @@ django-auditlog==1.0.0
 {%- if cookiecutter.use_oauth == "y" %}
 django-oauth-toolkit==2.2.0
 {%- endif %}
-# faker
 {%- if cookiecutter.use_robots == "y" %}
 django-robots==5.0
 {%- endif %}
+# faker
 
 # X Studios / Tim Santor packages
 django-extensions-too==0.1.4

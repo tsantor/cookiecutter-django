@@ -275,7 +275,11 @@ LOGGING = {
             # "format": "%(levelname)s %(asctime)s %(module)s "
             # "%(process)d %(thread)d %(message)s"
             "format": "%(asctime)s  [%(name)s:%(lineno)s]  %(levelname)s - %(message)s"
-        }
+        },
+        "custom_formatter": {
+            "format": "[%(levelname)s] %(asctime)s %(module)s %(message)s",
+            "datefmt": "%Y-%m-%d %I:%M:%S %p",
+        },
     },
     "handlers": {
         "mail_admins": {
@@ -328,7 +332,11 @@ LOGGING = {
             # "format": "%(levelname)s %(asctime)s %(module)s "
             # "%(process)d %(thread)d %(message)s"
             "format": "%(asctime)s  [%(name)s:%(lineno)s]  %(levelname)s - %(message)s"
-        }
+        },
+        "custom_formatter": {
+            "format": "[%(levelname)s] %(asctime)s %(module)s %(message)s",
+            "datefmt": "%Y-%m-%d %I:%M:%S %p",
+        },
     },
     "handlers": {
         "console": {

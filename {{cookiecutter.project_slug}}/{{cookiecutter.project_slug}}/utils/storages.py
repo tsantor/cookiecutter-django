@@ -25,18 +25,9 @@ class MediaS3Storage(S3Boto3Storage):
     location = "media"
     file_overwrite = False
 
-class ManifestS3Storage(S3ManifestStaticStorage):
+class ManifestS3Storage(ForivingManifestStorageMixin, S3ManifestStaticStorage):
     location = "static"
     default_acl = "public-read"
-    manifest_strict = False
-
-    def hashed_name(self, name, content=None, filename=None):
-        try:
-            result = super().hashed_name(name, content, filename)
-        except ValueError:
-            # When the file is missing, let's forgive and ignore that.
-            result = name
-        return result
 
 {%- elif cookiecutter.cloud_provider == 'GCP' -%}
 from storages.backends.gcloud import GoogleCloudStorage
@@ -64,8 +55,8 @@ class MediaAzureStorage(AzureStorage):
     file_overwrite = False
 {%- endif %}
 
+{%- if cookiecutter.use_whitenoise == "y" -%}
 
-{% if cookiecutter.use_whitenoise -%}
 from whitenoise.storage import CompressedManifestStaticFilesStorage
 
 class StaticRootWhiteNoiseStorage(ForivingManifestStorageMixin, CompressedManifestStaticFilesStorage):
@@ -76,7 +67,7 @@ class StaticRootWhiteNoiseStorage(ForivingManifestStorageMixin, CompressedManife
     COLLECTFAST_STRATEGY = "collectfast.strategies.filesystem.FileSystemStrategy"
     """
     pass
-{% else %}
+{%- else %}
 
 from django.contrib.staticfiles.storage import ManifestStaticFilesStorage
 
@@ -88,4 +79,4 @@ class ForgivingManifestStaticFilesStorage(ForivingManifestStorageMixin, Manifest
     COLLECTFAST_STRATEGY = "collectfast.strategies.filesystem.FileSystemStrategy"
     """
     pass
-{% endif %}
+{%- endif %}

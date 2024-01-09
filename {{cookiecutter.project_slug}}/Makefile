@@ -191,6 +191,7 @@ mutagen_down:  ## mutagen terminate
 # -----------------------------------------------------------------------------
 # Experimental
 # -----------------------------------------------------------------------------
-rsync_to_prod:
+
+rsync_to_prod:  ## rsync to prod (for down n' dirty testing)
 	# rsync -avzP -e "ssh -i ~/.ssh/your-key.pem" . ${prod_ssh}:~/${project_dir}/
 	rsync -avzP . ${prod_ssh}:~/${project_dir}/

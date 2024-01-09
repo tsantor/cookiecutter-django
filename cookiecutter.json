@@ -52,12 +52,13 @@
     "Other SMTP"
   ],
   "use_async": "n",
-  "use_dj_rest_auth": "y",
-  "use_simplejwt": "y",
+  "use_dj_rest_auth": "n",
+  "use_simplejwt": "n",
   "use_oauth": "y",
   "use_mosquitto": "n",
-  "use_django_auditlog": "y",
+  "use_django_auditlog": "n",
   "use_robots": "n",
+  "use_perm_filter": "y",
   "use_drf": "n",
   "frontend_pipeline": [
     "None",

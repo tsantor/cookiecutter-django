@@ -430,7 +430,7 @@ REST_FRAMEWORK = {
         {%- endif %}
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
-        {% if cookiecutter.use_simplejwt == "y" -%}
+        {%- if cookiecutter.use_simplejwt == "y" %}
         "rest_framework_simplejwt.authentication.JWTAuthentication",
         {%- endif %}
     ),
@@ -466,9 +466,11 @@ SPECTACULAR_SETTINGS = {
 REST_AUTH = {
     'USE_JWT': True,
     'JWT_AUTH_COOKIE': 'jwt-auth',
-    "USER_DETAILS_SERIALIZER": "django_spaday.api.serializers.UserAuthSerializer",
+    # "USER_DETAILS_SERIALIZER": "django_spaday.api.serializers.UserAuthSerializer",
 }
+{%- endif %}
 
+{% if cookiecutter.use_simplejwt == "y" -%}
 # https://django-rest-framework-simplejwt.readthedocs.io/en/latest/settings.htm
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
@@ -485,6 +487,7 @@ CSRF_TRUSTED_ORIGINS=env.list("CSRF_TRUSTED_ORIGINS", default=["http://localhost
 
 # SESSION_COOKIE_SAMESITE = 'Strict'
 
+{%- if cookiecutter.use_perm_filter == 'y' %}
 # django-perm-filter
 # -------------------------------------------------------------------------------
 PERM_FILTER = {
@@ -498,11 +501,11 @@ PERM_FILTER = {
         # All-auth
         "account",
         "socialaccount",
-
+        {%- if cookiecutter.use_celery == "y" %}
         # Celery
         "django_celery_beat",
         "django_celery_results",
-
+        {%- endif %}
         "thumbnail",
         # Django built-in auth permissions
         "auth.view_permission",
@@ -518,7 +521,7 @@ PERM_FILTER = {
         "authtoken.add_tokenproxy",
         "authtoken.change_tokenproxy",
         "authtoken.delete_tokenproxy",
-
+        {%- if cookiecutter.use_oauth == "y" %}
         # oAuth2
         "oauth2_provider.view_idtoken",
         "oauth2_provider.add_idtoken",
@@ -532,16 +535,18 @@ PERM_FILTER = {
         "oauth2_provider.add_refreshtoken",
         "oauth2_provider.change_refreshtoken",
         "oauth2_provider.delete_refreshtoken",
-
+        {%- endif %}
     ],
     "UNREGISTER_MODELS": [
+        {%- if cookiecutter.use_drf == "y" %}
         "rest_framework.authtoken.models.TokenProxy",
+        {%- endif %}
         # All-auth
         "allauth.account.models.EmailAddress",
         "allauth.socialaccount.models.SocialAccount",
         "allauth.socialaccount.models.SocialApp",
         "allauth.socialaccount.models.SocialToken",
-
+        {%- if cookiecutter.use_celery == "y" %}
         # Celery
         "django_celery_beat.models.ClockedSchedule",
         # "django_celery_beat.models.CrontabSchedule",
@@ -550,14 +555,16 @@ PERM_FILTER = {
         "django_celery_beat.models.SolarSchedule",
         "django_celery_results.models.GroupResult",
         # "django_celery_results.models.TaskResult",
-
+        {%- endif %}
         # "django.contrib.sites.models.Site",
-
+        {%- if cookiecutter.use_oauth == "y" %}
         # oAuth2
         "oauth2_provider.models.IDToken",
         "oauth2_provider.models.Grant",
+        {%- endif %}
     ],
 }
+{%- endif %}
 
 {%- if cookiecutter.frontend_pipeline == 'Webpack' %}
 # django-webpack-loader
@@ -581,7 +588,8 @@ IGNORABLE_404_URLS = [
     re.compile(r'^/robots\.txt$'),
 ]
 
-PROJECT_TITLE = env("PROJECT_TITLE")
+PROJECT_TITLE = env("PROJECT_TITLE", default="{{ cookiecutter.project_name }}")
+BASE_URL = env("BASE_URL", default="https://{{ cookiecutter.domain_name }}")
 
 {%- if cookiecutter.use_oauth == "y" %}
 OAUTH2_PROVIDER = {
