@@ -1,3 +1,6 @@
+# -----------------------------------------------------------------------------
+# Generate help output when running just `make`
+# -----------------------------------------------------------------------------
 .DEFAULT_GOAL := help
 
 define PRINT_HELP_PYSCRIPT
@@ -21,155 +24,289 @@ venv={{cookiecutter.project_slug}}_env
 
 user={{cookiecutter.project_user}}
 project_dir={{cookiecutter.project_slug}}
+project_package={{cookiecutter.project_slug}} # typically we use underscored version of project_slug
 
+staging_ssh=${user}@staging.{{cookiecutter.domain_name}}
 prod_ssh=${user}@{{cookiecutter.domain_name}}
 
 aws_profile=default
 s3_bucket=bucketname
 
+mutagen_sync_name={{cookiecutter.project_slug}}-code
+mutagen_forward_name={{cookiecutter.project_slug}}-port-forward
+mutagen_beta_user=tsantor@tim-macbook-ubuntu.local
+mutagen_beta_dir=~/Projects/{{cookiecutter.project_slug}}
+
+local_compose=docker-compose -f local.yml
+staging_compose=docker-compose -f staging.yml
+prod_compose=docker-compose -f production.yml
+
+# START - Generic commands
 # -----------------------------------------------------------------------------
-# Local
+# Environment
 # -----------------------------------------------------------------------------
 
-env:  ## create virtualenv
+env: ## create virtualenv
 	pyenv virtualenv ${python_version} ${venv} && pyenv local ${venv}
 
-reqs:  ## install bare minimum dev reqs
-	python3 -m pip install -U pip wheel
-	python3 -m pip install pre-commit install
+env_remove:  ## remove virtual environment
+	pyenv uninstall ${venv}
 
-reqs_local:  ## install local dev reqs
-	python3 -m pip install -r requirements/local.txt
+# -----------------------------------------------------------------------------
+# Pip
+# -----------------------------------------------------------------------------
 
-build:  ## build docker containers
-	docker-compose -f local.yml build
-
-up:  ## run docker containers
-	docker-compose -f local.yml up --remove-orphans
-
-down:  ## stop docker containers
-	docker-compose -f local.yml down
+pip_install: ## install requirements
+	python3 -m pip install -U pip wheel build pre-commit && pre-commit install
 
 pip_list:  ## run pip list
-	docker-compose -f local.yml exec django python3 -m pip list
+	${local_compose} exec django python -m pip list
 
 pip_freeze:  ## run pipfreezer
-	docker-compose -f local.yml exec django pipfreezer
+	${local_compose} exec django pipfreezer
+
+pip_checker:  ## run pipchecker
+	${local_compose} exec django pipchecker
+
+# -----------------------------------------------------------------------------
+# Docker
+# -----------------------------------------------------------------------------
+
+build:  ## build docker containers
+	${local_compose} build
+
+up:  ## run docker containers
+	${local_compose} up --remove-orphans
+
+down:  ## stop docker containers
+	${local_compose} down
+
+build_django:  ## build django
+	${local_compose} build django
+	${local_compose} build celeryworker
+	${local_compose} build celerybeat
+
+bash_django: ## run bash in django container
+	${local_compose} exec django bash
+
+# -----------------------------------------------------------------------------
+# Django
+# -----------------------------------------------------------------------------
+
+manage:	## run django manage.py (eg - make manage cmd="shell")
+	${local_compose} exec django python manage.py ${cmd}
 
 superuser:  ## create a django superuser
-	docker-compose -f local.yml exec django python manage.py createsuperuser
+	${local_compose} exec django python manage.py createsuperuser
 
-migrations:  ## create django migrations
-	docker-compose -f local.yml run --rm django python manage.py makemigrations
+migrations:  ## create django migrations (eg - make migrations app="core")
+	${local_compose} exec django python manage.py makemigrations ${app}
 
 migrate:  ## run django migrations
-	docker-compose -f local.yml exec django python manage.py migrate
+	${local_compose} exec django python manage.py migrate
 
 show_urls:  ## show urls
-	docker-compose -f local.yml exec django python manage.py show_urls
+	${local_compose} exec django python manage.py show_urls
 
-shell:  ## run shell
-	docker-compose -f local.yml exec django python manage.py shell_plus
+shell:  ## run shell plus
+	${local_compose} exec django python manage.py shell_plus
 
 clearsessions:  ## clear django sessions
-	docker-compose -f local.yml exec django python manage.py clearsessions
+	${local_compose} exec django python manage.py clearsessions
 
 collectstatic:  ## collect static files
-	docker-compose -f local.yml exec django python manage.py collectstatic
+	${local_compose} exec django python manage.py collectstatic
+
+cleartokens:  ## clear tokens
+	${local_compose} exec django python manage.py cleartokens
+
+flush: ## flush db
+	${local_compose} exec django python manage.py flush
+
+remove_stale_contenttypes:  ## remove stale contenttypes
+	${local_compose} exec django python manage.py remove_stale_contenttypes --include-stale-apps
+
+# start_app:	## start a new app
+# 	${local_compose} exec django python manage.py startapp ${app_name} --template
+
+dumpdata:  ## generic dumpdata excluding admin, sessions, and celery results
+	mkdir -p ${project_dir}/fixtures
+	${local_compose} exec django python manage.py dumpdata \
+		--natural-foreign --natural-primary \
+		-e admin \
+		-e sessions \
+		-e django_celery_results \
+		--indent 2 > ${project_dir}/fixtures/dumpdata.json
+
+# -----------------------------------------------------------------------------
+# Testing
+# -----------------------------------------------------------------------------
 
 pytest:  ## run pytest
-	docker-compose -f local.yml exec django pytest -v
+	${local_compose} exec django pytest
 
-pytest_verbose:  ## run pytest verbose mode
-	docker-compose -f local.yml exec django pytest -vs
+pytest_verbose:  ## runs pytest with verbose output
+	${local_compose} exec django pytest -vs -p no:cacheprovider
 
-optimize:  ## optimize images
-	find . -name '*.png' -exec pngquant 64 --ext .png -f --skip-if-larger {} \;
-	cd {{cookiecutter.project_slug}}/static && open -a ImageOptim .
+coverage:  ## run coverage
+	${local_compose} exec django bash -c "coverage run -m pytest -vs && coverage html"
 
+coverage_skip:  ## run coverage (skip-comvered)
+	${local_compose} exec django bash -c "coverage run -m pytest && coverage html --skip-covered"
+
+open_coverage:  ## open coverage report
+	open htmlcov/index.html
+
+drop_test_db:  ## drop test db
+	${local_compose} exec django python manage.py drop_test_database
+
+test:  ## run tests
+	${local_compose} exec django python manage.py test
+
+# -----------------------------------------------------------------------------
+# Cleanup
+# -----------------------------------------------------------------------------
+
+clean_build: ## remove build artifacts
+	rm -fr build/ dist/ .eggs/
+	find . -name '*.egg-info' -o -name '*.egg' -exec rm -fr {} +
+
+clean_pyc: ## remove python file artifacts
+	find . \( -name '*.pyc' -o -name '*.pyo' -o -name '*~' -o -name '__pycache__' \) -exec rm -fr {} +
+
+clean: clean_build clean_pyc ## remove all build and python artifacts
+
+clean_pytest_cache:  ## clear pytest cache
+	rm -rf .pytest_cache
+
+clean_tox_cache:  ## clear tox cache
+	rm -rf .tox
+
+clean_coverage:  ## clear coverage cache
+	rm .coverage
+	rm -rf htmlcov
+
+clean_tests: clean_pytest_cache clean_tox_cache clean_coverage  ## clear pytest, tox, and coverage caches
 
 # -----------------------------------------------------------------------------
 # Gen password files
 # -----------------------------------------------------------------------------
 
 traefik_htaccess:  ## create .htpasswd file
-	htpasswd -c compose/production/traefik/.htpasswd xstudios
+	htpasswd -c compose/production/traefik/.htpasswd ${user}
 
 nginx_htaccess:  ## create .htpasswd file
-	htpasswd -c compose/production/nginx/.htpasswd xstudios
+	htpasswd -c compose/production/nginx/.htpasswd ${user}
 
 # -----------------------------------------------------------------------------
-# Project Specific
+# Vue SPA Specific
 # -----------------------------------------------------------------------------
 
-clean_vue:
-	rm -rf {{cookiecutter.project_slug}}/static/vue-frontend/
+clean_vue:  ## clean vue directory
+	rm -rf ${project_package}/static/vue-frontend/
 
-push_vue:
-	rsync -avzP face_amusement/static/vue-frontend ${prod_ssh}:~/${project_dir}/{{cookiecutter.project_slug}}/static
-
-fake_gameplay:
-	docker-compose -f local.yml exec django python manage.py fake_gameplay
-
-test_core:
-	docker-compose -f local.yml exec django pytest -v {{cookiecutter.project_slug}}/core
-
-test_verbose:
-	docker-compose -f local.yml exec django pytest -vs {{cookiecutter.project_slug}}/core
+push_vue: ## rsync vue-frontend to serverr
+	rsync -avzP ${project_package}/static/vue-frontend ${prod_ssh}:~/${project_dir}/${project_package}/static
 
 # -----------------------------------------------------------------------------
-# Local - Use caution!
+# Staging only
 # -----------------------------------------------------------------------------
 
-pull_media:  ## pull media from s3
-	aws s3 sync --profile=${aws_profile} s3://${s3_bucket}/media ./media/ \
-		--exclude "*.DS_Store"
+staging_pull_db:  ## pull staging db
+	# rsync -avzP -e "ssh -i ~/.ssh/findershare.pem" ${staging_ssh}:~/staging_db.dump .
+	rsync -avzP ${staging_ssh}:~/staging_db.dump .
 
-push_production_env:  ## push production env file
-	rsync -avzP .envs/.production ${prod_ssh}:~/${project_dir}/.envs/
-	# rsync -avzP -e "ssh -i ~/.ssh/{{cookiecutter.project_slug}}.pem" .envs/.production ${prod_ssh}:${project_dir}/.envs/
+staging_push_env:  ## push staging env
+	rsync -avzP .envs/.staging ${staging_ssh}:${project_dir}/.envs/
 
-pull_production_env:  ## pull production env file
-	rsync -avzP ${prod_ssh}:~/${project_dir}/.envs/.production .envs/
-	# rsync -avzP -e "ssh -i ~/.ssh/{{cookiecutter.project_slug}}.pem" ${prod_ssh}:~/${project_dir}/.envs/.production .envs/
+staging_pull_env:  ## pull staging env
+	rsync -avzP ${staging_ssh}:${project_dir}/.envs/.staging .envs/
 
-dump_data:  ## dumb data to a fixture
-	docker-compose -f local.yml exec django python manage.py dumpdata \
-  --natural-foreign --natural-primary \
-  -e contenttypes \
-  -e sessions  \
-  -e admin \
-  -e django_celery_results.taskresult \
-  -e oauth2_provider.accesstoken \
-  -e oauth2_provider.refreshtoken \
-  -e oauth2_provider.grant \
-  -e oauth2_provider.idtoken > ${project_dir}/fixtures/data.json
-
-load_data:  ## load data from a fixture
-	docker-compose -f local.yml run --rm django python manage.py loaddata data.json
+staging_deploy:  ## deploy on staging
+	${staging_compose} down
+	${staging_compose} build
+	${staging_compose} run --rm django python manage.py migrate
+	${staging_compose} up -d
 
 # -----------------------------------------------------------------------------
-# Prod
+# Production only
 # -----------------------------------------------------------------------------
 
-deploy_prod:  ## lazy deploy on prod (down, build, migrate, up)
-	docker-compose -f production.yml down
-	docker-compose -f production.yml build
-	docker-compose -f production.yml run --rm django python manage.py migrate
-	docker-compose -f production.yml up -d
+prod_up:  ## run docker containers
+	${prod_compose} up -d --remove-orphans
 
-build_traefik:  ## build traefik container
-	docker-compose -f production.yml build traefik
-	docker-compose -f production.yml restart traefik
+prod_down:  ## stop docker containers
+	${prod_compose} down
+
+prod_migrate:  ## run django migrations
+	${prod_compose} run --rm django python manage.py migrate
+
+prod_collectstatic:  ## collect static files
+	${prod_compose} run --rm django python manage.py collectstatic --noinput
+
+prod_manage:	## run django manage.py (eg - make manage cmd="shell")
+	${prod_compose} exec django python manage.py ${cmd}
+
+prod_build_django: ## build django
+	${prod_compose} build django
+	${prod_compose} build celeryworker
+	${prod_compose} build celerybeat
+
+prod_restart_django:  ## restart django
+	${prod_compose} restart django
+	${prod_compose} restart celeryworker
+	${prod_compose} restart celerybeat
+
+prod_pull_db:  ## pull live db
+	# rsync -avzP -e "ssh -i ~/.ssh/findershare.pem" ${prod_ssh}:~/production_db.dump .
+	rsync -avzP ${prod_ssh}:~/production_db.dump .
+
+prod_push_env:  ## push production env
+	rsync -avzP .envs/.production ${prod_ssh}:${project_dir}/.envs/
+
+prod_pull_env: ## pull production env
+	rsync -avzP -e "ssh -i ~/.ssh/findershare.pem" ${prod_ssh}:${project_dir}/.envs/.production .envs/
+
+prod_deploy:  ## deploy on production
+	${prod_compose} down
+	${prod_compose} build
+	${prod_compose} run --rm django python manage.py migrate
+	${prod_compose} up -d
+
+prod_deploy_no_cache:  ## deploy on production (no cache)
+	${prod_compose} down
+	${prod_compose} build --no-cache
+	${prod_compose} run --rm django python manage.py migrate
+	${prod_compose} up -d
+
+# -----------------------------------------------------------------------------
+# Optimization
+# -----------------------------------------------------------------------------
+
+optimize_pngs:  ## optimize PNGs
+	find . -name '*.png' -exec pngquant 64 --ext .png -f --skip-if-larger {} \;
+
+optimize_jpgs:  ## optimize JPGs
+	cd findershare/static && open -a ImageOptim .
+
+count_lines:  ## count lines of code
+	# Includes blank lines and comments
+	# find . -name '*.py' ! -path '*/migrations/*' ! -path '*/config/settings/*' | xargs wc -l
+	# No blank lines or comments
+	find . -name '*.py' ! -path '*/migrations/*' \
+		! -path '*/config/settings/*' \
+		-exec grep -vE '^\s*($$|#)' {} \; | wc -l | tr -d ' '
+
+# -----------------------------------------------------------------------------
+# Miscellaneous
+# -----------------------------------------------------------------------------
+
+tree:  ## Show directory tree
+	tree -I 'build|dist|htmlcov|node_modules|migrations|contrib|__pycache__|*.egg-info'
 
 # -----------------------------------------------------------------------------
 # Mutagen
 # -----------------------------------------------------------------------------
-
-mutagen_sync_name={{cookiecutter.project_slug}}-code
-mutagen_forward_name={{cookiecutter.project_slug}}-port-forward
-mutagen_beta_user=tsantor@tim-macbook-ubuntu.local
-mutagen_beta_dir=~/Projects/{{cookiecutter.project_slug}}
 
 mutagen_up:  ## mutagen create
 	mutagen sync create --name=${mutagen_sync_name} . ${mutagen_beta_user}:${mutagen_beta_dir}
@@ -192,6 +329,48 @@ mutagen_down:  ## mutagen terminate
 # Experimental
 # -----------------------------------------------------------------------------
 
+pull_media:  ## pull media from s3 (Use caution!)
+	aws s3 sync --profile=${aws_profile} s3://${s3_bucket}/media ./media/ \
+		--exclude "*.DS_Store" --exclude cache/ --exclude "*.mp4"
+
 rsync_to_prod:  ## rsync to prod (for down n' dirty testing)
-	# rsync -avzP -e "ssh -i ~/.ssh/your-key.pem" . ${prod_ssh}:~/${project_dir}/
-	rsync -avzP . ${prod_ssh}:~/${project_dir}/
+	# -e "ssh -i ~/.ssh/your-key.pem"
+	rsync -avzP . ${prod_ssh}:~/${project_dir}/ \
+		--exclude ".coverage" \
+		--exclude ".DS_Store" \
+		--exclude ".editorconfig" \
+		--exclude ".env" \
+		--exclude ".envs/.local" \
+		--exclude ".git" \
+		--exclude ".ipython" \
+		--exclude ".pytest_cache" \
+		--exclude ".vscode" \
+		--exclude "htmlcov" \
+		--exclude "media/" \
+		--exclude "node_modules" \
+		--exclude "staticfiles/" \
+		--delete
+
+# END - Generic commands
+# -----------------------------------------------------------------------------
+# Project Specific
+# -----------------------------------------------------------------------------
+
+dump_basic_data:  ## dump basic data to a fixture
+	mkdir -p ${project_dir}/fixtures
+	${local_compose} exec django python manage.py dumpdata \
+	--natural-foreign --natural-primary \
+	-e admin \
+	-e contenttypes \
+	-e sessions  \
+	-e django_celery_beat \
+	-e django_celery_results.taskresult \
+	-e oauth2_provider.accesstoken \
+	-e oauth2_provider.refreshtoken \
+	-e oauth2_provider.grant \
+	-e oauth2_provider.idtoken \
+	> ${project_dir}/fixtures/basic_data.json
+
+
+load_basic_data:  ## load basic data from a fixture
+	${local_compose} run --rm django python manage.py loaddata basic_data.json
