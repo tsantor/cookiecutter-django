@@ -21,10 +21,10 @@ class UserAdmin(auth_admin.UserAdmin):
     fieldsets = (
         {%- if cookiecutter.username_type == "email" %}
         (None, {"fields": ("email", "password")}),
-        (_("Personal info"), {"fields": ("name", "first_name", "last_name")}),
+        (_("Personal info"), {"fields": ("name",)}),
         {%- else %}
         (None, {"fields": ("username", "password")}),
-        (_("Personal info"), {"fields": ("first_name", "last_name", "email")}),
+        (_("Personal info"), {"fields": ("name", "email")}),
         {%- endif %}
         (
             _("Permissions"),
@@ -40,12 +40,8 @@ class UserAdmin(auth_admin.UserAdmin):
         ),
         (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
-    list_display = ["{{cookiecutter.username_type}}", "first_name",
-        "last_name",
-        "is_staff",
-        "is_superuser",
-        "last_login",]
-    search_fields = ["first_name", "last_name", "email"]
+    list_display = ["{{cookiecutter.username_type}}", "name", "is_staff", "is_superuser",  "last_login",]
+    search_fields = ["name"]
     {%- if cookiecutter.username_type == "email" %}
     ordering = ["id"]
     add_fieldsets = (
@@ -76,10 +72,6 @@ class UserAdmin(auth_admin.UserAdmin):
                 "last_login",
                 "date_joined",
             }
-
-        # Prevent non-superusers from editing their own permissions
-        # if obj == request.user:
-        #     disabled_fields |= {}
 
         for f in disabled_fields & form.base_fields.keys():
             form.base_fields[f].disabled = True
