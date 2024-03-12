@@ -60,32 +60,28 @@ class UserAdmin(auth_admin.UserAdmin):
     {%- endif %}
 
     def get_form(self, request, obj=None, **kwargs):
+        """Determine which fields to disable based on the user's permissions."""
         form = super().get_form(request, obj, **kwargs)
         is_superuser = request.user.is_superuser
         disabled_fields = set()
 
+        # Prevent non-superusers from editing any permissions
         if not is_superuser:
-
             disabled_fields |= {
-                "username",
-                "is_superuser",
-                "user_permissions",
-                "date_joined",
-                "last_login",
-            }
-            # del form.base_fields['user_permissions']
-
-        # Prevent non-superusers from editing their own permissions
-        if not is_superuser and obj is not None and obj == request.user:
-            disabled_fields |= {
+                "is_active",
                 "is_staff",
                 "is_superuser",
                 "groups",
                 "user_permissions",
+                "last_login",
+                "date_joined",
             }
 
-        for f in disabled_fields:
-            if f in form.base_fields:
-                form.base_fields[f].disabled = True
+        # Prevent non-superusers from editing their own permissions
+        # if obj == request.user:
+        #     disabled_fields |= {}
+
+        for f in disabled_fields & form.base_fields.keys():
+            form.base_fields[f].disabled = True
 
         return form

@@ -44,8 +44,3 @@ pytest-django==4.7.0  # https://github.com/pytest-dev/pytest-django
 
 # My forked additions
 # ------------------------------------------------------------------------------
-# X Studios / Tim Santor packages
-pip-freezer
-
-# Project specific
-

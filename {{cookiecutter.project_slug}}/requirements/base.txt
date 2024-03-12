@@ -51,28 +51,42 @@ django-webpack-loader==3.0.1  # https://github.com/django-webpack/django-webpack
 
 # My forked additions
 # ------------------------------------------------------------------------------
-django-widget-tweaks==1.4.5
 {%- if cookiecutter.use_dj_rest_auth == "y" %}
-dj-rest-auth==3.0.0
-{%- endif %}
-{%- if cookiecutter.use_simplejwt == "y" %}
-djangorestframework-simplejwt==5.2.2
-{%- endif %}
-{%- if cookiecutter.use_celery == "y" %}
-django-celery-results==2.2.0
+dj-rest-auth
 {%- endif %}
 {%- if cookiecutter.use_django_auditlog == "y" %}
-django-auditlog==1.0.0
+django-auditlog
+{%- endif %}
+{%- if cookiecutter.use_celery == "y" %}
+django-celery-results
 {%- endif %}
 {%- if cookiecutter.use_oauth == "y" %}
-django-oauth-toolkit==2.2.0
+django-oauth-toolkit
 {%- endif %}
 {%- if cookiecutter.use_robots == "y" %}
-django-robots==5.0
+django-robots
 {%- endif %}
-# faker
+django-widget-tweaks
+{%- if cookiecutter.use_simplejwt == "y" %}
+djangorestframework-simplejwt
+{%- endif %}
+django-admin-sortable2
+django-autoslug
+django-filter
+django-widget-tweaks
+# sorl-thumbnail
 
 # X Studios / Tim Santor packages
-django-extensions-too==0.1.4
-django-perm-filter==0.2.1
-# django-spaday==0.1.0
+pip-freezer
+django-extensions-too
+django-perm-filter
+# django-spaday
+
+# Project ppecific
+# ------------------------------------------------------------------------------
+# createsend
+# django-ipware
+# django-taggit
+# qrcode
+# ua-parser
+# user-agents

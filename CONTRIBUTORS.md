@@ -461,7 +461,6 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
-<<<<<<< HEAD
     <td>Cebrail Yılmaz</td>
     <td>
       <a href="https://github.com/b1sar">b1sar</a>
@@ -469,8 +468,6 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
-=======
->>>>>>> test-upstream
     <td>Chao Yang Wu</td>
     <td>
       <a href="https://github.com/goatwu1993">goatwu1993</a>

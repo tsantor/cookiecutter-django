@@ -90,8 +90,10 @@ def remove_docker_files():
 def remove_utility_files():
     shutil.rmtree("utility")
 
+
 def remove_docker_utility_files():
     shutil.rmtree("utility-scripts")
+
 
 def remove_heroku_files():
     file_names = ["Procfile", "runtime.txt", "requirements.txt"]
@@ -432,7 +434,6 @@ def remove_drf_starter_files():
     os.remove(os.path.join("{{cookiecutter.project_slug}}", "users", "tests", "test_swagger.py"))
 
 
-<<<<<<< HEAD
 def remove_storages_module():
     os.remove(os.path.join("{{cookiecutter.project_slug}}", "utils", "storages.py"))
 
@@ -444,8 +445,6 @@ def fork_remove_docs():
     shutil.rmtree(os.path.join("compose", "local", "docs"))
 
 
-=======
->>>>>>> upstream/master
 def main():
     debug = "{{ cookiecutter.debug }}".lower() == "y"
 
