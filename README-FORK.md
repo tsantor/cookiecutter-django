@@ -1,3 +1,5 @@
+# Cookiecutter Django
+
 This forked version of the [cookiecutter-django](https://github.com/cookiecutter/cookiecutter-django) repo retains all the features of that repo and adds additional optional features to get started on more complex projects quickly.
 
 ## Features
@@ -12,7 +14,7 @@ This forked version of the [cookiecutter-django](https://github.com/cookiecutter
   - Create User
   - Install Docker
 - Traefik
-  - Dashboard enabled (traefik.domain.com/dashboard)
+  - Dashboard enabled (traefik.domain.com/dashboard/)
   - Access log enabled
 
 
@@ -20,13 +22,15 @@ This forked version of the [cookiecutter-django](https://github.com/cookiecutter
 These features can be enabled during initial project setup.
 - Mosquitto service
 - Nginx integration for static file serving (via Traefix proxy)
-- `django-robots` package
+  - This is preferabe to `whitenoise` (Why? NBC fiasco!)
 - `dj-rest-auth` package (see known issues below)
-- `djangorestframework-simplejwt` package
-- `django-oauth-toolkit` package
 - `django-auditlog` package
 - `django-celery-results` package
+- `django-oauth-toolkit` package
 - `django-perm-filter` package
+- `django-robots` package
+- `djangorestframework-simplejwt` package
+<!-- - `django-spaday` package -->
 
 
 ## Usage
@@ -34,7 +38,6 @@ These features can be enabled during initial project setup.
 cookiecutter https://github.com/tsantor/cookiecutter-django
 ```
 You'll be prompted for some values. Provide them, then a Django project will be created for you.
-
 
 ## Production Deployment via Docker
 
@@ -45,7 +48,7 @@ You'll be prompted for some values. Provide them, then a Django project will be 
 
 
 ## Known issues
-- Enabling rest-auth will thrown an error as it is not compatible with django-allauth > 0.54.0
+- Enabling `dj-rest-auth` will throw an error as it is not compatible with django-allauth > 0.54.0
 
 ## TODO
 - Need to make work with frontend pipelines other than Gulp

@@ -77,6 +77,8 @@ class TestUserAdmin:
         # The `admin` login view should redirect to the `allauth` login view
         target_url = reverse(settings.LOGIN_URL) + "?next=" + request.path
         assertRedirects(response, target_url, fetch_redirect_response=False)
+
+    @pytest.mark.django_db()
     def test_view_user_as_non_superuser(self, staff_authenticated_client, staff):
         permission = Permission.objects.get(codename='view_user')
         staff.user_permissions.add(permission)

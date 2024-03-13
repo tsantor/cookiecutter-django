@@ -39,21 +39,7 @@ class User(AbstractUser):
 
     objects: ClassVar[UserManager] = UserManager()
     {%- endif %}
-    @property
-    def display_name(self) -> str:
-        if self.first_name or self.last_name:
-            return f"{self.first_name} {self.last_name}".strip()
-        if self.email:
-            return self.email
-        if hasattr(self, "username"):
-            return self.username
-        return "Anonymous"
 
-    @property
-    def initials(self):
-        first_name = self.first_name[0] if self.first_name else "?"
-        last_name = self.last_name[0] if self.last_name else "?"
-        return f"{first_name}{last_name}".upper()
     def get_absolute_url(self) -> str:
         """Get URL for user's detail view.
 
@@ -66,9 +52,38 @@ class User(AbstractUser):
         {%- else %}
         return reverse("users:detail", kwargs={"username": self.username})
         {%- endif %}
+
+    # Forked additions - keeps diffs minimal
+    @property
+    def display_name(self) -> str:
+        """Order of preference for user's display name."""
+        if hasattr(self, "name") and self.name:
+            return self.name
+        if self.first_name or self.last_name:
+            return f"{self.first_name} {self.last_name}".strip()
+        if hasattr(self, "username") and self.username:
+            return self.username
+        if self.email:
+            return self.email
+        return "Anonymous"
+
+    @property
+    def initials(self) -> str:
+        def extract_and_capitalize(name):
+            return ''.join(word[0].upper() for word in name.split())
+
+        if hasattr(self, "name") and self.name:
+            return extract_and_capitalize(self.name)
+        if hasattr(self, "first_name") and hasattr(self, "last_name"):
+            first_name = self.first_name[0] if self.first_name else "?"
+            last_name = self.last_name[0] if self.last_name else "?"
+            return f"{first_name}{last_name}".upper()
+        return "??"
+
     def __str__(self):
         """Return a string representation of this object for display."""
         return self.display_name
+
 {% if cookiecutter.use_django_auditlog == "y" %}
 auditlog.register(User)
 {%- endif %}

@@ -27,7 +27,6 @@ admin.site.index_title = "Site administration"
 admin.site.enable_nav_sidebar = False
 
 urlpatterns = [
-    # path("", TemplateView.as_view(template_name="pages/home_inspinia.html"), name="home"),
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
     path(
         "about/",
@@ -53,7 +52,7 @@ if settings.DEBUG:
 # API URLS
 urlpatterns += [
     # API base url
-    path("api/v1/", include("config.api_router")),
+    path("api/", include("config.api_router")),
     {%- if cookiecutter.use_oauth == "y" %}
     path("o/", include("oauth2_provider.urls", namespace="oauth2_provider")),
     {%- endif %}

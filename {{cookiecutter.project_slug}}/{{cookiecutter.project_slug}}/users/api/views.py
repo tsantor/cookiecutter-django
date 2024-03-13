@@ -29,6 +29,7 @@ class UserViewSet(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericV
     def me(self, request):
         serializer = UserSerializer(request.user, context={"request": request})
         return Response(status=status.HTTP_200_OK, data=serializer.data)
+
 # -----------------------------------------------------------------------------
 # My forked version
 # -----------------------------------------------------------------------------
@@ -37,23 +38,20 @@ class UserViewSet(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericV
 class MyUserViewSet(
     RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericViewSet
 ):
-    """
-    list:
-    List all User
-
-    create:
-    Create a User
-
-    retrieve:
-    Get a User
-
-    update:
-    Update a User
-
-    delete:
-    Delete a User
-    """
-
-    queryset = User.objects.all()
     serializer_class = MyUserSerializer
+    queryset = User.objects.all()
+    {%- if cookiecutter.username_type == "email" %}
+    lookup_field = "pk"
+    {%- else %}
+    lookup_field = "username"
+    {%- endif %}
     permission_classes = (IsSuperUser,)
+
+    def get_queryset(self, *args, **kwargs):
+        assert isinstance(self.request.user.id, int)
+        return self.queryset.filter(id=self.request.user.id)
+
+    @action(detail=False)
+    def me(self, request):
+        serializer = UserSerializer(request.user, context={"request": request})
+        return Response(status=status.HTTP_200_OK, data=serializer.data)

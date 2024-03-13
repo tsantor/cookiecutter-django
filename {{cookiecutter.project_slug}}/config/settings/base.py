@@ -1,6 +1,5 @@
-"""
-Base settings to build other settings files upon.
-"""
+# ruff: noqa: ERA001, E501
+"""Base settings to build other settings files upon."""
 import re
 from datetime import timedelta
 from pathlib import Path
@@ -12,7 +11,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 APPS_DIR = BASE_DIR / "{{ cookiecutter.project_slug }}"
 env = environ.Env()
 
-READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=True)
+READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
 if READ_DOT_ENV_FILE:
     # OS environment variables take precedence over variables from .env
     env.read_env(str(BASE_DIR / ".env"))
@@ -92,7 +91,6 @@ THIRD_PARTY_APPS = [
     # "allauth.socialaccount.providers.facebook",
     # "allauth.socialaccount.providers.google",
 {%- if cookiecutter.use_celery == 'y' %}
-    "django_celery_beat",
     "django_celery_results",
 {%- endif %}
 {%- if cookiecutter.use_drf == "y" %}
@@ -101,15 +99,17 @@ THIRD_PARTY_APPS = [
     "corsheaders",
     "drf_spectacular",
 {%- endif %}
+{%- if cookiecutter.frontend_pipeline == 'Webpack' %}
+    "webpack_loader",
+{%- endif %}
+    # Forked additions
 {%- if cookiecutter.use_dj_rest_auth == "y" %}
     "dj_rest_auth",
 {%- endif %}
-    "widget_tweaks",
-{%- if cookiecutter.use_django_auditlog == "y" %}
-    "auditlog",
-{%- endif %}
-{%- if cookiecutter.frontend_pipeline == 'Webpack' %}
-    "webpack_loader",
+{%- if cookiecutter.use_simplejwt == "y" %}
+    "rest_framework_simple
+{%- if cookiecutter.use_celery == 'y' %}
+    "django_celery_results",
 {%- endif %}
 {%- if cookiecutter.use_oauth == "y" %}
     "oauth2_provider",
@@ -118,10 +118,16 @@ THIRD_PARTY_APPS = [
 {%- if cookiecutter.use_robots == "y" %}
     "robots",
 {%- endif %}
+{%- if cookiecutter.use_dj_rest_auth == "y" %}
+    "dj_rest_auth",
+{%- endif %}
+    "widget_tweaks",
+{%- if cookiecutter.use_django_auditlog == "y" %}
+    "auditlog",
+{%- endif %}
 ]
 
 LOCAL_APPS = [
-    # "{{ cookiecutter.project_slug }}.users.apps.UsersConfig",
     "{{ cookiecutter.project_slug }}.users",
     # Your stuff: custom apps go here
 ]
@@ -187,7 +193,6 @@ MIDDLEWARE = [
     "oauth2_provider.middleware.OAuth2TokenMiddleware",
 {%- endif %}
     "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.common.BrokenLinkEmailsMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
 ]
@@ -306,32 +311,33 @@ LOGGING = {
         "console": {
             "level": "DEBUG",
             "class": "logging.StreamHandler",
+            # "formatter": "verbose",
             "formatter": "custom_formatter",
         }
     },
     "root": {"level": "INFO", "handlers": ["console"]},
-    "loggers": {
-        "django.db.backends": {
-            "level": "WARNING",
-            "handlers": ["console"],
-            "propagate": False,
-        },
-        "django.request": {
-            "handlers": ["console"],
-            "level": "ERROR",
-            "propagate": False,
-        },
-        "django.server": {
-            "level": "WARNING",
-            "handlers": ["console"],
-            "propagate": False,
-        },
-        "{{ cookiecutter.project_slug }}": {
-            "level": "DEBUG",
-            "handlers": ["console"],
-            "propagate": False,
-        },
-    },
+    # "loggers": {
+    #     "django.db.backends": {
+    #         "level": "WARNING",
+    #         "handlers": ["console"],
+    #         "propagate": False,
+    #     },
+    #     "django.request": {
+    #         "handlers": ["console"],
+    #         "level": "ERROR",
+    #         "propagate": False,
+    #     },
+    #     "django.server": {
+    #         "level": "WARNING",
+    #         "handlers": ["console"],
+    #         "propagate": False,
+    #     },
+    #     "{{ cookiecutter.project_slug }}": {
+    #         "level": "DEBUG",
+    #         "handlers": ["console"],
+    #         "propagate": False,
+    #     },
+    # },
 }
 
 {% if cookiecutter.use_celery == 'y' -%}
@@ -392,22 +398,6 @@ ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 # https://docs.allauth.org/en/latest/account/configuration.html
 ACCOUNT_ADAPTER = "{{cookiecutter.project_slug}}.users.adapters.AccountAdapter"
-# ACCOUNT_FORMS = {"signup": "{{cookiecutter.project_slug}}.users.forms_allauth.CustomSignupForm"}
-# https://django-allauth.readthedocs.io/en/latest/configuration.html
-SOCIALACCOUNT_ADAPTER = "{{cookiecutter.project_slug}}.users.adapters.SocialAccountAdapter"
-# SOCIALACCOUNT_FORMS = {
-#     "signup": "{{cookiecutter.project_slug}}.users.forms_allauth.CustomSocialSignupForm"
-# }
-
-# No username all-auth mods
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
-ACCOUNT_SESSION_REMEMBER = True
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_UNIQUE_EMAIL = True
-
-
 # https://django-allauth.readthedocs.io/en/latest/forms.html
 ACCOUNT_FORMS = {"signup": "{{cookiecutter.project_slug}}.users.forms.UserSignupForm"}
 # https://docs.allauth.org/en/latest/socialaccount/configuration.html
@@ -463,6 +453,23 @@ SPECTACULAR_SETTINGS = {
 }
 {%- endif %}
 
+{%- if cookiecutter.frontend_pipeline == 'Webpack' %}
+# django-webpack-loader
+# ------------------------------------------------------------------------------
+WEBPACK_LOADER = {
+    "DEFAULT": {
+        "CACHE": not DEBUG,
+        "STATS_FILE": BASE_DIR / "webpack-stats.json",
+        "POLL_INTERVAL": 0.1,
+        "IGNORE": [r".+\.hot-update.js", r".+\.map"],
+    },
+}
+
+{%- endif %}
+
+# ------------------------------------------------------------------------------
+# FORKED ADDITIONS - keeps diffs minimal
+# ------------------------------------------------------------------------------
 {% if cookiecutter.use_dj_rest_auth == "y" -%}
 # dj-rest-auth https://dj-rest-auth.readthedocs.io/en/latest/configuration.html
 # -------------------------------------------------------------------------------
@@ -489,6 +496,27 @@ SIMPLE_JWT = {
 CSRF_TRUSTED_ORIGINS=env.list("CSRF_TRUSTED_ORIGINS", default=["http://localhost:8081", "http://localhost:8000"])
 
 # SESSION_COOKIE_SAMESITE = 'Strict'
+
+{%- if cookiecutter.use_oauth == "y" %}
+OAUTH2_PROVIDER = {
+    "ACCESS_TOKEN_EXPIRE_SECONDS": 60 * 60 * 8,
+    "REFRESH_TOKEN_EXPIRE_SECONDS": 60 * 60 * 8,
+    # this is the list of available scopes
+    "SCOPES": {
+        "example:read": "Example read scope",
+        "example:write": "Example write scope",
+    },
+}
+{%- endif %}
+
+{%- if cookiecutter.use_robots == "y" %}
+# django-robots
+# https://django-robots.readthedocs.io/en/latest/
+ROBOTS_USE_SITEMAP = False
+ROBOTS_USE_HOST = True
+ROBOTS_USE_SCHEME_IN_HOST = True
+# ROBOTS_CACHE_TIMEOUT = 60 * 60 * 24  # 24 hours
+{%- endif %}
 
 {%- if cookiecutter.use_perm_filter == 'y' %}
 # django-perm-filter
@@ -569,49 +597,17 @@ PERM_FILTER = {
 }
 {%- endif %}
 
-{%- if cookiecutter.frontend_pipeline == 'Webpack' %}
-# django-webpack-loader
-# ------------------------------------------------------------------------------
-WEBPACK_LOADER = {
-    "DEFAULT": {
-        "CACHE": not DEBUG,
-        "STATS_FILE": BASE_DIR / "webpack-stats.json",
-        "POLL_INTERVAL": 0.1,
-        "IGNORE": [r".+\.hot-update.js", r".+\.map"],
-    },
-}
-
-{%- endif %}
-# Your stuff...
-# ------------------------------------------------------------------------------
-# https://docs.djangoproject.com/en/3.2/howto/error-reporting/
+# https://docs.djangoproject.com/en/4.2/howto/error-reporting/
 IGNORABLE_404_URLS = [
     re.compile(r'^/apple-touch-icon.*\.png$'),
     re.compile(r'^/favicon\.ico$'),
     re.compile(r'^/robots\.txt$'),
 ]
 
+SESSION_COOKIE_AGE = 60 * 60 * 8  # 8 hrs
+
 PROJECT_TITLE = env("PROJECT_TITLE", default="{{ cookiecutter.project_name }}")
 BASE_URL = env("BASE_URL", default="https://{{ cookiecutter.domain_name }}")
 
-{%- if cookiecutter.use_oauth == "y" %}
-OAUTH2_PROVIDER = {
-    "ACCESS_TOKEN_EXPIRE_SECONDS": 60 * 60 * 8,
-    "REFRESH_TOKEN_EXPIRE_SECONDS": 60 * 60 * 8,
-    # this is the list of available scopes
-    "SCOPES": {
-        "example:read": "Example read scope",
-        "example:write": "Example write scope",
-    },
-}
-{%- endif %}
-SESSION_COOKIE_AGE = 60 * 60 * 8  # 8 hrs
-
-{%- if cookiecutter.use_robots == "y" %}
-# django-robots
-# https://django-robots.readthedocs.io/en/latest/
-ROBOTS_USE_SITEMAP = False
-ROBOTS_USE_HOST = True
-ROBOTS_USE_SCHEME_IN_HOST = True
-# ROBOTS_CACHE_TIMEOUT = 60 * 60 * 24  # 24 hours
-{%- endif %}
+# Your stuff...
+# ------------------------------------------------------------------------------

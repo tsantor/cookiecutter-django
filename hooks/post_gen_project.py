@@ -91,10 +91,6 @@ def remove_utility_files():
     shutil.rmtree("utility")
 
 
-def remove_docker_utility_files():
-    shutil.rmtree("utility-scripts")
-
-
 def remove_heroku_files():
     file_names = ["Procfile", "runtime.txt", "requirements.txt"]
     for file_name in file_names:
@@ -433,6 +429,9 @@ def remove_drf_starter_files():
     os.remove(os.path.join("{{cookiecutter.project_slug}}", "users", "tests", "test_drf_views.py"))
     os.remove(os.path.join("{{cookiecutter.project_slug}}", "users", "tests", "test_swagger.py"))
 
+# -----------------------------------------------------------------------------
+# Forked additions - keeps diffs minimal
+# -----------------------------------------------------------------------------
 
 def remove_storages_module():
     os.remove(os.path.join("{{cookiecutter.project_slug}}", "utils", "storages.py"))
@@ -444,6 +443,7 @@ def fork_remove_docs():
     os.remove(os.path.join(".readthedocs.yml"))
     shutil.rmtree(os.path.join("compose", "local", "docs"))
 
+# -----------------------------------------------------------------------------
 
 def main():
     debug = "{{ cookiecutter.debug }}".lower() == "y"
@@ -470,7 +470,6 @@ def main():
         remove_utility_files()
     else:
         remove_docker_files()
-        remove_docker_utility_files()
 
     if "{{ cookiecutter.use_docker }}".lower() == "y" and "{{ cookiecutter.cloud_provider}}" != "AWS":
         remove_aws_dockerfile()
@@ -536,11 +535,10 @@ def main():
     if "{{ cookiecutter.use_async }}".lower() == "n":
         remove_async_files()
 
-    # FORKED ADDITIONS
-    fork_remove_docs()
-    # fork_remove_rst()
-
     print(SUCCESS + "Project initialized, keep up the good work!" + TERMINATOR)
+
+    # Forked additions - keeps diffs minimal
+    fork_remove_docs()
 
 
 if __name__ == "__main__":

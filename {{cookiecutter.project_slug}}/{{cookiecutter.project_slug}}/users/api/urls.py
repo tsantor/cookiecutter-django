@@ -9,7 +9,7 @@ from . import views
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = DefaultRouter()
-router.register(r"users", views.MyUserViewSet, basename="users")
+router.register(r"", views.MyUserViewSet, basename="user")
 
 
 urlpatterns = [path("", include(router.urls))]

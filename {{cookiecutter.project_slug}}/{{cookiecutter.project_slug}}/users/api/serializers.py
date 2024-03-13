@@ -27,13 +27,19 @@ class UserSerializer(serializers.ModelSerializer[User]):
 class MyUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = (
-            # "username",
-            "first_name",
-            "last_name",
-            "name",
-            "email",
-        )
+        {%- if cookiecutter.username_type == "email" %}
+        fields = ["name", "url"]
+
+        extra_kwargs = {
+            "url": {"view_name": "api:user-detail", "lookup_field": "pk"},
+        }
+        {%- else %}
+        fields = ["username", "name", "url"]
+
+        extra_kwargs = {
+            "url": {"view_name": "api:user-detail", "lookup_field": "username"},
+        }
+        {%- endif %}
 
     def create(self, validated_data):
         user = super().create(validated_data)

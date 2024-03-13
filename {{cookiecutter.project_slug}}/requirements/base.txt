@@ -82,7 +82,7 @@ django-extensions-too
 django-perm-filter
 # django-spaday
 
-# Project ppecific
+# Project specific
 # ------------------------------------------------------------------------------
 # createsend
 # django-ipware

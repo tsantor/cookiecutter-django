@@ -12,6 +12,7 @@ app_name = "api"
 
 # urlpatterns = router.urls
 
+# Forked additions - keeps diffs minimal
 urlpatterns = [
     # Place all your app's API URLS here.
     path("users/", include("{{ cookiecutter.project_slug }}.users.api.urls")),
