@@ -85,8 +85,8 @@ django-perm-filter
 # Project specific
 # ------------------------------------------------------------------------------
 # createsend
-# django-ipware
+django-ipware
 # django-taggit
 # qrcode
-# ua-parser
-# user-agents
+ua-parser
+user-agents

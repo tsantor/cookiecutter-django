@@ -296,7 +296,7 @@ optimize_pngs:  ## optimize PNGs
 	find . -name '*.png' -exec pngquant 64 --ext .png -f --skip-if-larger {} \;
 
 optimize_jpgs:  ## optimize JPGs
-	cd findershare/static && open -a ImageOptim .
+	cd ${project_dir}/static && open -a ImageOptim .
 
 count_lines:  ## count lines of code
 	# Includes blank lines and comments
@@ -335,10 +335,10 @@ mutagen_down:  ## mutagen terminate
 	mutagen forward terminate ${mutagen_forward_name}
 
 # -----------------------------------------------------------------------------
-# Experimental
+# Experimental (Use caution!)
 # -----------------------------------------------------------------------------
 
-pull_media:  ## pull media from s3 (Use caution!)
+pull_media:  ## pull media from s3
 	aws s3 sync --profile=${aws_profile} s3://${s3_bucket}/media ./media/ \
 		--exclude "*.DS_Store" --exclude cache/ --exclude "*.mp4"
 

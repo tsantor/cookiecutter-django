@@ -4,30 +4,52 @@ use_directory_urls: true
 # google_analytics: []
 
 # Copyright
-copyright: Copyright &copy; 2021 {{ cookiecutter.project_name }}&trade;
+copyright: Copyright &copy; 2024 {{ cookiecutter.project_name }}&trade;
+
+repo_url: https://bitbucket.org/
+repo_name: Bitbucket
 
 # Configuration
 theme:
     name: "material"
+    palette:
+        scheme: default
+        primary: custom
+        accent: custom
     icon:
         repo: fontawesome/brands/git-alt
-    # logo: img/megamify_m_logo.svg
+    # logo: img/x_x_white.svg
     favicon: img/favicon.ico
     font:
         text: Ubuntu
         code: Roboto Mono
+        # text: Raleway
     features:
-        - tabs
+        - navigation.tabs
+        - navigation.instant
+        - navigation.tabs.sticky
+        - navigation.top
+        # - navigation.footer
+        # - navigation.tracking
+        # - toc.integrate
+        - content.code.copy
+        - content.code.annotate
+
 
 # Extensions
 markdown_extensions:
-    - markdown.extensions.admonition
-    - markdown.extensions.attr_list
-    # - markdown.extensions.codehilite:
-    #       linenums: false
-    - fontawesome_markdown
+    - abbr
+    - attr_list
+    - tables
+    - admonition
+    - sane_lists
+    - smarty
+    - meta
+    - toc:
+          toc_depth: 2
+          permalink: true
     - pymdownx.betterem:
-          smart_enable: all
+        smart_enable: all
     - pymdownx.details
     - pymdownx.highlight:
           use_pygments: true
@@ -36,16 +58,19 @@ markdown_extensions:
     - pymdownx.magiclink
     - pymdownx.mark
     - pymdownx.smartsymbols
-    - pymdownx.superfences
-    - pymdownx.tasklist:
-          custom_checkbox: true
+    - pymdownx.superfences:
+          preserve_tabs: true
+          custom_fences:
+            # Mermaid diagrams
+            - name: mermaid
+              class: mermaid
+              format: !!python/name:pymdownx.superfences.fence_code_format
+    - pymdownx.tabbed:
+        alternate_style: true
     - pymdownx.tilde
-    - markdown.extensions.sane_lists
-    - markdown.extensions.smarty
-    # - markdown.extensions.tables
-    - markdown.extensions.toc:
-          toc_depth: 3
-          permalink: true
+    - pymdownx.emoji:
+          emoji_index: !!python/name:material.extensions.emoji.twemoji
+          emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
 # Plugins
 plugins:
@@ -54,13 +79,15 @@ plugins:
     - minify:
           minify_html: true
           minify_js: true
+          minify_css: true
+          cache_safe: true
 
 # Customization
 extra_css:
     - css/extra.css
 
-extra_javascript:
-    # -
+# extra_javascript:
+    # - js/extra.js
 
 nav:
     - Getting Started:

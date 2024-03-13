@@ -33,6 +33,7 @@ These features can be enabled during initial project setup.
 <!-- - `django-spaday` package -->
 
 
+
 ## Usage
 ```
 cookiecutter https://github.com/tsantor/cookiecutter-django
@@ -52,3 +53,5 @@ You'll be prompted for some values. Provide them, then a Django project will be 
 
 ## TODO
 - Need to make work with frontend pipelines other than Gulp
+- Move `helpers` to a package or packages
+- Move `mixins` to a package or packages

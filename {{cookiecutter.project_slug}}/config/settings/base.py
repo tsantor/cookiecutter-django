@@ -91,7 +91,7 @@ THIRD_PARTY_APPS = [
     # "allauth.socialaccount.providers.facebook",
     # "allauth.socialaccount.providers.google",
 {%- if cookiecutter.use_celery == 'y' %}
-    "django_celery_results",
+    "django_celery_beat",
 {%- endif %}
 {%- if cookiecutter.use_drf == "y" %}
     "rest_framework",
@@ -107,7 +107,8 @@ THIRD_PARTY_APPS = [
     "dj_rest_auth",
 {%- endif %}
 {%- if cookiecutter.use_simplejwt == "y" %}
-    "rest_framework_simple
+    "rest_framework_simplejwt",
+{%- endif %}
 {%- if cookiecutter.use_celery == 'y' %}
     "django_celery_results",
 {%- endif %}
@@ -118,13 +119,10 @@ THIRD_PARTY_APPS = [
 {%- if cookiecutter.use_robots == "y" %}
     "robots",
 {%- endif %}
-{%- if cookiecutter.use_dj_rest_auth == "y" %}
-    "dj_rest_auth",
-{%- endif %}
-    "widget_tweaks",
 {%- if cookiecutter.use_django_auditlog == "y" %}
     "auditlog",
 {%- endif %}
+    "widget_tweaks",
 ]
 
 LOCAL_APPS = [
@@ -470,7 +468,7 @@ WEBPACK_LOADER = {
 # ------------------------------------------------------------------------------
 # FORKED ADDITIONS - keeps diffs minimal
 # ------------------------------------------------------------------------------
-{% if cookiecutter.use_dj_rest_auth == "y" -%}
+{%- if cookiecutter.use_dj_rest_auth == "y" %}
 # dj-rest-auth https://dj-rest-auth.readthedocs.io/en/latest/configuration.html
 # -------------------------------------------------------------------------------
 REST_AUTH = {
@@ -480,7 +478,7 @@ REST_AUTH = {
 }
 {%- endif %}
 
-{% if cookiecutter.use_simplejwt == "y" -%}
+{%- if cookiecutter.use_simplejwt == "y" %}
 # https://django-rest-framework-simplejwt.readthedocs.io/en/latest/settings.htm
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
