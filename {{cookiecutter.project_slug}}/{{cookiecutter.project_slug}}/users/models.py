@@ -14,7 +14,6 @@ from django.utils.translation import gettext_lazy as _
 from .managers import UserManager
 {%- endif %}
 
-
 {%- if cookiecutter.use_django_auditlog == "y" %}
 from auditlog.registry import auditlog
 {%- endif %}
@@ -29,8 +28,8 @@ class User(AbstractUser):
 
     # First and last name do not cover name patterns around the globe
     name = CharField(_("Name of User"), blank=True, max_length=255)
-    first_name = CharField(_("First Name"), blank=True, max_length=255)
-    last_name = CharField(_("Last Name"), blank=True, max_length=255)
+    first_name = None  # type: ignore[assignment]
+    last_name = None  # type: ignore[assignment]
     {%- if cookiecutter.username_type == "email" %}
     email = EmailField(_("email address"), unique=True)
     username = None  # type: ignore[assignment]
@@ -40,9 +39,8 @@ class User(AbstractUser):
 
     objects: ClassVar[UserManager] = UserManager()
     {%- endif %}
-
     @property
-    def name(self) -> str:
+    def display_name(self) -> str:
         if self.first_name or self.last_name:
             return f"{self.first_name} {self.last_name}".strip()
         if self.email:
@@ -56,7 +54,6 @@ class User(AbstractUser):
         first_name = self.first_name[0] if self.first_name else "?"
         last_name = self.last_name[0] if self.last_name else "?"
         return f"{first_name}{last_name}".upper()
-
     def get_absolute_url(self) -> str:
         """Get URL for user's detail view.
 
@@ -69,11 +66,9 @@ class User(AbstractUser):
         {%- else %}
         return reverse("users:detail", kwargs={"username": self.username})
         {%- endif %}
-
     def __str__(self):
         """Return a string representation of this object for display."""
         return self.display_name
-
 {% if cookiecutter.use_django_auditlog == "y" %}
 auditlog.register(User)
 {%- endif %}

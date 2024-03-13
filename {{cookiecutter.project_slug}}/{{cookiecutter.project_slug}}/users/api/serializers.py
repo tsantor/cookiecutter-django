@@ -19,8 +19,6 @@ class UserSerializer(serializers.ModelSerializer[User]):
             "url": {"view_name": "api:user-detail", "lookup_field": "username"},
         }
         {%- endif %}
-
-
 # -----------------------------------------------------------------------------
 # My forked version
 # -----------------------------------------------------------------------------

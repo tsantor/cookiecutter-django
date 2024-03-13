@@ -1,11 +1,13 @@
 import contextlib
 from http import HTTPStatus
 from importlib import reload
-from django.contrib.auth.models import Permission
+
 import pytest
 from django.contrib import admin
 from django.contrib.auth.models import AnonymousUser
+from django.contrib.auth.models import Permission
 from django.urls import reverse
+
 from pytest_django.asserts import assertRedirects
 
 from {{ cookiecutter.project_slug }}.users.models import User
@@ -75,7 +77,6 @@ class TestUserAdmin:
         # The `admin` login view should redirect to the `allauth` login view
         target_url = reverse(settings.LOGIN_URL) + "?next=" + request.path
         assertRedirects(response, target_url, fetch_redirect_response=False)
-
     def test_view_user_as_non_superuser(self, staff_authenticated_client, staff):
         permission = Permission.objects.get(codename='view_user')
         staff.user_permissions.add(permission)

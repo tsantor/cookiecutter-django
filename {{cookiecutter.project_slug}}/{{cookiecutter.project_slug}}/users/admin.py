@@ -40,7 +40,7 @@ class UserAdmin(auth_admin.UserAdmin):
         ),
         (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
-    list_display = ["{{cookiecutter.username_type}}", "name", "is_staff", "is_superuser",  "last_login",]
+    list_display = ["{{cookiecutter.username_type}}", "name", "is_superuser"]
     search_fields = ["name"]
     {%- if cookiecutter.username_type == "email" %}
     ordering = ["id"]
@@ -54,26 +54,3 @@ class UserAdmin(auth_admin.UserAdmin):
         ),
     )
     {%- endif %}
-
-    def get_form(self, request, obj=None, **kwargs):
-        """Determine which fields to disable based on the user's permissions."""
-        form = super().get_form(request, obj, **kwargs)
-        is_superuser = request.user.is_superuser
-        disabled_fields = set()
-
-        # Prevent non-superusers from editing any permissions
-        if not is_superuser:
-            disabled_fields |= {
-                "is_active",
-                "is_staff",
-                "is_superuser",
-                "groups",
-                "user_permissions",
-                "last_login",
-                "date_joined",
-            }
-
-        for f in disabled_fields & form.base_fields.keys():
-            form.base_fields[f].disabled = True
-
-        return form

@@ -89,6 +89,9 @@ build_django:  ## build django
 bash_django: ## run bash in django container
 	${local_compose} exec django bash
 
+view_env:  ## view environment variables
+	${local_compose} run --rm django env | sort
+
 # -----------------------------------------------------------------------------
 # Django
 # -----------------------------------------------------------------------------
@@ -137,6 +140,9 @@ dumpdata:  ## generic dumpdata excluding admin, sessions, and celery results
 		-e sessions \
 		-e django_celery_results \
 		--indent 2 > ${project_dir}/fixtures/dumpdata.json
+
+drop_db: ## drop db
+	${local_compose} run --rm django python manage.py drop_database
 
 # -----------------------------------------------------------------------------
 # Testing
@@ -278,6 +284,9 @@ prod_deploy_no_cache:  ## deploy on production (no cache)
 	${prod_compose} build --no-cache
 	${prod_compose} run --rm django python manage.py migrate
 	${prod_compose} up -d
+
+prod_env:  ## view environment variables
+	${prod_compose} run --rm django env | sort
 
 # -----------------------------------------------------------------------------
 # Optimization

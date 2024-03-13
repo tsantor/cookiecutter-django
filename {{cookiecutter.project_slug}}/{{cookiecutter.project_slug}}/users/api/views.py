@@ -11,6 +11,7 @@ from {{cookiecutter.project_slug}}.api.permissions import IsSuperUser
 
 from .serializers import UserSerializer, MyUserSerializer
 
+
 class UserViewSet(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
@@ -28,8 +29,6 @@ class UserViewSet(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericV
     def me(self, request):
         serializer = UserSerializer(request.user, context={"request": request})
         return Response(status=status.HTTP_200_OK, data=serializer.data)
-
-
 # -----------------------------------------------------------------------------
 # My forked version
 # -----------------------------------------------------------------------------

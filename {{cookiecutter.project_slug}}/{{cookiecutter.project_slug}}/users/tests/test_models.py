@@ -1,4 +1,5 @@
 from {{ cookiecutter.project_slug }}.users.models import User
+
 import pytest
 from django.contrib.auth import get_user_model
 
@@ -10,15 +11,13 @@ def test_user_get_absolute_url(user: User):
     {%- else %}
     assert user.get_absolute_url() == f"/users/{user.username}/"
     {%- endif %}
-
-
 @pytest.mark.django_db
-def test_name_property():
+def test_display_name_property():
     # Create a user with first name, last name, email, and username
     user = User.objects.create(first_name='John', last_name='Doe', email='john.doe@example.com', username='johndoe')
 
     # Check that the name property returns the correct value
-    assert user.name == 'John Doe'
+    assert user.display_name == 'John Doe'
 
     # Remove the first name and last name
     user.first_name = ''
@@ -26,20 +25,20 @@ def test_name_property():
     user.save()
 
     # Check that the name property now returns the email
-    assert user.name == 'john.doe@example.com'
+    assert user.display_name == 'john.doe@example.com'
 
     # Remove the email
     user.email = ''
     user.save()
 
     # Check that the name property now returns the username
-    assert user.name == 'johndoe'
+    assert user.display_name == 'johndoe'
 
     # Remove the username
     # delattr(user, 'username')
 
     # Check that the name property now returns 'Anonymous'
-    # assert user.name == 'Anonymous'
+    # assert user.display_name == 'Anonymous'
 
 @pytest.mark.django_db
 def test_initials_property():
