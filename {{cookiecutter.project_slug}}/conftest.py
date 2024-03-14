@@ -3,7 +3,7 @@ import tempfile
 import pytest
 from django.contrib.auth import get_user_model
 from django.urls import reverse
-from rest_framework.test import APIClient
+from rest_framework.test import APIClient, APIRequestFactory
 
 from {{ cookiecutter.project_slug }}.users.models import User
 from {{ cookiecutter.project_slug }}.users.tests.factories import UserFactory
@@ -75,6 +75,35 @@ def superuser():
         is_superuser=True,
         is_staff=True,
     )
+
+
+@pytest.fixture()
+def inactive_user():
+    return User.objects.create_user(
+        {%- if cookiecutter.username_type == "username" %}
+        username="inactiveuser@test.com",
+        {%- endif -%}
+        email="inactiveuser@test.com",
+        password="testpass",
+        is_active=False,
+    )
+
+@pytest.fixture()
+def non_superuser():
+    return User.objects.create_user(
+        {%- if cookiecutter.username_type == "username" %}
+        username="nonsuperuser@test.com",
+        {%- endif -%}
+        email="nonsuperuser@test.com",
+        password="testpass",
+        is_superuser=False,
+        is_staff=True,
+    )
+
+
+@pytest.fixture
+def request_factory():
+    return APIRequestFactory()
 
 
 @pytest.fixture()
