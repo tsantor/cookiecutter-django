@@ -71,6 +71,8 @@
   "use_django_auditlog": "n",
   "use_robots": "n",
   "use_perm_filter": "y",
+  "use_prometheus": "n",
+  "use_grafana": "n",
   "ci_tool": [
     "None",
     "Travis",

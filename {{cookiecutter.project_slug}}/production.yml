@@ -13,6 +13,12 @@ volumes:
   {%- if cookiecutter.use_mosquitto == 'y' %}
   production_mosquitto: {}
   {%- endif %}
+  {%- if cookiecutter.use_prometheus == 'y' %}
+  production_prometheus: {}
+  {%- endif %}
+  {%- if cookiecutter.use_grafana == 'y' %}
+  production_grafana: {}
+  {%- endif %}
 
 services:
   django:{% if cookiecutter.use_celery == 'y' %} &django{% endif %}
@@ -78,10 +84,6 @@ services:
       - '0.0.0.0:443:443'
       {%- if cookiecutter.use_celery == 'y' %}
       - '0.0.0.0:5555:5555'
-      {%- endif %}
-      {%- if cookiecutter.use_mosquitto == 'y' %}
-      - '0.0.0.0:8883:8883'
-      - '0.0.0.0:9001:9001'
       {%- endif %}
     restart: unless-stopped
 
@@ -149,7 +151,7 @@ services:
 
   mosquitto:
     image: eclipse-mosquitto
-    container_name: mosquitto
+    container_name: {{ cookiecutter.project_slug }}_production_mosquitto
     volumes:
       - ./compose/production/mosquitto/config/:/mosquitto/config/
       - production_mosquitto:/mosquitto/logs
@@ -159,3 +161,35 @@ services:
       - "9001"
     restart: unless-stopped
   {%- endif %}
+  {%- if cookiecutter.use_prometheus == 'y' %}
+
+  prometheus:
+    build:
+      context: .
+      dockerfile: ./compose/production/prometheus/Dockerfile
+    image: {{ cookiecutter.project_slug }}_production_prometheus
+    expose:
+      - "9090"
+    volumes:
+      - production_prometheus:/prometheus
+    restart: unless-stopped
+  {%- endif %}
+  {%- if cookiecutter.use_grafana == 'y' %}
+
+  grafana:
+    build:
+      context: .
+      dockerfile: ./compose/production/grafana/Dockerfile
+    image: {{ cookiecutter.project_slug }}_production_grafana
+    expose:
+      - "3000"
+    volumes:
+      - production_grafana:/var/lib/grafana
+    depends_on:
+      - prometheus
+    env_file:
+      - ./.envs/.production/.graphana
+    environment:
+      GF_INSTALL_PLUGINS: "grafana-piechart-panel"
+    restart: unless-stopped
+    {%- endif %}

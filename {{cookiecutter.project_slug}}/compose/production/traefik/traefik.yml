@@ -4,6 +4,14 @@ log:
 api:
   dashboard: true
 
+{%- if cookiecutter.use_prometheus == 'y' %}
+metrics:
+  prometheus:
+    addEntryPointsLabels: true
+    addRoutersLabels: true
+    addServicesLabels: true
+{%- endif %}
+
 accessLog:
   filePath: /var/log/access.log
   bufferingSize: 100
@@ -31,9 +39,6 @@ entryPoints:
 
   mqtt-secure:
     address: ':8883'
-
-  mqtt-wss:
-    address: ':9001'
   {%- endif %}
 
 certificatesResolvers:
@@ -92,7 +97,18 @@ http:
     {%- if cookiecutter.use_whitenoise == 'n' %}
 
     web-static-router:
-      rule: 'Host(`{{ cookiecutter.domain_name }}`) && (PathPrefix(`/static/`) || PathPrefix(`/docs/`))'
+      rule: 'Host(`{{ cookiecutter.domain_name }}`) && PathPrefix(`/static/`)'
+      entryPoints:
+        - web-secure
+      middlewares:
+        - csrf
+        - security-headers
+      service: django-static
+      tls:
+        certResolver: letsencrypt
+
+    docs-static-router:
+      rule: 'Host(`{{ cookiecutter.domain_name }}`) && PathPrefix(`/docs/`)'
       entryPoints:
         - web-secure
       middlewares:
@@ -123,6 +139,31 @@ http:
       service: api@internal
       tls:
         certResolver: letsencrypt
+
+    {%- if cookiecutter.use_prometheus == 'y' %}
+    prometheus-secure-router:
+      # https://doc.traefik.io/traefik/observability/metrics/overview/
+      rule: "Host(`prometheus.{{ cookiecutter.domain_name }}`)"
+      entryPoints:
+        - web-secure
+      middlewares:
+        - dashboard-user
+      service: prometheus
+      tls:
+        certResolver: letsencrypt
+    {%- endif %}
+
+    {%- if cookiecutter.use_grafana == 'y' %}
+    grafana-secure-router:
+      rule: 'Host(`grafana.{{ cookiecutter.domain_name }}`)'
+      entryPoints:
+        - web-secure
+      middlewares:
+        - dashboard-user
+      service: grafana
+      tls:
+        certResolver: letsencrypt
+    {%- endif %}
 
   middlewares:
     csrf:
@@ -185,6 +226,20 @@ http:
         servers:
           - url: http://mosquitto:9001
     {%- endif %}
+    {%- if cookiecutter.use_prometheus == 'y' %}
+
+    prometheus:
+      loadBalancer:
+        servers:
+          - url: http://prometheus:9090
+    {%- endif %}
+    {%- if cookiecutter.use_grafana == 'y' %}
+
+    grafana:
+      loadBalancer:
+        servers:
+          - url: http://grafana:3000
+    {%- endif %}
 
 {%- if cookiecutter.use_mosquitto == 'y' %}
 tcp:
@@ -192,8 +247,7 @@ tcp:
     mqtt:
       rule: 'HostSNI(`{{ cookiecutter.domain_name }}`)'
       entryPoints:
-        # - mqtt-secure
-        - mqtt-wss
+        - mqtt-secure
       service: mqtt
       tls:
         certResolver: letsencrypt

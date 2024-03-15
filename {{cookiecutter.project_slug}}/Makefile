@@ -277,6 +277,16 @@ prod_rebuild_traefik:  ## rebuild traefik
 	${prod_compose} build --no-cache traefik
 	${prod_compose} up -d traefik
 
+prod_rebuild_prometheus:  ## rebuild prometheus
+	${prod_compose} stop prometheus
+	${prod_compose} build --no-cache prometheus
+	${prod_compose} up -d prometheus
+
+prod_rebuild_grafana:  ## rebuild grafana
+	${prod_compose} stop grafana
+	${prod_compose} build --no-cache grafana
+	${prod_compose} up -d grafana
+
 prod_pull_db:  ## pull live db
 	# rsync -avzP -e "ssh -i ~/.ssh/findershare.pem" ${prod_ssh}:~/production_db.dump .
 	rsync -avzP ${prod_ssh}:~/production_db.dump .
