@@ -256,7 +256,7 @@ tcp:
     mqtt:
       loadBalancer:
         servers:
-          - address: mosquitto:8883
+          - address: mosquitto:1883
 {%- endif %}
 
 providers:

@@ -85,6 +85,9 @@ services:
       {%- if cookiecutter.use_celery == 'y' %}
       - '0.0.0.0:5555:5555'
       {%- endif %}
+      {%- if cookiecutter.use_mosquitto == 'y' %}
+      - '0.0.0.0:8883:8883'  # MQTT over TCP
+      {%- endif %}
     restart: unless-stopped
 
   redis:
@@ -153,11 +156,11 @@ services:
     image: eclipse-mosquitto
     container_name: {{ cookiecutter.project_slug }}_production_mosquitto
     volumes:
-      - ./compose/production/mosquitto/config/:/mosquitto/config/
+      - production_mosquitto:/mosquitto/config/
       - production_mosquitto:/mosquitto/logs
       - production_mosquitto:/mosquitto/data
     expose:
-      - "8883"
+      - "1883"
       - "9001"
     restart: unless-stopped
   {%- endif %}
@@ -187,8 +190,8 @@ services:
       - production_grafana:/var/lib/grafana
     depends_on:
       - prometheus
-    env_file:
-      - ./.envs/.production/.graphana
+    # env_file:
+    #   - ./.envs/.production/.graphana
     environment:
       GF_INSTALL_PLUGINS: "grafana-piechart-panel"
     restart: unless-stopped

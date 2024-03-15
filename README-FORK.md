@@ -14,15 +14,19 @@ This forked version of the [cookiecutter-django](https://github.com/cookiecutter
   - Create User
   - Install Docker
 - Traefik
-  - Dashboard enabled (traefik.domain.com/dashboard/)
+  - Dashboard enabled (traefik.domain.com/)
   - Access log enabled
-
+- Prometheus (prometheus.domain.com/)
+- Grafana (grafana.domain.com/)
+  - You will need to add your own dash (eg - Dashboard ID `XXX` Traefik official)
 
 ## Optional Integrations
 These features can be enabled during initial project setup.
 - Mosquitto service
+- Prometheus service
+- Grafana service
 - Nginx integration for static file serving (via Traefix proxy)
-  - This is preferabe to `whitenoise` (Why? NBC fiasco!)
+  - This is preferabe to `whitenoise` - truly, don't ask!
 - `dj-rest-auth` package (see known issues below)
 - `django-auditlog` package
 - `django-celery-results` package
