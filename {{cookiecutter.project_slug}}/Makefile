@@ -199,10 +199,14 @@ clean_tests: clean_pytest_cache clean_tox_cache clean_coverage  ## clear pytest,
 # -----------------------------------------------------------------------------
 
 traefik_htaccess:  ## create .htpasswd file
+	# sudo apt install apache2-utils
 	htpasswd -c compose/production/traefik/.htpasswd ${user}
+	# ${prod_compose} build --no-cache traefik
 
 nginx_htaccess:  ## create .htpasswd file
+	# sudo apt install apache2-utils
 	htpasswd -c compose/production/nginx/.htpasswd ${user}
+	# ${prod_compose} build --no-cache nginx
 
 # -----------------------------------------------------------------------------
 # Vue SPA Specific
@@ -262,6 +266,16 @@ prod_restart_django:  ## restart django
 	${prod_compose} restart django
 	${prod_compose} restart celeryworker
 	${prod_compose} restart celerybeat
+
+prod_rebuild_nginx:  ## rebuild nginx
+	${prod_compose} stop nginx
+	${prod_compose} build --no-cache nginx
+	${prod_compose} up -d nginx
+
+prod_rebuild_traefik:  ## rebuild traefik
+	${prod_compose} stop traefik
+	${prod_compose} build --no-cache traefik
+	${prod_compose} up -d traefik
 
 prod_pull_db:  ## pull live db
 	# rsync -avzP -e "ssh -i ~/.ssh/findershare.pem" ${prod_ssh}:~/production_db.dump .
@@ -358,6 +372,7 @@ rsync_to_prod:  ## rsync to prod (for down n' dirty testing)
 		--exclude "media/" \
 		--exclude "node_modules" \
 		--exclude "staticfiles/" \
+		--exclude "**/.htpasswd" \
 		--delete
 
 # END - Generic commands

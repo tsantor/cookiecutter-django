@@ -443,6 +443,13 @@ def fork_remove_docs():
     os.remove(os.path.join(".readthedocs.yml"))
     shutil.rmtree(os.path.join("compose", "local", "docs"))
 
+
+def rename_nginx_conf():
+    """FORKED: We like to have the nginx conf file named `default.conf`."""
+    old_name = os.path.join("compose", "production", "nginx", "{{cookiecutter.project_slug}}.conf")
+    new_name = os.path.join("compose", "production", "nginx", "default.conf")
+    os.replace(old_name, new_name)
+
 # -----------------------------------------------------------------------------
 
 def main():
@@ -539,6 +546,7 @@ def main():
 
     # Forked additions - keeps diffs minimal
     fork_remove_docs()
+    rename_nginx_conf()
 
 
 if __name__ == "__main__":

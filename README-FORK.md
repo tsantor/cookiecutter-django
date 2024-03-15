@@ -33,7 +33,6 @@ These features can be enabled during initial project setup.
 <!-- - `django-spaday` package -->
 
 
-
 ## Usage
 ```
 cookiecutter https://github.com/tsantor/cookiecutter-django
@@ -42,7 +41,15 @@ You'll be prompted for some values. Provide them, then a Django project will be 
 
 ## Production Deployment via Docker
 
-- On local machine run, `push_production_env`
+Create the following DNS records:
+
+- domain.com
+- flower.domain.com
+- prometheus.domain.com
+- traefik.domain.com
+
+
+- On local machine run, `make rsync_to_prod`
 - On production, run `make nginx_htaccess` - this
 - On production, run `make traefik_htaccess`
 - On production, run `make deploy_prod`
@@ -53,5 +60,6 @@ You'll be prompted for some values. Provide them, then a Django project will be 
 
 ## TODO
 - Need to make work with frontend pipelines other than Gulp
+- Move `api` to a package or packages
 - Move `helpers` to a package or packages
 - Move `mixins` to a package or packages

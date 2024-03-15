@@ -527,6 +527,10 @@ PERM_FILTER = {
         "contenttypes",
         "sessions",
         "sites",
+        # Auditlog
+        "auditlog.add_logentry",
+        "auditlog.change_logentry",
+        "auditlog.delete_logentry",
         # All-auth
         "account",
         "socialaccount",
