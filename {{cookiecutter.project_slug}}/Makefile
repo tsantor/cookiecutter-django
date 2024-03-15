@@ -18,6 +18,8 @@ help:
 	@python3 -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
 # -----------------------------------------------------------------------------
+# Project specific variables
+# -----------------------------------------------------------------------------
 
 python_version=3.9.11
 venv={{cookiecutter.project_slug}}_env
@@ -132,14 +134,23 @@ remove_stale_contenttypes:  ## remove stale contenttypes
 # start_app:	## start a new app
 # 	${local_compose} exec django python manage.py startapp ${app_name} --template
 
-dumpdata:  ## generic dumpdata excluding admin, sessions, and celery results
+dump_basic_data:  ## dump basic data to a fixture
 	mkdir -p ${project_dir}/fixtures
 	${local_compose} exec django python manage.py dumpdata \
-		--natural-foreign --natural-primary \
-		-e admin \
-		-e sessions \
-		-e django_celery_results \
-		--indent 2 > ${project_dir}/fixtures/dumpdata.json
+	--natural-foreign --natural-primary \
+	-e admin \
+	-e contenttypes \
+	-e sessions  \
+	-e django_celery_beat \
+	-e django_celery_results.taskresult \
+	-e oauth2_provider.accesstoken \
+	-e oauth2_provider.refreshtoken \
+	-e oauth2_provider.grant \
+	-e oauth2_provider.idtoken \
+	> ${project_dir}/fixtures/basic_data.json
+
+load_basic_data:  ## load basic data from a fixture
+	${local_compose} run --rm django python manage.py loaddata basic_data.json
 
 drop_db: ## drop db
 	${local_compose} run --rm django python manage.py drop_database
@@ -257,15 +268,16 @@ prod_collectstatic:  ## collect static files
 prod_manage:	## run django manage.py (eg - make manage cmd="shell")
 	${prod_compose} exec django python manage.py ${cmd}
 
-prod_build_django: ## build django
-	${prod_compose} build django
-	${prod_compose} build celeryworker
-	${prod_compose} build celerybeat
+prod_rebuild_django:  ## rebuild django
+	${prod_compose} stop django
+	${prod_compose} build --no-cache django
+	${prod_compose} up -d django
 
-prod_restart_django:  ## restart django
-	${prod_compose} restart django
-	${prod_compose} restart celeryworker
-	${prod_compose} restart celerybeat
+	${prod_compose} stop celeryworker >/dev/null 2>&1
+	${prod_compose} up -d celeryworker >/dev/null 2>&1
+
+	${prod_compose} stop celerybeat >/dev/null 2>&1
+	${prod_compose} up -d celerybeat >/dev/null 2>&1
 
 prod_rebuild_nginx:  ## rebuild nginx
 	${prod_compose} stop nginx
@@ -390,21 +402,4 @@ rsync_to_prod:  ## rsync to prod (for down n' dirty testing)
 # Project Specific
 # -----------------------------------------------------------------------------
 
-dump_basic_data:  ## dump basic data to a fixture
-	mkdir -p ${project_dir}/fixtures
-	${local_compose} exec django python manage.py dumpdata \
-	--natural-foreign --natural-primary \
-	-e admin \
-	-e contenttypes \
-	-e sessions  \
-	-e django_celery_beat \
-	-e django_celery_results.taskresult \
-	-e oauth2_provider.accesstoken \
-	-e oauth2_provider.refreshtoken \
-	-e oauth2_provider.grant \
-	-e oauth2_provider.idtoken \
-	> ${project_dir}/fixtures/basic_data.json
-
-
-load_basic_data:  ## load basic data from a fixture
-	${local_compose} run --rm django python manage.py loaddata basic_data.json
+# Add your project specific commands here

@@ -134,6 +134,7 @@ STORAGES = {
         },
     },
     "staticfiles": {
+        # "BACKEND": "{{cookiecutter.project_name}}.utils.storages.S3ManifestStaticStorage",
         "BACKEND": "storages.backends.s3.S3Storage",
         "OPTIONS": {
             "location": "static",
@@ -185,6 +186,17 @@ STATIC_URL = f"https://storage.googleapis.com/{GS_BUCKET_NAME}/static/"
 MEDIA_URL = f"https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/media/"
 STATIC_URL = f"https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/static/"
 {%- endif %}
+
+# Overrides if we serve via nginx
+# STORAGES['staticfiles'] = {
+#     # "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage",
+#     "BACKEND": "{{cookiecutter.project_name}}.utils.storages.ForgivingManifestStaticFilesStorage",
+#     "OPTIONS": {
+#         "location": "staticfiles",
+#     },
+# }
+# COLLECTFAST_STRATEGY = "collectfast.strategies.filesystem.FileSystemStrategy"
+# STATIC_URL = f"{env('BASE_URL')}/static/"
 
 # EMAIL
 # ------------------------------------------------------------------------------
