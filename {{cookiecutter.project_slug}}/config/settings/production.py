@@ -134,7 +134,6 @@ STORAGES = {
         },
     },
     "staticfiles": {
-        # "BACKEND": "{{cookiecutter.project_name}}.utils.storages.S3ManifestStaticStorage",
         "BACKEND": "storages.backends.s3.S3Storage",
         "OPTIONS": {
             "location": "static",
