@@ -84,9 +84,10 @@ django-perm-filter
 
 # Project specific
 # ------------------------------------------------------------------------------
-# createsend
 django-ipware
 # django-taggit
 # qrcode
 ua-parser
 user-agents
+# paho-mqtt
+# django-fernet-encrypted-fields

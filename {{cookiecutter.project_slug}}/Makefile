@@ -27,6 +27,7 @@ venv={{cookiecutter.project_slug}}_env
 user={{cookiecutter.project_user}}
 project_dir={{cookiecutter.project_slug}}
 project_package={{cookiecutter.project_slug}} # typically we use underscored version of project_slug
+app={{cookiecutter.project_slug}}
 
 staging_ssh=${user}@staging.{{cookiecutter.domain_name}}
 prod_ssh=${user}@{{cookiecutter.domain_name}}
@@ -142,11 +143,6 @@ dump_basic_data:  ## dump basic data to a fixture
 	-e contenttypes \
 	-e sessions  \
 	-e django_celery_beat \
-	-e django_celery_results.taskresult \
-	-e oauth2_provider.accesstoken \
-	-e oauth2_provider.refreshtoken \
-	-e oauth2_provider.grant \
-	-e oauth2_provider.idtoken \
 	> ${project_dir}/fixtures/basic_data.json
 
 load_basic_data:  ## load basic data from a fixture
@@ -160,16 +156,16 @@ drop_db: ## drop db
 # -----------------------------------------------------------------------------
 
 pytest:  ## run pytest
-	${local_compose} exec django pytest
+	${local_compose} exec django pytest ${app}
 
 pytest_verbose:  ## runs pytest with verbose output
-	${local_compose} exec django pytest -vs -p no:cacheprovider
+	${local_compose} exec django pytest -vs ${app}
 
 coverage:  ## run coverage
-	${local_compose} exec django bash -c "coverage run -m pytest -vs && coverage html"
+	${local_compose} exec django bash -c "coverage run -m pytest -v ${app} && coverage html"
 
 coverage_skip:  ## run coverage (skip-comvered)
-	${local_compose} exec django bash -c "coverage run -m pytest && coverage html --skip-covered"
+	${local_compose} exec django bash -c "coverage run -m pytest ${app} && coverage html --skip-covered"
 
 open_coverage:  ## open coverage report
 	open htmlcov/index.html
@@ -179,6 +175,9 @@ drop_test_db:  ## drop test db
 
 test:  ## run tests
 	${local_compose} exec django python manage.py test
+
+mypy:	## run mypy
+	${local_compose} exec django mypy ${app}
 
 # -----------------------------------------------------------------------------
 # Cleanup
@@ -394,8 +393,7 @@ rsync_to_prod:  ## rsync to prod (for down n' dirty testing)
 		--exclude "media/" \
 		--exclude "node_modules" \
 		--exclude "staticfiles/" \
-		--exclude "**/.htpasswd" \
-		--delete
+		--exclude "**/.htpasswd"
 
 # END - Generic commands
 # -----------------------------------------------------------------------------

@@ -101,7 +101,6 @@ http:
       entryPoints:
         - web-secure
       middlewares:
-        - csrf
         - security-headers
       service: django-static
       tls:
@@ -112,7 +111,6 @@ http:
       entryPoints:
         - web-secure
       middlewares:
-        - csrf
         - security-headers
       service: django-static
       tls:
