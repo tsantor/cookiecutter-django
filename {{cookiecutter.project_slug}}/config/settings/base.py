@@ -122,6 +122,9 @@ THIRD_PARTY_APPS = [
 {%- if cookiecutter.use_django_auditlog == "y" %}
     "auditlog",
 {%- endif %}
+{%- if cookiecutter.use_drf_api_logger == "y" %}
+    "drf_api_logger",
+{%- endif %}
     "widget_tweaks",
 ]
 
@@ -193,6 +196,9 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
+{%- if cookiecutter.use_drf_logger == "y" %}
+    "drf_api_logger.middleware.api_logger_middleware.APILoggerMiddleware",
+{%- endif %}
 ]
 
 # STATIC
@@ -490,7 +496,7 @@ SIMPLE_JWT = {
 # CSRF
 # ------------------------------------------------------------------------------
 # CSRF_COOKIE_SAMESITE = 'Strict'
-# CSRF_COOKIE_HTTPONLY = False  # False since we will grab it via universal-cookies
+# CSRF_COOKIE_HTTPONLY = False  # False if using django-spaday
 CSRF_TRUSTED_ORIGINS=env.list("CSRF_TRUSTED_ORIGINS", default=["http://localhost:8081", "http://localhost:8000"])
 
 # SESSION_COOKIE_SAMESITE = 'Strict'
@@ -597,6 +603,20 @@ PERM_FILTER = {
         {%- endif %}
     ],
 }
+{%- endif %}
+
+
+{%- if cookiecutter.use_drf_logger == "y" %}
+# drf-api-logger
+# ------------------------------------------------------------------------------
+# https://pypi.org/project/drf-api-logger/
+DRF_API_LOGGER_DATABASE = True
+DRF_API_LOGGER_SLOW_API_ABOVE = 200
+DRF_API_LOGGER_TIMEDELTA = -240  # America/New_York
+DRF_API_LOGGER_MAX_REQUEST_BODY_SIZE = 1024
+DRF_API_LOGGER_MAX_RESPONSE_BODY_SIZE = 1024
+DRF_API_LOGGER_PATH_TYPE = "FULL_PATH"
+DRF_API_LOGGER_EXCLUDE_KEYS = ["AUTHORIZATION"]
 {%- endif %}
 
 # https://docs.djangoproject.com/en/4.2/howto/error-reporting/

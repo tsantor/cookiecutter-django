@@ -66,9 +66,11 @@ django-oauth-toolkit
 {%- if cookiecutter.use_robots == "y" %}
 django-robots
 {%- endif %}
-django-widget-tweaks
 {%- if cookiecutter.use_simplejwt == "y" %}
 djangorestframework-simplejwt
+{%- endif %}
+{%- if cookiecutter.use_drf_api_logger == "y" %}
+drf-api-logger
 {%- endif %}
 django-admin-sortable2
 django-autoslug
@@ -84,10 +86,10 @@ django-perm-filter
 
 # Project specific
 # ------------------------------------------------------------------------------
+# django-fernet-encrypted-fields
 django-ipware
 # django-taggit
+# paho-mqtt
 # qrcode
 ua-parser
 user-agents
-# paho-mqtt
-# django-fernet-encrypted-fields

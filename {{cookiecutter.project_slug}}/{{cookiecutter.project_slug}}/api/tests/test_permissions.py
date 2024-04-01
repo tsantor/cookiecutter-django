@@ -1,6 +1,6 @@
 import pytest
 
-from ..permissions import IsSuperUser, IsActive
+from {{cookiecutter.project_slug}}.api.permissions import IsSuperUser, IsActive
 
 @pytest.mark.django_db
 def test_is_super_user_permission(request_factory, user, superuser):
