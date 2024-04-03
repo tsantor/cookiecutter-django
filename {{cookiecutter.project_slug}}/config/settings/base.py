@@ -196,7 +196,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
-{%- if cookiecutter.use_drf_logger == "y" %}
+{%- if cookiecutter.use_drf_api_logger == "y" %}
     "drf_api_logger.middleware.api_logger_middleware.APILoggerMiddleware",
 {%- endif %}
 ]
@@ -606,7 +606,7 @@ PERM_FILTER = {
 {%- endif %}
 
 
-{%- if cookiecutter.use_drf_logger == "y" %}
+{%- if cookiecutter.use_drf_api_logger == "y" %}
 # drf-api-logger
 # ------------------------------------------------------------------------------
 # https://pypi.org/project/drf-api-logger/

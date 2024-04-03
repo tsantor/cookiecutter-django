@@ -34,7 +34,7 @@ These features can be enabled during initial project setup.
 - `django-perm-filter` package
 - `django-robots` package
 - `djangorestframework-simplejwt` package
-<!-- - `django-spaday` package -->
+- `drf-api-logger` package
 
 
 ## Usage
@@ -53,15 +53,10 @@ Create the following DNS records:
 - prometheus.domain.com (if opted for prometheus)
 - grafana.domain.com (if opted for grafana)
 
-
 - On local machine run, `make rsync_to_prod`
 - On production, run `make nginx_htaccess` - this
 - On production, run `make traefik_htaccess`
 - On production, run `make deploy_prod`
-
-
-## Known issues
-- Enabling `dj-rest-auth` will throw an error as it is not compatible with django-allauth > 0.54.0
 
 ## TODO
 - Need to make work with frontend pipelines other than Gulp

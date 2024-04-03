@@ -3,6 +3,110 @@ All enhancements and patches to Cookiecutter Django will be documented in this f
 
 <!-- GENERATOR_PLACEHOLDER -->
 
+## 2024.04.02
+
+
+### Changed
+
+- Change pytest import mode to importlib ([#4950](https://github.com/cookiecutter/cookiecutter-django/pull/4950))
+
+- Use main over master for branch name in deployment-on-heroku instruction ([#4954](https://github.com/cookiecutter/cookiecutter-django/pull/4954))
+
+- change obsolete docker image &#34;docker/compose:1.29.2&#34; to &#34;docker:25.0&#34; ([#4961](https://github.com/cookiecutter/cookiecutter-django/pull/4961))
+
+### Updated
+
+- Update sentry-sdk to 1.44.0 ([#4948](https://github.com/cookiecutter/cookiecutter-django/pull/4948))
+
+- Update ruff to 0.3.5 ([#4955](https://github.com/cookiecutter/cookiecutter-django/pull/4955))
+
+- Update gitpython to 3.1.43 ([#4951](https://github.com/cookiecutter/cookiecutter-django/pull/4951))
+
+- Update pillow to 10.3.0 ([#4953](https://github.com/cookiecutter/cookiecutter-django/pull/4953))
+
+- Update django-model-utils to 4.5.0 ([#4956](https://github.com/cookiecutter/cookiecutter-django/pull/4956))
+
+- Update drf-spectacular to 0.27.2 ([#4957](https://github.com/cookiecutter/cookiecutter-django/pull/4957))
+
+- Update werkzeug to 3.0.2 ([#4958](https://github.com/cookiecutter/cookiecutter-django/pull/4958))
+
+- Auto-update pre-commit hooks ([#4959](https://github.com/cookiecutter/cookiecutter-django/pull/4959))
+
+## 2024.03.29
+
+
+### Documentation
+
+- Add instruction for adding a django app ([#4944](https://github.com/cookiecutter/cookiecutter-django/pull/4944))
+
+## 2024.03.27
+
+
+### Updated
+
+- Update pre-commit to 3.7.0 ([#4943](https://github.com/cookiecutter/cookiecutter-django/pull/4943))
+
+- Update djangorestframework to 3.15.1 ([#4941](https://github.com/cookiecutter/cookiecutter-django/pull/4941))
+
+- Update ruff to 0.3.4 ([#4936](https://github.com/cookiecutter/cookiecutter-django/pull/4936))
+
+- Auto-update pre-commit hooks ([#4937](https://github.com/cookiecutter/cookiecutter-django/pull/4937))
+
+## 2024.03.26
+
+
+### Documentation
+
+- Update mentions of psycopg in comments ([#4947](https://github.com/cookiecutter/cookiecutter-django/pull/4947))
+
+## 2024.03.21
+
+
+### Changed
+
+- Add PostgreSQL 16, remove Postgres 10 and 11 ([#4935](https://github.com/cookiecutter/cookiecutter-django/pull/4935))
+
+### Updated
+
+- Update uvicorn to 0.29.0 ([#4933](https://github.com/cookiecutter/cookiecutter-django/pull/4933))
+
+- Update sentry-sdk to 1.43.0 ([#4934](https://github.com/cookiecutter/cookiecutter-django/pull/4934))
+
+## 2024.03.19
+
+
+### Changed
+
+- Add documentation to upgrade Postgres in Docker environment. Fix: #461 ([#4898](https://github.com/cookiecutter/cookiecutter-django/pull/4898))
+
+- Upgrade Python to version 3.12 ([#4930](https://github.com/cookiecutter/cookiecutter-django/pull/4930))
+
+## 2024.03.18
+
+
+### Changed
+
+- Split the docs from local.yml and build the service in CI ([#4909](https://github.com/cookiecutter/cookiecutter-django/pull/4909))
+
+### Updated
+
+- Update django-anymail to 10.3 ([#4919](https://github.com/cookiecutter/cookiecutter-django/pull/4919))
+
+- Update sentry-sdk to 1.42.0 ([#4921](https://github.com/cookiecutter/cookiecutter-django/pull/4921))
+
+- Update coverage to 7.4.4 ([#4926](https://github.com/cookiecutter/cookiecutter-django/pull/4926))
+
+- Update ruff to 0.3.3 ([#4927](https://github.com/cookiecutter/cookiecutter-django/pull/4927))
+
+- Auto-update pre-commit hooks ([#4928](https://github.com/cookiecutter/cookiecutter-django/pull/4928))
+
+## 2024.03.17
+
+
+### Updated
+
+- Update djangorestframework to 3.15.0 ([#4929](https://github.com/cookiecutter/cookiecutter-django/pull/4929))
+
 ## 2024.03.10
 
 
