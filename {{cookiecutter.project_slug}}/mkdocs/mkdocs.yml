@@ -92,6 +92,7 @@ extra_css:
 nav:
     - Getting Started:
         - index.md
+        - help.md
 
 extra:
     social:

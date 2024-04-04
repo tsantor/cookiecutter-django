@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.urls import include, path
-from rest_framework.routers import DefaultRouter, SimpleRouter
+from rest_framework.routers import DefaultRouter
+from rest_framework.routers import SimpleRouter
 
 from {{ cookiecutter.project_slug }}.users.api.views import UserViewSet
 

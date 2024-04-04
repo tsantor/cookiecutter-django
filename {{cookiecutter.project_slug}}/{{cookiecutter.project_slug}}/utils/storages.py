@@ -1,5 +1,5 @@
 from django.contrib.staticfiles.storage import ManifestStaticFilesStorage
-{%- if cookiecutter.use_whitenoise == 'y' -%}
+{%- if cookiecutter.use_whitenoise == 'y' %}
 from whitenoise.storage import CompressedManifestStaticFilesStorage
 {%- endif %}
 

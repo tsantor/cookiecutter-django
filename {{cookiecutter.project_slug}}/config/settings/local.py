@@ -103,15 +103,15 @@ CELERY_TASK_EAGER_PROPAGATES = True
 
 {%- endif %}
 
-# My forked additions
-# ------------------------------------------------------------------------------
-
-
 {%- if cookiecutter.frontend_pipeline == 'Webpack' %}
 # django-webpack-loader
 # ------------------------------------------------------------------------------
 WEBPACK_LOADER["DEFAULT"]["CACHE"] = not DEBUG
 
 {%- endif %}
+
+# My forked additions
+# ------------------------------------------------------------------------------
+
 # Your stuff...
 # ------------------------------------------------------------------------------
