@@ -5,6 +5,7 @@ api:
   dashboard: true
 
 {%- if cookiecutter.use_prometheus == 'y' %}
+
 metrics:
   prometheus:
     addEntryPointsLabels: true
@@ -139,6 +140,7 @@ http:
         certResolver: letsencrypt
 
     {%- if cookiecutter.use_prometheus == 'y' %}
+
     prometheus-secure-router:
       # https://doc.traefik.io/traefik/observability/metrics/overview/
       rule: "Host(`prometheus.{{ cookiecutter.domain_name }}`)"
@@ -152,6 +154,7 @@ http:
     {%- endif %}
 
     {%- if cookiecutter.use_grafana == 'y' %}
+
     grafana-secure-router:
       rule: 'Host(`grafana.{{ cookiecutter.domain_name }}`)'
       entryPoints:
@@ -240,6 +243,7 @@ http:
     {%- endif %}
 
 {%- if cookiecutter.use_mosquitto == 'y' %}
+
 tcp:
   routers:
     mqtt:

@@ -153,10 +153,11 @@ services:
   {%- if cookiecutter.use_mosquitto == 'y' %}
 
   mosquitto:
-    image: eclipse-mosquitto
-    container_name: {{ cookiecutter.project_slug }}_production_mosquitto
+    build:
+      context: .
+      dockerfile: ./compose/production/mosquitto/Dockerfile
+    image: {{ cookiecutter.project_slug }}_production_mosquitto
     volumes:
-      - production_mosquitto:/mosquitto/config/
       - production_mosquitto:/mosquitto/logs
       - production_mosquitto:/mosquitto/data
     expose:

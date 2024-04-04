@@ -42,33 +42,34 @@ services:
     ports:
       - "5432:5432"
 
-  # docs:
-  #   image: {{ cookiecutter.project_slug }}_local_docs
-  #   container_name: docs
-  #   build:
-  #     context: .
-  #     dockerfile: ./compose/local/docs/Dockerfile
-  #   env_file:
-  #     - ./.envs/.local/.django
-  #   volumes:
-  #     - ./docs:/docs:z
-  #     - ./config:/app/config:z
-  #     - ./{{ cookiecutter.project_slug }}:/app/{{ cookiecutter.project_slug }}:z
-  #   ports:
-  #     - "7000:7000"
-  #   command: /start-docs
+  docs:
+    image: {{ cookiecutter.project_slug }}_local_docs
+    container_name: docs
+    build:
+      context: .
+      dockerfile: ./compose/local/docs/Dockerfile
+    env_file:
+      - ./.envs/.local/.django
+    volumes:
+      - ./docs:/docs:z
+      - ./config:/app/config:z
+      - ./{{ cookiecutter.project_slug }}:/app/{{ cookiecutter.project_slug }}:z
+    ports:
+      - "7000:7000"  # 9000:9000
+    command: /start-docs
 
   mkdocs:
-    image: {{ cookiecutter.project_slug }}_local_docs
-    container_name: {{ cookiecutter.project_slug }}_local_docs
+    image: {{ cookiecutter.project_slug }}_local_mkdocs
+    container_name: {{ cookiecutter.project_slug }}_local_mkdocs
     build:
       context: .
       dockerfile: ./compose/local/mkdocs/Dockerfile
     volumes:
       - ./mkdocs:/mkdocs
     ports:
-      - '9000:9000'
-    command: /start-docs
+      - '8001:8001'
+    # command: /start-docs
+    command: serve -a 0.0.0.0:8001
   {%- if cookiecutter.use_mailpit == 'y' %}
 
   mailpit:

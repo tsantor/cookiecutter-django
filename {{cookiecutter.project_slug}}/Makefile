@@ -324,7 +324,7 @@ prod_env:  ## view environment variables
 	${prod_compose} run --rm django env | sort
 
 prod_uptime:	## view uptime
-	docker ps --format "table {{.Names}}\t{{.Status}}"
+	{% raw %} docker ps --format "table {{.Names}}\t{{.Status}}"{% endraw %}
 
 # -----------------------------------------------------------------------------
 # Optimization

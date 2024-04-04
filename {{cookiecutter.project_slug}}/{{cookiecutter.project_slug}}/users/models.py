@@ -70,14 +70,12 @@ class User(AbstractUser):
     @property
     def initials(self) -> str:
         def extract_and_capitalize(name):
-            return ''.join(word[0].upper() for word in name.split())
+            return "".join(word[0].upper() for word in name.split())
 
         if hasattr(self, "name") and self.name:
             return extract_and_capitalize(self.name)
-        if hasattr(self, "first_name") and hasattr(self, "last_name"):
-            first_name = self.first_name[0] if self.first_name else "?"
-            last_name = self.last_name[0] if self.last_name else "?"
-            return f"{first_name}{last_name}".upper()
+        if self.first_name or self.last_name:
+            return extract_and_capitalize(f"{self.first_name} {self.last_name}")
         return "??"
 
     def __str__(self):

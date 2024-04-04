@@ -13,45 +13,60 @@ def test_user_get_absolute_url(user: User):
     assert user.get_absolute_url() == f"/users/{user.username}/"
     {%- endif %}
 
-@pytest.mark.django_db
+# Forked additions
+@pytest.mark.django_db()
 def test_display_name_property():
     # Create a user with first name, last name, email, and username
-    user = User.objects.create(name="John Doe", email='john.doe@example.com')
+    user = User.objects.create(name="John Doe", email="john.doe@example.com")
 
-    # Check that the name property returns the correct value
-    assert user.display_name == 'John Doe'
+    # Assign user other possible properties
+    user.first_name = "John"
+    user.last_name = "Doe"
+    user.username = "john.doe"
 
-    # Remove the first name and last name
-    user.name = ''
-    user.save()
-
-    # Check that the name property now returns the email
-    assert user.display_name == 'john.doe@example.com'
-
-    # Remove the email
-    user.email = ''
-    user.save()
-
-    assert user.display_name == 'Anonymous'
-
-    # Remove the username
-    # delattr(user, 'username')
-
-    # Check that the name property now returns 'Anonymous'
-    # assert user.display_name == 'Anonymous'
-
-@pytest.mark.django_db
-def test_initials_property():
-    # Create a user with first name and last name
-    user = User.objects.create(name='John Doe')
-
-    # Check that the initials property returns the correct value
-    assert user.initials == 'JD'
+    assert user.display_name == "John Doe"
 
     # Remove the name
-    user.name = ''
+    user.name = ""
+
+    assert user.display_name == "John Doe"
+
+    # Remove first and last name
+    user.first_name = ""
+    user.last_name = ""
     user.save()
 
-    # Check that the initials property now returns '?D'
-    assert user.initials == '??'
+    assert user.display_name == "john.doe"
+
+    # Remove the username
+    user.username = ""
+
+    assert user.display_name == "john.doe@example.com"
+
+    # Remove the email
+    user.email = ""
+
+    assert user.display_name == "Anonymous"
+
+@pytest.mark.django_db()
+def test_initials_property():
+    # Create a user with first name and last name
+    user = User.objects.create(name="John Doe")
+
+    assert user.initials == "JD"
+
+    # Assign user other possible properties
+    user.first_name = "John"
+    user.last_name = "Doe"
+
+    # Remove the name
+    user.name = ""
+
+    assert user.initials == "JD"
+
+    # Remove first and last name
+    user.first_name = ""
+    user.last_name = ""
+
+    assert user.initials == "??"
 

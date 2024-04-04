@@ -2,7 +2,7 @@ import pytest
 
 from {{cookiecutter.project_slug}}.api.permissions import IsSuperUser, IsActive
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_is_super_user_permission(request_factory, user, superuser):
     # Simulate a request from a non-superuser
     request = request_factory.get('/')
@@ -15,7 +15,7 @@ def test_is_super_user_permission(request_factory, user, superuser):
     assert permission.has_permission(request, None)
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_is_active_permission(request_factory, user, inactive_user):
     # Simulate a request from an inactive user
     request = request_factory.get('/')
@@ -25,5 +25,4 @@ def test_is_active_permission(request_factory, user, inactive_user):
 
     # Simulate a request from an active user
     request.user = user
-    print(request.user.__dict__)
     assert permission.has_permission(request, None)

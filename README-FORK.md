@@ -43,21 +43,6 @@ cookiecutter https://github.com/tsantor/cookiecutter-django
 ```
 You'll be prompted for some values. Provide them, then a Django project will be created for you.
 
-## Production Deployment via Docker
-
-Create the following DNS records:
-
-- domain.com
-- traefik.domain.com
-- flower.domain.com (if opted for celery)
-- prometheus.domain.com (if opted for prometheus)
-- grafana.domain.com (if opted for grafana)
-
-- On local machine run, `make rsync_to_prod`
-- On production, run `make nginx_htaccess` - this
-- On production, run `make traefik_htaccess`
-- On production, run `make deploy_prod`
-
 ## TODO
 - Need to make work with frontend pipelines other than Gulp
 - Move `api` to a package or packages

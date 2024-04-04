@@ -94,7 +94,10 @@ def remove_utility_files():
 def remove_heroku_files():
     file_names = ["Procfile", "runtime.txt", "requirements.txt"]
     for file_name in file_names:
-        if file_name == "requirements.txt" and "{{ cookiecutter.ci_tool }}".lower() == "travis":
+        if (
+            file_name == "requirements.txt"
+            and "{{ cookiecutter.ci_tool }}".lower() == "travis"
+        ):
             # don't remove the file if we are using travisci but not using heroku
             continue
         os.remove(file_name)
@@ -194,7 +197,9 @@ def handle_js_runner(choice, use_docker, use_async):
         ]
         if not use_docker:
             dev_django_cmd = (
-                "uvicorn config.asgi:application --reload" if use_async else "python manage.py runserver_plus"
+                "uvicorn config.asgi:application --reload"
+                if use_async
+                else "python manage.py runserver_plus"
             )
             scripts.update(
                 {
@@ -231,7 +236,9 @@ def remove_celery_files():
     file_names = [
         os.path.join("config", "celery_app.py"),
         os.path.join("{{ cookiecutter.project_slug }}", "users", "tasks.py"),
-        os.path.join("{{ cookiecutter.project_slug }}", "users", "tests", "test_tasks.py"),
+        os.path.join(
+            "{{ cookiecutter.project_slug }}", "users", "tests", "test_tasks.py"
+        ),
     ]
     for file_name in file_names:
         os.remove(file_name)
@@ -262,7 +269,9 @@ def remove_dotdrone_file():
     os.remove(".drone.yml")
 
 
-def generate_random_string(length, using_digits=False, using_ascii_letters=False, using_punctuation=False):
+def generate_random_string(
+    length, using_digits=False, using_ascii_letters=False, using_punctuation=False
+):
     """
     Example:
         opting out for 50 symbol-long, [a-z][A-Z][0-9] string
@@ -356,7 +365,9 @@ def set_postgres_password(file_path, value=None):
 
 
 def set_celery_flower_user(file_path, value):
-    celery_flower_user = set_flag(file_path, "!!!SET CELERY_FLOWER_USER!!!", value=value)
+    celery_flower_user = set_flag(
+        file_path, "!!!SET CELERY_FLOWER_USER!!!", value=value
+    )
     return celery_flower_user
 
 
@@ -388,14 +399,22 @@ def set_flags_in_envs(postgres_user, celery_flower_user, debug=False):
     set_django_admin_url(production_django_envs_path)
 
     set_postgres_user(local_postgres_envs_path, value=postgres_user)
-    set_postgres_password(local_postgres_envs_path, value=DEBUG_VALUE if debug else None)
+    set_postgres_password(
+        local_postgres_envs_path, value=DEBUG_VALUE if debug else None
+    )
     set_postgres_user(production_postgres_envs_path, value=postgres_user)
-    set_postgres_password(production_postgres_envs_path, value=DEBUG_VALUE if debug else None)
+    set_postgres_password(
+        production_postgres_envs_path, value=DEBUG_VALUE if debug else None
+    )
 
     set_celery_flower_user(local_django_envs_path, value=celery_flower_user)
-    set_celery_flower_password(local_django_envs_path, value=DEBUG_VALUE if debug else None)
+    set_celery_flower_password(
+        local_django_envs_path, value=DEBUG_VALUE if debug else None
+    )
     set_celery_flower_user(production_django_envs_path, value=celery_flower_user)
-    set_celery_flower_password(production_django_envs_path, value=DEBUG_VALUE if debug else None)
+    set_celery_flower_password(
+        production_django_envs_path, value=DEBUG_VALUE if debug else None
+    )
 
 
 def set_flags_in_settings_files():
@@ -425,32 +444,50 @@ def remove_aws_dockerfile():
 def remove_drf_starter_files():
     os.remove(os.path.join("config", "api_router.py"))
     shutil.rmtree(os.path.join("{{cookiecutter.project_slug}}", "users", "api"))
-    os.remove(os.path.join("{{cookiecutter.project_slug}}", "users", "tests", "test_drf_urls.py"))
-    os.remove(os.path.join("{{cookiecutter.project_slug}}", "users", "tests", "test_drf_views.py"))
-    os.remove(os.path.join("{{cookiecutter.project_slug}}", "users", "tests", "test_swagger.py"))
+    os.remove(
+        os.path.join(
+            "{{cookiecutter.project_slug}}", "users", "tests", "test_drf_urls.py"
+        )
+    )
+    os.remove(
+        os.path.join(
+            "{{cookiecutter.project_slug}}", "users", "tests", "test_drf_views.py"
+        )
+    )
+    os.remove(
+        os.path.join(
+            "{{cookiecutter.project_slug}}", "users", "tests", "test_swagger.py"
+        )
+    )
+
 
 # -----------------------------------------------------------------------------
 # Forked additions - keeps diffs minimal
 # -----------------------------------------------------------------------------
 
+
 def remove_storages_module():
     os.remove(os.path.join("{{cookiecutter.project_slug}}", "utils", "storages.py"))
 
 
-def fork_remove_docs():
-    """FORKED: We like to use mkdocs."""
-    shutil.rmtree(os.path.join("docs"))
-    os.remove(os.path.join(".readthedocs.yml"))
-    shutil.rmtree(os.path.join("compose", "local", "docs"))
+# def fork_remove_docs():
+#     """FORKED: We like to use mkdocs."""
+#     shutil.rmtree(os.path.join("docs"))
+#     os.remove(os.path.join(".readthedocs.yml"))
+#     shutil.rmtree(os.path.join("compose", "local", "docs"))
 
 
 def rename_nginx_conf():
     """FORKED: We like to have the nginx conf file named `default.conf`."""
-    old_name = os.path.join("compose", "production", "nginx", "{{cookiecutter.project_slug}}.conf")
+    old_name = os.path.join(
+        "compose", "production", "nginx", "{{cookiecutter.project_slug}}.conf"
+    )
     new_name = os.path.join("compose", "production", "nginx", "default.conf")
     os.replace(old_name, new_name)
 
+
 # -----------------------------------------------------------------------------
+
 
 def main():
     debug = "{{ cookiecutter.debug }}".lower() == "y"
@@ -478,13 +515,19 @@ def main():
     else:
         remove_docker_files()
 
-    if "{{ cookiecutter.use_docker }}".lower() == "y" and "{{ cookiecutter.cloud_provider}}" != "AWS":
+    if (
+        "{{ cookiecutter.use_docker }}".lower() == "y"
+        and "{{ cookiecutter.cloud_provider}}" != "AWS"
+    ):
         remove_aws_dockerfile()
 
     if "{{ cookiecutter.use_heroku }}".lower() == "n":
         remove_heroku_files()
 
-    if "{{ cookiecutter.use_docker }}".lower() == "n" and "{{ cookiecutter.use_heroku }}".lower() == "n":
+    if (
+        "{{ cookiecutter.use_docker }}".lower() == "n"
+        and "{{ cookiecutter.use_heroku }}".lower() == "n"
+    ):
         if "{{ cookiecutter.keep_local_envs_in_vcs }}".lower() == "y":
             print(
                 INFO + ".env(s) are only utilized when Docker Compose and/or "
@@ -513,7 +556,10 @@ def main():
             use_async=("{{ cookiecutter.use_async }}".lower() == "y"),
         )
 
-    if "{{ cookiecutter.cloud_provider }}" == "None" and "{{ cookiecutter.use_docker }}".lower() == "n":
+    if (
+        "{{ cookiecutter.cloud_provider }}" == "None"
+        and "{{ cookiecutter.use_docker }}".lower() == "n"
+    ):
         print(
             WARNING + "You chose to not use any cloud providers nor Docker, "
             "media files won't be served in production." + TERMINATOR
@@ -545,7 +591,7 @@ def main():
     print(SUCCESS + "Project initialized, keep up the good work!" + TERMINATOR)
 
     # Forked additions - keeps diffs minimal
-    fork_remove_docs()
+    # fork_remove_docs()
     rename_nginx_conf()
 
 
