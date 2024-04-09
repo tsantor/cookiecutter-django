@@ -1,13 +1,15 @@
+from django.conf import settings
+
 from helpers.ip import IPStackAPI
 from helpers.ip import get_ip_info
 from helpers.ip import is_private_ip
-from django.conf import settings
+
 
 def test_get_ip_info_ipstack():
     if hasattr(settings, "IPSTACK_API_KEY"):
         ip_info = get_ip_info("131.148.1.222", IPStackAPI())
         assert ip_info != {}
-    pass
+
 
 def test_is_private_ip():
     # private ipv4

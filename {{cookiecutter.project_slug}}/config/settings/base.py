@@ -499,7 +499,10 @@ SIMPLE_JWT = {
 # CSRF_COOKIE_HTTPONLY = False  # False if using django-spaday
 CSRF_TRUSTED_ORIGINS=env.list("CSRF_TRUSTED_ORIGINS", default=["http://localhost:8081", "http://localhost:8000"])
 
-# SESSION_COOKIE_SAMESITE = 'Strict'
+# Session
+# ------------------------------------------------------------------------------
+SESSION_COOKIE_SAMESITE = "Strict"
+SESSION_COOKIE_AGE = 60 * 60 * 8  # 8 hrs
 
 {%- if cookiecutter.use_oauth == "y" %}
 OAUTH2_PROVIDER = {
@@ -514,8 +517,8 @@ OAUTH2_PROVIDER = {
 {%- endif %}
 
 {%- if cookiecutter.use_robots == "y" %}
-# django-robots
-# https://django-robots.readthedocs.io/en/latest/
+# django-robots - # https://django-robots.readthedocs.io/en/latest/
+# ------------------------------------------------------------------------------
 ROBOTS_USE_SITEMAP = False
 ROBOTS_USE_HOST = True
 ROBOTS_USE_SCHEME_IN_HOST = True
@@ -625,8 +628,6 @@ IGNORABLE_404_URLS = [
     re.compile(r'^/favicon\.ico$'),
     re.compile(r'^/robots\.txt$'),
 ]
-
-SESSION_COOKIE_AGE = 60 * 60 * 8  # 8 hrs
 
 PROJECT_TITLE = env("PROJECT_TITLE", default="{{ cookiecutter.project_name }}")
 BASE_URL = env("BASE_URL", default="https://{{ cookiecutter.domain_name }}")
