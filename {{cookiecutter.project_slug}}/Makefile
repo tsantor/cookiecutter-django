@@ -60,7 +60,7 @@ env_remove:  ## remove virtual environment
 # -----------------------------------------------------------------------------
 
 pip_install: ## install requirements
-	python3 -m pip install -U pip wheel build pre-commit && pre-commit install
+	python3 -m pip install -U pip wheel build ruff pre-commit && pre-commit install
 
 pip_list:  ## run pip list
 	${local_compose} exec django python -m pip list

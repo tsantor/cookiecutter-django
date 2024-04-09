@@ -22,7 +22,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose
 
 # Docker without sudo
 sudo groupadd docker
-sudo usermod -aG docker $USER
+sudo usermod -aG docker $USERNAME
 newgrp docker
 
 echo "Now run:"

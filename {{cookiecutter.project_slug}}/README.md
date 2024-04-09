@@ -10,6 +10,8 @@
 License: {{cookiecutter.open_source_license}}
 {%- endif %}
 
+> **NOTE:** This is the upstream README, view the [forked README](README_FORK.md) for more information on how to use this forked version.
+
 ## Settings
 
 Moved to [settings](http://cookiecutter-django.readthedocs.io/en/latest/settings.html).

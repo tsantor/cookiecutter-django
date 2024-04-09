@@ -28,7 +28,7 @@ class ForgivingManifestStaticFilesStorage(
     pass
 
 
-{%- if cookiecutter.use_whitenoise == 'y' -%}
+{%- if cookiecutter.use_whitenoise == 'y' %}
 class StaticRootWhiteNoiseStorage(
     ForgivingManifestStaticFilesStorageMixin, CompressedManifestStaticFilesStorage
 ):
@@ -40,4 +40,4 @@ class StaticRootWhiteNoiseStorage(
     """
 
     pass
-{% endif %}
+{%- endif %}

@@ -59,7 +59,8 @@ Out of the box, we have all this running already. **Now get to the actual work!*
 
 - `http://localhost:5555/` - Flower GUI
 
-## Production
+## Production Deploy
+This is a simple deployment process to a **single** server.
 
 Create the following DNS records:
 
@@ -75,8 +76,18 @@ Create the following DNS records:
 - grafana.{{ cookiecutter.domain_name }}
 {%- endif %}
 
-Run commands:
+Prep the server:
+1. Create the `{{ cookiecutter.project_user }}` defined in your `Makefile` (do not use `root`)
+1. SSH into your server as `{{ cookiecutter.project_user }}`
+1. Run `sudo apt install make docker-compose apache2-utils`
+1. Run:
+    ```bash
+    sudo groupadd docker
+    sudo usermod -aG docker `{{ cookiecutter.project_user }}`
+    newgrp docker
+    ```
 
+Run custom `make` commands:
 - On local machine run, `make rsync_to_prod` (ensure production envs exist!)
 - On production, run `make nginx_htaccess`
 - On production, run `make traefik_htaccess`

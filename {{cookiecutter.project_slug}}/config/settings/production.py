@@ -189,7 +189,7 @@ STATIC_URL = f"https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/static/"
 # Overrides if we serve via nginx
 # STORAGES['staticfiles'] = {
 #     # "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage",
-#     "BACKEND": "{{cookiecutter.project_name}}.utils.storages.ForgivingManifestStaticFilesStorage",
+#     "BACKEND": "{{cookiecutter.project_slug}}.utils.storages.ForgivingManifestStaticFilesStorage",
 #     "OPTIONS": {
 #         "location": "staticfiles",
 #     },
