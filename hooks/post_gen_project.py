@@ -483,7 +483,8 @@ def rename_nginx_conf():
         "compose", "production", "nginx", "{{cookiecutter.project_slug}}.conf"
     )
     new_name = os.path.join("compose", "production", "nginx", "default.conf")
-    os.replace(old_name, new_name)
+    if os.path.exists(old_name):
+        os.replace(old_name, new_name)
 
 
 # -----------------------------------------------------------------------------
