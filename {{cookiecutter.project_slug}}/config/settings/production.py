@@ -1,4 +1,4 @@
-# ruff: noqa: E501
+# ruff: noqa: E501 ERA001
 {% if cookiecutter.use_sentry == 'y' -%}
 import logging
 
@@ -16,6 +16,7 @@ from sentry_sdk.integrations.redis import RedisIntegration
 from .base import *  # noqa: F403
 from .base import DATABASES
 from .base import INSTALLED_APPS
+from .base import ROOT_DIR
 {%- if cookiecutter.use_drf == "y" %}
 from .base import SPECTACULAR_SETTINGS
 {%- endif %}
@@ -331,9 +332,7 @@ LOGGING = {
     "filters": {"require_debug_false": {"()": "django.utils.log.RequireDebugFalse"}},
     "formatters": {
         "verbose": {
-            # "format": "%(levelname)s %(asctime)s %(module)s "
-            # "%(process)d %(thread)d %(message)s"
-            "format": "%(asctime)s  [%(name)s:%(lineno)s]  %(levelname)s - %(message)s"
+            "format": "%(asctime)s  [%(name)s:%(lineno)s]  %(levelname)s - %(message)s",
         },
         "custom_formatter": {
             "format": "[%(levelname)s] %(asctime)s %(module)s %(message)s",

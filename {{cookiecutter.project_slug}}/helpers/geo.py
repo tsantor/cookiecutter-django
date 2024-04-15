@@ -20,7 +20,7 @@ def get_lat_long_from_address(geolocator, address):
             latitude = location.latitude
             longitude = location.longitude
             return latitude, longitude
-        return None, None
+        return None, None  # noqa: TRY300
     except GeocoderTimedOut:
         logger.warning("Geocoding service timed out. Try again later.")
         return None, None
@@ -46,7 +46,7 @@ def get_location_from_address(geolocator, address):
         return None
 
 
-def extract_address_parts(json_data, short=False):
+def extract_address_parts(json_data):
     """For use with Google Maps API `location.raw`."""
     address_parts = {
         "address": "",
@@ -58,7 +58,7 @@ def extract_address_parts(json_data, short=False):
 
     for component in json_data["address_components"]:
         types = component["types"]
-        name = component["short_name"] if short else component["long_name"]
+        name = component["long_name"]
 
         if "street_number" in types:
             address_parts["address"] += name + " "
@@ -115,10 +115,10 @@ def random_point_within_radius(latitude, longitude, radius_miles) -> tuple:
     lon_rad = math.radians(longitude)
 
     # Random distance within the radius
-    distance_km = random.uniform(0, radius_km)
+    distance_km = random.uniform(0, radius_km)  # noqa: S311
 
     # Random bearing (direction) in radians
-    bearing = random.uniform(0, 2 * math.pi)
+    bearing = random.uniform(0, 2 * math.pi)  # noqa: S311
 
     # Calculate new latitude and longitude
     new_lat_rad = math.asin(

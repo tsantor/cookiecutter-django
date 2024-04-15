@@ -6,8 +6,6 @@ from django.core.files.base import ContentFile
 from qrcode.image.svg import SvgPathFillImage
 from qrcode.main import QRCode
 
-# from django.core.files import File
-
 logger = logging.getLogger()
 
 
@@ -17,7 +15,8 @@ def make_qr_code(data: str, box_size: int = 10, border: int = 1) -> SvgPathFillI
 
     Args:
         data (str): The data to be encoded in the QR code.
-        box_size (int, optional): The size of each box in the QR code grid. Defaults to 10.
+        box_size (int, optional): The size of each box in the QR code grid.
+                                  Defaults to 10.
         border (int, optional): The thickness of the border. Defaults to 1.
 
     Returns:
@@ -64,18 +63,3 @@ def make_qr_content_file(data: str, filename: str) -> ContentFile:
     """
     bytes_io = _in_memory_qr(data)
     return ContentFile(bytes_io.getvalue(), name=f"{filename}")
-
-
-# def make_qr_file(data: str, filename: str) -> File:
-#     """
-#     Return file for use in Django.
-
-#     Args:
-#         data (str): The data to be encoded in the QR code.
-#         filename (str): The name of the file.
-
-#     Returns:
-#         File: The file containing the QR code.
-#     """
-#     content_file = make_qr_content_file(data, filename)
-#     return File(content_file, name=filename)

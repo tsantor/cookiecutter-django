@@ -10,8 +10,6 @@ def test_make_qr_code():
     qr_image = make_qr_code(data)
 
     assert qr_image is not None
-    # assert qr_image.size[0] > 0  # width of the image
-    # assert qr_image.size[1] > 0  # height of the image
 
 
 def test_in_memory_qr():
@@ -29,16 +27,3 @@ def test_make_qr_content_file():
     assert isinstance(content_file, ContentFile)
     assert content_file.name == filename
     assert content_file.read() != b""
-
-
-# def test_make_qr_file():
-#     data = "Test QR Code"
-#     filename = "test_qr.png"
-#     file = make_qr_file(data, filename)
-
-#     assert isinstance(file, File)
-#     assert file.name == filename
-#     assert file.read() != b""
-#     assert isinstance(file, File)
-#     assert file.name == filename
-#     assert file.read() != b""

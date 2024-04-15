@@ -1,4 +1,3 @@
-# from django.conf import settings
 from dataclasses import dataclass
 
 from django.db import models
@@ -119,9 +118,6 @@ class IPAddressMixin(models.Model):
         if self.ip_data:
             return IPAddressData(**self.ip_data)
         return IPAddressData()
-
-    # def ip(self) -> str:
-    #     self.ip_data.get("ip")
 
     @property
     def location(self) -> str:

@@ -1,7 +1,9 @@
 # ruff: noqa: ERA001, E501
 """Base settings to build other settings files upon."""
 import re
+{%- if cookiecutter.use_simplejwt == "y" %}
 from datetime import timedelta
+{%- endif %}
 from pathlib import Path
 
 import environ
@@ -317,7 +319,7 @@ LOGGING = {
             "class": "logging.StreamHandler",
             # "formatter": "verbose",
             "formatter": "custom_formatter",
-        }
+        },
     },
     "root": {"level": "INFO", "handlers": ["console"]},
     # "loggers": {
@@ -624,9 +626,9 @@ DRF_API_LOGGER_EXCLUDE_KEYS = ["AUTHORIZATION"]
 
 # https://docs.djangoproject.com/en/4.2/howto/error-reporting/
 IGNORABLE_404_URLS = [
-    re.compile(r'^/apple-touch-icon.*\.png$'),
-    re.compile(r'^/favicon\.ico$'),
-    re.compile(r'^/robots\.txt$'),
+    re.compile(r"'^/apple-touch-icon.*\.png$'"),
+    re.compile(r"'^/favicon\.ico$'"),
+    re.compile(r"'^/robots\.txt$'"),
 ]
 
 PROJECT_TITLE = env("PROJECT_TITLE", default="{{ cookiecutter.project_name }}")

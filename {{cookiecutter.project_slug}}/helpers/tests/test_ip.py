@@ -20,6 +20,3 @@ def test_is_private_ip():
 
     # public ipv4
     assert is_private_ip("8.8.8.8") is False
-    # assert is_private_ip("2001:db8::") is False
-    # assert is_private_ip("fd00::") is True
-    # assert is_private_ip("invalid") is False
