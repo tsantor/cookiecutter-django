@@ -62,7 +62,7 @@ urlpatterns += [
     path("token/verify/", TokenVerifyView.as_view(), name="token_verify"),
     {%- endif %}
     # DRF auth token
-    path("auth-token/", obtain_auth_token),
+    path("api/auth-token/", obtain_auth_token),
     path("api/schema/", SpectacularAPIView.as_view(), name="api-schema"),
     path(
         "api/docs/",
