@@ -355,3 +355,12 @@ vendors.js
 {{ cookiecutter.project_slug }}/static/webpack_bundles/
 webpack-stats.json
 {%- endif %}
+
+# Project specific
+.ruff_cache/
+media/*
+{{ cookiecutter.project_slug }}/static/vue-frontend/
+
+# env-wrangler
+.envs/.local/.secrets
+.envs/.local/secrets.json

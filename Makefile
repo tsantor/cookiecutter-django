@@ -97,4 +97,3 @@ pytest_generation:  ## Run tests for cookiecutter generation
 # 	open htmlcov/index.html
 
 # -----------------------------------------------------------------------------
-

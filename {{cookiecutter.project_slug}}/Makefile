@@ -63,6 +63,9 @@ env_from_scratch: env_remove env pip_install  ## Create environment from scratch
 pip_install:  ## Install requirements
 	python3 -m pip install -U pip wheel build ruff pre-commit && pre-commit install
 
+pip_install_extra:  ## Install extra stuff
+	python3 -m pip install env-wrangler
+
 pip_list:  ## Run pip list
 	${local_compose} exec django python -m pip list
 
@@ -166,6 +169,9 @@ pytest:  ## Run pytest
 pytest_verbose:  ## Runs pytest with verbose output
 	${local_compose} exec django pytest -vvs ${project_dir}
 
+pytest_node_ids:  ## show node ids
+	cat .pytest_cache/v/cache/nodeids
+
 coverage:  ## Run coverage
 	${local_compose} exec django bash -c "coverage run -m pytest ${project_dir} && coverage html"
 
@@ -188,14 +194,17 @@ mypy:	 ## Run mypy
 # Cleanup
 # -----------------------------------------------------------------------------
 
-clean_build:  ## Remove build artifacts
+clean_build: ## Remove build artifacts
 	rm -fr build/ dist/ .eggs/
 	find . -name '*.egg-info' -o -name '*.egg' -exec rm -fr {} +
 
-clean_pyc:  ## Remove python file artifacts
+clean_pyc: ## Remove python file artifacts
 	find . \( -name '*.pyc' -o -name '*.pyo' -o -name '*~' -o -name '__pycache__' \) -exec rm -fr {} +
 
 clean: clean_build clean_pyc ## Remove all build and python artifacts
+
+clean_mypy_cache:  ## Clear mypy cache
+	rm -rf .mypy_cache
 
 clean_pytest_cache:  ## Clear pytest cache
 	rm -rf .pytest_cache
@@ -210,7 +219,7 @@ clean_coverage:  ## Clear coverage cache
 	rm .coverage
 	rm -rf htmlcov
 
-clean_tests: clean_pytest_cache clean_ruff_cache clean_tox_cache clean_coverage  ## Clear pytest, ruff, tox, and coverage caches
+clean_tests: clean_mypy_cache clean_pytest_cache clean_ruff_cache clean_tox_cache clean_coverage  ## Clear test/lint caches
 
 # -----------------------------------------------------------------------------
 # Generate Passwords
@@ -383,6 +392,23 @@ mutagen_resume:  ## Mutagen resume
 mutagen_down:  ## Mutagen terminate
 	mutagen sync terminate ${mutagen_sync_name}
 	mutagen forward terminate ${mutagen_forward_name}
+
+# -----------------------------------------------------------------------------
+# Secrets
+# -----------------------------------------------------------------------------
+
+secrets_extract:  ## Extract secrets
+	# python3 -m pip install env-wrangler
+	env-wrangler extract --path=".envs/.local/" --verbose
+	env-wrangler extract --path=".envs/.production/" --verbose
+
+secrets_mask:  ## Mask secrets
+	env-wrangler mask --path=".envs/.local/" --verbose
+	env-wrangler mask --path=".envs/.production/" --verbose
+
+secrets_unmask:  ## Unmask secrets
+	env-wrangler unmask --path=".envs/.local/" --verbose
+	env-wrangler unmask --path=".envs/.production/" --verbose
 
 # -----------------------------------------------------------------------------
 # Experimental (Use caution!)
