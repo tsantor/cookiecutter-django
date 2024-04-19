@@ -487,18 +487,20 @@ def rename_nginx_conf():
         os.replace(old_name, new_name)
 
 
-def remove_prometheus_files():
+def remove_prometheus_compose_files():
     """FORKED: We use Prometheus."""
     shutil.rmtree(os.path.join("compose", "production", "prometheus"))
 
 
-def remove_grafana_files():
+def remove_grafana_compose_files():
     """FORKED: We use Grafana."""
     shutil.rmtree(os.path.join("compose", "production", "grafana"))
 
 
-def remove_mosquitto_files():
+def remove_mosquitto_compose_files():
     """FORKED: We use Mosquitto."""
+    print(os.listdir("."))
+    print("MOSQUITTO:", os.path.join("compose", "production", "mosquitto"))
     shutil.rmtree(os.path.join("compose", "production", "mosquitto"))
 
 
@@ -609,14 +611,15 @@ def main():
     # fork_remove_docs()
     rename_nginx_conf()
 
-    if "{{ cookiecutter.use_prometheus }}".lower() == "n":
-        remove_prometheus_files()
+    if "{{ cookiecutter.use_docker }}".lower() == "y":
+        if "{{ cookiecutter.use_prometheus }}".lower() == "n":
+            remove_prometheus_compose_files()
 
-    if "{{ cookiecutter.use_grafana }}".lower() == "n":
-        remove_grafana_files()
+        if "{{ cookiecutter.use_grafana }}".lower() == "n":
+            remove_grafana_compose_files()
 
-    if "{{ cookiecutter.use_mosqutto }}".lower() == "n":
-        remove_mosquitto_files()
+        if "{{ cookiecutter.use_mosquitto }}".lower() == "n":
+            remove_mosquitto_compose_files()
 
     # -------------------------------------------------------------------------
 

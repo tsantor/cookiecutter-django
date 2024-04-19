@@ -73,6 +73,7 @@
   "use_perm_filter": "y",
   "use_prometheus": "n",
   "use_grafana": "n",
+  "use_node_exporter": "n",
   "ci_tool": [
     "None",
     "Travis",

@@ -178,6 +178,14 @@ services:
       - production_prometheus:/prometheus
     restart: unless-stopped
   {%- endif %}
+  {%- if cookiecutter.use_node_exporter == 'y' %}
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    expose:
+      - '9100'
+    restart: unless-stopped
+  {%- endif %}
   {%- if cookiecutter.use_grafana == 'y' %}
 
   grafana:
