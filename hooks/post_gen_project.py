@@ -487,6 +487,21 @@ def rename_nginx_conf():
         os.replace(old_name, new_name)
 
 
+def remove_prometheus_files():
+    """FORKED: We use Prometheus."""
+    shutil.rmtree(os.path.join("compose", "production", "prometheus"))
+
+
+def remove_grafana_files():
+    """FORKED: We use Grafana."""
+    shutil.rmtree(os.path.join("compose", "production", "grafana"))
+
+
+def remove_mosquitto_files():
+    """FORKED: We use Mosquitto."""
+    shutil.rmtree(os.path.join("compose", "production", "mosquitto"))
+
+
 # -----------------------------------------------------------------------------
 
 
@@ -589,11 +604,23 @@ def main():
     if "{{ cookiecutter.use_async }}".lower() == "n":
         remove_async_files()
 
-    print(SUCCESS + "Project initialized, keep up the good work!" + TERMINATOR)
-
     # Forked additions - keeps diffs minimal
+    # -------------------------------------------------------------------------
     # fork_remove_docs()
     rename_nginx_conf()
+
+    if "{{ cookiecutter.use_prometheus }}".lower() == "n":
+        remove_prometheus_files()
+
+    if "{{ cookiecutter.use_grafana }}".lower() == "n":
+        remove_grafana_files()
+
+    if "{{ cookiecutter.use_mosqutto }}".lower() == "n":
+        remove_mosquitto_files()
+
+    # -------------------------------------------------------------------------
+
+    print(SUCCESS + "Project initialized, keep up the good work!" + TERMINATOR)
 
 
 if __name__ == "__main__":
