@@ -1,5 +1,6 @@
 from django.conf import settings
-from django.urls import include, path
+from django.urls import include
+from django.urls import path
 from rest_framework.routers import DefaultRouter
 from rest_framework.routers import SimpleRouter
 

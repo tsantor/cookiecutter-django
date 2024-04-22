@@ -16,7 +16,6 @@ from sentry_sdk.integrations.redis import RedisIntegration
 from .base import *  # noqa: F403
 from .base import DATABASES
 from .base import INSTALLED_APPS
-from .base import ROOT_DIR
 {%- if cookiecutter.use_drf == "y" %}
 from .base import SPECTACULAR_SETTINGS
 {%- endif %}
@@ -350,20 +349,11 @@ LOGGING = {
             "class": "logging.StreamHandler",
             "formatter": "verbose",
         },
-         # Write messages to file
-        "file": {
-            "backupCount": 10,
-            "class": "logging.handlers.RotatingFileHandler",
-            "filename": str(ROOT_DIR.path("logs/debug.log")),
-            "formatter": "verbose",
-            "level": "DEBUG",
-            "maxBytes": 1000000,
-        },
     },
     "root": {"level": "INFO", "handlers": ["console"]},
     "loggers": {
         "django.request": {
-            "handlers": ["mail_admins", "file"],
+            "handlers": ["mail_admins"],
             "level": "ERROR",
             "propagate": True,
         },
@@ -377,8 +367,6 @@ LOGGING = {
             "handlers": ["console"],
             "propagate": False,
         },
-        # Custom logger, write to console and file
-        "custom.log": {"handlers": ["file"], "level": "DEBUG", "propagate": True},
     },
 }
 {% else %}

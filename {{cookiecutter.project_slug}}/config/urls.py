@@ -5,7 +5,9 @@ from django.contrib import admin
 {%- if cookiecutter.use_async == 'y' %}
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 {%- endif %}
-from django.urls import include, path, re_path
+from django.urls import include
+from django.urls import path
+from django.urls import re_path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
 {%- if cookiecutter.use_drf == 'y' %}
