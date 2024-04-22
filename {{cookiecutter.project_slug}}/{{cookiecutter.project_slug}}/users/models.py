@@ -2,6 +2,10 @@
 from typing import ClassVar
 
 {% endif -%}
+
+{%- if cookiecutter.use_django_auditlog == "y" %}
+from auditlog.registry import auditlog
+{%- endif %}
 from django.contrib.auth.models import AbstractUser
 from django.db.models import CharField
 {%- if cookiecutter.username_type == "email" %}
@@ -12,10 +16,6 @@ from django.utils.translation import gettext_lazy as _
 {%- if cookiecutter.username_type == "email" %}
 
 from .managers import UserManager
-{%- endif %}
-
-{%- if cookiecutter.use_django_auditlog == "y" %}
-from auditlog.registry import auditlog
 {%- endif %}
 
 
