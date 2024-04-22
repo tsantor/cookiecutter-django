@@ -7,9 +7,8 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from {{ cookiecutter.project_slug }}.users.models import User
-from {{cookiecutter.project_slug}}.api.permissions import IsSuperUser
 
-from .serializers import UserSerializer, MyUserSerializer
+from .serializers import UserSerializer
 
 
 class UserViewSet(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericViewSet):
@@ -20,32 +19,6 @@ class UserViewSet(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericV
     {%- else %}
     lookup_field = "username"
     {%- endif %}
-
-    def get_queryset(self, *args, **kwargs):
-        assert isinstance(self.request.user.id, int)
-        return self.queryset.filter(id=self.request.user.id)
-
-    @action(detail=False)
-    def me(self, request):
-        serializer = UserSerializer(request.user, context={"request": request})
-        return Response(status=status.HTTP_200_OK, data=serializer.data)
-
-# -----------------------------------------------------------------------------
-# My forked version
-# -----------------------------------------------------------------------------
-
-
-class MyUserViewSet(
-    RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericViewSet
-):
-    serializer_class = MyUserSerializer
-    queryset = User.objects.all()
-    {%- if cookiecutter.username_type == "email" %}
-    lookup_field = "pk"
-    {%- else %}
-    lookup_field = "username"
-    {%- endif %}
-    permission_classes = (IsSuperUser,)
 
     def get_queryset(self, *args, **kwargs):
         assert isinstance(self.request.user.id, int)

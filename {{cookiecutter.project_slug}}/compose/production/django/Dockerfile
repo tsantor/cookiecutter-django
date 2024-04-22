@@ -110,7 +110,7 @@ RUN chmod +x /start-flower
 
 {%- if cookiecutter.use_whitenoise == 'n' %}
 # Django staticfiles
-RUN mkdir -p ${APP_HOME}/staticfiles && chown django:django ${APP_HOME}/staticfiles
+RUN mkdir -p ${APP_HOME}/staticfiles
 {%- endif %}
 
 # copy application code to WORKDIR
