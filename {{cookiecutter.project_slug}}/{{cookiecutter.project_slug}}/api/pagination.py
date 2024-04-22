@@ -41,5 +41,5 @@ class StandardPagination(pagination.PageNumberPagination):
                 "num_pages": self.page.paginator.num_pages,
                 "num_results": self.page.paginator.count,
                 "results": data,
-            }
+            },
         )

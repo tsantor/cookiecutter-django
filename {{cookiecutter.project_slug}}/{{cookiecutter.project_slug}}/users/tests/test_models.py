@@ -1,17 +1,19 @@
-from {{ cookiecutter.project_slug }}.users.models import User
-
 import pytest
 from django.contrib.auth import get_user_model
 
+# from {{ cookiecutter.project_slug }}.users.models import User  # noqa: ERA001
+
 User = get_user_model()
 
-@pytest.mark.django_db
+
+@pytest.mark.django_db()
 def test_user_get_absolute_url(user: User):
     {%- if cookiecutter.username_type == "email" %}
     assert user.get_absolute_url() == f"/users/{user.pk}/"
     {%- else %}
     assert user.get_absolute_url() == f"/users/{user.username}/"
     {%- endif %}
+
 
 # Forked additions
 @pytest.mark.django_db()

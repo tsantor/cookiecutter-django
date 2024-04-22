@@ -16,7 +16,8 @@ class ForgivingManifestStaticFilesStorageMixin:
 
 
 class ForgivingManifestStaticFilesStorage(
-    ForgivingManifestStaticFilesStorageMixin, ManifestStaticFilesStorage
+    ForgivingManifestStaticFilesStorageMixin,
+    ManifestStaticFilesStorage,
 ):
     """
     A forgiving version of manifest file storage.
@@ -24,13 +25,12 @@ class ForgivingManifestStaticFilesStorage(
     Ensure you use:
     COLLECTFAST_STRATEGY = "collectfast.strategies.filesystem.FileSystemStrategy"
     """
-
-    pass
 
 
 {%- if cookiecutter.use_whitenoise == 'y' %}
 class StaticRootWhiteNoiseStorage(
-    ForgivingManifestStaticFilesStorageMixin, CompressedManifestStaticFilesStorage
+    ForgivingManifestStaticFilesStorageMixin,
+    CompressedManifestStaticFilesStorage,
 ):
     """
     A forgiving version of manifest file storage.
@@ -38,6 +38,4 @@ class StaticRootWhiteNoiseStorage(
     Ensure you use:
     COLLECTFAST_STRATEGY = "collectfast.strategies.filesystem.FileSystemStrategy"
     """
-
-    pass
 {%- endif %}

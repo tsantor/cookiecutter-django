@@ -139,6 +139,24 @@ SUPPORTED_COMBINATIONS = [
     {"keep_local_envs_in_vcs": "n"},
     {"debug": "y"},
     {"debug": "n"},
+    {"use_oauth": "y"},
+    {"use_oauth": "n"},
+    {"use_mosquitto": "y"},
+    {"use_mosquitto": "n"},
+    {"use_django_auditlog": "y"},
+    {"use_django_auditlog": "n"},
+    {"use_drf_api_logger": "y"},
+    {"use_drf_api_logger": "n"},
+    {"use_robots": "y"},
+    {"use_robots": "n"},
+    {"use_perm_filter": "y"},
+    {"use_perm_filter": "n"},
+    {"use_prometheus": "y"},
+    {"use_prometheus": "n"},
+    {"use_grafana": "y"},
+    {"use_grafana": "n"},
+    {"use_node_exporter": "y"},
+    {"use_node_exporter": "n"},
 ]
 
 UNSUPPORTED_COMBINATIONS = [
@@ -146,6 +164,10 @@ UNSUPPORTED_COMBINATIONS = [
     {"cloud_provider": "GCP", "mail_service": "Amazon SES"},
     {"cloud_provider": "Azure", "mail_service": "Amazon SES"},
     {"cloud_provider": "None", "mail_service": "Amazon SES"},
+    {"use_docker": "n", "use_mosquitto": "y"},
+    {"use_docker": "n", "use_prometheus": "y"},
+    {"use_docker": "n", "use_grafana": "y"},
+    {"use_docker": "n", "use_node_exporter": "y"},
 ]
 
 
@@ -156,7 +178,11 @@ def _fixture_id(ctx):
 
 def build_files_list(base_dir):
     """Build a list containing absolute paths to the generated files."""
-    return [os.path.join(dirpath, file_path) for dirpath, subdirs, files in os.walk(base_dir) for file_path in files]
+    return [
+        os.path.join(dirpath, file_path)
+        for dirpath, subdirs, files in os.walk(base_dir)
+        for file_path in files
+    ]
 
 
 def check_paths(paths):
@@ -233,7 +259,9 @@ def test_django_upgrade_passes(cookies, context_override):
 
     python_files = [
         file_path.removeprefix(f"{result.project_path}/")
-        for file_path in glob.glob(str(result.project_path / "**" / "*.py"), recursive=True)
+        for file_path in glob.glob(
+            str(result.project_path / "**" / "*.py"), recursive=True
+        )
     ]
     try:
         sh.django_upgrade(
@@ -255,7 +283,13 @@ def test_djlint_lint_passes(cookies, context_override):
     # TODO: remove T002 when fixed https://github.com/Riverside-Healthcare/djLint/issues/687
     ignored_rules = "H006,H030,H031,T002"
     try:
-        sh.djlint("--lint", "--ignore", f"{autofixable_rules},{ignored_rules}", ".", _cwd=str(result.project_path))
+        sh.djlint(
+            "--lint",
+            "--ignore",
+            f"{autofixable_rules},{ignored_rules}",
+            ".",
+            _cwd=str(result.project_path),
+        )
     except sh.ErrorReturnCode as e:
         pytest.fail(e.stdout.decode())
 
@@ -304,7 +338,9 @@ def test_travis_invokes_pytest(cookies, context, use_docker, expected_test_scrip
         ("y", "docker compose -f local.yml run django pytest"),
     ],
 )
-def test_gitlab_invokes_precommit_and_pytest(cookies, context, use_docker, expected_test_script):
+def test_gitlab_invokes_precommit_and_pytest(
+    cookies, context, use_docker, expected_test_script
+):
     context.update({"ci_tool": "Gitlab", "use_docker": use_docker})
     result = cookies.bake(extra_context=context)
 
@@ -331,7 +367,9 @@ def test_gitlab_invokes_precommit_and_pytest(cookies, context, use_docker, expec
         ("y", "docker compose -f local.yml run django pytest"),
     ],
 )
-def test_github_invokes_linter_and_pytest(cookies, context, use_docker, expected_test_script):
+def test_github_invokes_linter_and_pytest(
+    cookies, context, use_docker, expected_test_script
+):
     context.update({"ci_tool": "Github", "use_docker": use_docker})
     result = cookies.bake(extra_context=context)
 

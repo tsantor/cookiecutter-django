@@ -40,7 +40,14 @@ class UserAdmin(auth_admin.UserAdmin):
         ),
         (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
-    list_display = ["{{cookiecutter.username_type}}", "name", "is_superuser", "is_staff","is_superuser", "last_login"]
+    list_display = [
+        "{{cookiecutter.username_type}}",
+        "name",
+        "is_superuser",
+        "is_staff",
+        "is_superuser",
+        "last_login",
+    ]
     search_fields = ["name"]
     {%- if cookiecutter.username_type == "email" %}
     ordering = ["id"]
@@ -56,16 +63,16 @@ class UserAdmin(auth_admin.UserAdmin):
     {%- endif %}
 
     # Forked additions - keeps diffs minimal
-    # def get_fieldsets(self, request, obj=None):
-    #     """Remove some fieldsets based on the user permissions."""
-    #     fieldsets = super().get_fieldsets(request, obj)
-    #     if not request.user.is_superuser:
-    #         fieldsets = tuple(
-    #             (name, options)
-    #             for name, options in fieldsets
-    #             if name not in ["Permissions", "Important dates"]
-    #         )
-    #     return fieldsets
+    def get_fieldsets(self, request, obj=None):
+        """Remove some fieldsets based on the user permissions."""
+        fieldsets = super().get_fieldsets(request, obj)
+        if not request.user.is_superuser:
+            fieldsets = tuple(
+                (name, options)
+                for name, options in fieldsets
+                if name not in ["Permissions", "Important dates"]
+            )
+        return fieldsets
 
     def get_form(self, request, obj=None, **kwargs):
         """Disable some fields based on the user permissions."""

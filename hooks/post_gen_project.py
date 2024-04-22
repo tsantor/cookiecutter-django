@@ -499,8 +499,6 @@ def remove_grafana_compose_files():
 
 def remove_mosquitto_compose_files():
     """FORKED: We use Mosquitto."""
-    print(os.listdir("."))
-    print("MOSQUITTO:", os.path.join("compose", "production", "mosquitto"))
     shutil.rmtree(os.path.join("compose", "production", "mosquitto"))
 
 

@@ -160,6 +160,19 @@ drop_db:  ## Drop db
 	${local_compose} run --rm django python manage.py drop_database
 
 # -----------------------------------------------------------------------------
+# Ruff
+# -----------------------------------------------------------------------------
+
+ruff_format: ## Run ruff format
+	ruff format ${project_dir}
+
+ruff_check: ## Run ruff check
+	ruff check ${project_dir}
+
+ruff_clean: ## Run ruff clean
+	ruff clean
+
+# -----------------------------------------------------------------------------
 # Testing
 # -----------------------------------------------------------------------------
 

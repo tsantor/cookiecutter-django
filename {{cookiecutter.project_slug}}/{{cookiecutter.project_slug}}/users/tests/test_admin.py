@@ -7,7 +7,6 @@ from django.contrib import admin
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.auth.models import Permission
 from django.urls import reverse
-
 from pytest_django.asserts import assertRedirects
 
 from {{ cookiecutter.project_slug }}.users.models import User
@@ -80,7 +79,7 @@ class TestUserAdmin:
 
     @pytest.mark.django_db()
     def test_view_user_as_non_superuser(self, staff_authenticated_client, staff):
-        permission = Permission.objects.get(codename='view_user')
+        permission = Permission.objects.get(codename="view_user")
         staff.user_permissions.add(permission)
         url = reverse("admin:users_user_change", kwargs={"object_id": staff.pk})
         response = staff_authenticated_client.get(url)
