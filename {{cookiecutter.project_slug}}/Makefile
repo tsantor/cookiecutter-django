@@ -115,6 +115,9 @@ migrations:  ## Create django migrations (eg - `make migrations app="core"`)
 migrate:  ## Run django migrations
 	${local_compose} exec django python manage.py migrate
 
+messages:	## Compile messages
+	${local_compose} exec django python manage.py makemessages --all
+
 show_urls:  ## Show urls
 	${local_compose} exec django python manage.py show_urls
 

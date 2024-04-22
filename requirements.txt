@@ -1,6 +1,7 @@
 cookiecutter==2.6.0
 sh==2.0.6; sys_platform != "win32"
 binaryornot==0.4.4
+watchdog[watchmedo]
 
 # Code quality
 # ------------------------------------------------------------------------------
