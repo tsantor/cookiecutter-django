@@ -141,8 +141,6 @@ SUPPORTED_COMBINATIONS = [
     {"debug": "n"},
     {"use_oauth": "y"},
     {"use_oauth": "n"},
-    {"use_mosquitto": "y"},
-    {"use_mosquitto": "n"},
     {"use_django_auditlog": "y"},
     {"use_django_auditlog": "n"},
     {"use_drf_api_logger": "y"},
@@ -151,12 +149,6 @@ SUPPORTED_COMBINATIONS = [
     {"use_robots": "n"},
     {"use_perm_filter": "y"},
     {"use_perm_filter": "n"},
-    {"use_prometheus": "y"},
-    {"use_prometheus": "n"},
-    {"use_grafana": "y"},
-    {"use_grafana": "n"},
-    {"use_node_exporter": "y"},
-    {"use_node_exporter": "n"},
 ]
 
 UNSUPPORTED_COMBINATIONS = [

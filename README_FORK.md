@@ -1,21 +1,23 @@
 # Cookiecutter Django
 
-This forked version of the [cookiecutter-django](https://github.com/cookiecutter/cookiecutter-django) repo retains all the features of that repo and adds additional optional features to get started on more complex projects quickly.
+This forked version of the [cookiecutter-django](https://github.com/cookiecutter/cookiecutter-django) repo retains all the features of that repo and adds additional optional features to get started on more complex projects quickly. This is a **VERY OPINIONATED** fork so be aware.
 
 ## Features
-- Makefile with some helpful commands
+- Makefile with tons of helpful commands
 - Custom AdminSite class
 - Custom Storage classes
 - Prebuilt Celery Tasks
 - Custom JSONRenderer (consistent DRF response format)
-- Simple Model Mixins
-- Simple Admin Mixins
+- Simple Mixins
+
+## Features if Docker option used:
 - Bash Utility Scripts
   - Create User
   - Install Docker
 - Traefik
-  - Dashboard enabled (traefik.domain.com/)
+  - Dashboard enabled (traefik.domain.com/dashboard/)
   - Access log enabled
+  - Metrics enabled
 - Prometheus (prometheus.domain.com/)
 - Grafana (grafana.domain.com/)
   - You will need to add your own dash (eg - Dashboard ID `XXX` Traefik official)
@@ -26,7 +28,7 @@ These features can be enabled during initial project setup.
 - Prometheus service
 - Grafana service
 - Nginx integration for static file serving (via Traefix proxy)
-  - This is preferabe to `whitenoise` - truly, don't ask!
+  - This is preferabe to `whitenoise`
 - `dj-rest-auth` package (see known issues below)
 - `django-auditlog` package
 - `django-celery-results` package
@@ -35,7 +37,6 @@ These features can be enabled during initial project setup.
 - `django-robots` package
 - `djangorestframework-simplejwt` package
 - `drf-api-logger` package
-
 
 ## Usage
 ```
