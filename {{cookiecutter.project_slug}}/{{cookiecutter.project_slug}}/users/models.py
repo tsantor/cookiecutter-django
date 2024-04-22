@@ -1,9 +1,8 @@
-{%- if cookiecutter.username_type == "email" %}
+{%- if cookiecutter.username_type == "email" -%}
 from typing import ClassVar
 
 {% endif -%}
-
-{%- if cookiecutter.use_django_auditlog == "y" %}
+{%- if cookiecutter.use_django_auditlog == "y" -%}
 from auditlog.registry import auditlog
 {%- endif %}
 from django.contrib.auth.models import AbstractUser

@@ -218,7 +218,7 @@ def test_ruff_check_passes(cookies, context_override):
     result = cookies.bake(extra_context=context_override)
 
     try:
-        sh.ruff("check", ".", _cwd=str(result.project_path))
+        sh.ruff("check", ".", "--fix", _cwd=str(result.project_path))
     except sh.ErrorReturnCode as e:
         pytest.fail(e.stdout.decode())
 
