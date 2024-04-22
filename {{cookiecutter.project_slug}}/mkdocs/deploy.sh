@@ -10,8 +10,8 @@ source ~/dotfiles/bash/aliases/common/utils.aliases.bash
 # -----------------------------------------------------------------------------
 XSTUDIOS_BITBUCKET="/Users/tsantor/Sandbox/BitBucket Pages/xstudios.bitbucket.org"
 CURRENT_DIR=`pwd`
-DOCKER_CONTAINER={{cookiecutter.project_slug}_mkdocs
-TARGET_DIR={{cookiecutter.project_slug}
+DOCKER_CONTAINER={{cookiecutter.project_slug}}_mkdocs
+TARGET_DIR={{cookiecutter.project_slug}}
 
 e_header "Building docs..."
 # mkdocs build --clean

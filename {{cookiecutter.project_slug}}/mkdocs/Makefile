@@ -36,4 +36,4 @@ build:  ## build docs
 	docker exec -it {{cookiecutter.project_slug}}_mkdocs mkdocs build
 
 deploy: build  ## deploy to server
-	rsync -avzp --delete site/ xstudios@{{cookiecutter.domain}}:~/{{cookiecutter.project_slug}}/site
+	rsync -avzp --delete site/ xstudios@{{cookiecutter.domain_name }}:~/{{cookiecutter.project_slug}}/site

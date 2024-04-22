@@ -1,12 +1,11 @@
-site_name: {{ cookiecutter.project_name }} Documentation
-site_author: {{ cookiecutter.author_name }}
+site_name: {{cookiecutter.project_name}} Docs
+site_author: {{cookiecutter.author_name}}
 use_directory_urls: true
-# google_analytics: []
+# google_analytics: ['UA-ID', '{{cookiecutter.domain_name }}']
 
-# Copyright
-copyright: Copyright &copy; 2024 {{ cookiecutter.project_name }}&trade;
+copyright: Copyright &copy; 20XX {{ cookiecutter.project_name }}
 
-repo_url: https://bitbucket.org/
+repo_url: https://bitbucket.org/xstudios/projectname-docs/
 repo_name: Bitbucket
 
 # Configuration
@@ -18,12 +17,11 @@ theme:
         accent: custom
     icon:
         repo: fontawesome/brands/git-alt
-    # logo: img/x_x_white.svg
-    favicon: img/favicon.ico
+    favicon: images/favicon.png
+    logo: img/x_x_white.svg
     font:
-        text: Ubuntu
+        text: Raleway
         code: Roboto Mono
-        # text: Raleway
     features:
         - navigation.tabs
         - navigation.instant
@@ -34,7 +32,6 @@ theme:
         # - toc.integrate
         - content.code.copy
         - content.code.annotate
-
 
 # Extensions
 markdown_extensions:
@@ -70,7 +67,7 @@ markdown_extensions:
     - pymdownx.tilde
     - pymdownx.emoji:
           emoji_index: !!python/name:material.extensions.emoji.twemoji
-          emoji_generator: !!python/name:material.extensions.emoji.to_svg
+          emoji_generator: !!python/name:material.extensions.emoji.to_sv
 
 # Plugins
 plugins:
@@ -85,20 +82,26 @@ plugins:
 # Customization
 extra_css:
     - css/extra.css
+    # - https://use.typekit.net/pkv5qkr.css
+    # - https://domain.com/styles.css
+    # - https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css
 
 # extra_javascript:
-    # - js/extra.js
+    # - https://domain.com/javascript.js
 
+# Page tree
 nav:
-    - Getting Started:
-        - index.md
-        - help.md
+  - Getting Started:
+    - index.md
+    - help.md
+
 
 extra:
+    generator: false
     social:
         - icon: fontawesome/brands/twitter
-          link: https://twitter.com/username
+          link: https://twitter.com/xstudios
         - icon: fontawesome/brands/facebook
-          link: https://facebook.com/username
+          link: https://facebook.com/xstudiosinc
         - icon: fontawesome/brands/instagram
-          link: https://instagram.com/username
+          link: https://instagram.com/xstudios
