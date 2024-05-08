@@ -69,11 +69,11 @@ pip_install_extra:  ## Install extra stuff
 pip_list:  ## Run pip list
 	${local_compose} exec django python -m pip list
 
-pip_freeze:  ## Run pipfreezer
-	${local_compose} exec django pipfreezer
+pip_freeze:  ## Run pipfreezer freeze
+	${local_compose} exec django pipfreezer freeze  --verbose
 
-pip_checker:  ## Run pipchecker
-	${local_compose} exec django pipchecker
+pip_checker:  ## Run pipfreezer upgrade
+	${local_compose} exec django upgrade  --verbose
 
 # -----------------------------------------------------------------------------
 # Docker
@@ -185,7 +185,7 @@ pytest:  ## Run pytest
 pytest_verbose:  ## Runs pytest with verbose output
 	${local_compose} exec django pytest -vvs ${project_dir}
 
-pytest_node_ids:  ## show node ids
+pytest_node_ids:  ## Show node ids
 	cat .pytest_cache/v/cache/nodeids
 
 coverage:  ## Run coverage
