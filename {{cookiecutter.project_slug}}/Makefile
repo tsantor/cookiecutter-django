@@ -39,9 +39,9 @@ mutagen_forward_name={{cookiecutter.project_slug}}-port-forward
 mutagen_beta_user=tsantor@tim-macbook-ubuntu.local
 mutagen_beta_dir=~/Projects/{{cookiecutter.project_slug}}
 
-local_compose=docker-compose -f local.yml
-staging_compose=docker-compose -f staging.yml
-prod_compose=docker-compose -f production.yml
+local_compose=docker compose -f docker-compose.local.yml
+staging_compose=docker-compose -f docker-compose.staging.yml
+prod_compose=docker-compose -f docker-compose.production.yml
 
 # START - Generic commands
 # -----------------------------------------------------------------------------

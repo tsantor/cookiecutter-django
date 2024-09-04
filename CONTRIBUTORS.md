@@ -216,6 +216,20 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>Alexandr Artemyev</td>
+    <td>
+      <a href="https://github.com/Mogost">Mogost</a>
+    </td>
+    <td>MOGOST</td>
+  </tr>
+  <tr>
+    <td>Ali Shamakhi</td>
+    <td>
+      <a href="https://github.com/ali-shamakhi">ali-shamakhi</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>Alvaro [Andor]</td>
     <td>
       <a href="https://github.com/andor-pierdelacabeza">andor-pierdelacabeza</a>
@@ -839,6 +853,13 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>Filipe Nascimento</td>
+    <td>
+      <a href="https://github.com/FilipeNas">FilipeNas</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>Florian Idelberger</td>
     <td>
       <a href="https://github.com/step21">step21</a>
@@ -884,6 +905,13 @@ Listed in alphabetical order.
     <td>Garry Polley</td>
     <td>
       <a href="https://github.com/garrypolley">garrypolley</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Geo Maciolek</td>
+    <td>
+      <a href="https://github.com/GeoMaciolek">GeoMaciolek</a>
     </td>
     <td></td>
   </tr>
@@ -1112,6 +1140,13 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>Jason Mok</td>
+    <td>
+      <a href="https://github.com/jasonmokk">jasonmokk</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>Jens Kaeske</td>
     <td>
       <a href="https://github.com/jkaeske">jkaeske</a>
@@ -1159,6 +1194,13 @@ Listed in alphabetical order.
       <a href="https://github.com/jcass77">jcass77</a>
     </td>
     <td>cass_john</td>
+  </tr>
+  <tr>
+    <td>Johnny Metz</td>
+    <td>
+      <a href="https://github.com/johnnymetz">johnnymetz</a>
+    </td>
+    <td></td>
   </tr>
   <tr>
     <td>Jonathan Thompson</td>
@@ -1255,6 +1297,13 @@ Listed in alphabetical order.
     <td>Kevin A. Stone</td>
     <td>
       <a href="https://github.com/"></a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Kevin Mills</td>
+    <td>
+      <a href="https://github.com/millsks">millsks</a>
     </td>
     <td></td>
   </tr>
@@ -1392,6 +1441,13 @@ Listed in alphabetical order.
     <td>flyudvik</td>
   </tr>
   <tr>
+    <td>Manas Mallick</td>
+    <td>
+      <a href="https://github.com/ManDun">ManDun</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>Manjit Pardeshi</td>
     <td>
       <a href="https://github.com/Manjit2003">Manjit2003</a>
@@ -1404,6 +1460,13 @@ Listed in alphabetical order.
       <a href="https://github.com/marciomazza">marciomazza</a>
     </td>
     <td>marciomazza</td>
+  </tr>
+  <tr>
+    <td>Marios Frixou</td>
+    <td>
+      <a href="https://github.com/frixou89">frixou89</a>
+    </td>
+    <td></td>
   </tr>
   <tr>
     <td>Martin Blech</td>
@@ -1553,6 +1616,13 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>milvagox</td>
+    <td>
+      <a href="https://github.com/milvagox">milvagox</a>
+    </td>
+    <td>milvagox</td>
+  </tr>
+  <tr>
     <td>Min ho Kim</td>
     <td>
       <a href="https://github.com/minho42">minho42</a>
@@ -1605,6 +1675,13 @@ Listed in alphabetical order.
     <td>mpsantos</td>
     <td>
       <a href="https://github.com/mpsantos">mpsantos</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Nadav Peretz</td>
+    <td>
+      <a href="https://github.com/nadavperetz">nadavperetz</a>
     </td>
     <td></td>
   </tr>
@@ -1670,6 +1747,13 @@ Listed in alphabetical order.
       <a href="https://github.com/pamelafox">pamelafox</a>
     </td>
     <td>pamelafox</td>
+  </tr>
+  <tr>
+    <td>Param Kapur</td>
+    <td>
+      <a href="https://github.com/paramkpr">paramkpr</a>
+    </td>
+    <td>ParamKapur</td>
   </tr>
   <tr>
     <td>Parbhat Puri</td>
@@ -2139,6 +2223,13 @@ Listed in alphabetical order.
       <a href="https://github.com/westurner">westurner</a>
     </td>
     <td>westurner</td>
+  </tr>
+  <tr>
+    <td>Will</td>
+    <td>
+      <a href="https://github.com/novucs">novucs</a>
+    </td>
+    <td></td>
   </tr>
   <tr>
     <td>Will Farley</td>

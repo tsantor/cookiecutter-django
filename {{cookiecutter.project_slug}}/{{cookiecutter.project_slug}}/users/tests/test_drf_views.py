@@ -7,7 +7,7 @@ from {{ cookiecutter.project_slug }}.users.models import User
 
 @pytest.mark.django_db()
 class TestUserViewSet:
-    @pytest.fixture()
+    @pytest.fixture
     def api_rf(self) -> APIRequestFactory:
         return APIRequestFactory()
 

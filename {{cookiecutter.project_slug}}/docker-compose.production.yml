@@ -1,5 +1,3 @@
-version: '3'
-
 volumes:
   production_postgres_data: {}
   production_postgres_data_backups: {}
@@ -19,6 +17,10 @@ volumes:
   {%- if cookiecutter.use_grafana == 'y' %}
   production_grafana: {}
   {%- endif %}
+  {% if cookiecutter.use_celery == 'y' %}
+  production_redis_data: {}
+  {% endif %}
+
 
 services:
   django:{% if cookiecutter.use_celery == 'y' %} &django{% endif %}
@@ -92,6 +94,12 @@ services:
 
   redis:
     image: docker.io/redis:6
+    {% if cookiecutter.use_celery == 'y' %}
+    volumes:
+      - production_redis_data:/data
+    {% endif %}
+
+
   {%- if cookiecutter.use_celery == 'y' %}
 
   celeryworker:
