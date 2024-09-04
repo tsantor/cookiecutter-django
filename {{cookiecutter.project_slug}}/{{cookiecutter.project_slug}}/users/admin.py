@@ -43,7 +43,7 @@ class UserAdmin(auth_admin.UserAdmin):
     list_display = [
         "{{cookiecutter.username_type}}",
         "name",
-        "is_superuser",
+        "is_active",
         "is_staff",
         "is_superuser",
         "last_login",

@@ -23,7 +23,7 @@ help:
 up:  ## docker up
 	docker-compose up
 
-down:  # docker down
+down:  ## docker down
 	docker-compose down
 
 optimize_pngs:  ## optimize PNGs

@@ -79,7 +79,6 @@ django-widget-tweaks
 # sorl-thumbnail
 
 # X Studios / Tim Santor packages
-pip-freezer
 django-extensions-too
 django-perm-filter
 # django-spaday

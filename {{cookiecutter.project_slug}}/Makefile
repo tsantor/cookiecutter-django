@@ -457,4 +457,7 @@ rsync_to_prod:  ## Rsync to prod (for down n' dirty testing)
 # Project Specific
 # -----------------------------------------------------------------------------
 
+tableplus_urls:	## Output connection URLs for use in TablePlus
+	tableplus generate --path="." --ssh-user="{{cookiecutter.project_user}}" --ssh-host="{{cookiecutter.domain_name}}"
+
 # Add your project specific commands here

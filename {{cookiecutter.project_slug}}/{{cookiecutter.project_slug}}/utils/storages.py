@@ -2,7 +2,9 @@ from django.contrib.staticfiles.storage import ManifestStaticFilesStorage
 {%- if cookiecutter.use_whitenoise == 'y' %}
 from whitenoise.storage import CompressedManifestStaticFilesStorage
 {%- endif %}
-
+{%- if cookiecutter.cloud_provider == 'AWS' %}
+from storages.backends.s3 import S3Storage
+{%- endif %}
 
 class ForgivingManifestStaticFilesStorageMixin:
     manifest_strict = False
@@ -25,9 +27,9 @@ class ForgivingManifestStaticFilesStorage(
     Ensure you use:
     COLLECTFAST_STRATEGY = "collectfast.strategies.filesystem.FileSystemStrategy"
     """
-
-
 {%- if cookiecutter.use_whitenoise == 'y' %}
+
+
 class StaticRootWhiteNoiseStorage(
     ForgivingManifestStaticFilesStorageMixin,
     CompressedManifestStaticFilesStorage,
@@ -38,4 +40,12 @@ class StaticRootWhiteNoiseStorage(
     Ensure you use:
     COLLECTFAST_STRATEGY = "collectfast.strategies.filesystem.FileSystemStrategy"
     """
+{%- endif %}
+{%- if cookiecutter.cloud_provider == 'AWS' %}
+
+
+class S3ManifestStaticFilesStorage(
+    ForgivingManifestStaticFilesStorageMixin, S3Storage, ManifestStaticFilesStorage
+):
+    pass
 {%- endif %}
