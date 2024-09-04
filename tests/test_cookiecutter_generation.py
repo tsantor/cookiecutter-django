@@ -57,12 +57,11 @@ SUPPORTED_COMBINATIONS = [
     {"editor": "VS Code"},
     {"use_docker": "y"},
     {"use_docker": "n"},
+    {"postgresql_version": "16"},
     {"postgresql_version": "15"},
     {"postgresql_version": "14"},
     {"postgresql_version": "13"},
     {"postgresql_version": "12"},
-    {"postgresql_version": "11"},
-    {"postgresql_version": "10"},
     {"cloud_provider": "AWS", "use_whitenoise": "y"},
     {"cloud_provider": "AWS", "use_whitenoise": "n"},
     {"cloud_provider": "GCP", "use_whitenoise": "y"},
@@ -74,7 +73,7 @@ SUPPORTED_COMBINATIONS = [
     {"cloud_provider": "None", "use_whitenoise": "y", "mail_service": "Mandrill"},
     {"cloud_provider": "None", "use_whitenoise": "y", "mail_service": "Postmark"},
     {"cloud_provider": "None", "use_whitenoise": "y", "mail_service": "Sendgrid"},
-    {"cloud_provider": "None", "use_whitenoise": "y", "mail_service": "SendinBlue"},
+    {"cloud_provider": "None", "use_whitenoise": "y", "mail_service": "Brevo"},
     {"cloud_provider": "None", "use_whitenoise": "y", "mail_service": "SparkPost"},
     {"cloud_provider": "None", "use_whitenoise": "y", "mail_service": "Other SMTP"},
     # Note: cloud_provider=None AND use_whitenoise=n is not supported
@@ -84,7 +83,7 @@ SUPPORTED_COMBINATIONS = [
     {"cloud_provider": "AWS", "mail_service": "Mandrill"},
     {"cloud_provider": "AWS", "mail_service": "Postmark"},
     {"cloud_provider": "AWS", "mail_service": "Sendgrid"},
-    {"cloud_provider": "AWS", "mail_service": "SendinBlue"},
+    {"cloud_provider": "AWS", "mail_service": "Brevo"},
     {"cloud_provider": "AWS", "mail_service": "SparkPost"},
     {"cloud_provider": "AWS", "mail_service": "Other SMTP"},
     {"cloud_provider": "GCP", "mail_service": "Mailgun"},
@@ -92,7 +91,7 @@ SUPPORTED_COMBINATIONS = [
     {"cloud_provider": "GCP", "mail_service": "Mandrill"},
     {"cloud_provider": "GCP", "mail_service": "Postmark"},
     {"cloud_provider": "GCP", "mail_service": "Sendgrid"},
-    {"cloud_provider": "GCP", "mail_service": "SendinBlue"},
+    {"cloud_provider": "GCP", "mail_service": "Brevo"},
     {"cloud_provider": "GCP", "mail_service": "SparkPost"},
     {"cloud_provider": "GCP", "mail_service": "Other SMTP"},
     {"cloud_provider": "Azure", "mail_service": "Mailgun"},
@@ -100,7 +99,7 @@ SUPPORTED_COMBINATIONS = [
     {"cloud_provider": "Azure", "mail_service": "Mandrill"},
     {"cloud_provider": "Azure", "mail_service": "Postmark"},
     {"cloud_provider": "Azure", "mail_service": "Sendgrid"},
-    {"cloud_provider": "Azure", "mail_service": "SendinBlue"},
+    {"cloud_provider": "Azure", "mail_service": "Brevo"},
     {"cloud_provider": "Azure", "mail_service": "SparkPost"},
     {"cloud_provider": "Azure", "mail_service": "Other SMTP"},
     # Note: cloud_providers GCP, Azure, and None
@@ -140,6 +139,16 @@ SUPPORTED_COMBINATIONS = [
     {"keep_local_envs_in_vcs": "n"},
     {"debug": "y"},
     {"debug": "n"},
+    {"use_oauth": "y"},
+    {"use_oauth": "n"},
+    {"use_django_auditlog": "y"},
+    {"use_django_auditlog": "n"},
+    {"use_drf_api_logger": "y"},
+    {"use_drf_api_logger": "n"},
+    {"use_robots": "y"},
+    {"use_robots": "n"},
+    {"use_perm_filter": "y"},
+    {"use_perm_filter": "n"},
 ]
 
 UNSUPPORTED_COMBINATIONS = [
@@ -147,6 +156,10 @@ UNSUPPORTED_COMBINATIONS = [
     {"cloud_provider": "GCP", "mail_service": "Amazon SES"},
     {"cloud_provider": "Azure", "mail_service": "Amazon SES"},
     {"cloud_provider": "None", "mail_service": "Amazon SES"},
+    {"use_docker": "n", "use_mosquitto": "y"},
+    {"use_docker": "n", "use_prometheus": "y"},
+    {"use_docker": "n", "use_grafana": "y"},
+    {"use_docker": "n", "use_node_exporter": "y"},
 ]
 
 
@@ -157,7 +170,11 @@ def _fixture_id(ctx):
 
 def build_files_list(base_dir):
     """Build a list containing absolute paths to the generated files."""
-    return [os.path.join(dirpath, file_path) for dirpath, subdirs, files in os.walk(base_dir) for file_path in files]
+    return [
+        os.path.join(dirpath, file_path)
+        for dirpath, subdirs, files in os.walk(base_dir)
+        for file_path in files
+    ]
 
 
 def check_paths(paths):
@@ -188,28 +205,25 @@ def test_project_generation(cookies, context, context_override):
 
 
 @pytest.mark.parametrize("context_override", SUPPORTED_COMBINATIONS, ids=_fixture_id)
-def test_flake8_passes(cookies, context_override):
-    """Generated project should pass flake8."""
+def test_ruff_check_passes(cookies, context_override):
+    """Generated project should pass ruff check."""
     result = cookies.bake(extra_context=context_override)
 
     try:
-        sh.flake8(_cwd=str(result.project_path))
+        sh.ruff("check", ".", "--fix", _cwd=str(result.project_path))
     except sh.ErrorReturnCode as e:
         pytest.fail(e.stdout.decode())
 
 
 @auto_fixable
 @pytest.mark.parametrize("context_override", SUPPORTED_COMBINATIONS, ids=_fixture_id)
-def test_black_passes(cookies, context_override):
-    """Check whether generated project passes black style."""
+def test_ruff_format_passes(cookies, context_override):
+    """Check whether generated project passes ruff format."""
     result = cookies.bake(extra_context=context_override)
 
     try:
-        sh.black(
-            "--check",
-            "--diff",
-            "--exclude",
-            "migrations",
+        sh.ruff(
+            "format",
             ".",
             _cwd=str(result.project_path),
         )
@@ -237,12 +251,14 @@ def test_django_upgrade_passes(cookies, context_override):
 
     python_files = [
         file_path.removeprefix(f"{result.project_path}/")
-        for file_path in glob.glob(str(result.project_path / "**" / "*.py"), recursive=True)
+        for file_path in glob.glob(
+            str(result.project_path / "**" / "*.py"), recursive=True
+        )
     ]
     try:
         sh.django_upgrade(
             "--target-version",
-            "4.2",
+            "5.0",
             *python_files,
             _cwd=str(result.project_path),
         )
@@ -259,7 +275,13 @@ def test_djlint_lint_passes(cookies, context_override):
     # TODO: remove T002 when fixed https://github.com/Riverside-Healthcare/djLint/issues/687
     ignored_rules = "H006,H030,H031,T002"
     try:
-        sh.djlint("--lint", "--ignore", f"{autofixable_rules},{ignored_rules}", ".", _cwd=str(result.project_path))
+        sh.djlint(
+            "--lint",
+            "--ignore",
+            f"{autofixable_rules},{ignored_rules}",
+            ".",
+            _cwd=str(result.project_path),
+        )
     except sh.ErrorReturnCode as e:
         pytest.fail(e.stdout.decode())
 
@@ -280,7 +302,7 @@ def test_djlint_check_passes(cookies, context_override):
     ["use_docker", "expected_test_script"],
     [
         ("n", "pytest"),
-        ("y", "docker compose -f local.yml run django pytest"),
+        ("y", "docker compose -f docker-compose.local.yml run django pytest"),
     ],
 )
 def test_travis_invokes_pytest(cookies, context, use_docker, expected_test_script):
@@ -295,7 +317,7 @@ def test_travis_invokes_pytest(cookies, context, use_docker, expected_test_scrip
     with open(f"{result.project_path}/.travis.yml") as travis_yml:
         try:
             yml = yaml.safe_load(travis_yml)["jobs"]["include"]
-            assert yml[0]["script"] == ["flake8"]
+            assert yml[0]["script"] == ["ruff check ."]
             assert yml[1]["script"] == [expected_test_script]
         except yaml.YAMLError as e:
             pytest.fail(str(e))
@@ -305,10 +327,12 @@ def test_travis_invokes_pytest(cookies, context, use_docker, expected_test_scrip
     ["use_docker", "expected_test_script"],
     [
         ("n", "pytest"),
-        ("y", "docker compose -f local.yml run django pytest"),
+        ("y", "docker compose -f docker-compose.local.yml run django pytest"),
     ],
 )
-def test_gitlab_invokes_precommit_and_pytest(cookies, context, use_docker, expected_test_script):
+def test_gitlab_invokes_precommit_and_pytest(
+    cookies, context, use_docker, expected_test_script
+):
     context.update({"ci_tool": "Gitlab", "use_docker": use_docker})
     result = cookies.bake(extra_context=context)
 
@@ -332,10 +356,12 @@ def test_gitlab_invokes_precommit_and_pytest(cookies, context, use_docker, expec
     ["use_docker", "expected_test_script"],
     [
         ("n", "pytest"),
-        ("y", "docker compose -f local.yml run django pytest"),
+        ("y", "docker compose -f docker-compose.local.yml run django pytest"),
     ],
 )
-def test_github_invokes_linter_and_pytest(cookies, context, use_docker, expected_test_script):
+def test_github_invokes_linter_and_pytest(
+    cookies, context, use_docker, expected_test_script
+):
     context.update({"ci_tool": "Github", "use_docker": use_docker})
     result = cookies.bake(extra_context=context)
 

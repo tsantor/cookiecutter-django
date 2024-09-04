@@ -1,3 +1,4 @@
+# ruff: noqa: E501 ERA001
 {% if cookiecutter.use_sentry == 'y' -%}
 import logging
 
@@ -12,7 +13,12 @@ from sentry_sdk.integrations.logging import LoggingIntegration
 from sentry_sdk.integrations.redis import RedisIntegration
 
 {% endif -%}
-from .base import *  # noqa
+from .base import *  # noqa: F403
+from .base import DATABASES
+from .base import INSTALLED_APPS
+{%- if cookiecutter.use_drf == "y" %}
+from .base import SPECTACULAR_SETTINGS
+{%- endif %}
 from .base import env
 
 # GENERAL
@@ -24,7 +30,7 @@ ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["{{ cookiecutter.domai
 
 # DATABASES
 # ------------------------------------------------------------------------------
-DATABASES["default"]["CONN_MAX_AGE"] = env.int("CONN_MAX_AGE", default=60)  # noqa: F405
+DATABASES["default"]["CONN_MAX_AGE"] = env.int("CONN_MAX_AGE", default=60)
 
 # CACHES
 # ------------------------------------------------------------------------------
@@ -38,7 +44,7 @@ CACHES = {
             # https://github.com/jazzband/django-redis#memcached-exceptions-behavior
             "IGNORE_EXCEPTIONS": True,
         },
-    }
+    },
 }
 
 # SECURITY
@@ -49,24 +55,34 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 SECURE_SSL_REDIRECT = env.bool("DJANGO_SECURE_SSL_REDIRECT", default=True)
 # https://docs.djangoproject.com/en/dev/ref/settings/#session-cookie-secure
 SESSION_COOKIE_SECURE = True
+# https://docs.djangoproject.com/en/dev/ref/settings/#session-cookie-name
+SESSION_COOKIE_NAME = "__Secure-sessionid"
 # https://docs.djangoproject.com/en/dev/ref/settings/#csrf-cookie-secure
 CSRF_COOKIE_SECURE = True
+# https://docs.djangoproject.com/en/dev/ref/settings/#csrf-cookie-name
+CSRF_COOKIE_NAME = "__Secure-csrftoken"
 # https://docs.djangoproject.com/en/dev/topics/security/#ssl-https
 # https://docs.djangoproject.com/en/dev/ref/settings/#secure-hsts-seconds
 # TODO: set this to 60 seconds first and then to 518400 once you prove the former works
 SECURE_HSTS_SECONDS = 60
 # https://docs.djangoproject.com/en/dev/ref/settings/#secure-hsts-include-subdomains
-SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool("DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS", default=True)
+SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool(
+    "DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS",
+    default=True,
+)
 # https://docs.djangoproject.com/en/dev/ref/settings/#secure-hsts-preload
 SECURE_HSTS_PRELOAD = env.bool("DJANGO_SECURE_HSTS_PRELOAD", default=True)
 # https://docs.djangoproject.com/en/dev/ref/middleware/#x-content-type-options-nosniff
-SECURE_CONTENT_TYPE_NOSNIFF = env.bool("DJANGO_SECURE_CONTENT_TYPE_NOSNIFF", default=True)
+SECURE_CONTENT_TYPE_NOSNIFF = env.bool(
+    "DJANGO_SECURE_CONTENT_TYPE_NOSNIFF",
+    default=True,
+)
 
 {% if cookiecutter.cloud_provider != 'None' -%}
 # STORAGES
 # ------------------------------------------------------------------------------
 # https://django-storages.readthedocs.io/en/latest/#installation
-INSTALLED_APPS += ["storages"]  # noqa: F405
+INSTALLED_APPS += ["storages"]
 {%- endif -%}
 {% if cookiecutter.cloud_provider == 'AWS' %}
 # https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#settings
@@ -103,6 +119,7 @@ AZURE_CONTAINER = env("DJANGO_AZURE_CONTAINER_NAME")
 {% endif -%}
 
 {% if cookiecutter.cloud_provider != 'None' or cookiecutter.use_whitenoise == 'y' -%}
+<<<<<<< HEAD
 # STATIC
 # ------------------------------------------------------------------------------
 {% endif -%}
@@ -134,7 +151,113 @@ MEDIA_URL = f"https://storage.googleapis.com/{GS_BUCKET_NAME}/media/"
 {%- elif cookiecutter.cloud_provider == 'Azure' %}
 DEFAULT_FILE_STORAGE = "{{cookiecutter.project_slug}}.utils.storages.MediaAzureStorage"
 MEDIA_URL = f"https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/media/"
+=======
+# STATIC & MEDIA
+# ------------------------
+STORAGES = {
+{%- if cookiecutter.use_whitenoise == 'y' and cookiecutter.cloud_provider == 'None' %}
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+{%- elif cookiecutter.cloud_provider == 'AWS' %}
+    "default": {
+        "BACKEND": "storages.backends.s3.S3Storage",
+        "OPTIONS": {
+            "location": "media",
+            "file_overwrite": False,
+        },
+    },
+    {%- if cookiecutter.use_whitenoise == 'y' %}
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+    {%- else %}
+    "staticfiles": {
+        "BACKEND": "storages.backends.s3.S3Storage",
+        "OPTIONS": {
+            "location": "static",
+            "default_acl": "public-read",
+        },
+    },
+    {%- endif %}
+{%- elif cookiecutter.cloud_provider == 'GCP' %}
+    "default": {
+        "BACKEND": "storages.backends.gcloud.GoogleCloudStorage",
+        "OPTIONS": {
+            "location": "media",
+            "file_overwrite": False,
+        },
+    },
+    {%- if cookiecutter.use_whitenoise == 'y' %}
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+    {%- else %}
+    "staticfiles": {
+        "BACKEND": "storages.backends.gcloud.GoogleCloudStorage",
+        "OPTIONS": {
+            "location": "static",
+            "default_acl": "publicRead",
+        },
+    },
+    {%- endif %}
+{%- elif cookiecutter.cloud_provider == 'Azure' %}
+    "default": {
+        "BACKEND": "storages.backends.azure_storage.AzureStorage",
+        "OPTIONS": {
+            "location": "media",
+            "file_overwrite": False,
+        },
+    },
+    {%- if cookiecutter.use_whitenoise == 'y' %}
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+    {%- else %}
+    "staticfiles": {
+        "BACKEND": "storages.backends.azure_storage.AzureStorage",
+        "OPTIONS": {
+            "location": "static",
+        },
+    },
+    {%- endif %}
+>>>>>>> master
 {%- endif %}
+}
+{%- endif %}
+
+{%- if cookiecutter.cloud_provider == 'AWS' %}
+MEDIA_URL = f"https://{aws_s3_domain}/media/"
+{%- if cookiecutter.use_whitenoise == 'n' %}
+COLLECTFASTA_STRATEGY = "collectfasta.strategies.boto3.Boto3Strategy"
+STATIC_URL = f"https://{aws_s3_domain}/static/"
+{%- endif %}
+{%- elif cookiecutter.cloud_provider == 'GCP' %}
+MEDIA_URL = f"https://storage.googleapis.com/{GS_BUCKET_NAME}/media/"
+{%- if cookiecutter.use_whitenoise == 'n' %}
+COLLECTFASTA_STRATEGY = "collectfasta.strategies.gcloud.GoogleCloudStrategy"
+STATIC_URL = f"https://storage.googleapis.com/{GS_BUCKET_NAME}/static/"
+{%- endif %}
+{%- elif cookiecutter.cloud_provider == 'Azure' %}
+MEDIA_URL = f"https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/media/"
+{%- if cookiecutter.use_whitenoise == 'n' %}
+STATIC_URL = f"https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/static/"
+{%- endif %}
+{%- endif %}
+
+# Overrides if we serve via nginx
+# STORAGES['staticfiles'] = {
+#     # "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage",
+#     "BACKEND": "{{cookiecutter.project_slug}}.utils.storages.ForgivingManifestStaticFilesStorage",
+#     "OPTIONS": {
+#         "location": "staticfiles",
+#     },
+# }
+# COLLECTFAST_STRATEGY = "collectfast.strategies.filesystem.FileSystemStrategy"
+# STATIC_URL = f"{env('BASE_URL')}/static/"
 
 # EMAIL
 # ------------------------------------------------------------------------------
@@ -159,7 +282,7 @@ ADMIN_URL = env("DJANGO_ADMIN_URL")
 # Anymail
 # ------------------------------------------------------------------------------
 # https://anymail.readthedocs.io/en/stable/installation/#installing-anymail
-INSTALLED_APPS += ["anymail"]  # noqa: F405
+INSTALLED_APPS += ["anymail"]
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
 # https://anymail.readthedocs.io/en/stable/installation/#anymail-settings-reference
 {%- if cookiecutter.mail_service == 'Mailgun' %}
@@ -202,12 +325,12 @@ ANYMAIL = {
     "SENDGRID_API_KEY": env("SENDGRID_API_KEY"),
     "SENDGRID_API_URL": env("SENDGRID_API_URL", default="https://api.sendgrid.com/v3/"),
 }
-{%- elif cookiecutter.mail_service == 'SendinBlue' %}
-# https://anymail.readthedocs.io/en/stable/esps/sendinblue/
-EMAIL_BACKEND = "anymail.backends.sendinblue.EmailBackend"
+{%- elif cookiecutter.mail_service == 'Brevo' %}
+# https://anymail.readthedocs.io/en/stable/esps/brevo/
+EMAIL_BACKEND = "anymail.backends.brevo.EmailBackend"
 ANYMAIL = {
-    "SENDINBLUE_API_KEY": env("SENDINBLUE_API_KEY"),
-    "SENDINBLUE_API_URL": env("SENDINBLUE_API_URL", default="https://api.sendinblue.com/v3/"),
+    "BREVO_API_KEY": env("BREVO_API_KEY"),
+    "BREVO_API_URL": env("BREVO_API_URL", default="https://api.brevo.com/v3/"),
 }
 {%- elif cookiecutter.mail_service == 'SparkPost' %}
 # https://anymail.readthedocs.io/en/stable/esps/sparkpost/
@@ -232,10 +355,11 @@ COMPRESS_ENABLED = env.bool("COMPRESS_ENABLED", default=True)
 COMPRESS_STORAGE = "compressor.storage.GzipCompressorFileStorage"
 {%- elif cookiecutter.cloud_provider in ('AWS', 'GCP', 'Azure') and cookiecutter.use_whitenoise == 'n' %}
 # https://django-compressor.readthedocs.io/en/latest/settings/#django.conf.settings.COMPRESS_STORAGE
-COMPRESS_STORAGE = STATICFILES_STORAGE
+COMPRESS_STORAGE = STORAGES["staticfiles"]["BACKEND"]
 {%- endif %}
 # https://django-compressor.readthedocs.io/en/latest/settings/#django.conf.settings.COMPRESS_URL
-COMPRESS_URL = STATIC_URL{% if cookiecutter.use_whitenoise == 'y' or cookiecutter.cloud_provider == 'None' %}  # noqa: F405{% endif %}
+COMPRESS_URL = STATIC_URL{% if cookiecutter.use_whitenoise == 'y' or cookiecutter.cloud_provider == 'None' %}  # noqa: F405
+{%- endif -%}
 {%- if cookiecutter.use_whitenoise == 'y' %}
 # https://django-compressor.readthedocs.io/en/latest/settings/#django.conf.settings.COMPRESS_OFFLINE
 COMPRESS_OFFLINE = True  # Offline compression is required when using Whitenoise
@@ -250,10 +374,10 @@ COMPRESS_FILTERS = {
 }
 {% endif %}
 {%- if cookiecutter.use_whitenoise == 'n' -%}
-# Collectfast
+# Collectfasta
 # ------------------------------------------------------------------------------
-# https://github.com/antonagestam/collectfast#installation
-INSTALLED_APPS = ["collectfast"] + INSTALLED_APPS  # noqa: F405
+# https://github.com/jasongi/collectfasta#installation
+INSTALLED_APPS = ["collectfasta", *INSTALLED_APPS]
 {% endif %}
 # LOGGING
 # ------------------------------------------------------------------------------
@@ -270,10 +394,12 @@ LOGGING = {
     "filters": {"require_debug_false": {"()": "django.utils.log.RequireDebugFalse"}},
     "formatters": {
         "verbose": {
-            # "format": "%(levelname)s %(asctime)s %(module)s "
-            # "%(process)d %(thread)d %(message)s"
-            "format": "%(asctime)s  [%(name)s:%(lineno)s]  %(levelname)s - %(message)s"
-        }
+            "format": "%(asctime)s  [%(name)s:%(lineno)s]  %(levelname)s - %(message)s",
+        },
+        "custom_formatter": {
+            "format": "[%(levelname)s] %(asctime)s %(module)s %(message)s",
+            "datefmt": "%Y-%m-%d %I:%M:%S %p",
+        },
     },
     "handlers": {
         "mail_admins": {
@@ -286,20 +412,11 @@ LOGGING = {
             "class": "logging.StreamHandler",
             "formatter": "verbose",
         },
-         # Write messages to file
-        "file": {
-            "backupCount": 10,
-            "class": "logging.handlers.RotatingFileHandler",
-            "filename": str(ROOT_DIR.path("logs/debug.log")),
-            "formatter": "verbose",
-            "level": "DEBUG",
-            "maxBytes": 1000000,
-        },
     },
     "root": {"level": "INFO", "handlers": ["console"]},
     "loggers": {
         "django.request": {
-            "handlers": ["mail_admins", "file"],
+            "handlers": ["mail_admins"],
             "level": "ERROR",
             "propagate": True,
         },
@@ -313,8 +430,6 @@ LOGGING = {
             "handlers": ["console"],
             "propagate": False,
         },
-        # Custom logger, write to console and file
-        "custom.log": {"handlers": ["file"], "level": "DEBUG", "propagate": True},
     },
 }
 {% else %}
@@ -326,14 +441,18 @@ LOGGING = {
             # "format": "%(levelname)s %(asctime)s %(module)s "
             # "%(process)d %(thread)d %(message)s"
             "format": "%(asctime)s  [%(name)s:%(lineno)s]  %(levelname)s - %(message)s"
-        }
+        },
+        "custom_formatter": {
+            "format": "[%(levelname)s] %(asctime)s %(module)s %(message)s",
+            "datefmt": "%Y-%m-%d %I:%M:%S %p",
+        },
     },
     "handlers": {
         "console": {
             "level": "DEBUG",
             "class": "logging.StreamHandler",
             "formatter": "verbose",
-        }
+        },
     },
     "root": {"level": "INFO", "handlers": ["console"]},
     "loggers": {
@@ -390,7 +509,7 @@ sentry_sdk.init(
 # django-rest-framework
 # -------------------------------------------------------------------------------
 # Tools that generate code samples can use SERVERS to point to the correct domain
-SPECTACULAR_SETTINGS["SERVERS"] = [  # noqa: F405
+SPECTACULAR_SETTINGS["SERVERS"] = [
     {"url": "https://{{ cookiecutter.domain_name }}", "description": "Production server"},
 ]
 

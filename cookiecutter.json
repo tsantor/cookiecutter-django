@@ -27,12 +27,11 @@
   ],
   "use_docker": "n",
   "postgresql_version": [
+    "16",
     "15",
     "14",
     "13",
-    "12",
-    "11",
-    "10"
+    "12"
   ],
   "cloud_provider": [
     "AWS",
@@ -47,18 +46,12 @@
     "Mandrill",
     "Postmark",
     "Sendgrid",
-    "SendinBlue",
+    "Brevo",
     "SparkPost",
     "Other SMTP"
   ],
   "use_async": "n",
-  "use_drf": "y",
-  "use_dj_rest_auth": "y",
-  "use_simplejwt": "y",
-  "use_oauth": "y",
-  "use_mosquitto": "n",
-  "use_django_auditlog": "y",
-  "use_robots": "n",
+  "use_drf": "n",
   "frontend_pipeline": [
     "None",
     "Django Compressor",
@@ -70,11 +63,23 @@
   "use_sentry": "y",
   "use_whitenoise": "n",
   "use_heroku": "n",
+  "use_dj_rest_auth": "n",
+  "use_simplejwt": "n",
+  "use_oauth": "y",
+  "use_mosquitto": "n",
+  "use_django_auditlog": "n",
+  "use_drf_api_logger": "n",
+  "use_robots": "n",
+  "use_perm_filter": "y",
+  "use_prometheus": "n",
+  "use_grafana": "n",
+  "use_node_exporter": "n",
   "ci_tool": [
     "None",
     "Travis",
     "Gitlab",
-    "Github"
+    "Github",
+    "Drone"
   ],
   "keep_local_envs_in_vcs": "y",
   "debug": "n"

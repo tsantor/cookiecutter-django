@@ -1,12 +1,28 @@
 log:
   level: INFO
 
+api:
+  dashboard: true
+
+{%- if cookiecutter.use_prometheus == 'y' %}
+
+metrics:
+  prometheus:
+    addEntryPointsLabels: true
+    addRoutersLabels: true
+    addServicesLabels: true
+{%- endif %}
+
+accessLog:
+  filePath: /var/log/access.log
+  bufferingSize: 100
+
 entryPoints:
   web:
     # http
     address: ':80'
     http:
-      # https://docs.traefik.io/routing/entrypoints/#entrypoint
+      # https://doc.traefik.io/traefik/routing/entrypoints/#entrypoint
       redirections:
         entryPoint:
           to: web-secure
@@ -21,8 +37,11 @@ entryPoints:
   {%- endif %}
 
   {%- if cookiecutter.use_mosquitto == 'y' %}
+<<<<<<< HEAD
   mqtt:
     address: ':1883'
+=======
+>>>>>>> master
 
   mqtt-secure:
     address: ':8883'
@@ -30,11 +49,11 @@ entryPoints:
 
 certificatesResolvers:
   letsencrypt:
-    # https://docs.traefik.io/master/https/acme/#lets-encrypt
+    # https://doc.traefik.io/traefik/https/acme/#lets-encrypt
     acme:
       email: '{{ cookiecutter.email }}'
       storage: /etc/traefik/acme/acme.json
-      # https://docs.traefik.io/master/https/acme/#httpchallenge
+      # https://doc.traefik.io/traefik/https/acme/#httpchallenge
       httpChallenge:
         entryPoint: web
 
@@ -52,7 +71,7 @@ http:
         - csrf
       service: django
       tls:
-        # https://docs.traefik.io/master/routing/routers/#certresolver
+        # https://doc.traefik.io/traefik/routing/routers/#certresolver
         certResolver: letsencrypt
     {%- if cookiecutter.use_celery == 'y' %}
 
@@ -62,7 +81,7 @@ http:
         - flower
       service: flower
       tls:
-        # https://docs.traefik.io/master/routing/routers/#certresolver
+        # https://doc.traefik.io/traefik/master/routing/routers/#certresolver
         certResolver: letsencrypt
     {%- endif %}
     {%- if cookiecutter.cloud_provider == 'None' %}
@@ -81,7 +100,9 @@ http:
       tls:
         certResolver: letsencrypt
     {%- endif %}
+    {%- if cookiecutter.use_whitenoise == 'n' %}
 
+<<<<<<< HEAD
     {%- if cookiecutter.use_whitenoise == 'n' %}
 
     web-static-router:
@@ -90,11 +111,29 @@ http:
         - web-secure
       middlewares:
         - csrf
+=======
+    web-static-router:
+      rule: 'Host(`{{ cookiecutter.domain_name }}`) && PathPrefix(`/static/`)'
+      entryPoints:
+        - web-secure
+      middlewares:
+        - security-headers
+      service: django-static
+      tls:
+        certResolver: letsencrypt
+
+    docs-static-router:
+      rule: 'Host(`{{ cookiecutter.domain_name }}`) && PathPrefix(`/docs/`)'
+      entryPoints:
+        - web-secure
+      middlewares:
+>>>>>>> master
         - security-headers
       service: django-static
       tls:
         certResolver: letsencrypt
     {%- endif %}
+<<<<<<< HEAD
 
     {%- if cookiecutter.use_mosquitto == 'y' %}
 
@@ -106,16 +145,70 @@ http:
       tls:
         certResolver: letsencrypt
 
+=======
+    {%- if cookiecutter.use_mosquitto == 'y' %}
+
+    mqtt-secure-router:
+      rule: 'Host(`{{ cookiecutter.domain_name }}`) && PathPrefix(`/mqtt`)'
+      entryPoints:
+        # - mqtt-secure
+        - web-secure
+      service: mqtt
+      tls:
+        certResolver: letsencrypt
+    {%- endif %}
+
+    dashboard-secure-router:
+      rule: "Host(`traefik.{{ cookiecutter.domain_name }}`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
+      entryPoints:
+        - web-secure
+      middlewares:
+        - dashboard-user
+      service: api@internal
+      tls:
+        certResolver: letsencrypt
+
+    {%- if cookiecutter.use_prometheus == 'y' %}
+
+    prometheus-secure-router:
+      # https://doc.traefik.io/traefik/observability/metrics/overview/
+      rule: "Host(`prometheus.{{ cookiecutter.domain_name }}`)"
+      entryPoints:
+        - web-secure
+      middlewares:
+        - dashboard-user
+      service: prometheus
+      tls:
+        certResolver: letsencrypt
+    {%- endif %}
+
+    {%- if cookiecutter.use_grafana == 'y' %}
+
+    grafana-secure-router:
+      rule: 'Host(`grafana.{{ cookiecutter.domain_name }}`)'
+      entryPoints:
+        - web-secure
+      middlewares:
+        - dashboard-user
+      service: grafana
+      tls:
+        certResolver: letsencrypt
+>>>>>>> master
     {%- endif %}
 
   middlewares:
     csrf:
-      # https://docs.traefik.io/master/middlewares/headers/#hostsproxyheaders
+      # https://doc.traefik.io/traefik/master/middlewares/http/headers/#hostsproxyheaders
       # https://docs.djangoproject.com/en/dev/ref/csrf/#ajax
       headers:
         hostsProxyHeaders: ['X-CSRFToken']
 
+    dashboard-user:
+      basicAuth:
+        usersFile: /etc/traefik/.htpasswd
+
     {%- if cookiecutter.use_whitenoise == 'n' %}
+
     security-headers:
       headers:
         # browserXssFilter: true
@@ -127,7 +220,7 @@ http:
         stsPreload: true
         stsSeconds: 2592000
         referrerPolicy: 'same-origin'
-        contentSecurityPolicy: "default-src 'self' data: 'unsafe-inline'; script-src 'self' 'unsafe-inline' player.vimeo.com connect.facebook.net cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' fonts.googleapis.com cdn.jsdelivr.net; img-src 'self' data: cdn.jsdelivr.net; font-src 'self' fonts.gstatic.com; connect-src 'self' wss: o300282.ingest.sentry.io; media-src 'self' player.vimeo.com; frame-src player.vimeo.com; worker-src blob:; form-action 'self'; upgrade-insecure-requests; block-all-mixed-content; base-uri 'self'"
+        contentSecurityPolicy: "default-src 'self' data: 'unsafe-inline'; script-src 'self' 'unsafe-inline' player.vimeo.com connect.facebook.net cdn.jsdelivr.net maxcdn.bootstrapcdn.com *.typekit.net; style-src 'self' 'unsafe-inline' fonts.googleapis.com cdn.jsdelivr.net maxcdn.bootstrapcdn.com *.typekit.net; img-src 'self' data: cdn.jsdelivr.net; font-src 'self' fonts.gstatic.com maxcdn.bootstrapcdn.com *.typekit.net; connect-src 'self' wss: o300282.ingest.sentry.io; media-src 'self' player.vimeo.com; frame-src player.vimeo.com; worker-src blob:; form-action 'self'; upgrade-insecure-requests; block-all-mixed-content; base-uri 'self'"
         permissionsPolicy: 'accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()'
     {%- endif %}
 
@@ -150,7 +243,6 @@ http:
         servers:
           - url: http://nginx:80
     {%- endif %}
-
     {%- if cookiecutter.use_whitenoise == 'n' %}
 
     django-static:
@@ -158,7 +250,6 @@ http:
         servers:
           - url: http://nginx:80
     {%- endif %}
-
     {%- if cookiecutter.use_mosquitto == 'y' %}
 
     mqtt:
@@ -166,8 +257,23 @@ http:
         servers:
           - url: http://mosquitto:9001
     {%- endif %}
+    {%- if cookiecutter.use_prometheus == 'y' %}
+
+    prometheus:
+      loadBalancer:
+        servers:
+          - url: http://prometheus:9090
+    {%- endif %}
+    {%- if cookiecutter.use_grafana == 'y' %}
+
+    grafana:
+      loadBalancer:
+        servers:
+          - url: http://grafana:3000
+    {%- endif %}
 
 {%- if cookiecutter.use_mosquitto == 'y' %}
+
 tcp:
   routers:
     mqtt-tcp-router:
@@ -193,11 +299,11 @@ tcp:
     mqtt-tcp-secure-service:
       loadBalancer:
         servers:
-          - address: mosquitto:8883
+          - address: mosquitto:1883
 {%- endif %}
 
 providers:
-  # https://docs.traefik.io/master/providers/file/
+  # https://doc.traefik.io/traefik/master/providers/file/
   file:
     filename: /etc/traefik/traefik.yml
     watch: true

@@ -1,17 +1,18 @@
+from allauth.account.decorators import secure_admin_login
 from django.conf import settings
 from django.contrib import admin
 from django.contrib.auth import admin as auth_admin
-from django.contrib.auth import get_user_model, decorators
 from django.utils.translation import gettext_lazy as _
 
-from {{ cookiecutter.project_slug }}.users.forms import UserAdminChangeForm, UserAdminCreationForm
-
-User = get_user_model()
+from .forms import UserAdminChangeForm
+from .forms import UserAdminCreationForm
+from .models import User
 
 if settings.DJANGO_ADMIN_FORCE_ALLAUTH:
     # Force the `admin` sign in process to go through the `django-allauth` workflow:
-    # https://django-allauth.readthedocs.io/en/stable/advanced.html#admin
-    admin.site.login = decorators.login_required(admin.site.login)  # type: ignore[method-assign]
+    # https://docs.allauth.org/en/latest/common/admin.html#admin
+    admin.autodiscover()
+    admin.site.login = secure_admin_login(admin.site.login)  # type: ignore[method-assign]
 
 
 @admin.register(User)
@@ -21,10 +22,10 @@ class UserAdmin(auth_admin.UserAdmin):
     fieldsets = (
         {%- if cookiecutter.username_type == "email" %}
         (None, {"fields": ("email", "password")}),
-        (_("Personal info"), {"fields": ("name", "first_name", "last_name")}),
+        (_("Personal info"), {"fields": ("name",)}),
         {%- else %}
         (None, {"fields": ("username", "password")}),
-        (_("Personal info"), {"fields": ("first_name", "last_name", "email")}),
+        (_("Personal info"), {"fields": ("name", "email")}),
         {%- endif %}
         (
             _("Permissions"),
@@ -40,12 +41,15 @@ class UserAdmin(auth_admin.UserAdmin):
         ),
         (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
-    list_display = ["{{cookiecutter.username_type}}", "first_name",
-        "last_name",
+    list_display = [
+        "{{cookiecutter.username_type}}",
+        "name",
+        "is_active",
         "is_staff",
         "is_superuser",
-        "last_login",]
-    search_fields = ["first_name", "last_name", "email"]
+        "last_login",
+    ]
+    search_fields = ["name"]
     {%- if cookiecutter.username_type == "email" %}
     ordering = ["id"]
     add_fieldsets = (
@@ -59,33 +63,39 @@ class UserAdmin(auth_admin.UserAdmin):
     )
     {%- endif %}
 
+    # Forked additions - keeps diffs minimal
+    def get_fieldsets(self, request, obj=None):
+        """Remove some fieldsets based on the user permissions."""
+        fieldsets = super().get_fieldsets(request, obj)
+        if not request.user.is_superuser:
+            fieldsets = tuple(
+                (name, options)
+                for name, options in fieldsets
+                if name not in ["Permissions", "Important dates"]
+            )
+        return fieldsets
+
     def get_form(self, request, obj=None, **kwargs):
+        """Disable some fields based on the user permissions."""
         form = super().get_form(request, obj, **kwargs)
         is_superuser = request.user.is_superuser
         disabled_fields = set()
 
-        if not is_superuser:
-
+        # Prevent non-superusers from editing any permissions
+        # These fields only exist when editing an existing user
+        if obj and not is_superuser:
             disabled_fields |= {
-                "username",
-                "is_superuser",
-                "user_permissions",
-                "date_joined",
-                "last_login",
-            }
-            # del form.base_fields['user_permissions']
-
-        # Prevent non-superusers from editing their own permissions
-        if not is_superuser and obj is not None and obj == request.user:
-            disabled_fields |= {
+                "is_active",
                 "is_staff",
                 "is_superuser",
                 "groups",
                 "user_permissions",
+                "last_login",
+                "date_joined",
             }
-
-        for f in disabled_fields:
-            if f in form.base_fields:
-                form.base_fields[f].disabled = True
+            for f in disabled_fields:
+                field = form.base_fields.get(f)
+                if field:
+                    field.disabled = True
 
         return form

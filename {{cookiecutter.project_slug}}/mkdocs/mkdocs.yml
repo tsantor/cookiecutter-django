@@ -1,33 +1,52 @@
-site_name: {{ cookiecutter.project_name }} Documentation
-site_author: {{ cookiecutter.author_name }}
+site_name: {{cookiecutter.project_name}} Docs
+site_author: {{cookiecutter.author_name}}
 use_directory_urls: true
-# google_analytics: []
+# google_analytics: ['UA-ID', '{{cookiecutter.domain_name }}']
 
-# Copyright
-copyright: Copyright &copy; 2021 {{ cookiecutter.project_name }}&trade;
+copyright: Copyright &copy; 20XX {{ cookiecutter.project_name }}
+
+repo_url: https://bitbucket.org/xstudios/projectname-docs/
+repo_name: Bitbucket
 
 # Configuration
 theme:
     name: "material"
+    palette:
+        scheme: default
+        primary: custom
+        accent: custom
     icon:
         repo: fontawesome/brands/git-alt
-    # logo: img/megamify_m_logo.svg
-    favicon: img/favicon.ico
+    favicon: images/favicon.png
+    logo: img/x_x_white.svg
     font:
-        text: Ubuntu
+        text: Raleway
         code: Roboto Mono
     features:
-        - tabs
+        - navigation.tabs
+        - navigation.instant
+        - navigation.tabs.sticky
+        - navigation.top
+        # - navigation.footer
+        # - navigation.tracking
+        # - toc.integrate
+        - content.code.copy
+        - content.code.annotate
 
 # Extensions
 markdown_extensions:
-    - markdown.extensions.admonition
-    - markdown.extensions.attr_list
-    # - markdown.extensions.codehilite:
-    #       linenums: false
-    - fontawesome_markdown
+    - abbr
+    - attr_list
+    - tables
+    - admonition
+    - sane_lists
+    - smarty
+    - meta
+    - toc:
+          toc_depth: 2
+          permalink: true
     - pymdownx.betterem:
-          smart_enable: all
+        smart_enable: all
     - pymdownx.details
     - pymdownx.highlight:
           use_pygments: true
@@ -36,16 +55,19 @@ markdown_extensions:
     - pymdownx.magiclink
     - pymdownx.mark
     - pymdownx.smartsymbols
-    - pymdownx.superfences
-    - pymdownx.tasklist:
-          custom_checkbox: true
+    - pymdownx.superfences:
+          preserve_tabs: true
+          custom_fences:
+            # Mermaid diagrams
+            - name: mermaid
+              class: mermaid
+              format: !!python/name:pymdownx.superfences.fence_code_format
+    - pymdownx.tabbed:
+        alternate_style: true
     - pymdownx.tilde
-    - markdown.extensions.sane_lists
-    - markdown.extensions.smarty
-    # - markdown.extensions.tables
-    - markdown.extensions.toc:
-          toc_depth: 3
-          permalink: true
+    - pymdownx.emoji:
+          emoji_index: !!python/name:material.extensions.emoji.twemoji
+          emoji_generator: !!python/name:material.extensions.emoji.to_sv
 
 # Plugins
 plugins:
@@ -54,23 +76,32 @@ plugins:
     - minify:
           minify_html: true
           minify_js: true
+          minify_css: true
+          cache_safe: true
 
 # Customization
 extra_css:
     - css/extra.css
+    # - https://use.typekit.net/pkv5qkr.css
+    # - https://domain.com/styles.css
+    # - https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css
 
-extra_javascript:
-    # -
+# extra_javascript:
+    # - https://domain.com/javascript.js
 
+# Page tree
 nav:
-    - Getting Started:
-        - index.md
+  - Getting Started:
+    - index.md
+    - help.md
+
 
 extra:
+    generator: false
     social:
         - icon: fontawesome/brands/twitter
-          link: https://twitter.com/username
+          link: https://twitter.com/xstudios
         - icon: fontawesome/brands/facebook
-          link: https://facebook.com/username
+          link: https://facebook.com/xstudiosinc
         - icon: fontawesome/brands/instagram
-          link: https://instagram.com/username
+          link: https://instagram.com/xstudios

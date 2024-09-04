@@ -1,7 +1,7 @@
 from django.conf import settings
 
 
-def settings_context(_request):
+def settings_context(request):
     return {
-        # "PROJECT_TITLE": settings.PROJECT_TITLE,
+        "PROJECT_TITLE": settings.PROJECT_TITLE,
     }

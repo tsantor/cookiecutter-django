@@ -67,8 +67,19 @@ body.login #header {
 }
 
 #branding {
-.logo {
-  height: 27px;
-  width: auto;
+  .logo {
+    // height: 27px;
+    width: auto;
+  }
 }
+
+.module caption {
+  background-color: var(--secondary);
+  a.section:link, a.section:visited {
+    color: #fff
+  }
+}
+
+.module h2 {
+  background-color: var(--accent);
 }

@@ -3,14 +3,14 @@
 
 {% block extrahead %}
     {% include "includes/favicons.html" %}
-{% endblock %}
+{% endblock extrahead %}
 
-{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock title %}
 
 {% block branding %}
 <!--<h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></h1>-->
 
-<img src="{% static 'img/django-logo-white.svg' %}" class="logo" />
-{% endblock %}
+<img src="{% static 'img/django-logo-white.svg' %}" alt="logo" class="logo" />
+{% endblock branding %}
 
-{% block nav-global %}{% endblock %}{% endraw %}
+{% block nav-global %}{% endblock nav-global %}{% endraw %}

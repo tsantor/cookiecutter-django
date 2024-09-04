@@ -1,5 +1,9 @@
 {% if cookiecutter.frontend_pipeline in ['Gulp', 'Webpack'] -%}
+<<<<<<< HEAD
 FROM node:20-bullseye-slim as client-builder
+=======
+FROM docker.io/node:20-bookworm-slim AS client-builder
+>>>>>>> master
 
 ARG APP_HOME=/app
 WORKDIR ${APP_HOME}
@@ -25,10 +29,14 @@ RUN npm run build
 
 {%- endif %}
 # define an alias for the specific python version used in this file.
+<<<<<<< HEAD
 FROM python:3.11.7-slim-bullseye as python
+=======
+FROM docker.io/python:3.12.5-slim-bookworm AS python
+>>>>>>> master
 
 # Python build stage
-FROM python as python-build-stage
+FROM python AS python-build-stage
 
 ARG BUILD_ENVIRONMENT=production
 
@@ -36,7 +44,7 @@ ARG BUILD_ENVIRONMENT=production
 RUN apt-get update && apt-get install --no-install-recommends -y \
   # dependencies for building Python packages
   build-essential \
-  # psycopg2 dependencies
+  # psycopg dependencies
   libpq-dev
 
 # Requirements are installed here to ensure they will be cached.
@@ -48,14 +56,14 @@ RUN pip wheel --wheel-dir /usr/src/app/wheels  \
 
 
 # Python 'run' stage
-FROM python as python-run-stage
+FROM python AS python-run-stage
 
 ARG BUILD_ENVIRONMENT=production
 ARG APP_HOME=/app
 
-ENV PYTHONUNBUFFERED 1
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV BUILD_ENV ${BUILD_ENVIRONMENT}
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV BUILD_ENV=${BUILD_ENVIRONMENT}
 
 WORKDIR ${APP_HOME}
 
@@ -65,7 +73,7 @@ RUN addgroup --system django \
 
 # Install required system dependencies
 RUN apt-get update && apt-get install --no-install-recommends -y \
-  # psycopg2 dependencies
+  # psycopg dependencies
   libpq-dev \
   # Translations dependencies
   gettext \
@@ -110,7 +118,7 @@ RUN chmod +x /start-flower
 
 {%- if cookiecutter.use_whitenoise == 'n' %}
 # Django staticfiles
-RUN mkdir -p ${APP_HOME}/staticfiles && chown django:django ${APP_HOME}/staticfiles
+RUN mkdir -p ${APP_HOME}/staticfiles
 {%- endif %}
 
 # copy application code to WORKDIR
@@ -121,7 +129,7 @@ COPY --chown=django:django . ${APP_HOME}
 {%- endif %}
 
 # make django owner of the WORKDIR directory as well.
-RUN chown django:django ${APP_HOME}
+RUN chown -R django:django ${APP_HOME}
 
 USER django
 

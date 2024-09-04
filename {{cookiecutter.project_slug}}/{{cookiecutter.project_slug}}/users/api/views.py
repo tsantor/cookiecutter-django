@@ -1,15 +1,14 @@
-from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework.decorators import action
-from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin
+from rest_framework.mixins import ListModelMixin
+from rest_framework.mixins import RetrieveModelMixin
+from rest_framework.mixins import UpdateModelMixin
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
-from {{cookiecutter.project_slug}}.api.permissions import IsSuperUser
+from {{ cookiecutter.project_slug }}.users.models import User
 
-from .serializers import MyUserSerializer, UserSerializer
-
-User = get_user_model()
+from .serializers import UserSerializer
 
 
 class UserViewSet(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericViewSet):
@@ -29,33 +28,3 @@ class UserViewSet(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericV
     def me(self, request):
         serializer = UserSerializer(request.user, context={"request": request})
         return Response(status=status.HTTP_200_OK, data=serializer.data)
-
-
-# -----------------------------------------------------------------------------
-# My forked version
-# -----------------------------------------------------------------------------
-
-
-class MyUserViewSet(
-    RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericViewSet
-):
-    """
-    list:
-    List all User
-
-    create:
-    Create a User
-
-    retrieve:
-    Get a User
-
-    update:
-    Update a User
-
-    delete:
-    Delete a User
-    """
-
-    queryset = User.objects.all()
-    serializer_class = MyUserSerializer
-    permission_classes = (IsSuperUser,)

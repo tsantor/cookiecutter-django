@@ -1,3 +1,4 @@
+{%- if cookiecutter.use_celery %}
 from celery import shared_task
 from django.core import management
 
@@ -12,3 +13,4 @@ def delete_expired_tokens():
 def delete_expired_sessions():
     """Delete expired sessions"""
     management.call_command("clearsessions", verbosity=0)
+{%- endif %}

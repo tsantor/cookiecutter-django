@@ -5,4 +5,3 @@ mkdocs-awesome-pages-plugin
 mkdocs-minify-plugin
 mkdocs-redirects
 pymdown-extensions
-pygments

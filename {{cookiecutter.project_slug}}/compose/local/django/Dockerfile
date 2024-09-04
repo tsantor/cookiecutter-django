@@ -1,8 +1,12 @@
 # define an alias for the specific python version used in this file.
+<<<<<<< HEAD
 FROM python:3.11.7-slim-bullseye as python
+=======
+FROM docker.io/python:3.12.5-slim-bookworm AS python
+>>>>>>> master
 
 # Python build stage
-FROM python as python-build-stage
+FROM python AS python-build-stage
 
 ARG BUILD_ENVIRONMENT=local
 
@@ -10,7 +14,7 @@ ARG BUILD_ENVIRONMENT=local
 RUN apt-get update && apt-get install --no-install-recommends -y \
   # dependencies for building Python packages
   build-essential \
-  # psycopg2 dependencies
+  # psycopg dependencies
   libpq-dev
 
 # Requirements are installed here to ensure they will be cached.
@@ -22,14 +26,14 @@ RUN pip wheel --wheel-dir /usr/src/app/wheels  \
 
 
 # Python 'run' stage
-FROM python as python-run-stage
+FROM python AS python-run-stage
 
 ARG BUILD_ENVIRONMENT=local
 ARG APP_HOME=/app
 
-ENV PYTHONUNBUFFERED 1
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV BUILD_ENV ${BUILD_ENVIRONMENT}
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV BUILD_ENV=${BUILD_ENVIRONMENT}
 
 WORKDIR ${APP_HOME}
 
@@ -47,7 +51,7 @@ RUN groupadd --gid 1000 dev-user \
 
 # Install required system dependencies
 RUN apt-get update && apt-get install --no-install-recommends -y \
-  # psycopg2 dependencies
+  # psycopg dependencies
   libpq-dev \
   # Translations dependencies
   gettext \

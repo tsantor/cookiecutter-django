@@ -30,8 +30,6 @@ class CustomSignupForm(SignupForm):
         user.zip_code = self.cleaned_data["zip_code"]
         user.home_phone = self.cleaned_data["home_phone"]
 
-        # user.opt_in = self.cleaned_data["opt_in"]
-
         user.save()
         return user
 
@@ -62,8 +60,6 @@ class CustomSocialSignupForm(SocialSignupForm):
         user.state = self.cleaned_data["state"]
         user.zip_code = self.cleaned_data["zip_code"]
         user.home_phone = self.cleaned_data["home_phone"]
-
-        # user.opt_in = self.cleaned_data["opt_in"]
 
         user.save()
         return user

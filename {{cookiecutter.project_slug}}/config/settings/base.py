@@ -1,8 +1,9 @@
-"""
-Base settings to build other settings files upon.
-"""
+# ruff: noqa: ERA001, E501
+"""Base settings to build other settings files upon."""
 import re
+{%- if cookiecutter.use_simplejwt == "y" %}
 from datetime import timedelta
+{%- endif %}
 from pathlib import Path
 
 import environ
@@ -12,7 +13,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 APPS_DIR = BASE_DIR / "{{ cookiecutter.project_slug }}"
 env = environ.Env()
 
-READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=True)
+READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
 if READ_DOT_ENV_FILE:
     # OS environment variables take precedence over variables from .env
     env.read_env(str(BASE_DIR / ".env"))
@@ -87,12 +88,12 @@ THIRD_PARTY_APPS = [
     "crispy_bootstrap5",
     "allauth",
     "allauth.account",
+    "allauth.mfa",
     "allauth.socialaccount",
     # "allauth.socialaccount.providers.facebook",
     # "allauth.socialaccount.providers.google",
 {%- if cookiecutter.use_celery == 'y' %}
     "django_celery_beat",
-    "django_celery_results",
 {%- endif %}
 {%- if cookiecutter.use_drf == "y" %}
     "rest_framework",
@@ -100,15 +101,18 @@ THIRD_PARTY_APPS = [
     "corsheaders",
     "drf_spectacular",
 {%- endif %}
+{%- if cookiecutter.frontend_pipeline == 'Webpack' %}
+    "webpack_loader",
+{%- endif %}
+    # Forked additions
 {%- if cookiecutter.use_dj_rest_auth == "y" %}
     "dj_rest_auth",
 {%- endif %}
-    "widget_tweaks",
-{%- if cookiecutter.use_django_auditlog == "y" %}
-    "auditlog",
+{%- if cookiecutter.use_simplejwt == "y" %}
+    "rest_framework_simplejwt",
 {%- endif %}
-{%- if cookiecutter.frontend_pipeline == 'Webpack' %}
-    "webpack_loader",
+{%- if cookiecutter.use_celery == 'y' %}
+    "django_celery_results",
 {%- endif %}
 {%- if cookiecutter.use_oauth == "y" %}
     "oauth2_provider",
@@ -117,10 +121,16 @@ THIRD_PARTY_APPS = [
 {%- if cookiecutter.use_robots == "y" %}
     "robots",
 {%- endif %}
+{%- if cookiecutter.use_django_auditlog == "y" %}
+    "auditlog",
+{%- endif %}
+{%- if cookiecutter.use_drf_api_logger == "y" %}
+    "drf_api_logger",
+{%- endif %}
+    "widget_tweaks",
 ]
 
 LOCAL_APPS = [
-    # "{{ cookiecutter.project_slug }}.users.apps.UsersConfig",
     "{{ cookiecutter.project_slug }}.users",
     # Your stuff: custom apps go here
 ]
@@ -158,7 +168,9 @@ PASSWORD_HASHERS = [
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
 AUTH_PASSWORD_VALIDATORS = [
-    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
+    {
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+    },
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
@@ -184,9 +196,14 @@ MIDDLEWARE = [
     "oauth2_provider.middleware.OAuth2TokenMiddleware",
 {%- endif %}
     "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.common.BrokenLinkEmailsMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
+<<<<<<< HEAD
+=======
+{%- if cookiecutter.use_drf_api_logger == "y" %}
+    "drf_api_logger.middleware.api_logger_middleware.APILoggerMiddleware",
+{%- endif %}
+>>>>>>> master
 ]
 
 # STATIC
@@ -236,7 +253,7 @@ TEMPLATES = [
                 "{{ cookiecutter.project_slug }}.utils.context_processors.settings_context",
             ],
         },
-    }
+    },
 ]
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#form-renderer
@@ -303,32 +320,33 @@ LOGGING = {
         "console": {
             "level": "DEBUG",
             "class": "logging.StreamHandler",
+            # "formatter": "verbose",
             "formatter": "custom_formatter",
-        }
+        },
     },
     "root": {"level": "INFO", "handlers": ["console"]},
-    "loggers": {
-        "django.db.backends": {
-            "level": "WARNING",
-            "handlers": ["console"],
-            "propagate": False,
-        },
-        "django.request": {
-            "handlers": ["console"],
-            "level": "ERROR",
-            "propagate": False,
-        },
-        "django.server": {
-            "level": "WARNING",
-            "handlers": ["console"],
-            "propagate": False,
-        },
-        "{{ cookiecutter.project_slug }}": {
-            "level": "DEBUG",
-            "handlers": ["console"],
-            "propagate": False,
-        },
-    },
+    # "loggers": {
+    #     "django.db.backends": {
+    #         "level": "WARNING",
+    #         "handlers": ["console"],
+    #         "propagate": False,
+    #     },
+    #     "django.request": {
+    #         "handlers": ["console"],
+    #         "level": "ERROR",
+    #         "propagate": False,
+    #     },
+    #     "django.server": {
+    #         "level": "WARNING",
+    #         "handlers": ["console"],
+    #         "propagate": False,
+    #     },
+    #     "{{ cookiecutter.project_slug }}": {
+    #         "level": "DEBUG",
+    #         "handlers": ["console"],
+    #         "propagate": False,
+    #     },
+    # },
 }
 
 {% if cookiecutter.use_celery == 'y' -%}
@@ -375,41 +393,25 @@ CELERY_RESULT_BACKEND = "django-db"
 # django-allauth
 # ------------------------------------------------------------------------------
 ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
-# https://django-allauth.readthedocs.io/en/latest/configuration.html
+# https://docs.allauth.org/en/latest/account/configuration.html
 ACCOUNT_AUTHENTICATION_METHOD = "{{cookiecutter.username_type}}"
-# https://django-allauth.readthedocs.io/en/latest/configuration.html
+# https://docs.allauth.org/en/latest/account/configuration.html
 ACCOUNT_EMAIL_REQUIRED = True
 {%- if cookiecutter.username_type == "email" %}
-# https://django-allauth.readthedocs.io/en/latest/configuration.html
+# https://docs.allauth.org/en/latest/account/configuration.html
 ACCOUNT_USERNAME_REQUIRED = False
-# https://django-allauth.readthedocs.io/en/latest/configuration.html
+# https://docs.allauth.org/en/latest/account/configuration.html
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 {%- endif %}
-# https://django-allauth.readthedocs.io/en/latest/configuration.html
+# https://docs.allauth.org/en/latest/account/configuration.html
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
-# https://django-allauth.readthedocs.io/en/latest/configuration.html
+# https://docs.allauth.org/en/latest/account/configuration.html
 ACCOUNT_ADAPTER = "{{cookiecutter.project_slug}}.users.adapters.AccountAdapter"
-# ACCOUNT_FORMS = {"signup": "{{cookiecutter.project_slug}}.users.forms_allauth.CustomSignupForm"}
-# https://django-allauth.readthedocs.io/en/latest/configuration.html
-SOCIALACCOUNT_ADAPTER = "{{cookiecutter.project_slug}}.users.adapters.SocialAccountAdapter"
-# SOCIALACCOUNT_FORMS = {
-#     "signup": "{{cookiecutter.project_slug}}.users.forms_allauth.CustomSocialSignupForm"
-# }
-
-# No username all-auth mods
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
-ACCOUNT_SESSION_REMEMBER = True
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_UNIQUE_EMAIL = True
-
-
 # https://django-allauth.readthedocs.io/en/latest/forms.html
 ACCOUNT_FORMS = {"signup": "{{cookiecutter.project_slug}}.users.forms.UserSignupForm"}
-# https://django-allauth.readthedocs.io/en/latest/configuration.html
+# https://docs.allauth.org/en/latest/socialaccount/configuration.html
 SOCIALACCOUNT_ADAPTER = "{{cookiecutter.project_slug}}.users.adapters.SocialAccountAdapter"
-# https://django-allauth.readthedocs.io/en/latest/forms.html
+# https://docs.allauth.org/en/latest/socialaccount/configuration.html
 SOCIALACCOUNT_FORMS = {"signup": "{{cookiecutter.project_slug}}.users.forms.UserSocialSignupForm"}
 {% if cookiecutter.frontend_pipeline == 'Django Compressor' -%}
 # django-compressor
@@ -430,7 +432,7 @@ REST_FRAMEWORK = {
         {%- endif %}
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
-        {% if cookiecutter.use_simplejwt == "y" -%}
+        {%- if cookiecutter.use_simplejwt == "y" %}
         "rest_framework_simplejwt.authentication.JWTAuthentication",
         {%- endif %}
     ),
@@ -460,7 +462,24 @@ SPECTACULAR_SETTINGS = {
 }
 {%- endif %}
 
-{% if cookiecutter.use_dj_rest_auth == "y" -%}
+{%- if cookiecutter.frontend_pipeline == 'Webpack' %}
+# django-webpack-loader
+# ------------------------------------------------------------------------------
+WEBPACK_LOADER = {
+    "DEFAULT": {
+        "CACHE": not DEBUG,
+        "STATS_FILE": BASE_DIR / "webpack-stats.json",
+        "POLL_INTERVAL": 0.1,
+        "IGNORE": [r".+\.hot-update.js", r".+\.map"],
+    },
+}
+
+{%- endif %}
+
+# ------------------------------------------------------------------------------
+# FORKED ADDITIONS - keeps diffs minimal
+# ------------------------------------------------------------------------------
+{%- if cookiecutter.use_dj_rest_auth == "y" %}
 # dj-rest-auth https://dj-rest-auth.readthedocs.io/en/latest/configuration.html
 # -------------------------------------------------------------------------------
 REST_AUTH = {
@@ -468,7 +487,9 @@ REST_AUTH = {
     'JWT_AUTH_COOKIE': 'jwt-auth',
     # "USER_DETAILS_SERIALIZER": "django_spaday.api.serializers.UserAuthSerializer",
 }
+{%- endif %}
 
+{%- if cookiecutter.use_simplejwt == "y" %}
 # https://django-rest-framework-simplejwt.readthedocs.io/en/latest/settings.htm
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
@@ -480,11 +501,36 @@ SIMPLE_JWT = {
 # CSRF
 # ------------------------------------------------------------------------------
 # CSRF_COOKIE_SAMESITE = 'Strict'
-# CSRF_COOKIE_HTTPONLY = False  # False since we will grab it via universal-cookies
+# CSRF_COOKIE_HTTPONLY = False  # False if using django-spaday
 CSRF_TRUSTED_ORIGINS=env.list("CSRF_TRUSTED_ORIGINS", default=["http://localhost:8081", "http://localhost:8000"])
 
-# SESSION_COOKIE_SAMESITE = 'Strict'
+# Session
+# ------------------------------------------------------------------------------
+SESSION_COOKIE_SAMESITE = "Strict"
+SESSION_COOKIE_AGE = 60 * 60 * 8  # 8 hrs
 
+{%- if cookiecutter.use_oauth == "y" %}
+OAUTH2_PROVIDER = {
+    "ACCESS_TOKEN_EXPIRE_SECONDS": 60 * 60 * 8,
+    "REFRESH_TOKEN_EXPIRE_SECONDS": 60 * 60 * 8,
+    # this is the list of available scopes
+    "SCOPES": {
+        "example:read": "Example read scope",
+        "example:write": "Example write scope",
+    },
+}
+{%- endif %}
+
+{%- if cookiecutter.use_robots == "y" %}
+# django-robots - # https://django-robots.readthedocs.io/en/latest/
+# ------------------------------------------------------------------------------
+ROBOTS_USE_SITEMAP = False
+ROBOTS_USE_HOST = True
+ROBOTS_USE_SCHEME_IN_HOST = True
+# ROBOTS_CACHE_TIMEOUT = 60 * 60 * 24  # 24 hours
+{%- endif %}
+
+{%- if cookiecutter.use_perm_filter == 'y' %}
 # django-perm-filter
 # -------------------------------------------------------------------------------
 PERM_FILTER = {
@@ -495,12 +541,18 @@ PERM_FILTER = {
         "contenttypes",
         "sessions",
         "sites",
+        # Auditlog
+        "auditlog.add_logentry",
+        "auditlog.change_logentry",
+        "auditlog.delete_logentry",
         # All-auth
         "account",
         "socialaccount",
+        {%- if cookiecutter.use_celery == "y" %}
         # Celery
         "django_celery_beat",
         "django_celery_results",
+        {%- endif %}
         "thumbnail",
         # Django built-in auth permissions
         "auth.view_permission",
@@ -533,12 +585,15 @@ PERM_FILTER = {
         {%- endif %}
     ],
     "UNREGISTER_MODELS": [
+        {%- if cookiecutter.use_drf == "y" %}
         "rest_framework.authtoken.models.TokenProxy",
+        {%- endif %}
         # All-auth
         "allauth.account.models.EmailAddress",
         "allauth.socialaccount.models.SocialAccount",
         "allauth.socialaccount.models.SocialApp",
         "allauth.socialaccount.models.SocialToken",
+        {%- if cookiecutter.use_celery == "y" %}
         # Celery
         "django_celery_beat.models.ClockedSchedule",
         # "django_celery_beat.models.CrontabSchedule",
@@ -547,6 +602,7 @@ PERM_FILTER = {
         "django_celery_beat.models.SolarSchedule",
         "django_celery_results.models.GroupResult",
         # "django_celery_results.models.TaskResult",
+        {%- endif %}
         # "django.contrib.sites.models.Site",
         {%- if cookiecutter.use_oauth == "y" %}
         # oAuth2
@@ -555,49 +611,31 @@ PERM_FILTER = {
         {%- endif %}
     ],
 }
-
-{%- if cookiecutter.frontend_pipeline == 'Webpack' %}
-# django-webpack-loader
-# ------------------------------------------------------------------------------
-WEBPACK_LOADER = {
-    "DEFAULT": {
-        "CACHE": not DEBUG,
-        "STATS_FILE": BASE_DIR / "webpack-stats.json",
-        "POLL_INTERVAL": 0.1,
-        "IGNORE": [r".+\.hot-update.js", r".+\.map"],
-    }
-}
-
 {%- endif %}
-# Your stuff...
+
+
+{%- if cookiecutter.use_drf_api_logger == "y" %}
+# drf-api-logger
 # ------------------------------------------------------------------------------
-# https://docs.djangoproject.com/en/3.2/howto/error-reporting/
+# https://pypi.org/project/drf-api-logger/
+DRF_API_LOGGER_DATABASE = True
+DRF_API_LOGGER_SLOW_API_ABOVE = 200
+DRF_API_LOGGER_TIMEDELTA = -240  # America/New_York
+DRF_API_LOGGER_MAX_REQUEST_BODY_SIZE = 1024
+DRF_API_LOGGER_MAX_RESPONSE_BODY_SIZE = 1024
+DRF_API_LOGGER_PATH_TYPE = "FULL_PATH"
+DRF_API_LOGGER_EXCLUDE_KEYS = ["AUTHORIZATION"]
+{%- endif %}
+
+# https://docs.djangoproject.com/en/4.2/howto/error-reporting/
 IGNORABLE_404_URLS = [
-    re.compile(r'^/apple-touch-icon.*\.png$'),
-    re.compile(r'^/favicon\.ico$'),
-    re.compile(r'^/robots\.txt$'),
+    re.compile(r"'^/apple-touch-icon.*\.png$'"),
+    re.compile(r"'^/favicon\.ico$'"),
+    re.compile(r"'^/robots\.txt$'"),
 ]
 
-PROJECT_TITLE = env("PROJECT_TITLE")
+PROJECT_TITLE = env("PROJECT_TITLE", default="{{ cookiecutter.project_name }}")
+BASE_URL = env("BASE_URL", default="https://{{ cookiecutter.domain_name }}")
 
-{%- if cookiecutter.use_oauth == "y" %}
-OAUTH2_PROVIDER = {
-    "ACCESS_TOKEN_EXPIRE_SECONDS": 60 * 60 * 8,
-    "REFRESH_TOKEN_EXPIRE_SECONDS": 60 * 60 * 8,
-    # this is the list of available scopes
-    "SCOPES": {
-        "example:read": "Example read scope",
-        "example:write": "Example write scope",
-    },
-}
-{%- endif %}
-SESSION_COOKIE_AGE = 60 * 60 * 8  # 8 hrs
-
-{%- if cookiecutter.use_robots == "y" %}
-# django-robots
-# https://django-robots.readthedocs.io/en/latest/
-ROBOTS_USE_SITEMAP = False
-ROBOTS_USE_HOST = True
-ROBOTS_USE_SCHEME_IN_HOST = True
-# ROBOTS_CACHE_TIMEOUT = 60 * 60 * 24  # 24 hours
-{%- endif %}
+# Your stuff...
+# ------------------------------------------------------------------------------

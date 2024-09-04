@@ -5,6 +5,7 @@ from {{ cookiecutter.project_slug }}.users.api.views import UserViewSet
 from {{ cookiecutter.project_slug }}.users.models import User
 
 
+@pytest.mark.django_db()
 class TestUserViewSet:
     @pytest.fixture
     def api_rf(self) -> APIRequestFactory:
@@ -26,7 +27,7 @@ class TestUserViewSet:
 
         view.request = request
 
-        response = view.me(request)  # type: ignore
+        response = view.me(request)  # type: ignore[call-arg, arg-type, misc]
 
         assert response.data == {
             {%- if cookiecutter.username_type == "email" %}

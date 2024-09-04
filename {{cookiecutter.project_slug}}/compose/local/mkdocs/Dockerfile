@@ -1,23 +1,19 @@
-FROM python:3.8-slim-buster
+# Use the official MkDocs Material image as a parent image
+FROM squidfunk/mkdocs-material
 
-ENV PYTHONUNBUFFERED 1
-ENV PYTHONDONTWRITEBYTECODE 1
+# Set env vars
+ENV TZ="America/New_York"
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
 
-RUN apt-get update -y \
-  # cleaning up unused files
-  && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
-  && rm -rf /var/lib/apt/lists/*
+# Copy the dependencies file to the working directory
+COPY ./compose/local/mkdocs/requirements.txt .
 
-# Requirements are installed here to ensure they will be cached.
-COPY ./compose/local/mkdocs/requirements.txt /requirements.txt
-RUN pip install -U pip && \
-    pip install --no-cache-dir -r /requirements.txt \
-    && rm /requirements.txt
+# Install any dependencies
+RUN pip install -U pip && pip install --no-cache-dir -r requirements.txt
 
-COPY ./compose/local/mkdocs/entrypoint /entrypoint
-RUN sed -i 's/\r$//g' /entrypoint
-RUN chmod +x /entrypoint
+COPY ./compose/local/mkdocs/start /start-docs
+RUN sed -i 's/\r$//g' /start-docs
+RUN chmod +x /start-docs
 
 WORKDIR /mkdocs
-
-ENTRYPOINT ["/entrypoint"]
