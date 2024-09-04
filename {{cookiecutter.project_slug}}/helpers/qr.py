@@ -1,65 +1,36 @@
+import base64
 import logging
 from io import BytesIO
 
 import qrcode
-from django.core.files.base import ContentFile
-from qrcode.image.svg import SvgPathFillImage
-from qrcode.main import QRCode
 
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
 
 
-def make_qr_code(data: str, box_size: int = 10, border: int = 1) -> SvgPathFillImage:
-    """
-    Generate a QR code, does not save the image.
-
-    Args:
-        data (str): The data to be encoded in the QR code.
-        box_size (int, optional): The size of each box in the QR code grid.
-                                  Defaults to 10.
-        border (int, optional): The thickness of the border. Defaults to 1.
-
-    Returns:
-        SvgPathFillImage: The generated QR code as an SVG image.
-    """
-    qr = QRCode(
+def make_qr_code(data, box_size=10, border=0):
+    """Generate a QR code, does not save the image."""
+    qr = qrcode.QRCode(
         version=None,
-        error_correction=qrcode.constants.ERROR_CORRECT_H,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
         box_size=box_size,
         border=border,
-        image_factory=SvgPathFillImage,
     )
     qr.add_data(data)
     qr.make(fit=True)
     return qr.make_image(fill_color="black", back_color="white")
 
 
-def _in_memory_qr(data: str) -> BytesIO:
-    """
-    Save file to in-memory bytes buffer, not to disk and return the buffer.
-
-    Args:
-        data (str): The data to be encoded in the QR code.
-
-    Returns:
-        BytesIO: The in-memory bytes buffer containing the QR code.
-    """
+def make_in_memory_qr(data):
+    """Save file to in-memory bytes buffer, not to disk and return the buffer."""
     img = make_qr_code(data)
     bytes_io = BytesIO()
-    img.save(bytes_io)
+    img.save(bytes_io, format="PNG")
     return bytes_io
 
 
-def make_qr_content_file(data: str, filename: str) -> ContentFile:
-    """
-    Return content file for use in Django.
-
-    Args:
-        data (str): The data to be encoded in the QR code.
-        filename (str): The name of the file.
-
-    Returns:
-        ContentFile: The content file containing the QR code.
-    """
-    bytes_io = _in_memory_qr(data)
-    return ContentFile(bytes_io.getvalue(), name=f"{filename}")
+def make_qr_code_b64(data):
+    """Return a Base64 encoded QR code for use in HTML. NOTE: Base64 encoded
+    images are NOT well supported in email clients."""
+    bytes_io = make_in_memory_qr(data)
+    img_str = base64.b64encode(bytes_io.getvalue()).decode()
+    return f"data:image/png;base64, {img_str}"

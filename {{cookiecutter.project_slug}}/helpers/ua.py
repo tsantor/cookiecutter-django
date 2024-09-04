@@ -17,6 +17,7 @@ def get_ua_platform(user_agent: UserAgent) -> str:
 
 
 def get_ua(request: HttpRequest) -> str:
+    """Return User Agent string."""
     return request.headers.get("user-agent", "")
 
 
