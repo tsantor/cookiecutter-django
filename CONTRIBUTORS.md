@@ -209,6 +209,13 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>Alex Kanavos</td>
+    <td>
+      <a href="https://github.com/alexkanavos">alexkanavos</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>Alex Tsai</td>
     <td>
       <a href="https://github.com/caffodian">caffodian</a>
@@ -536,6 +543,13 @@ Listed in alphabetical order.
       <a href="https://github.com/cjauvin">cjauvin</a>
     </td>
     <td></td>
+  </tr>
+  <tr>
+    <td>Christian Jensen</td>
+    <td>
+      <a href="https://github.com/jensenbox">jensenbox</a>
+    </td>
+    <td>cjensen</td>
   </tr>
   <tr>
     <td>Christopher Clarke</td>
@@ -870,6 +884,13 @@ Listed in alphabetical order.
     <td>Floyd Hightower</td>
     <td>
       <a href="https://github.com/fhightower">fhightower</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Francisco Navarro Morales </td>
+    <td>
+      <a href="https://github.com/spothound">spothound</a>
     </td>
     <td></td>
   </tr>
@@ -1413,6 +1434,13 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>LJFP</td>
+    <td>
+      <a href="https://github.com/ljfp">ljfp</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>Luis Nell</td>
     <td>
       <a href="https://github.com/originell">originell</a>
@@ -1465,6 +1493,20 @@ Listed in alphabetical order.
     <td>Marios Frixou</td>
     <td>
       <a href="https://github.com/frixou89">frixou89</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Mariot Tsitoara</td>
+    <td>
+      <a href="https://github.com/mariot">mariot</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Marlon Castillo</td>
+    <td>
+      <a href="https://github.com/mcastle">mcastle</a>
     </td>
     <td></td>
   </tr>
@@ -1920,6 +1962,13 @@ Listed in alphabetical order.
     <td>Russell Davies</td>
     <td>
       <a href="https://github.com/"></a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>rxm7706</td>
+    <td>
+      <a href="https://github.com/rxm7706">rxm7706</a>
     </td>
     <td></td>
   </tr>
