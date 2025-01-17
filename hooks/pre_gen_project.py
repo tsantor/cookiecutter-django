@@ -1,15 +1,3 @@
-"""
-NOTE:
-    the below code is to be maintained Python 2.x-compatible
-    as the whole Cookiecutter Django project initialization
-    can potentially be run in Python 2.x environment.
-
-TODO: restrict Cookiecutter Django project initialization
-      to Python 3.x environments only
-"""
-
-from __future__ import print_function
-
 import sys
 
 TERMINATOR = "\x1b[0m"
@@ -28,17 +16,11 @@ SUCCESS = "\x1b[1;32m [SUCCESS]: "
 
 project_slug = "{{ cookiecutter.project_slug }}"
 if hasattr(project_slug, "isidentifier"):
-    assert (
-        project_slug.isidentifier()
-    ), "'{}' project slug is not a valid Python identifier.".format(project_slug)
+    assert project_slug.isidentifier(), "'{}' project slug is not a valid Python identifier.".format(project_slug)
 
-assert (
-    project_slug == project_slug.lower()
-), "'{}' project slug should be all lowercase".format(project_slug)
+assert project_slug == project_slug.lower(), "'{}' project slug should be all lowercase".format(project_slug)
 
-assert (
-    "\\" not in "{{ cookiecutter.author_name }}"
-), "Don't include backslashes in author name."
+assert "\\" not in "{{ cookiecutter.author_name }}", "Don't include backslashes in author name."
 
 if "{{ cookiecutter.use_docker }}".lower() == "n":
     python_major_version = sys.version_info[0]
@@ -60,64 +42,42 @@ if "{{ cookiecutter.use_docker }}".lower() == "n":
                 print(
                     HINT
                     + "Please respond with {} or {}: ".format(
-                        ", ".join(
-                            ["'{}'".format(o) for o in yes_options if not o == ""]
-                        ),
-                        ", ".join(
-                            ["'{}'".format(o) for o in no_options if not o == ""]
-                        ),
+                        ", ".join(["'{}'".format(o) for o in yes_options if not o == ""]),
+                        ", ".join(["'{}'".format(o) for o in no_options if not o == ""]),
                     )
                     + TERMINATOR
                 )
 
-if (
-    "{{ cookiecutter.use_whitenoise }}".lower() == "n"
-    and "{{ cookiecutter.cloud_provider }}" == "None"
-):
-    print(
-        "You should either use Whitenoise or select a "
-        "Cloud Provider to serve static files"
-    )
+if "{{ cookiecutter.use_whitenoise }}".lower() == "n" and "{{ cookiecutter.cloud_provider }}" == "None":
+    print("You should either use Whitenoise or select a " "Cloud Provider to serve static files")
     sys.exit(1)
 
-if (
-    "{{ cookiecutter.mail_service }}" == "Amazon SES"
-    and "{{ cookiecutter.cloud_provider }}" != "AWS"
-):
-    print(
-        "You should either use AWS or select a different "
-        "Mail Service for sending emails."
-    )
+if "{{ cookiecutter.mail_service }}" == "Amazon SES" and "{{ cookiecutter.cloud_provider }}" != "AWS":
+    print("You should either use AWS or select a different " "Mail Service for sending emails.")
     sys.exit(1)
 
 # -----------------------------------------------------------------------------
 # Forked additions - keeps diffs minimal
 # -----------------------------------------------------------------------------
 
-if (
-    "{{ cookiecutter.use_docker }}".lower() == "n"
-    and "{{ cookiecutter.use_mosquitto }}".lower() == "y"
-):
+if "{{ cookiecutter.use_docker }}".lower() == "n" and "{{ cookiecutter.use_mosquitto }}".lower() == "y":
     print("You cannot use Mosquitto without Docker")
     sys.exit(1)
 
-if (
-    "{{ cookiecutter.use_docker }}".lower() == "n"
-    and "{{ cookiecutter.use_prometheus }}".lower() == "y"
-):
+if "{{ cookiecutter.use_docker }}".lower() == "n" and "{{ cookiecutter.use_prometheus }}".lower() == "y":
     print("You cannot use Prometheus without Docker")
     sys.exit(1)
 
-if (
-    "{{ cookiecutter.use_docker }}".lower() == "n"
-    and "{{ cookiecutter.use_grafana }}".lower() == "y"
-):
+if "{{ cookiecutter.use_docker }}".lower() == "n" and "{{ cookiecutter.use_grafana }}".lower() == "y":
     print("You cannot use Grafana without Docker")
     sys.exit(1)
 
-if (
-    "{{ cookiecutter.use_docker }}".lower() == "n"
-    and "{{ cookiecutter.use_node_exporter }}".lower() == "y"
-):
+if "{{ cookiecutter.use_docker }}".lower() == "n" and "{{ cookiecutter.use_node_exporter }}".lower() == "y":
     print("You cannot use Node Exporter without Docker")
+if "{{ cookiecutter.use_whitenoise }}".lower() == "n" and "{{ cookiecutter.cloud_provider }}" == "None":
+    print("You should either use Whitenoise or select a Cloud Provider to serve static files")
+    sys.exit(1)
+
+if "{{ cookiecutter.mail_service }}" == "Amazon SES" and "{{ cookiecutter.cloud_provider }}" != "AWS":
+    print("You should either use AWS or select a different Mail Service for sending emails.")
     sys.exit(1)

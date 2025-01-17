@@ -1,16 +1,3 @@
-"""
-NOTE:
-    the below code is to be maintained Python 2.x-compatible
-    as the whole Cookiecutter Django project initialization
-    can potentially be run in Python 2.x environment
-    (at least so we presume in `pre_gen_project.py`).
-
-TODO: restrict Cookiecutter Django project initialization to
-      Python 3.x environments only
-"""
-
-from __future__ import print_function
-
 import json
 import os
 import random
@@ -82,6 +69,7 @@ def remove_docker_files():
         "docker-compose.local.yml",
         "docker-compose.production.yml",
         ".dockerignore",
+        "justfile",
     ]
     for file_name in file_names:
         os.remove(file_name)
@@ -114,7 +102,7 @@ def remove_sass_files():
 
 
 def remove_gulp_files():
-    file_names = ["gulpfile.js"]
+    file_names = ["gulpfile.mjs"]
     for file_name in file_names:
         os.remove(file_name)
 
@@ -179,7 +167,7 @@ def handle_js_runner(choice, use_docker, use_async):
             remove_keys=["babel"],
             scripts={
                 "dev": "gulp",
-                "build": "gulp generate-assets",
+                "build": "gulp build",
             },
         )
         remove_webpack_files()
