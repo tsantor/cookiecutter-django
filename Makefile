@@ -21,7 +21,7 @@ help:
 # Variables
 # -----------------------------------------------------------------------------
 
-venv=.venv
+python_version=3.13.1
 
 BAKE_OPTIONS=--no-input
 
@@ -29,14 +29,12 @@ BAKE_OPTIONS=--no-input
 # Environment
 # -----------------------------------------------------------------------------
 
-env:  ## Install virtualenv for development (uses `pyenv`)
-	python3 -m venv ${venv}
-	@echo "Virtual environment created. Activate with: source ${venv}/bin/activate"
-	@echo "Install dependencies with: pip install ."
+env:  ## Create virtual environment
+	uv venv --python ${python_version}
 
 env_remove:  ## Remove virtual environment
 	deactivate
-	rm -rf ${venv}
+	rm -rf .venv
 
 env_from_scratch: env_remove env  ## Create environment from scratch
 
@@ -45,8 +43,8 @@ env_from_scratch: env_remove env  ## Create environment from scratch
 # -----------------------------------------------------------------------------
 
 pip_install:  ## Install requirements
-	python3 -m pip install -U pip
-	python3 -m pip install .
+	uv pip install -U pip
+	uv pip install .
 
 # -----------------------------------------------------------------------------
 # Cookiecutter
