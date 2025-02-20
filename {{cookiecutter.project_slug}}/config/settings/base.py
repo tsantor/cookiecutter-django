@@ -3,6 +3,7 @@
 import re
 {%- if cookiecutter.use_simplejwt == "y" %}
 from datetime import timedelta
+{%- endif %}
 
 {% if cookiecutter.use_celery == 'y' -%}
 import ssl

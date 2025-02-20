@@ -56,6 +56,10 @@ if "{{ cookiecutter.mail_service }}" == "Amazon SES" and "{{ cookiecutter.cloud_
     print("You should either use AWS or select a different " "Mail Service for sending emails.")
     sys.exit(1)
 
+
+if "{{ cookiecutter.use_docker }}".lower() == "n" and "{{ cookiecutter.use_node_exporter }}".lower() == "y":
+    print("You cannot use Node Exporter without Docker")
+
 # -----------------------------------------------------------------------------
 # Forked additions - keeps diffs minimal
 # -----------------------------------------------------------------------------
@@ -70,14 +74,4 @@ if "{{ cookiecutter.use_docker }}".lower() == "n" and "{{ cookiecutter.use_prome
 
 if "{{ cookiecutter.use_docker }}".lower() == "n" and "{{ cookiecutter.use_grafana }}".lower() == "y":
     print("You cannot use Grafana without Docker")
-    sys.exit(1)
-
-if "{{ cookiecutter.use_docker }}".lower() == "n" and "{{ cookiecutter.use_node_exporter }}".lower() == "y":
-    print("You cannot use Node Exporter without Docker")
-if "{{ cookiecutter.use_whitenoise }}".lower() == "n" and "{{ cookiecutter.cloud_provider }}" == "None":
-    print("You should either use Whitenoise or select a Cloud Provider to serve static files")
-    sys.exit(1)
-
-if "{{ cookiecutter.mail_service }}" == "Amazon SES" and "{{ cookiecutter.cloud_provider }}" != "AWS":
-    print("You should either use AWS or select a different Mail Service for sending emails.")
     sys.exit(1)
