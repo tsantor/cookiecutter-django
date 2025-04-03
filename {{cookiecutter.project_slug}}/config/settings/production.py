@@ -217,7 +217,7 @@ STATIC_URL = f"https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/static/"
 #         "location": "staticfiles",
 #     },
 # }
-# COLLECTFAST_STRATEGY = "collectfast.strategies.filesystem.FileSystemStrategy"
+# COLLECTFASTA_STRATEGY = "collectfasta.strategies.filesystem.FileSystemStrategy"
 # STATIC_URL = f"{env('BASE_URL')}/static/"
 
 # EMAIL

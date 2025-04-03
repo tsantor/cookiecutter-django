@@ -21,7 +21,7 @@ help:
 # Project specific variables
 # -----------------------------------------------------------------------------
 
-python_version=3.9.11
+python_version=3.12.9
 venv={{cookiecutter.project_slug}}_env
 
 user={{cookiecutter.project_user}}
@@ -48,11 +48,11 @@ prod_compose=docker-compose -f docker-compose.production.yml
 # Environment
 # -----------------------------------------------------------------------------
 
-env:  ## Create virtual environment (uses `pyenv`)
-	pyenv virtualenv ${python_version} ${venv} && pyenv local ${venv}
+env:  ## Create virtual environment (uses `uv`)
+	uv venv --python ${python_version}
 
 env_remove:  ## Remove virtual environment
-	pyenv uninstall -f ${venv}
+	rm -rf .venv
 
 env_from_scratch: env_remove env pip_install  ## Create environment from scratch
 
@@ -60,14 +60,20 @@ env_from_scratch: env_remove env pip_install  ## Create environment from scratch
 # Pip
 # -----------------------------------------------------------------------------
 
-pip_install:  ## Install requirements
-	python3 -m pip install -U pip wheel build ruff pre-commit && pre-commit install
+pip_install_basic: ## Install basic requirements (host machine)
+	uv pip install -U pip wheel build ruff pre-commit && pre-commit install
 
-pip_install_extra:  ## Install extra stuff
-	python3 -m pip install env-wrangler
+pip_install:  ## Install requirements
+	uv pip install --upgrade pip
+	@for file in $$(ls requirements/*.txt); do \
+		uv pip install -r $$file; \
+	done
+
+pip_install_editable:  ## Install in editable mode
+	uv pip install -e .
 
 pip_list:  ## Run pip list
-	${local_compose} exec django python -m pip list
+	${local_compose} run django python -m pip list
 
 pip_freeze:  ## Run pipfreezer freeze
 	${local_compose} exec django pipfreezer freeze  --verbose
