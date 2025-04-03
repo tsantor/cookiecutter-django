@@ -1105,6 +1105,13 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>Igor Jerosimić</td>
+    <td>
+      <a href="https://github.com/igor-wl">igor-wl</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>Imran Rahman</td>
     <td>
       <a href="https://github.com/infraredCoding">infraredCoding</a>
@@ -1318,6 +1325,13 @@ Listed in alphabetical order.
     <td>Kaveh</td>
     <td>
       <a href="https://github.com/ka7eh">ka7eh</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Kawsar Alam Foysal</td>
+    <td>
+      <a href="https://github.com/iamfoysal">iamfoysal</a>
     </td>
     <td></td>
   </tr>
