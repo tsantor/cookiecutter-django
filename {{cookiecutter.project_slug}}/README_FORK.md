@@ -35,29 +35,14 @@ $ open open_coverage
 
 Out of the box, we have all this running already. **Now get to the actual work!**
 
-### Browser sync
+Simply visit the following:
 
-- `http://localhost:3000/` - app running under BrowserSync
-- `http://localhost:3001` - BrowserSync GUI
-
-### Runserver
-
-- `http://localhost:8000/` - Django
-- `http://localhost:8000/admin/` - Django Admin
-
-### Docs
-
-- `http://localhost:8989/` - MkDocs for the project (recommend you move this to a dedicated repo)
-- `http://localhost:8000/api/v1/swagger/` - Swagger docs
-- `http://localhost:8000/api/v1/redoc/` - Redoc docs
-
-### Email
-
-- `http://localhost:8025/` - Mailpit (receives all emails sent from Django, no matter the to address)
-
-### Celery / Flower
-
-- `http://localhost:5555/` - Flower GUI
+- [Public Website](http://localhost:8000/)
+- [Django Admin](http://localhost:8000/)
+- [MailPit](http://localhost:8025/)
+- [Flower](http://localhost:5555/)
+- [BrowserSync](http://localhost:3000/)
+- [BrowserSync UI](http://localhost:3001/)
 
 ## Production Deploy
 This is a simple deployment process to a **single** server.

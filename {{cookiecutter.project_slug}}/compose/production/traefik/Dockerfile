@@ -1,7 +1,11 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 FROM traefik:2.10.7
 =======
 FROM docker.io/traefik:3.1.2
+>>>>>>> master
+=======
+FROM docker.io/traefik:3.3.5
 >>>>>>> master
 RUN mkdir -p /etc/traefik/acme \
   && touch /etc/traefik/acme/acme.json \

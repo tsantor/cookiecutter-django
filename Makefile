@@ -21,8 +21,7 @@ help:
 # Variables
 # -----------------------------------------------------------------------------
 
-python_version=3.9.11
-venv=cookiecutter-django_env
+python_version=3.13.1
 
 BAKE_OPTIONS=--no-input
 
@@ -30,14 +29,22 @@ BAKE_OPTIONS=--no-input
 # Environment
 # -----------------------------------------------------------------------------
 
-env:  ## Install virtualenv for development (uses `pyenv`)
-	pyenv virtualenv ${python_version} ${venv} && pyenv local ${venv}
-	python3 -m pip install -U pip -r requirements.txt
+env:  ## Create virtual environment
+	uv venv --python ${python_version}
 
 env_remove:  ## Remove virtual environment
-	pyenv uninstall -f ${venv}
+	deactivate
+	rm -rf .venv
 
 env_from_scratch: env_remove env  ## Create environment from scratch
+
+# -----------------------------------------------------------------------------
+# Pip
+# -----------------------------------------------------------------------------
+
+pip_install:  ## Install requirements
+	uv pip install -U pip
+	uv pip install .
 
 # -----------------------------------------------------------------------------
 # Cookiecutter

@@ -1,7 +1,11 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 FROM node:20-bullseye-slim
 =======
 FROM docker.io/node:22-bookworm-slim
+>>>>>>> master
+=======
+FROM docker.io/node:22.14-bookworm-slim
 >>>>>>> master
 
 WORKDIR /app

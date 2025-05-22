@@ -107,7 +107,7 @@ select = [
   "SLOT",
   "SIM",
   "TID",
-  "TCH",
+  "TC",
   "INT",
   # "ARG", # Unused function argument
   "PTH",
@@ -133,10 +133,17 @@ ignore = [
           # Deactivated because it can make the code slow:
           # https://github.com/astral-sh/ruff/issues/7871
 ]
+# Project specifc ignore
+extend-ignore = [
+  "ERA001", # Commented out code is ok here
+  # "COM812", # Recommended from ruff
+  # "ISC001", # Recommended from ruff
+]
+
 # The fixes in extend-unsafe-fixes will require
 # provide the `--unsafe-fixes` flag when fixing.
 extend-unsafe-fixes = [
-    "UP038",
+  "UP038",
 ]
 
 [tool.ruff.lint.isort]

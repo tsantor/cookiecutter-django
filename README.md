@@ -13,13 +13,13 @@ Powered by [Cookiecutter](https://github.com/cookiecutter/cookiecutter), Cookiec
 production-ready Django projects quickly.
 
 - Documentation: <https://cookiecutter-django.readthedocs.io/en/latest/>
-- See [Troubleshooting](https://cookiecutter-django.readthedocs.io/en/latest/troubleshooting.html) for common errors and obstacles
+- See [Troubleshooting](https://cookiecutter-django.readthedocs.io/en/latest/5-help/troubleshooting.html) for common errors and obstacles
 - If you have problems with Cookiecutter Django, please open [issues](https://github.com/cookiecutter/cookiecutter-django/issues/new) don't send
   emails to the maintainers.
 
 ## Features
 
-- For Django 5.0
+- For Django 5.1
 - Works with Python 3.12
 - Renders Django projects with 100% starting test coverage
 - Twitter [Bootstrap](https://github.com/twbs/bootstrap) v5
@@ -51,7 +51,7 @@ _These features can be enabled during initial project setup._
 ## Constraints
 
 - Only maintained 3rd party libraries are used.
-- Uses PostgreSQL everywhere: 12 - 16 ([MySQL fork](https://github.com/mabdullahadeel/cookiecutter-django-mysql) also available).
+- Uses PostgreSQL everywhere: 13 - 16 ([MySQL fork](https://github.com/mabdullahadeel/cookiecutter-django-mysql) also available).
 - Environment variables for configuration (This won't work with Apache/mod_wsgi).
 
 ## Support this Project!
@@ -94,7 +94,7 @@ You'll be prompted for some values. Provide them, then a Django project will be 
 
 **Warning**: After this point, change 'Daniel Greenfeld', 'pydanny', etc to your own information.
 
-Answer the prompts with your own desired [options](http://cookiecutter-django.readthedocs.io/en/latest/project-generation-options.html). For example:
+Answer the prompts with your own desired [options](http://cookiecutter-django.readthedocs.io/en/latest/1-getting-started/project-generation-options.html). For example:
 
     Cloning into 'cookiecutter-django'...
     remote: Counting objects: 550, done.
@@ -133,8 +133,7 @@ Answer the prompts with your own desired [options](http://cookiecutter-django.re
     2 - 15
     3 - 14
     4 - 13
-    5 - 12
-    Choose from 1, 2, 3, 4, 5 [1]: 1
+    Choose from 1, 2, 3, 4 [1]: 1
     Select cloud_provider:
     1 - AWS
     2 - GCP
@@ -190,8 +189,8 @@ Now take a look at your repo. Don't forget to carefully look at the generated RE
 
 For local development, see the following:
 
-- [Developing locally](http://cookiecutter-django.readthedocs.io/en/latest/developing-locally.html)
-- [Developing locally using docker](http://cookiecutter-django.readthedocs.io/en/latest/developing-locally-docker.html)
+- [Developing locally](https://cookiecutter-django.readthedocs.io/en/latest/2-local-development/developing-locally.html)
+- [Developing locally using docker](https://cookiecutter-django.readthedocs.io/en/latest/2-local-development/developing-locally-docker.html)
 
 ## Community
 

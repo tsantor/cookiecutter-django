@@ -1,6 +1,7 @@
 import datetime as dt
 import os
 import re
+import subprocess
 from collections.abc import Iterable
 from pathlib import Path
 
@@ -47,12 +48,16 @@ def main() -> None:
     print(f"Wrote {changelog_path}")
 
     # Update version
-    setup_py_path = ROOT / "setup.py"
+    setup_py_path = ROOT / "pyproject.toml"
     update_version(setup_py_path, release)
     print(f"Updated version in {setup_py_path}")
 
+    # Run uv lock
+    uv_lock_path = ROOT / "uv.lock"
+    subprocess.run(["uv", "lock", "--no-upgrade"], cwd=ROOT)
+
     # Commit changes, create tag and push
-    update_git_repo([changelog_path, setup_py_path], release)
+    update_git_repo([changelog_path, setup_py_path, uv_lock_path], release)
 
     # Create GitHub release
     github_release = repo.create_git_release(
@@ -124,7 +129,7 @@ def write_changelog(file_path: Path, release: str, content: str) -> None:
 
 
 def update_version(file_path: Path, release: str) -> None:
-    """Update template version in setup.py."""
+    """Update template version in pyproject.toml."""
     old_content = file_path.read_text()
     updated_content = re.sub(
         r'\nversion = "\d+\.\d+\.\d+"\n',

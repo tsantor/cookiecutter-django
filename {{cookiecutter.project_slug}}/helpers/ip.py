@@ -1,8 +1,6 @@
 import functools
 import ipaddress
 import logging
-from abc import ABC
-from abc import abstractmethod
 
 import requests
 from django.conf import settings
@@ -13,14 +11,31 @@ from requests.exceptions import JSONDecodeError
 logger = logging.getLogger(__name__)
 
 
-class GeoLocationAPI(ABC):
-    @abstractmethod
-    def get_ip_info(self, ip_address: str) -> dict:
-        pass
+@functools.lru_cache(maxsize=1024)
+def get_ip_info(ip_address: str) -> dict:
+    """
+    Use 3rd party API to obtain Geolocation data from a given IP.
 
+    Args:
+        ip_address (str): The IP address to get information about.
 
-class IPStackAPI(GeoLocationAPI):
-    def get_ip_info(self, ip_address: str) -> dict:
+    Returns:
+        dict: A dictionary containing the information about the IP address,
+              or an empty dictionary if the IP address is internal or the API
+              response is not valid JSON.
+    """
+
+    if not settings.IPSTACK_ACCESS_KEY:
+        logger.warning("IPSTACK_ACCESS_KEY is not set.")
+        return {}
+
+    merged_ips = list(set(settings.INTERNAL_IPS) | set(settings.IPSTACK_IGNORE_IPS))
+
+    if not ip_address or ip_address in merged_ips or is_private_ip(ip_address):
+        logger.warning("IP address is internal or ignored: %s", ip_address)
+        return {}
+
+    try:
         params = {
             "fields": "main",
             "hostname": 1,
@@ -36,32 +51,6 @@ class IPStackAPI(GeoLocationAPI):
             return r.json()
         except JSONDecodeError:
             return {}
-
-
-@functools.lru_cache(maxsize=1024)
-def get_ip_info(ip_address: str, api: GeoLocationAPI) -> dict:
-    """
-    Use 3rd party API to obtain Geolocation data from a given IP.
-
-    Args:
-        ip_address (str): The IP address to get information about.
-        api (GeoLocationAPI): The API to use to get the IP info.
-
-    Returns:
-        dict: A dictionary containing the information about the IP address,
-        or an empty dictionary if the IP address is internal or the API response
-        is not valid JSON.
-    """
-    if (
-        not ip_address
-        or ip_address in settings.INTERNAL_IPS
-        or is_private_ip(ip_address)
-    ):
-        logger.warning("IP address is internal: %s", ip_address)
-        return {}
-
-    try:
-        return api.get_ip_info(ip_address)
     except Exception as e:  # noqa: BLE001
         logger.warning("Could not get IP info from API: %s", str(e))
         return {}

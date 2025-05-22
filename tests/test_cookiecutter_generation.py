@@ -2,6 +2,8 @@ import glob
 import os
 import re
 import sys
+from collections.abc import Iterable
+from pathlib import Path
 
 import pytest
 
@@ -61,7 +63,6 @@ SUPPORTED_COMBINATIONS = [
     {"postgresql_version": "15"},
     {"postgresql_version": "14"},
     {"postgresql_version": "13"},
-    {"postgresql_version": "12"},
     {"cloud_provider": "AWS", "use_whitenoise": "y"},
     {"cloud_provider": "AWS", "use_whitenoise": "n"},
     {"cloud_provider": "GCP", "use_whitenoise": "y"},
@@ -168,23 +169,19 @@ def _fixture_id(ctx):
     return "-".join(f"{key}:{value}" for key, value in ctx.items())
 
 
-def build_files_list(base_dir):
+def build_files_list(base_path: Path):
     """Build a list containing absolute paths to the generated files."""
-    return [
-        os.path.join(dirpath, file_path)
-        for dirpath, subdirs, files in os.walk(base_dir)
-        for file_path in files
-    ]
+    return [dirpath / file_path for dirpath, subdirs, files in base_path.walk() for file_path in files]
 
 
-def check_paths(paths):
+def check_paths(paths: Iterable[Path]):
     """Method to check all paths have correct substitutions."""
     # Assert that no match is found in any of the files
     for path in paths:
-        if is_binary(path):
+        if is_binary(str(path)):
             continue
 
-        for line in open(path):
+        for line in path.open():
             match = RE_OBJ.search(line)
             assert match is None, f"cookiecutter variable not replaced in {path}"
 
@@ -199,7 +196,7 @@ def test_project_generation(cookies, context, context_override):
     assert result.project_path.name == context["project_slug"]
     assert result.project_path.is_dir()
 
-    paths = build_files_list(str(result.project_path))
+    paths = build_files_list(result.project_path)
     assert paths
     check_paths(paths)
 
@@ -251,9 +248,7 @@ def test_django_upgrade_passes(cookies, context_override):
 
     python_files = [
         file_path.removeprefix(f"{result.project_path}/")
-        for file_path in glob.glob(
-            str(result.project_path / "**" / "*.py"), recursive=True
-        )
+        for file_path in glob.glob(str(result.project_path / "**" / "*.py"), recursive=True)
     ]
     try:
         sh.django_upgrade(
@@ -299,7 +294,7 @@ def test_djlint_check_passes(cookies, context_override):
 
 
 @pytest.mark.parametrize(
-    ["use_docker", "expected_test_script"],
+    ("use_docker", "expected_test_script"),
     [
         ("n", "pytest"),
         ("y", "docker compose -f docker-compose.local.yml run django pytest"),
@@ -314,7 +309,7 @@ def test_travis_invokes_pytest(cookies, context, use_docker, expected_test_scrip
     assert result.project_path.name == context["project_slug"]
     assert result.project_path.is_dir()
 
-    with open(f"{result.project_path}/.travis.yml") as travis_yml:
+    with (result.project_path / ".travis.yml").open() as travis_yml:
         try:
             yml = yaml.safe_load(travis_yml)["jobs"]["include"]
             assert yml[0]["script"] == ["ruff check ."]
@@ -324,15 +319,13 @@ def test_travis_invokes_pytest(cookies, context, use_docker, expected_test_scrip
 
 
 @pytest.mark.parametrize(
-    ["use_docker", "expected_test_script"],
+    ("use_docker", "expected_test_script"),
     [
         ("n", "pytest"),
         ("y", "docker compose -f docker-compose.local.yml run django pytest"),
     ],
 )
-def test_gitlab_invokes_precommit_and_pytest(
-    cookies, context, use_docker, expected_test_script
-):
+def test_gitlab_invokes_precommit_and_pytest(cookies, context, use_docker, expected_test_script):
     context.update({"ci_tool": "Gitlab", "use_docker": use_docker})
     result = cookies.bake(extra_context=context)
 
@@ -341,11 +334,11 @@ def test_gitlab_invokes_precommit_and_pytest(
     assert result.project_path.name == context["project_slug"]
     assert result.project_path.is_dir()
 
-    with open(f"{result.project_path}/.gitlab-ci.yml") as gitlab_yml:
+    with (result.project_path / ".gitlab-ci.yml").open() as gitlab_yml:
         try:
             gitlab_config = yaml.safe_load(gitlab_yml)
             assert gitlab_config["precommit"]["script"] == [
-                "pre-commit run --show-diff-on-failure --color=always --all-files"
+                "pre-commit run --show-diff-on-failure --color=always --all-files",
             ]
             assert gitlab_config["pytest"]["script"] == [expected_test_script]
         except yaml.YAMLError as e:
@@ -353,15 +346,13 @@ def test_gitlab_invokes_precommit_and_pytest(
 
 
 @pytest.mark.parametrize(
-    ["use_docker", "expected_test_script"],
+    ("use_docker", "expected_test_script"),
     [
         ("n", "pytest"),
         ("y", "docker compose -f docker-compose.local.yml run django pytest"),
     ],
 )
-def test_github_invokes_linter_and_pytest(
-    cookies, context, use_docker, expected_test_script
-):
+def test_github_invokes_linter_and_pytest(cookies, context, use_docker, expected_test_script):
     context.update({"ci_tool": "Github", "use_docker": use_docker})
     result = cookies.bake(extra_context=context)
 
@@ -370,7 +361,7 @@ def test_github_invokes_linter_and_pytest(
     assert result.project_path.name == context["project_slug"]
     assert result.project_path.is_dir()
 
-    with open(f"{result.project_path}/.github/workflows/ci.yml") as github_yml:
+    with (result.project_path / ".github" / "workflows" / "ci.yml").open() as github_yml:
         try:
             github_config = yaml.safe_load(github_yml)
             linter_present = False
@@ -410,7 +401,7 @@ def test_error_if_incompatible(cookies, context, invalid_context):
 
 
 @pytest.mark.parametrize(
-    ["editor", "pycharm_docs_exist"],
+    ("editor", "pycharm_docs_exist"),
     [
         ("None", False),
         ("PyCharm", True),
@@ -421,9 +412,9 @@ def test_pycharm_docs_removed(cookies, context, editor, pycharm_docs_exist):
     context.update({"editor": editor})
     result = cookies.bake(extra_context=context)
 
-    with open(f"{result.project_path}/docs/index.rst") as f:
-        has_pycharm_docs = "pycharm/configuration" in f.read()
-        assert has_pycharm_docs is pycharm_docs_exist
+    index_rst = result.project_path / "docs" / "index.rst"
+    has_pycharm_docs = "pycharm/configuration" in index_rst.read_text()
+    assert has_pycharm_docs is pycharm_docs_exist
 
 
 def test_trim_domain_email(cookies, context):
@@ -433,7 +424,7 @@ def test_trim_domain_email(cookies, context):
             "use_docker": "y",
             "domain_name": "   example.com   ",
             "email": "  me@example.com  ",
-        }
+        },
     )
     result = cookies.bake(extra_context=context)
 

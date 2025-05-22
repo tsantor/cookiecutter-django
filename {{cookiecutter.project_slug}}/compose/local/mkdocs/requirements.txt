@@ -1,7 +1,0 @@
-mkdocs
-mkdocs-material
-fontawesome-markdown
-mkdocs-awesome-pages-plugin
-mkdocs-minify-plugin
-mkdocs-redirects
-pymdown-extensions

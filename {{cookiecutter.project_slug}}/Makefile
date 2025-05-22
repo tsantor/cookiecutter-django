@@ -21,9 +21,6 @@ help:
 # Project specific variables
 # -----------------------------------------------------------------------------
 
-python_version=3.9.11
-venv={{cookiecutter.project_slug}}_env
-
 user={{cookiecutter.project_user}}
 project_dir={{cookiecutter.project_slug}}
 project_package={{cookiecutter.project_slug}}
@@ -34,11 +31,6 @@ prod_ssh=${user}@{{cookiecutter.domain_name}}
 aws_profile=default
 s3_bucket=bucketname
 
-mutagen_sync_name={{cookiecutter.project_slug}}-code
-mutagen_forward_name={{cookiecutter.project_slug}}-port-forward
-mutagen_beta_user=tsantor@tim-macbook-ubuntu.local
-mutagen_beta_dir=~/Projects/{{cookiecutter.project_slug}}
-
 local_compose=docker compose -f docker-compose.local.yml
 staging_compose=docker-compose -f docker-compose.staging.yml
 prod_compose=docker-compose -f docker-compose.production.yml
@@ -48,11 +40,11 @@ prod_compose=docker-compose -f docker-compose.production.yml
 # Environment
 # -----------------------------------------------------------------------------
 
-env:  ## Create virtual environment (uses `pyenv`)
-	pyenv virtualenv ${python_version} ${venv} && pyenv local ${venv}
+env:  ## Create virtual environment (uses `uv`)
+	uv venv
 
 env_remove:  ## Remove virtual environment
-	pyenv uninstall -f ${venv}
+	rm -rf .venv
 
 env_from_scratch: env_remove env pip_install  ## Create environment from scratch
 
@@ -60,14 +52,20 @@ env_from_scratch: env_remove env pip_install  ## Create environment from scratch
 # Pip
 # -----------------------------------------------------------------------------
 
-pip_install:  ## Install requirements
-	python3 -m pip install -U pip wheel build ruff pre-commit && pre-commit install
+pip_install_basic: ## Install basic requirements (host machine)
+	uv pip install -U pip wheel build ruff pre-commit && pre-commit install
 
-pip_install_extra:  ## Install extra stuff
-	python3 -m pip install env-wrangler
+pip_install:  ## Install requirements
+	uv pip install --upgrade pip
+	@for file in $$(ls requirements/*.txt); do \
+		uv pip install -r $$file; \
+	done
+
+pip_install_editable:  ## Install in editable mode
+	uv pip install -e .
 
 pip_list:  ## Run pip list
-	${local_compose} exec django python -m pip list
+	${local_compose} run django python -m pip list
 
 pip_freeze:  ## Run pipfreezer freeze
 	${local_compose} exec django pipfreezer freeze  --verbose
@@ -373,41 +371,12 @@ optimize_pngs:  ## Optimize PNGs
 optimize_jpgs:  ## Optimize JPGs
 	cd ${project_dir}/static && open -a ImageOptim .
 
-count_lines:  ## Count lines of code
-	# Includes blank lines and comments
-	# find . -name '*.py' ! -path '*/migrations/*' ! -path '*/config/settings/*' | xargs wc -l
-	# No blank lines or comments
-	find . -name '*.py' ! -path '*/migrations/*' \
-		! -path '*/config/settings/*' \
-		-exec grep -vE '^\s*($$|#)' {} \; | wc -l | tr -d ' '
-
 # -----------------------------------------------------------------------------
 # Miscellaneous
 # -----------------------------------------------------------------------------
 
 tree:  ## Show directory tree
 	tree -I 'build|dist|htmlcov|node_modules|migrations|contrib|__pycache__|*.egg-info'
-
-# -----------------------------------------------------------------------------
-# Mutagen
-# -----------------------------------------------------------------------------
-
-mutagen_up:  ## Mutagen create
-	mutagen sync create --name=${mutagen_sync_name} . ${mutagen_beta_user}:${mutagen_beta_dir}
-	mutagen forward create --name=${mutagen_forward_name}p tcp:localhost:8000 ${mutagen_beta_user}:22:tcp::8000
-	mutagen forward create --name=${mutagen_forward_name} tcp:localhost:5432 ${mutagen_beta_user}:22:tcp::5432
-
-mutagen_pause:  ## Mutagen pause
-	mutagen sync pause ${mutagen_sync_name}
-	mutagen forward pause ${mutagen_forward_name}
-
-mutagen_resume:  ## Mutagen resume
-	mutagen sync resume ${mutagen_sync_name}
-	mutagen forward resume ${mutagen_forward_name}
-
-mutagen_down:  ## Mutagen terminate
-	mutagen sync terminate ${mutagen_sync_name}
-	mutagen forward terminate ${mutagen_forward_name}
 
 # -----------------------------------------------------------------------------
 # Secrets

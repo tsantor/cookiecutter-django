@@ -202,9 +202,23 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>Alan Cyment</td>
+    <td>
+      <a href="https://github.com/acyment">acyment</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>Alberto Sanchez</td>
     <td>
       <a href="https://github.com/alb3rto">alb3rto</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Alex Kanavos</td>
+    <td>
+      <a href="https://github.com/alexkanavos">alexkanavos</a>
     </td>
     <td></td>
   </tr>
@@ -538,6 +552,13 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>Christian Jensen</td>
+    <td>
+      <a href="https://github.com/jensenbox">jensenbox</a>
+    </td>
+    <td>cjensen</td>
+  </tr>
+  <tr>
     <td>Christopher Clarke</td>
     <td>
       <a href="https://github.com/chrisdev">chrisdev</a>
@@ -720,6 +741,13 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>Denis Darii</td>
+    <td>
+      <a href="https://github.com/DNX">DNX</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>Denis Orehovsky</td>
     <td>
       <a href="https://github.com/apirobot">apirobot</a>
@@ -779,6 +807,13 @@ Listed in alphabetical order.
     <td>Dónal Adams</td>
     <td>
       <a href="https://github.com/epileptic-fish">epileptic-fish</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Ed Morley</td>
+    <td>
+      <a href="https://github.com/edmorley">edmorley</a>
     </td>
     <td></td>
   </tr>
@@ -870,6 +905,13 @@ Listed in alphabetical order.
     <td>Floyd Hightower</td>
     <td>
       <a href="https://github.com/fhightower">fhightower</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Francisco Navarro Morales </td>
+    <td>
+      <a href="https://github.com/spothound">spothound</a>
     </td>
     <td></td>
   </tr>
@@ -972,6 +1014,13 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>Hana Belay</td>
+    <td>
+      <a href="https://github.com/earthcomfy">earthcomfy</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>Hana Quadara</td>
     <td>
       <a href="https://github.com/hanaquadara">hanaquadara</a>
@@ -1052,6 +1101,13 @@ Listed in alphabetical order.
     <td>Ian Lee</td>
     <td>
       <a href="https://github.com/IanLee1521">IanLee1521</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Igor Jerosimić</td>
+    <td>
+      <a href="https://github.com/igor-wl">igor-wl</a>
     </td>
     <td></td>
   </tr>
@@ -1273,6 +1329,13 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>Kawsar Alam Foysal</td>
+    <td>
+      <a href="https://github.com/iamfoysal">iamfoysal</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>Keith Bailey</td>
     <td>
       <a href="https://github.com/keithjeb">keithjeb</a>
@@ -1413,6 +1476,13 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>LJFP</td>
+    <td>
+      <a href="https://github.com/ljfp">ljfp</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>Luis Nell</td>
     <td>
       <a href="https://github.com/originell">originell</a>
@@ -1465,6 +1535,20 @@ Listed in alphabetical order.
     <td>Marios Frixou</td>
     <td>
       <a href="https://github.com/frixou89">frixou89</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Mariot Tsitoara</td>
+    <td>
+      <a href="https://github.com/mariot">mariot</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Marlon Castillo</td>
+    <td>
+      <a href="https://github.com/mcastle">mcastle</a>
     </td>
     <td></td>
   </tr>
@@ -1840,9 +1924,23 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>Pulse-Mind</td>
+    <td>
+      <a href="https://github.com/pulse-mind">pulse-mind</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>quroom</td>
     <td>
       <a href="https://github.com/quroom">quroom</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>qwerrrqw</td>
+    <td>
+      <a href="https://github.com/qwerrrqw">qwerrrqw</a>
     </td>
     <td></td>
   </tr>
@@ -1920,6 +2018,13 @@ Listed in alphabetical order.
     <td>Russell Davies</td>
     <td>
       <a href="https://github.com/"></a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>rxm7706</td>
+    <td>
+      <a href="https://github.com/rxm7706">rxm7706</a>
     </td>
     <td></td>
   </tr>
