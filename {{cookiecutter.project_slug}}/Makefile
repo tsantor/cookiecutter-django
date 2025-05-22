@@ -21,9 +21,6 @@ help:
 # Project specific variables
 # -----------------------------------------------------------------------------
 
-python_version=3.12.9
-venv={{cookiecutter.project_slug}}_env
-
 user={{cookiecutter.project_user}}
 project_dir={{cookiecutter.project_slug}}
 project_package={{cookiecutter.project_slug}}
@@ -33,11 +30,6 @@ prod_ssh=${user}@{{cookiecutter.domain_name}}
 
 aws_profile=default
 s3_bucket=bucketname
-
-mutagen_sync_name={{cookiecutter.project_slug}}-code
-mutagen_forward_name={{cookiecutter.project_slug}}-port-forward
-mutagen_beta_user=tsantor@tim-macbook-ubuntu.local
-mutagen_beta_dir=~/Projects/{{cookiecutter.project_slug}}
 
 local_compose=docker compose -f docker-compose.local.yml
 staging_compose=docker-compose -f docker-compose.staging.yml
@@ -49,7 +41,7 @@ prod_compose=docker-compose -f docker-compose.production.yml
 # -----------------------------------------------------------------------------
 
 env:  ## Create virtual environment (uses `uv`)
-	uv venv --python ${python_version}
+	uv venv
 
 env_remove:  ## Remove virtual environment
 	rm -rf .venv
@@ -379,41 +371,12 @@ optimize_pngs:  ## Optimize PNGs
 optimize_jpgs:  ## Optimize JPGs
 	cd ${project_dir}/static && open -a ImageOptim .
 
-count_lines:  ## Count lines of code
-	# Includes blank lines and comments
-	# find . -name '*.py' ! -path '*/migrations/*' ! -path '*/config/settings/*' | xargs wc -l
-	# No blank lines or comments
-	find . -name '*.py' ! -path '*/migrations/*' \
-		! -path '*/config/settings/*' \
-		-exec grep -vE '^\s*($$|#)' {} \; | wc -l | tr -d ' '
-
 # -----------------------------------------------------------------------------
 # Miscellaneous
 # -----------------------------------------------------------------------------
 
 tree:  ## Show directory tree
 	tree -I 'build|dist|htmlcov|node_modules|migrations|contrib|__pycache__|*.egg-info'
-
-# -----------------------------------------------------------------------------
-# Mutagen
-# -----------------------------------------------------------------------------
-
-mutagen_up:  ## Mutagen create
-	mutagen sync create --name=${mutagen_sync_name} . ${mutagen_beta_user}:${mutagen_beta_dir}
-	mutagen forward create --name=${mutagen_forward_name}p tcp:localhost:8000 ${mutagen_beta_user}:22:tcp::8000
-	mutagen forward create --name=${mutagen_forward_name} tcp:localhost:5432 ${mutagen_beta_user}:22:tcp::5432
-
-mutagen_pause:  ## Mutagen pause
-	mutagen sync pause ${mutagen_sync_name}
-	mutagen forward pause ${mutagen_forward_name}
-
-mutagen_resume:  ## Mutagen resume
-	mutagen sync resume ${mutagen_sync_name}
-	mutagen forward resume ${mutagen_forward_name}
-
-mutagen_down:  ## Mutagen terminate
-	mutagen sync terminate ${mutagen_sync_name}
-	mutagen forward terminate ${mutagen_forward_name}
 
 # -----------------------------------------------------------------------------
 # Secrets

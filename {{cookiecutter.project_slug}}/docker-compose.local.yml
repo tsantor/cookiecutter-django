@@ -57,18 +57,6 @@ services:
       - "7000:7000"  # 9000:9000
     command: /start-docs
 
-  mkdocs:
-    image: {{ cookiecutter.project_slug }}_local_mkdocs
-    container_name: {{ cookiecutter.project_slug }}_local_mkdocs
-    build:
-      context: .
-      dockerfile: ./compose/local/mkdocs/Dockerfile
-    volumes:
-      - ./mkdocs:/mkdocs
-    ports:
-      - '8001:8001'
-    # command: /start-docs
-    command: serve -a 0.0.0.0:8001
   {%- if cookiecutter.use_mailpit == 'y' %}
 
   mailpit:
