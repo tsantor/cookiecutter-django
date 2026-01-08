@@ -14,13 +14,6 @@ from drf_spectacular.views import SpectacularAPIView
 from drf_spectacular.views import SpectacularSwaggerView
 from rest_framework.authtoken.views import obtain_auth_token
 {%- endif %}
-{%- if cookiecutter.use_simplejwt == "y" %}
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-    TokenVerifyView,
-)
-{%- endif %}
 
 admin.site.site_title = "{{ cookiecutter.project_name }}"
 admin.site.site_header = "{{ cookiecutter.project_name }}"
@@ -56,11 +49,6 @@ urlpatterns += [
     path("api/", include("config.api_router")),
     {%- if cookiecutter.use_oauth == "y" %}
     path("o/", include("oauth2_provider.urls", namespace="oauth2_provider")),
-    {%- endif %}
-    {% if cookiecutter.use_simplejwt == "y" -%}
-    path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
-    path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
-    path("token/verify/", TokenVerifyView.as_view(), name="token_verify"),
     {%- endif %}
     # DRF auth token
     path("api/auth-token/", obtain_auth_token, name="obtain_auth_token"),

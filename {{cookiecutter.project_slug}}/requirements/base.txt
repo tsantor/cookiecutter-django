@@ -64,9 +64,6 @@ django-oauth-toolkit
 {%- if cookiecutter.use_robots == "y" %}
 django-robots
 {%- endif %}
-{%- if cookiecutter.use_simplejwt == "y" %}
-djangorestframework-simplejwt
-{%- endif %}
 {%- if cookiecutter.use_drf_api_logger == "y" %}
 drf-api-logger
 {%- endif %}

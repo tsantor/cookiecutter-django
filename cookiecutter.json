@@ -40,7 +40,6 @@
   "use_sentry": "n",
   "use_whitenoise": "n",
   "use_heroku": "n",
-  "use_simplejwt": "n",
   "use_oauth": "y",
   "use_mosquitto": "n",
   "use_django_auditlog": "n",

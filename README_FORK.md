@@ -38,7 +38,6 @@ These features can be enabled during initial project setup.
 - `django-oauth-toolkit` package
 - `django-perm-filter` package
 - `django-robots` package
-- `djangorestframework-simplejwt` package
 - `drf-api-logger` package
 
 ## Usage

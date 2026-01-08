@@ -1,9 +1,6 @@
 # ruff: noqa: ERA001, E501
 """Base settings to build other settings files upon."""
 import re
-{%- if cookiecutter.use_simplejwt == "y" %}
-from datetime import timedelta
-{%- endif %}
 
 {% if cookiecutter.use_celery == 'y' -%}
 import ssl
@@ -109,9 +106,6 @@ THIRD_PARTY_APPS = [
     "webpack_loader",
 {%- endif %}
     # Forked additions
-{%- if cookiecutter.use_simplejwt == "y" %}
-    "rest_framework_simplejwt",
-{%- endif %}
 {%- if cookiecutter.use_celery == 'y' %}
     "django_celery_results",
 {%- endif %}
@@ -442,9 +436,6 @@ REST_FRAMEWORK = {
         {%- endif %}
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
-        {%- if cookiecutter.use_simplejwt == "y" %}
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
-        {%- endif %}
     ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
@@ -489,14 +480,6 @@ WEBPACK_LOADER = {
 # ------------------------------------------------------------------------------
 # FORKED ADDITIONS - keeps diffs minimal
 # ------------------------------------------------------------------------------
-{%- if cookiecutter.use_simplejwt == "y" %}
-# https://django-rest-framework-simplejwt.readthedocs.io/en/latest/settings.htm
-SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
-    "UPDATE_LAST_LOGIN": True,
-}
-{%- endif %}
 
 # CSRF
 # ------------------------------------------------------------------------------
