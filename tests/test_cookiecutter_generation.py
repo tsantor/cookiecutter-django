@@ -111,8 +111,6 @@ SUPPORTED_COMBINATIONS = [
     {"use_async": "n"},
     {"use_drf": "y"},
     {"use_drf": "n"},
-    {"use_dj_rest_auth": "y"},
-    {"use_dj_rest_auth": "n"},
     {"use_simplejwt": "y"},
     {"use_simplejwt": "n"},
     {"js_task_runner": "None"},

@@ -3,6 +3,7 @@
 This forked version of the [cookiecutter-django](https://github.com/cookiecutter/cookiecutter-django) repo retains all the features of that repo and adds additional optional features to get started on more complex projects quickly. This is a **VERY OPINIONATED** fork so be aware.
 
 ## Features
+
 - Makefile with tons of helpful commands
 - Custom AdminSite class
 - Custom Storage classes
@@ -11,6 +12,7 @@ This forked version of the [cookiecutter-django](https://github.com/cookiecutter
 - Simple Mixins
 
 ## Features if Docker option used:
+
 - Bash Utility Scripts
   - Create User
   - Install Docker
@@ -23,13 +25,14 @@ This forked version of the [cookiecutter-django](https://github.com/cookiecutter
   - You will need to add your own dash (eg - Dashboard ID `XXX` Traefik official)
 
 ## Optional Integrations
+
 These features can be enabled during initial project setup.
+
 - Mosquitto service
 - Prometheus service
 - Grafana service
 - Nginx integration for static file serving (via Traefix proxy)
   - This is preferabe to `whitenoise`
-- `dj-rest-auth` package (see known issues below)
 - `django-auditlog` package
 - `django-celery-results` package
 - `django-oauth-toolkit` package
@@ -39,12 +42,15 @@ These features can be enabled during initial project setup.
 - `drf-api-logger` package
 
 ## Usage
+
 ```
 cookiecutter https://github.com/tsantor/cookiecutter-django
 ```
+
 You'll be prompted for some values. Provide them, then a Django project will be created for you.
 
 ## TODO
+
 - Need to make work with frontend pipelines other than Gulp
 - Move `api` to a package or packages
 - Move `helpers` to a package or packages

@@ -109,9 +109,6 @@ THIRD_PARTY_APPS = [
     "webpack_loader",
 {%- endif %}
     # Forked additions
-{%- if cookiecutter.use_dj_rest_auth == "y" %}
-    "dj_rest_auth",
-{%- endif %}
 {%- if cookiecutter.use_simplejwt == "y" %}
     "rest_framework_simplejwt",
 {%- endif %}
@@ -492,16 +489,6 @@ WEBPACK_LOADER = {
 # ------------------------------------------------------------------------------
 # FORKED ADDITIONS - keeps diffs minimal
 # ------------------------------------------------------------------------------
-{%- if cookiecutter.use_dj_rest_auth == "y" %}
-# dj-rest-auth https://dj-rest-auth.readthedocs.io/en/latest/configuration.html
-# -------------------------------------------------------------------------------
-REST_AUTH = {
-    'USE_JWT': True,
-    'JWT_AUTH_COOKIE': 'jwt-auth',
-    # "USER_DETAILS_SERIALIZER": "django_spaday.api.serializers.UserAuthSerializer",
-}
-{%- endif %}
-
 {%- if cookiecutter.use_simplejwt == "y" %}
 # https://django-rest-framework-simplejwt.readthedocs.io/en/latest/settings.htm
 SIMPLE_JWT = {

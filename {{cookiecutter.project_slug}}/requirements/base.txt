@@ -52,9 +52,6 @@ django-webpack-loader==3.2.3  # https://github.com/django-webpack/django-webpack
 
 # My forked additions
 # ------------------------------------------------------------------------------
-{%- if cookiecutter.use_dj_rest_auth == "y" %}
-dj-rest-auth
-{%- endif %}
 {%- if cookiecutter.use_django_auditlog == "y" %}
 django-auditlog
 {%- endif %}
