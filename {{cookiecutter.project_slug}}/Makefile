@@ -53,7 +53,7 @@ env_from_scratch: env_remove env pip_install  ## Create environment from scratch
 # -----------------------------------------------------------------------------
 
 pip_install_basic: ## Install basic requirements (host machine)
-	uv pip install -U pip wheel build ruff pre-commit && pre-commit install
+	uv pip install -U pip wheel build ruff tableplus-db-urls pre-commit && pre-commit install
 
 pip_install:  ## Install requirements
 	uv pip install --upgrade pip
@@ -427,6 +427,6 @@ rsync_to_prod:  ## Rsync to prod (for down n' dirty testing)
 # -----------------------------------------------------------------------------
 
 tableplus_urls:	## Output connection URLs for use in TablePlus
-	tableplus generate --path="." --ssh-user="{{cookiecutter.project_user}}" --ssh-host="{{cookiecutter.domain_name}}"
+	tableplus generate --name="{{cookiecutter.project_slug}}" --path="." --ssh-user="{{cookiecutter.project_user}}" --ssh-host="{{cookiecutter.domain_name}}"
 
 # Add your project specific commands here

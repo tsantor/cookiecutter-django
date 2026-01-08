@@ -201,6 +201,9 @@ MIDDLEWARE = [
 {%- endif %}
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+{%- if cookiecutter.use_django_auditlog == "y" %}
+    "auditlog.middleware.AuditlogMiddleware",
+{%- endif %}
     "allauth.account.middleware.AccountMiddleware",
 {%- if cookiecutter.use_drf_api_logger == "y" %}
     "drf_api_logger.middleware.api_logger_middleware.APILoggerMiddleware",

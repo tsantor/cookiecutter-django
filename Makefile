@@ -21,22 +21,19 @@ help:
 # Variables
 # -----------------------------------------------------------------------------
 
-python_version=3.13.1
-
 BAKE_OPTIONS=--no-input
 
 # -----------------------------------------------------------------------------
 # Environment
 # -----------------------------------------------------------------------------
 
-env:  ## Create virtual environment
-	uv venv --python ${python_version}
+env:  ## Create virtual environment (uses `uv`)
+	uv venv
 
 env_remove:  ## Remove virtual environment
-	deactivate
 	rm -rf .venv
 
-env_from_scratch: env_remove env  ## Create environment from scratch
+env_from_scratch: env_remove env pip_install  ## Create environment from scratch
 
 # -----------------------------------------------------------------------------
 # Pip
@@ -44,7 +41,6 @@ env_from_scratch: env_remove env  ## Create environment from scratch
 
 pip_install:  ## Install requirements
 	uv pip install -U pip
-	uv pip install .
 
 # -----------------------------------------------------------------------------
 # Cookiecutter
