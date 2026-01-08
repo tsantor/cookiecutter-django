@@ -552,6 +552,13 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>Christian González</td>
+    <td>
+      <a href="https://github.com/nerdoc">nerdoc</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>Christian Jauvin</td>
     <td>
       <a href="https://github.com/cjauvin">cjauvin</a>
@@ -769,6 +776,13 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>DevForsure</td>
+    <td>
+      <a href="https://github.com/DevForsure">DevForsure</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>Diane Chen</td>
     <td>
       <a href="https://github.com/purplediane">purplediane</a>
@@ -793,6 +807,13 @@ Listed in alphabetical order.
     <td>Dong Huynh</td>
     <td>
       <a href="https://github.com/trungdong">trungdong</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Donghoon Nam</td>
+    <td>
+      <a href="https://github.com/codenamenam">codenamenam</a>
     </td>
     <td></td>
   </tr>
@@ -1063,6 +1084,13 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>Harshit Ranjan</td>
+    <td>
+      <a href="https://github.com/HarshitR2004">HarshitR2004</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>Haseeb ur Rehman</td>
     <td>
       <a href="https://github.com/professorhaseeb">professorhaseeb</a>
@@ -1266,6 +1294,13 @@ Listed in alphabetical order.
     <td>afrowave</td>
   </tr>
   <tr>
+    <td>jlitrell</td>
+    <td>
+      <a href="https://github.com/jlitrell">jlitrell</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>John</td>
     <td>
       <a href="https://github.com/thorrak">thorrak</a>
@@ -1304,6 +1339,13 @@ Listed in alphabetical order.
     <td>Joseph Hanna</td>
     <td>
       <a href="https://github.com/sanchimenea">sanchimenea</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Josh596</td>
+    <td>
+      <a href="https://github.com/Josh596">Josh596</a>
     </td>
     <td></td>
   </tr>
@@ -1511,6 +1553,13 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>Lucas Klasa</td>
+    <td>
+      <a href="https://github.com/lucaskbr">lucaskbr</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>Luis Nell</td>
     <td>
       <a href="https://github.com/originell">originell</a>
@@ -1591,6 +1640,13 @@ Listed in alphabetical order.
     <td>Martin Saizar</td>
     <td>
       <a href="https://github.com/msaizar">msaizar</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Martín Blech</td>
+    <td>
+      <a href="https://github.com/martinblech">martinblech</a>
     </td>
     <td></td>
   </tr>
@@ -1679,6 +1735,13 @@ Listed in alphabetical order.
     <td>MatzeOne</td>
   </tr>
   <tr>
+    <td>Maurício Gioachini</td>
+    <td>
+      <a href="https://github.com/MauGx3">MauGx3</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>Meghan Heintz</td>
     <td>
       <a href="https://github.com/dot2dotseurat">dot2dotseurat</a>
@@ -1745,6 +1808,13 @@ Listed in alphabetical order.
     <td>MinWoo Sung</td>
     <td>
       <a href="https://github.com/SungMinWoo">SungMinWoo</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Mohamed Feddad</td>
+    <td>
+      <a href="https://github.com/mrf345">mrf345</a>
     </td>
     <td></td>
   </tr>
@@ -2120,6 +2190,13 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>Soldatov Serhii</td>
+    <td>
+      <a href="https://github.com/soldatov-ss">soldatov-ss</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>Sorasful</td>
     <td>
       <a href="https://github.com/sorasful">sorasful</a>
@@ -2274,6 +2351,13 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>Tosinibikunle</td>
+    <td>
+      <a href="https://github.com/Tosinibikunle">Tosinibikunle</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>Travis McNeill</td>
     <td>
       <a href="https://github.com/Travistock">Travistock</a>
@@ -2333,6 +2417,13 @@ Listed in alphabetical order.
     <td>villancikos</td>
     <td>
       <a href="https://github.com/villancikos">villancikos</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Vincent Leduc</td>
+    <td>
+      <a href="https://github.com/leducvin">leducvin</a>
     </td>
     <td></td>
   </tr>

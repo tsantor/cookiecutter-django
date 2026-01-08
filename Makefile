@@ -72,7 +72,7 @@ preview_upstream:  ## Preview changes from upstream
 merge_upstream:  ## Merge upstream changes into master
 	git fetch upstream
 	git checkout master
-	git merge upstream/master
+	git merge upstream/main
 
 # -----------------------------------------------------------------------------
 # Testing
