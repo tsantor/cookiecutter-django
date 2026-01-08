@@ -23,6 +23,10 @@
   <meta name="author"
         content="{% endraw %}{{ cookiecutter.author_name }}{% raw %}" />
   <link rel="icon" href="{% static 'images/favicons/favicon.ico' %}" />
+  {% block extrahead %}
+    {{ block.super }}
+    {% include "includes/favicons.html" %}
+  {% endblock extrahead %}
   {% block css %}
   {%- endraw %}
   {%- if cookiecutter.frontend_pipeline in ['None', 'Django Compressor'] %}

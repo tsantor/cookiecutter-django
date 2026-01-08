@@ -1,8 +1,11 @@
 {% raw %}{% extends "admin/base.html" %}
 {% load i18n static %}
+{% load render_bundle from webpack_loader %}
 
 {% block extrahead %}
     {% include "includes/favicons.html" %}
+    {{ block.super }}
+    {% render_bundle 'admin_custom' 'css' %}
 {% endblock extrahead %}
 
 {% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock title %}

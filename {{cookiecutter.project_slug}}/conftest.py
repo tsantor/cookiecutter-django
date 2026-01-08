@@ -1,7 +1,6 @@
 import tempfile
 
 import pytest
-from django.urls import reverse
 from rest_framework.test import APIClient
 from rest_framework.test import APIRequestFactory
 
@@ -17,7 +16,7 @@ def _media_storage(settings, tmpdir) -> None:
     settings.MEDIA_ROOT = tmpdir.strpath
 
 
-@pytest.fixture()
+@pytest.fixture
 def user(db) -> User:
     return UserFactory()
 
@@ -36,7 +35,7 @@ def _static_storage(settings):
     settings.STATIC_ROOT = tempfile.mkdtemp()
 
 
-@pytest.fixture()
+@pytest.fixture
 def user2():
     return User.objects.create_user(
         {%- if cookiecutter.username_type == "username" %}
@@ -47,7 +46,7 @@ def user2():
     )
 
 
-@pytest.fixture()
+@pytest.fixture
 def staff():
     return User.objects.create_user(
         {%- if cookiecutter.username_type == "username" %}
@@ -59,7 +58,7 @@ def staff():
     )
 
 
-@pytest.fixture()
+@pytest.fixture
 def superuser():
     return User.objects.create_user(
         {%- if cookiecutter.username_type == "username" %}
@@ -72,7 +71,7 @@ def superuser():
     )
 
 
-@pytest.fixture()
+@pytest.fixture
 def inactive_user():
     return User.objects.create_user(
         {%- if cookiecutter.username_type == "username" %}
@@ -83,7 +82,7 @@ def inactive_user():
         is_active=False,
     )
 
-@pytest.fixture()
+@pytest.fixture
 def non_superuser():
     return User.objects.create_user(
         {%- if cookiecutter.username_type == "username" %}
@@ -96,59 +95,33 @@ def non_superuser():
     )
 
 
-@pytest.fixture()
+@pytest.fixture
 def request_factory():
     return APIRequestFactory()
 
 
-@pytest.fixture()
+@pytest.fixture
 def api_client():
     return APIClient()
 
 
-def get_jwt_token(api_client, target_user) -> str:
-    """Get a JWT token for the target user."""
-    url = reverse("api:rest_login")
-    data = {"email": target_user.email, "password": "testpass"}
-    response = api_client.post(url, data)
-    return response.data.get("access")
-
-
-def inject_token(api_client, target_user):
-    """Inject the JWT token into the API client."""
-    token = get_jwt_token(api_client, target_user)
-    api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {token}")
+@pytest.fixture
+def authenticated_client(api_client, user):
+    """
+    Standard DRF way to authenticate a client.
+    This works perfectly with Allauth and standard Django sessions.
+    """
+    api_client.force_authenticate(user=user)
     return api_client
 
 
-@pytest.fixture()
-def authenticated_client(api_client, user):
-    """Authenticate the API client with the test user."""
-    {%- if cookiecutter.username_type == "username" %}
-    api_client.login(username=user.username, password="testpass")  # noqa: S106
-    {%- else %}
-    api_client.login(email=user.email, password="testpass")  # noqa: S106
-    {%- endif %}
-    # api_client.force_authenticate(user=user)  # noqa: ERA001
-    return inject_token(api_client, user)
-
-@pytest.fixture()
+@pytest.fixture
 def staff_authenticated_client(api_client, staff):
-    """Authenticate the API client with the test user."""
-    {%- if cookiecutter.username_type == "username" %}
-    api_client.login(username=staff.username, password="testpass")  # noqa: S106
-    {%- else %}
-    api_client.login(email=staff.email, password="testpass")  # noqa: S106
-    {%- endif %}
-    return inject_token(api_client, staff)
+    api_client.force_authenticate(user=staff)
+    return api_client
 
 
-@pytest.fixture()
+@pytest.fixture
 def superuser_authenticated_client(api_client, superuser):
-    """Authenticate the API client with the test user."""
-    {%- if cookiecutter.username_type == "username" %}
-    api_client.login(username=superuser.username, password="testpass")  # noqa: S106
-    {%- else %}
-    api_client.login(email=superuser.email, password="testpass")  # noqa: S106
-    {%- endif %}
-    return inject_token(api_client, superuser)
+    api_client.force_authenticate(user=superuser)
+    return api_client

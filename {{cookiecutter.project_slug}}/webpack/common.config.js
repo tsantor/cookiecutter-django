@@ -8,6 +8,7 @@ module.exports = {
   entry: {
     project: path.resolve(__dirname, '../{{cookiecutter.project_slug}}/static/js/project'),
     vendors: path.resolve(__dirname, '../{{cookiecutter.project_slug}}/static/js/vendors'),
+    admin_custom: path.resolve(__dirname, '../{{cookiecutter.project_slug}}/static/sass/django-admin.scss'),
   },
   output: {
     path: path.resolve(

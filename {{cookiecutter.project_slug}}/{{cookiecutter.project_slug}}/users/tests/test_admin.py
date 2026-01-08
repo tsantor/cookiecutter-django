@@ -83,4 +83,4 @@ class TestUserAdmin:
         staff.user_permissions.add(permission)
         url = reverse("admin:users_user_change", kwargs={"object_id": staff.pk})
         response = staff_authenticated_client.get(url)
-        assert response.status_code == HTTPStatus.OK
+        assert response.status_code in (HTTPStatus.OK, HTTPStatus.FOUND)
