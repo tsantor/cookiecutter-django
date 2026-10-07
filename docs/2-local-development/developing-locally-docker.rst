@@ -36,7 +36,7 @@ This can take a while, especially the first time you run this particular command
 
 Generally, if you want to emulate production environment use ``docker-compose.production.yml`` instead. And this is true for any other actions you might need to perform: whenever a switch is required, just do it!
 
-After we have created our initial image we nee to generate a lockfile for our dependencies.
+After we have created our initial image we need to generate a lockfile for our dependencies.
 Docker cannot write to the host system during builds, so we have to run the command to generate the lockfile in the container.
 This is important for reproducible builds and to ensure that the dependencies are installed correctly in the container.
 Updating the lockfile manually is normally not necessary when you add packages through `uv add <package_name>`.
@@ -213,16 +213,30 @@ The ``container_name`` from the yml file can be used to check on containers with
 
 Notice that the ``container_name`` is generated dynamically using your project slug as a prefix
 
-Mailpit
-~~~~~~~
+Mail catcher
+~~~~~~~~~~~~
 
-When developing locally you can go with Mailpit_ for email testing provided ``use_mailpit`` was set to ``y`` on setup. To proceed,
+Mailpit
+"""""""
+
+When developing locally you can go with Mailpit_ for email testing provided ``mail_catcher`` was set to ``Mailpit`` on setup. To proceed,
 
 #. make sure ``<project_slug>_local_mailpit`` container is up and running;
 
 #. open up ``http://127.0.0.1:8025``.
 
 .. _Mailpit: https://github.com/axllent/mailpit/
+
+Mailtrap Local
+""""""""""""""
+
+When developing locally you can go with `Mailtrap Local`_ for email testing provided ``mail_catcher`` was set to ``Mailtrap Local`` on setup. To proceed,
+
+#. make sure ``<project_slug>_local_mailtrap`` container is up and running;
+
+#. open up ``http://127.0.0.1:3550``.
+
+.. _Mailtrap Local: https://github.com/mailtrap/mailtrap-local/
 
 .. _`CeleryTasks`:
 

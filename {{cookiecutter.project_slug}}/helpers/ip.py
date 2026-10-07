@@ -1,12 +1,15 @@
 import functools
 import ipaddress
 import logging
+from typing import TYPE_CHECKING
 
 import requests
 from django.conf import settings
-from django.http import HttpRequest
 from ipware import get_client_ip
 from requests.exceptions import JSONDecodeError
+
+if TYPE_CHECKING:
+    from django.http import HttpRequest
 
 logger = logging.getLogger(__name__)
 

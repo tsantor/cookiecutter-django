@@ -55,6 +55,8 @@ SUPPORTED_COMBINATIONS = [
     {"open_source_license": "Not open source"},
     {"windows": "y"},
     {"windows": "n"},
+    # Windows without Docker and with django-compressor
+    {"windows": "y", "frontend_pipeline": "Django Compressor", "use_docker": "n"},
     {"editor": "None"},
     {"editor": "PyCharm"},
     {"editor": "VS Code"},
@@ -107,22 +109,20 @@ SUPPORTED_COMBINATIONS = [
     {"cloud_provider": "Azure", "mail_service": "Other SMTP"},
     # Note: cloud_providers GCP, Azure, and None
     # with mail_service Amazon SES is not supported
+    {"rest_api": "None"},
+    {"rest_api": "DRF"},
+    {"rest_api": "Django Ninja"},
     {"use_async": "y"},
     {"use_async": "n"},
-    {"use_drf": "y"},
-    {"use_drf": "n"},
-    {"js_task_runner": "None"},
-    {"js_task_runner": "Gulp"},
-    {"custom_bootstrap_compilation": "y"},
-    {"custom_bootstrap_compilation": "n"},
     {"frontend_pipeline": "None"},
     {"frontend_pipeline": "Django Compressor"},
     {"frontend_pipeline": "Gulp"},
     {"frontend_pipeline": "Webpack"},
     {"use_celery": "y"},
     {"use_celery": "n"},
-    {"use_mailpit": "y"},
-    {"use_mailpit": "n"},
+    {"mail_catcher": "None"},
+    {"mail_catcher": "Mailpit"},
+    {"mail_catcher": "Mailtrap Local"},
     {"use_sentry": "y"},
     {"use_sentry": "n"},
     {"use_whitenoise": "y"},
@@ -410,6 +410,26 @@ def test_pycharm_docs_removed(cookies, context, editor, pycharm_docs_exist):
     assert has_pycharm_docs is pycharm_docs_exist
 
 
+@pytest.mark.parametrize(
+    ("frontend_pipeline", "package_jsons_exist"),
+    [
+        ("None", False),
+        ("Django Compressor", False),
+        ("Gulp", True),
+        ("Webpack", True),
+    ],
+)
+def test_package_jsons_removed(cookies, context, frontend_pipeline, package_jsons_exist):
+    context.update({"frontend_pipeline": frontend_pipeline})
+    result = cookies.bake(extra_context=context)
+
+    package_json = result.project_path / "package.json"
+    package_lock_json = result.project_path / "package-lock.json"
+
+    has_package_jsons = package_json.exists() or package_lock_json.exists()
+    assert has_package_jsons is package_jsons_exist
+
+
 def test_trim_domain_email(cookies, context):
     """Check that leading and trailing spaces are trimmed in domain and email."""
     context.update(
@@ -427,7 +447,7 @@ def test_trim_domain_email(cookies, context):
     assert "DJANGO_ALLOWED_HOSTS=.example.com" in prod_django_env.read_text()
 
     base_settings = result.project_path / "config" / "settings" / "base.py"
-    assert '"me@example.com"' in base_settings.read_text()
+    assert "<me@example.com>" in base_settings.read_text()
 
 
 def test_pyproject_toml(cookies, context):

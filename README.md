@@ -19,8 +19,8 @@ production-ready Django projects quickly.
 
 ## Features
 
-- For Django 5.2
-- Works with Python 3.13
+- For Django 6.0
+- Works with Python 3.14
 - Renders Django projects with 100% starting test coverage
 - Twitter [Bootstrap](https://github.com/twbs/bootstrap) v5
 - [12-Factor](https://12factor.net) based settings via [django-environ](https://github.com/joke2k/django-environ)
@@ -45,7 +45,7 @@ _These features can be enabled during initial project setup._
 
 - Serve static files from Amazon S3, Google Cloud Storage, Azure Storage or [Whitenoise](https://whitenoise.readthedocs.io/)
 - Configuration for [Celery](https://docs.celeryq.dev) and [Flower](https://github.com/mher/flower) (the latter in Docker setup only)
-- Integration with [Mailpit](https://github.com/axllent/mailpit/) for local email testing
+- Integration with [Mailpit](https://github.com/axllent/mailpit/) or [Mailtrap Local](https://github.com/mailtrap/mailtrap-local) for local email testing
 - Integration with [Sentry](https://sentry.io/welcome/) for error logging
 
 ## Constraints
@@ -151,8 +151,12 @@ Answer the prompts with your own desired [options](http://cookiecutter-django.re
     8 - SparkPost
     9 - Other SMTP
     Choose from 1, 2, 3, 4, 5, 6, 7, 8, 9 [1]: 1
+    Select rest_api [None]:
+    1 - None
+    2 - DRF
+    3 - Django Ninja
+    Choose from 1, 2, 3 [1]: 1
     use_async [n]: n
-    use_drf [n]: y
     Select frontend_pipeline:
     1 - None
     2 - Django Compressor
@@ -160,7 +164,11 @@ Answer the prompts with your own desired [options](http://cookiecutter-django.re
     4 - Webpack
     Choose from 1, 2, 3, 4 [1]: 1
     use_celery [n]: y
-    use_mailpit [n]: n
+    Select mail_catcher:
+    1 - None
+    2 - Mailpit
+    3 - Mailtrap Local
+    Choose from 1, 2, 3 [1]: 1
     use_sentry [n]: y
     use_whitenoise [n]: n
     use_heroku [n]: y

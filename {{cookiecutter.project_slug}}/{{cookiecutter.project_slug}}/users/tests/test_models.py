@@ -1,9 +1,6 @@
 import pytest
-from django.contrib.auth import get_user_model
 
-# from {{ cookiecutter.project_slug }}.users.models import User  # noqa: ERA001
-
-User = get_user_model()
+from {{ cookiecutter.project_slug }}.users.models import User
 
 
 @pytest.mark.django_db()

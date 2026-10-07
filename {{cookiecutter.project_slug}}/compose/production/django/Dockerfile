@@ -1,11 +1,10 @@
 {% if cookiecutter.frontend_pipeline in ['Gulp', 'Webpack'] -%}
-FROM docker.io/node:24.12-bookworm-slim AS client-builder
+FROM docker.io/node:26.5-bookworm-slim AS client-builder
 
 ARG APP_HOME=/app
 WORKDIR ${APP_HOME}
-
-COPY ./package.json ${APP_HOME}
-RUN npm install && npm cache clean --force
+COPY ./package.json ./package-lock.json ${APP_HOME}
+RUN npm ci && npm cache clean --force
 COPY . ${APP_HOME}
 {%- if cookiecutter.frontend_pipeline == 'Webpack' and cookiecutter.use_whitenoise == 'n' %}
 {%- if cookiecutter.cloud_provider == 'AWS' %}
@@ -24,7 +23,7 @@ ENV DJANGO_AZURE_ACCOUNT_NAME=${DJANGO_AZURE_ACCOUNT_NAME}
 RUN npm run build
 {%- endif %}
 # define an alias for the specific python version used in this file.
-FROM ghcr.io/astral-sh/uv:python3.13-bookworm-slim AS python-build-stage
+FROM ghcr.io/astral-sh/uv:python3.14-bookworm-slim AS python-build-stage
 
 ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy UV_PYTHON_DOWNLOADS=0
 
@@ -57,14 +56,14 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --locked --no-dev
 
 # Python 'run' stage
-FROM python:3.13-slim-bookworm AS python-run-stage
+FROM python:3.14-slim-bookworm AS python-run-stage
 
 ARG APP_HOME=/app
 
 WORKDIR ${APP_HOME}
 
 RUN addgroup --system django \
-  && adduser --system --ingroup django django
+  && adduser --system --ingroup django --home /home/django django
 
 
 # Install required system dependencies
@@ -126,7 +125,7 @@ ENV PATH="/app/.venv/bin:$PATH"
 
 USER django
 
-RUN DATABASE_URL="" \
+RUN DATABASE_URL="postgres://dummy" \
   DJANGO_SETTINGS_MODULE="config.settings.test" \
   python manage.py compilemessages
 

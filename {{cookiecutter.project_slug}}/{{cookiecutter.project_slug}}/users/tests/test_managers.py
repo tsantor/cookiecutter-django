@@ -67,11 +67,11 @@ def test_create_user_no_email():
 
 @pytest.mark.django_db()
 def test_create_superuser_no_staff():
-    with pytest.raises(ValueError, match="Superuser must have is_staff=True."):
+    with pytest.raises(ValueError, match=r"Superuser must have is_staff=True\."):
         User.objects.create_superuser("admin@test.com", "testpass", is_staff=False)
 
 
 @pytest.mark.django_db()
 def test_create_superuser_no_superuser():
-    with pytest.raises(ValueError, match="Superuser must have is_superuser=True."):
+    with pytest.raises(ValueError, match=r"Superuser must have is_superuser=True\."):
         User.objects.create_superuser("admin@test.com", "testpass", is_superuser=False)

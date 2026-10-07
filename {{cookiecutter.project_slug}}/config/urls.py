@@ -9,10 +9,13 @@ from django.urls import path
 from django.urls import re_path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
-{%- if cookiecutter.use_drf == 'y' %}
+{%- if cookiecutter.rest_api == 'DRF' %}
 from drf_spectacular.views import SpectacularAPIView
 from drf_spectacular.views import SpectacularSwaggerView
 from rest_framework.authtoken.views import obtain_auth_token
+{%- elif cookiecutter.rest_api == 'Django Ninja' %}
+
+from .api import api
 {%- endif %}
 
 admin.site.site_title = "{{ cookiecutter.project_name }}"
@@ -42,7 +45,7 @@ if settings.DEBUG:
     # Static file serving when using Gunicorn + Uvicorn for local web socket development
     urlpatterns += staticfiles_urlpatterns()
 {%- endif %}
-{% if cookiecutter.use_drf == 'y' %}
+{% if cookiecutter.rest_api == 'DRF' %}
 # API URLS
 urlpatterns += [
     # API base url
@@ -61,6 +64,13 @@ urlpatterns += [
     {%- if cookiecutter.use_robots == "y" %}
     re_path(r"^robots\.txt", include("robots.urls")),
     {%- endif %}
+]
+{%- elif cookiecutter.rest_api == 'Django Ninja' %}
+
+# API URLS
+urlpatterns += [
+    # API base url
+    path("api/", api.urls),
 ]
 {%- endif %}
 

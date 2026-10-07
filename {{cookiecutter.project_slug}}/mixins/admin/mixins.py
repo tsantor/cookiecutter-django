@@ -1,4 +1,8 @@
-from django.http import HttpRequest
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from django.http import HttpRequest
+
 
 class ReadOnlyAdminMixin:
     """

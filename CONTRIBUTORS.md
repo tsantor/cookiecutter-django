@@ -181,6 +181,13 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>Africanus12</td>
+    <td>
+      <a href="https://github.com/Africanus12">Africanus12</a>
+    </td>
+    <td>Rufus87078959</td>
+  </tr>
+  <tr>
     <td>Agam Dua</td>
     <td>
       <a href="https://github.com/"></a>
@@ -373,6 +380,13 @@ Listed in alphabetical order.
     <td>Ashley Camba</td>
     <td>
       <a href="https://github.com/"></a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>asmo</td>
+    <td>
+      <a href="https://github.com/a5m0">a5m0</a>
     </td>
     <td></td>
   </tr>
@@ -881,6 +895,13 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>Eric Hanchrow</td>
+    <td>
+      <a href="https://github.com/offby1">offby1</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>Ernesto Cedeno</td>
     <td>
       <a href="https://github.com/codnee">codnee</a>
@@ -900,6 +921,13 @@ Listed in alphabetical order.
       <a href="https://github.com/fabaff">fabaff</a>
     </td>
     <td>fabaff</td>
+  </tr>
+  <tr>
+    <td>Fabián Falón</td>
+    <td>
+      <a href="https://github.com/fabianfalon">fabianfalon</a>
+    </td>
+    <td></td>
   </tr>
   <tr>
     <td>farwill</td>
@@ -1021,6 +1049,13 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>Gourav T</td>
+    <td>
+      <a href="https://github.com/gourav-sraoss">gourav-sraoss</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>Grant McLean</td>
     <td>
       <a href="https://github.com/grantm">grantm</a>
@@ -1115,6 +1150,13 @@ Listed in alphabetical order.
     <td>Henrique G. G. Pereira</td>
     <td>
       <a href="https://github.com/ikkebr">ikkebr</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Hesham Elabd</td>
+    <td>
+      <a href="https://github.com/hisham-hussien">hisham-hussien</a>
     </td>
     <td></td>
   </tr>
@@ -1455,6 +1497,13 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>Kimberly Meechan</td>
+    <td>
+      <a href="https://github.com/K-Meech">K-Meech</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>krati yadav</td>
     <td>
       <a href="https://github.com/krati5">krati5</a>
@@ -1728,6 +1777,13 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>Matthias Schoettle</td>
+    <td>
+      <a href="https://github.com/mschoettle">mschoettle</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>Matthias Sieber</td>
     <td>
       <a href="https://github.com/manonthemat">manonthemat</a>
@@ -1745,6 +1801,13 @@ Listed in alphabetical order.
     <td>Meghan Heintz</td>
     <td>
       <a href="https://github.com/dot2dotseurat">dot2dotseurat</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Mehdi YAHIA CHERIF</td>
+    <td>
+      <a href="https://github.com/Mehdi-YC">Mehdi-YC</a>
     </td>
     <td></td>
   </tr>
@@ -1973,6 +2036,13 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>Peck</td>
+    <td>
+      <a href="https://github.com/johnnypeck">johnnypeck</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>Pedro Campos</td>
     <td>
       <a href="https://github.com/pcampos119104">pcampos119104</a>
@@ -2025,6 +2095,13 @@ Listed in alphabetical order.
     <td>Plurific</td>
     <td>
       <a href="https://github.com/paulschwenn">paulschwenn</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Priti Yadav</td>
+    <td>
+      <a href="https://github.com/Priti2008">Priti2008</a>
     </td>
     <td></td>
   </tr>
@@ -2274,6 +2351,13 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>Tem Revil</td>
+    <td>
+      <a href="https://github.com/TemRevil">TemRevil</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>Tharushan</td>
     <td>
       <a href="https://github.com/Tharushan">Tharushan</a>
@@ -2344,9 +2428,23 @@ Listed in alphabetical order.
     <td></td>
   </tr>
   <tr>
+    <td>Tom Couch</td>
+    <td>
+      <a href="https://github.com/tcouch">tcouch</a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td>Tom Offermann</td>
     <td>
       <a href="https://github.com/"></a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Toms Sokolovs</td>
+    <td>
+      <a href="https://github.com/tsokolovs">tsokolovs</a>
     </td>
     <td></td>
   </tr>

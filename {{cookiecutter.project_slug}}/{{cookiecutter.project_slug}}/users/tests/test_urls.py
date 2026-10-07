@@ -1,8 +1,13 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 import pytest
 from django.urls import resolve
 from django.urls import reverse
 
-from {{ cookiecutter.project_slug }}.users.models import User
+if TYPE_CHECKING:
+    from {{ cookiecutter.project_slug }}.users.models import User
 
 
 @pytest.mark.django_db()

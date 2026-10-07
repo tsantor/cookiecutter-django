@@ -1,6 +1,10 @@
-from django.http import HttpRequest
+from typing import TYPE_CHECKING
+
 from user_agents import parse
-from user_agents.parsers import UserAgent
+
+if TYPE_CHECKING:
+    from django.http import HttpRequest
+    from user_agents.parsers import UserAgent
 
 
 def get_ua_platform(user_agent: UserAgent) -> str:

@@ -1,10 +1,16 @@
 """Module for all Form Tests."""
 
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 import pytest
 from django.utils.translation import gettext_lazy as _
 
 from {{ cookiecutter.project_slug }}.users.forms import UserAdminCreationForm
-from {{ cookiecutter.project_slug }}.users.models import User
+
+if TYPE_CHECKING:
+    from {{ cookiecutter.project_slug }}.users.models import User
 
 
 @pytest.mark.django_db()
