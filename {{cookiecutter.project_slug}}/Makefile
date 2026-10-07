@@ -97,6 +97,12 @@ bash_django:  ## Run bash in django container
 view_env:  ## View environment variables
 	${local_compose} run --rm django env | sort
 
+uv_add:	## Add project to uv (eg - `make uv_add package="paho-mqtt"`)
+	${local_compose} -f docker-compose.local.yml run --rm django uv add ${package}
+
+uv_lock:	## Lock uv environment (if modified pyproject.toml)
+	${local_compose} -f docker-compose.local.yml run --rm django uv lock
+
 # -----------------------------------------------------------------------------
 # Django
 # -----------------------------------------------------------------------------
