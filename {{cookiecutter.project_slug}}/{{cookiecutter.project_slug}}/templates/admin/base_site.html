@@ -1,19 +1,31 @@
 {% raw %}{% extends "admin/base.html" %}
+
 {% load i18n static %}
+{%- endraw %}
+{%- if cookiecutter.frontend_pipeline == 'Webpack' %}{% raw %}
 {% load render_bundle from webpack_loader %}
+{%- endraw %}
+{%- endif %}{% raw %}
 
 {% block extrahead %}
-    {% include "includes/favicons.html" %}
-    {{ block.super }}
-    {% render_bundle 'admin_custom' 'css' %}
+  {% include "includes/favicons.html" %}
+  {{ block.super }}
+{%- endraw %}
+{%- if cookiecutter.frontend_pipeline == 'Gulp' %}{% raw %}
+  <link href="{% static 'css/django-admin.min.css' %}" rel="stylesheet" />
+{%- endraw %}
+{%- elif cookiecutter.frontend_pipeline == 'Webpack' %}{% raw %}
+  {% render_bundle 'admin_custom' 'css' %}
+{%- endraw %}
+{%- endif %}{% raw %}
 {% endblock extrahead %}
-
-{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock title %}
-
+{% block title %}{{ title }} | {{ site_title|default:_("Django site admin") }}{% endblock title %}
 {% block branding %}
-{# <h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></h1> #}
-
-<img src="{% static 'images/django-logo-white.svg' %}" alt="logo" class="logo" />
+  {# <h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></h1> #}
+  <img src="{% static 'images/django-logo-white.svg' %}"
+       alt="logo"
+       class="logo" />
 {% endblock branding %}
-
-{% block nav-global %}{% endblock nav-global %}{% endraw %}
+{% block nav-global %}
+{% endblock nav-global %}
+{% endraw %}

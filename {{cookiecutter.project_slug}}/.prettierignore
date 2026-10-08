@@ -1,0 +1,2 @@
+# Django templates are formatted by djLint, not Prettier
+**/templates/**/*.html
